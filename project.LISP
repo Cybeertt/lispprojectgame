@@ -1,8 +1,13 @@
-(defun mystartup ()
-	(load "C:/PROG/LISP/STAIR.LSP")
-	(load "C:\\PROG\\LISP\\WALL.LSP")
+(setq *DEFAULT-PATHNAME-DEFAULTS* (pathname "D:\\LEI\\IA\\20_21\\projeto1\\lispprojectgame\\"))
+(defun startup ()
+  (load "puzzle.lisp")
+  (load "algorithm.lisp")
+  ;(with-open-file (in #P"D:\\aplicações\\Engenharia Informática\\IA\\20_21\\projeto1\\lispprojectgame\\puzzle.lisp")
+  ;  (load "D:\\aplicações\\Engenharia Informática\\IA\\20_21\\projeto1\\lispprojectgame\\puzzle.lisp"))
+  ;(with-open-file (in #P"D:\\aplicações\\Engenharia Informática\\IA\\20_21\\projeto1\\lispprojectgame\\algorithm.lisp")
+  ;  (load "D:\\aplicações\\Engenharia Informática\\IA\\20_21\\projeto1\\lispprojectgame\\algorithm.lisp"))
 )
-(if s::startup
-(setq s::startup (append s::startup (quote ((mystartup)))))
-(defun s::startup () (mystartup))
-)
+  
+(startup)
+
+
