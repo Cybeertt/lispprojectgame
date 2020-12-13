@@ -313,3 +313,91 @@ Preencher tabuleiro doo teste anterior.
 
 ###  <a name="todo">// TODO</a>
 (adiciona mais aqui ...)
+
+# <a name="Lista de Problemas">Lista de Problemas</a>
+
+Mostra 6 tabuleiros diferentes com algumas peças em falta para jogar e com uso dos algoritmos de procura vai verificar quais as melhores jogadas para terminar o jogo. 
+
+## <a name="Problema-A">Problema-A</a>
+
+```lisp
+(defun Problema_A ()
+  '(
+    ((branca quadrada alta oca) (preta quadrada baixa cheia) 0 (preta quadrada alta oca))
+    ((branca redonda alta oca) (preta redonda alta oca) (branca redonda alta cheia) 0)
+    (0 (preta redonda alta cheia) (preta redonda baixa cheia) 0)
+    ((branca redonda baixa oca) (branca quadrada alta cheia) (preta redonda baixa oca) (branca redonda baixa cheia))
+   )
+)
+````
+
+## <a name="Problema-B">Problema-B</a>
+
+```lisp
+(defun Problema_B ()
+  '(
+    ((branca quadrada alta oca) (preta redonda baixa oca) (preta quadrada alta oca) (branca quadrada alta cheia))
+    ((branca redonda alta oca) 0 (branca redonda alta cheia) 0)
+    ((preta quadrada baixa cheia) (preta redonda alta cheia) (branca quadrada baixa oca) 0)
+    ((preta quadrada baixa oca) 0 (branca quadrada baixa cheia) 0)
+   )
+)
+
+````
+
+## <a name="Problema-C">Problema-C</a>
+
+```lisp
+(defun Problema_C ()
+  '(
+    ((branca quadrada baixa cheia) 0 (preta redonda alta cheia) (preta quadrada baixa oca))
+    (0 0 0 (branca redonda baixa oca))
+    ((branca redonda alta cheia) 0 (preta redonda alta oca) 0)
+    (0 (preta quadrada baixa cheia) 0 0)
+   )
+)
+
+````
+
+## <a name="Problema-D">Problema-D</a>
+
+```lisp
+(defun Problema_D ()
+  '(
+    ((branca quadrada baixa cheia) (branca redonda alta cheia) (preta redonda alta cheia) (preta quadrada baixa oca))
+    (0 0 0 0)
+    (0 0 0 0)
+    (0 0 0 0)
+   )
+)
+
+````
+
+## <a name="Problema-E">Problema-E</a>
+
+```lisp
+(defun Problema_E ()
+  '(
+    (0 0 0 0)
+    (0 0 0 0)
+    (0 0 (preta redonda alta oca) 0)
+    (0 0 0 0)
+   )
+)
+
+````
+
+## <a name="Problema-F">Problema-F</a>
+
+```lisp
+(defun Problema_F ()
+  '(
+    (0 0 0 0)
+    (0 0 0 0)
+    (0 0 0 0)
+    (0 0 0 0)
+   )
+)
+
+````
+
