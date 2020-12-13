@@ -58,11 +58,9 @@
 
 ;; extrai-n
 ;; i - indice; l - lista de pecas
-;; retorna nil se i < 0 ou l vazio
 ;; retorna elemento caso contrario
 (defun extrai-n (i l)
 (cond
-((< i 0) nil) ; i superior ou igual a 0
 ((null l) nil) ; l vazia
 ((= i 0) (car l)) ; retorna valor esperado
 (t (extrai-n (1- i) (cdr l))) ; recursividade para achar o indice
@@ -79,8 +77,6 @@
 ;; pode dar bronca no final
 (cond
 ((null tab) nil); tab vazia
-;(() nil); row ou coluna falha -> verificacao antes desta funcao
-;((or (> r -1) (> c -1)) nil) ; r ou c inferior a 0
 (t (listp (extrai-n c (extrai-n r tab))))
 )
 )
@@ -91,9 +87,28 @@
 ;; retorna t - coloca peca no tabuleiro
 (defun coloca-peca-no-tabuleiro (r c p tab)
 (cond
-;((null (x-and-y-positivo r c)) nil) ; r ou c inferior a 0 
-;((null (listas-vazias p tab)) nil) ; p ou tab vazia
 ((listp (extrai-n c (extrai-n r tab))) nil)
 (t (setf (nth r (nth c tab)) p))
+)
+)
+
+;; comparar atributos recursivo
+;; p - peca 1
+;; l - peca 2
+(defun tem-atributo-igual (p l)
+(cond
+((or (null p) (null l)) nil)
+((not (equal (car p) (car l))) (tem-atributo-igual (cdr p) (cdr l)))
+(t T)
+)
+)
+
+;; px
+;; l - lista com a contagem de pecas alinhadas com pelo menos um atributo em comum
+;; retorna o valor maximo
+(defun px (l)
+(cond 
+((null l) 0)
+(t (max (car l) (px (cdr l))))
 )
 )
