@@ -14,6 +14,8 @@
     * [Coloca-Peca-No-Tabuleiro](#f-coloca-peca-tabuleiro)
     * [Nova-Jogada](#f-nova-jogada)
     * [Seleciona-Peca](#f-seleciona-peca)
+    * [Tem-Atributo-Igual](#f-atributo-igual)
+    * [Px](#f-px)
 * [Simulação](#sim)
     * [Teste 1](#teste-1)
     * [Test2](#teste-2)
@@ -214,6 +216,60 @@ a escolha não inteligente de uma peça.
 
 ;; resultado
 (BRANCA QUADRADA ALTA OCA)
+```
+
+### <a name="f-atributo-igual">Tem-Atributo-Igual</a>
+Esta função retorna o valor T ou Nil consuante as peças que compara.
+Em contexto do problema, esta função compara duas peças, procurando pelo menos na existencia de um atributo em comum.
+
+```lisp
+;; função
+(defun tem-atributo-igual (p l)
+ (cond 
+  ((or (null p) (null l)) nil)
+  ((not (equal (car p) (car l))) (tem-atributo-igual (cdr p) (cdr l)))
+  (t T)
+ )
+)
+
+;; chamada
+(tem-atributo-igual (tem-atributo-igual (extrai-n 0 (pecas)) (extrai-n 0 (pecas))))
+
+;; resultado
+T
+
+;; chamada
+;; tabuleiro vazio
+(tem-atributo-igual (tem-atributo-igual (extrai-n 0 (pecas)) (extrai-n 0 (extrai-n 0 (tabuleiro)))))
+
+;; resultado
+NIL
+```
+
+### <a name="f-px">Px</a>
+Esta função retorna o valor mais alto de uma lista.
+Em contexto do problema, esta função retorna a contagem máxima de peças com pelo menos um atributo em comum.
+
+```lisp
+;; função
+(defun px (l)
+ (cond 
+  ((null l) 0)
+  (t (max (car l) (px (cdr l))))
+ )
+)
+
+;; chamada
+(px '(0 1 1 2 3 0 1 3 0 1 3 4 2 2))
+
+;; resultado
+4
+
+;; chamada
+(px '(0 0 0))
+
+;; resultado
+0
 ```
 
 ## <a name="sim">Simulação</a>
