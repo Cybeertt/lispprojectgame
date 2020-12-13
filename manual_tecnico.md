@@ -401,3 +401,48 @@ Mostra 6 tabuleiros diferentes com algumas peças em falta para jogar e com uso 
 
 ````
 
+# <a name="Lista de Algoritmos">Lista de Algoritmos</a>
+
+
+## <a name="Pesquisa em Largura">Pesquisa em Largura</a>
+Esta função retorna a procura de estados em largura.
+
+```lisp
+(defun bfs (no-inicial objetivop sucessoresf operadores &optional abertos fechados)
+  (if (funcall objetivop no-inicial)
+      no-inicial
+      (let ((nos-succ (remove-if #'(lambda (x) (or (no-existep x abertos 'bfs)
+                                                   (no-existep x fechados 'bfs)))
+                                 (funcall sucessoresf
+                                          no-inicial operadores 'bfs))))
+        (cond ((and (null nos-succ) (null abertos)) nil)
+              ((null abertos)
+               (bfs (car nos-succ) objetivop sucessoresf operadores
+                    (cdr nos-succ) (cons no-inicial fechados)))
+              (t (bfs (car abertos) objetivop sucessoresf operadores
+                      (abertos-bfs (cdr abertos) nos-succ)
+                      (cons no-inicial fechados)))))))
+
+````
+
+## <a name="Pesquisa em Comprimento">Pesquisa em Comprimento</a>
+Esta função retorna a procura de estados em comprimento.
+
+```lisp
+(defun dfs (no-inicial objetivop sucessoresf operadores profundidade
+            &optional (abertos nil) (fechados nil))
+  (if (funcall objetivop no-inicial)
+      no-inicial
+      (let ((nos-succ (remove-if #'(lambda (x) (or (no-existep x abertos 'dfs)
+                                                   (no-existep x fechados 'dfs)))
+                                 (funcall sucessoresf
+                                          no-inicial operadores 'dfs profundidade))))
+        (cond ((and (null nos-succ) (null abertos)) nil)
+              ((null nos-succ)
+               (dfs (car abertos) objetivop sucessoresf operadores
+                    profundidade (cdr abertos) (cons no-inicial fechados)))
+              (t (dfs (car nos-succ) objetivop sucessoresf operadores
+                      profundidade (abertos-dfs abertos (cdr nos-succ))
+                      (cons no-inicial fechados)))))))
+
+```

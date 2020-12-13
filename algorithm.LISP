@@ -67,3 +67,17 @@
               (t (dfs (car nos-succ) objetivop sucessoresf operadores
                       profundidade (abertos-dfs abertos (cdr nos-succ))
                       (cons no-inicial fechados)))))))
+
+(defun a_star(no-inicial objetivop sucessoresf operadores)
+  
+)
+
+(defun contar-nao-ocorrencias-na-lista_tab (lista)
+  (cond ((null lista) 0)
+        ((atom lista) 0)
+        ((count-if-not #'numberp lista))))
+
+;;p(x)
+(defun heuristic (lista)
+  (- 4
+     (count-if-not #'numberp lista)))
