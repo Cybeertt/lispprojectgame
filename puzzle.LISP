@@ -97,3 +97,25 @@
 (t (setf (nth r (nth c tab)) p))
 )
 )
+
+;; comparar atributos recursivo
+;; p - peca 1
+;; l - peca 2
+(defun tem-atributo-igual (p l)
+(cond
+((or (null p) (null l)) nil)
+((not (equal (car p) (car l))) (tem-atributo-igual (cdr p) (cdr l)))
+(t T)
+)
+)
+
+;; px
+;; l - lista com a contagem de pecas alinhadas com pelo menos um atributo em comum
+;; retorna o valor maximo
+(defun px (l)
+(cond 
+((null l) 0)
+(t (max (car l) (px (cdr l))))
+)
+)
+
