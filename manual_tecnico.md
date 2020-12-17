@@ -4,7 +4,7 @@
 ### Docente
 Joaquim Filipe
 
-???
+??? - professor do rafael?
 
 ### Estudantes
 150221081 - Daniela Sineiro
@@ -12,9 +12,7 @@ Joaquim Filipe
 18 -Rafael Palma
 
 # Manual Técnico
-
-Este manual contém todas as funções importantes presentes no código fonte .LISP
-(Breve introdução ao manual...)
+Neste manual encontram-se explicações sobre o jogo, como o iniciar, a estrutura do projeto, todas as funções utilizadas explicadas e ilustradas com exemplos e observações, e exemplos descritivos de testes com o código fonte por partes ou no global.
 
 ## Indice
 * [Extrutura do Projeto](#doc-extrutura)
@@ -43,11 +41,23 @@ Este manual contém todas as funções importantes presentes no código fonte .L
 
 ## <a name="doc-estrutura">Estrutura do Projeto</a>
 
-(Breve descrição da estrutura e ficheiros ...)
+O projeto encontra-se distribuído por 3 ficheiros principais: project.LISP, puzzle.LISP e algorithm.LISP.
+
+O ficheiro "project.LISP" contém o código fonte que inicializa o jogo.
+
+O ficheiro "puzzle.LISP" contém todos o código fonte utilizado para criar e modificar o jogo.
+
+O ficheiro "algorithm.LISP"  contém todos os algoritmos de procura utilizados no jogo.
+
+Em conjunto com os 3 ficheiros acima indicados, também encontram-se em anexo os Manuais de Utilizador e este manual.
+
+O manual de utilizador apenas contém uma breve explicação sobre o jogo e como o iniciar.
 
 ## <a name="doc-func">Documentação de Funções</a>
 
-(Breve descrição ...)
+As seguintes funções utilizadas para desenvolver o projeto, contêm o seu corpo, breve descrição, parâmetros e exemplos de chamadas e de resultados
+
+Excecionalmente, algumas funções contêm breves observações perante o resultado esperado, para melhor ilustrar o seu uso especifico.
 
 ### <a name="f-tabuleiro-pecas">Tabuleiro-E-Pecas</a>
 Retorna uma lista com duas listas.
