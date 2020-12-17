@@ -11,6 +11,11 @@
     * [Tabuleiro](#f-tabuleiro)
     * [Reserva](#f-reserva)
     * [Extrai-N](#f-extrai)
+    * [Linha](#f-linha)
+    * [Coluna](#f-coluna)
+    * [Celula](#f-celula)
+    * [Diagonal-2](#f-diagonal-1)
+    * [Diagonal-1](#f-diagonal-2)
     * [Tabuleiro-N-Ocupado](#f-tabuleiro-ocupado)
     * [Coloca-Peca-No-Tabuleiro](#f-coloca-peca-tabuleiro)
     * [Nova-Jogada](#f-nova-jogada)
@@ -74,7 +79,12 @@ Retorna duas listas, uma lista 4x4 com elementos de valor zero e outra com 16 el
 
 ### <a name="f-tabuleiro">Tabuleiro</a>
 Retorna uma lista de 4 listas com 4 elementos.
+
 O espaço do tabuleiro é representado por 0, quando a posição encontra-se vazia.
+
+**Parametros**
+
+tab - lista
 
 ```lisp
 ;; função
@@ -94,7 +104,12 @@ O espaço do tabuleiro é representado por 0, quando a posição encontra-se vaz
 
 ### <a name="f-reserva">Reserva</a>
 Retorna uma lista de 16 listas com 4 elementos.
+
 Esta lista contém todas as peças utilizadas no jogo. Cada peça é uma lista com 4 carateristicas da peça.
+
+**Parametros**
+
+l - Lista
 
 ```lisp
 ;; função
@@ -119,7 +134,14 @@ Esta lista contém todas as peças utilizadas no jogo. Cada peça é uma lista c
 
 ### <a name="f-extrai">Extrai-N</a>
 Retorna o elemento que se encontra no índice indicado. Caso o índice for inválido, retorna NIL.
+
 Esta função tem como propósito simular a função Peek.
+
+**Parametros**
+
+i - Indice
+
+l - lista
 
 ```lisp
 ;; função
@@ -158,10 +180,115 @@ NIL
 ````
 
 ### <a name="f-linha">Linha</a>
-### <a name="f-linha">Linha</a>
-### <a name="f-linha">Linha</a>
-### <a name="f-linha">Linha</a>
-### <a name="f-linha">Linha</a>
+Retorna uma lista com elementos que se encontram numa linha.
+
+Esta função limita-se a ser uma função redundante da função <a>extrai-n</a> para aumentar legibilidade do código.
+
+**Parametros**
+
+r - Indice de linha
+
+tab - Tabuleiro ou reserva
+
+```lisp
+;; função
+(defun linha (r tab)
+ (extrai-n r tab)
+)
+
+;; chamada
+(linha 0 (reserva (tabuleiro-e-pecas)))
+
+;; resultado
+(BRANCA REDONDA ALTA OCA)
+
+;; chamada
+(linha 0 (tabuleiro (tabuleiro-e-pecas)))
+
+;; resultado
+(0 0 0 0)
+```
+
+### <a name="f-coluna">Coluna</a>
+Retorna uma lista de elementos que se encontram numa coluna e limita-se a retornar 4 elementos.
+
+Esta função limita-se a ser uma função redundante da função <a>celula</a> para aumentar legibilidade do código.
+
+**Parametros**
+
+c - Indice de coluna
+
+tab - Tabuleiro
+
+```lisp
+;; função
+(defun coluna (c tab)
+ (cond 
+  ((null tab) nil)
+  (t (cons (celula 0 c tab) (cons (celula 1 0 tab) (cons (celula 2 c tab) (cons (celula 3 c tab) nil)))))
+ )
+)
+
+;; chamada
+(coluna 0 (tabuleiro (tabuleiro-e-pecas)))
+
+;; resultado
+(0 0 0 0)
+
+;; representação do resultado com coordenadas
+;; ((0,0) (1,0) (2,0) (3,0))
+```
+
+### <a name="f-linha">Celula</a>
+
+**Parametros**
+
+c - Indice de coluna
+
+tab - Tabuleiro
+
+```lisp
+;; função
+
+;; chamada
+
+;; resultado
+
+```
+
+### <a name="f-linha">Diagonal-1</a>
+
+**Parametros**
+
+c - Indice de coluna
+
+tab - Tabuleiro
+
+```lisp
+;; função
+
+;; chamada
+
+;; resultado
+
+```
+
+### <a name="f-linha">Diagonal-2</a>
+
+**Parametros**
+
+c - Indice de coluna
+
+tab - Tabuleiro
+
+```lisp
+;; função
+
+;; chamada
+
+;; resultado
+
+```
 
 ### <a name="f-tabuleiro-ocupado">Tabuleiro-N-Ocupado</a>
 Retorna T se encontrar uma peça na posição indicada ou NIL caso eontrário.
