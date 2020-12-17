@@ -69,18 +69,62 @@
 (defun reserva (l)
 (cond 
 ((null l) nil)
-(t (cdr l))
+(t (cadr l))
 )
 )
 
 ;; extrai-n
-;; i - indice; l - lista de pecas
+;; i - indice; l - lista
 ;; retorna elemento caso contrario
 (defun extrai-n (i l)
 (cond
 ((null l) nil) ; l vazia
 ((= i 0) (car l)) ; retorna valor esperado
 (t (extrai-n (1- i) (cdr l))) ; recursividade para achar o indice
+)
+)
+
+;; linha
+;; r - linha; tab - lista tabuleiro ou reserva
+;; retorna linha
+(defun linha (r tab)
+(extrai-n r tab)
+)
+
+;; coluna
+;; r - linha, c - coluna; tab - tabuleiro
+;; retorna uma lista com elementos da mesma coluna
+(defun coluna (c tab)
+(cond
+((null tab) nil)
+(t (cons (celula 0 c tab) (cons (celula 1 0 tab) (cons (celula 2 c tab) (cons (celula 3 c tab) nil)))))
+)
+)
+
+;; celula
+;; r - linha, c - coluna; tab - tabuleiro ou reserva
+;; retorna um elemento de uma lista
+(defun celula (r c tab)
+(extrai-n c (extrai-n r tab))
+)
+
+;; diagonal-1
+;; tab - tabuleiro
+;; retorna a diagonal de um tabuleiro 4x4 : 00-11-22-33
+(defun diagonal-1 (tab)
+(cond 
+((null tab) nil)
+(t (cons (celula 0 0 tab) (cons (celula 1 1 tab) (cons (celula 2 2 tab) (cons (celula 3 3 tab) nil)))))
+)
+)
+
+;; diagonal-2
+;; tab - tabuleiro
+;; retorna a diagonal de um tabuleiro 4x4 : 30-21-12-03
+(defun diagonal-2 (tab)
+(cond 
+((null tab) nil)
+(t (cons (celula 3 0 tab) (cons (celula 2 1 tab) (cons (celula 1 2 tab) (cons (celula 0 3 tab) nil)))))
 )
 )
 
