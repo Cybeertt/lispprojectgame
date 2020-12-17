@@ -22,21 +22,17 @@
 
 ;;; funcoes programa
 
-;; tabuleiro
-;; retorna lista de 4 linhas com 4 elementos de valor 0
-(defun tabuleiro ()
+;;tabuleiro-e-pecas
+;; retorna lista com 2 listas, uma lista de 4x4 e outra com 16 elementos
+(defun tabuleiro-e-pecas ()
 '(
+(
 (0 0 0 0)
 (0 0 0 0)
 (0 0 0 0)
 (0 0 0 0)
 )
-)
-
-;; pecas
-;; retorna lista com 16 pecas com 4 carateristicas
-(defun pecas() 
-'(
+(
 (branca redonda alta oca)
 (preta redonda alta oca)
 (branca redonda baixa oca)
@@ -54,6 +50,19 @@
 (branca quadrada baixa cheia)
 (preta quadrada baixa cheia)
 )
+)
+)
+
+;; tabuleiro
+;; retorna lista de 4 linhas com 4 elementos de valor 0
+(defun tabuleiro ()
+(car (tabuleiro-e-pecas))
+)
+
+;; pecas
+;; retorna lista com 16 pecas com 4 carateristicas
+(defun pecas()
+(cdr (tabuleiro-e-pecas))
 )
 
 ;; extrai-n
