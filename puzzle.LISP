@@ -55,14 +55,20 @@
 
 ;; tabuleiro
 ;; retorna lista de 4 linhas com 4 elementos de valor 0
-(defun tabuleiro ()
-(car (tabuleiro-e-pecas))
+(defun tabuleiro (l)
+(cond 
+((null l) nil)
+(t (car l))
+)
 )
 
-;; pecas
+;; reserva
 ;; retorna lista com 16 pecas com 4 carateristicas
-(defun pecas()
-(cdr (tabuleiro-e-pecas))
+(defun reserva (l)
+(cond 
+((null l) nil)
+(t (cdr l))
+)
 )
 
 ;; extrai-n
@@ -85,7 +91,7 @@
 ;; verificar melhor retorno pois se der nil mas for por validacao
 ;; pode dar bronca no final
 (cond
-((null tab) nil); tab vazia
+((null tab) nil)
 (t (listp (extrai-n c (extrai-n r tab))))
 )
 )
