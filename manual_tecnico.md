@@ -182,7 +182,7 @@ NIL
 ### <a name="f-linha">Linha</a>
 Retorna uma lista com elementos que se encontram numa linha.
 
-Esta função limita-se a ser uma função redundante da função <a>extrai-n</a> para aumentar legibilidade do código.
+Esta função limita-se a ser uma função redundante da função [extrai-n](#f-extrai-n) para aumentar legibilidade do código.
 
 **Parametros**
 
@@ -212,7 +212,7 @@ tab - Tabuleiro ou reserva
 ### <a name="f-coluna">Coluna</a>
 Retorna uma lista de elementos que se encontram numa coluna e limita-se a retornar 4 elementos.
 
-Esta função limita-se a ser uma função redundante da função <a>celula</a> para aumentar legibilidade do código.
+Esta função limita-se a ser uma função redundante da função [celula](#f-celula) para aumentar legibilidade do código.
 
 **Parametros**
 
@@ -239,9 +239,14 @@ tab - Tabuleiro
 ;; ((0,0) (1,0) (2,0) (3,0))
 ```
 
-### <a name="f-linha">Celula</a>
+### <a name="f-celula">Celula</a>
+Retorna um elementos que se encontram numa linha e coluna.
+
+Esta função limita-se a ser uma função redundante da função [extrai-n](#f-extrai-n) para aumentar legibilidade do código.
 
 **Parametros**
+
+r - Indice de linha
 
 c - Indice de coluna
 
@@ -249,45 +254,77 @@ tab - Tabuleiro
 
 ```lisp
 ;; função
+(defun celula (r c tab)
+ (extrai-n c (extrai-n r tab))
+)
 
 ;; chamada
+(celula 0 0 (reserva (tabuleiro-e-pecas)))
+;; resultado
+BRANCA
+
+;; chamada
+(celula 0 0 (tabuleiro (tabuleiro-e-pecas)))
 
 ;; resultado
-
+0
 ```
 
-### <a name="f-linha">Diagonal-1</a>
+### <a name="f-diagonal-1">Diagonal-1</a>
+Retorna uma lista com elementos que se encontram na diagonal, desde da coordenada (0,0) à coordenada (3,3).
+
+Em contexto, esta função é utilizada para retornar uma diagonal de um tabuleiro 4x4.
 
 **Parametros**
-
-c - Indice de coluna
 
 tab - Tabuleiro
 
 ```lisp
 ;; função
+(defun diagonal-1 (tab)
+ (cond 
+  ((null tab) nil)
+  (t (cons (celula 0 0 tab) (cons (celula 1 1 tab) (cons (celula 2 2 tab) (cons (celula 3 3 tab) nil)))))
+ )
+)
 
 ;; chamada
+(diagonal-1 (tabuleiro (tabuleiro-e-pecas)))
 
 ;; resultado
+(0 0 0 0)
 
+;; representação do resultado com coordenadas
+;; ((0,0) (1,1) (2,2) (3,3))
 ```
 
-### <a name="f-linha">Diagonal-2</a>
+### <a name="f-diagonal-2">Diagonal-2</a>
+Retorna uma lista com elementos que se encontram na diagonal, desde da coordenada (3,0) à coordenada (0,3).
+
+Em contexto, esta função é utilizada para retornar uma diagonal de um tabuleiro 4x4.
 
 **Parametros**
-
-c - Indice de coluna
 
 tab - Tabuleiro
 
 ```lisp
 ;; função
+(defun diagonal-2 (tab)
+ (cond 
+  ((null tab) nil)
+  (t (cons (celula 3 0 tab) (cons (celula 2 1 tab) (cons (celula 1 2 tab) (cons (celula 0 3 tab) nil)))))
+ )
+)
 
 ;; chamada
+;; chamada
+(diagonal-1 (tabuleiro (tabuleiro-e-pecas)))
 
 ;; resultado
+(0 0 0 0)
 
+;; representação do resultado com coordenadas
+;; ((3,0) (2,1) (1,2) (0,3))
 ```
 
 ### <a name="f-tabuleiro-ocupado">Tabuleiro-N-Ocupado</a>
