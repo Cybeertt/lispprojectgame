@@ -133,12 +133,10 @@
 ;; retorna nil se r inferior a 0 ou c iinferior a 0 ou tab vazia
 ;; retorna nil  se elemento for 0
 ;; retorna elemento caso contrario
-(defun tabuleiro-n-ocupado (r c tab); redundante?
-;; verificar melhor retorno pois se der nil mas for por validacao
-;; pode dar bronca no final
+(defun tabuleiro-n-ocupado (r c tab)
 (cond
 ((null tab) nil)
-(t (listp (extrai-n c (extrai-n r tab))))
+(t (listp (celula r c tab)))
 )
 )
 
@@ -148,7 +146,7 @@
 ;; retorna t - coloca peca no tabuleiro
 (defun coloca-peca-no-tabuleiro (r c p tab)
 (cond
-((listp (extrai-n c (extrai-n r tab))) nil)
+((listp (celula r c tab)) nil)
 (t (setf (nth r (nth c tab)) p))
 )
 )

@@ -354,7 +354,7 @@ Insere numa lista um valor
 ;; função
 (defun coloca-peca-no-tabuleiro (r c p tab)
  (cond
-  ((listp (extrai-n c (extrai-n r tab))) nil)
+  ((listp (celula r c tab)) nil)
   (t (setf (nth r (nth c tab)) p))
  )
 )
