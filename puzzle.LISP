@@ -157,7 +157,13 @@
 (defun coloca-peca-no-tabuleiro (r c p tab)
 (cond
 ((listp (celula r c tab)) nil)
-(t (setf (nth r (nth c tab)) p))
+(t 
+(progn 
+(setf (nth 1 (tabuleiro-e-pecas)) (remove-peca #'(lambda (p x) (equal p x)) p (reserva (tabuleiro-e-pecas)))
+)
+(setf (nth r (nth c tab)) p)
+)
+)
 )
 )
 
