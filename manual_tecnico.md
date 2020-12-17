@@ -1,7 +1,19 @@
+# IPS ESTS
+## Projeto IA 2020/21
+
+### Docente
+Joaquim Filipe
+
+???
+
+### Estudantes
+150221081 - Daniela Sineiro
+
+18 -Rafael Palma
+
 # Manual Técnico
 
-(Identificação)
-
+Este manual contém todas as funções importantes presentes no código fonte .LISP
 (Breve introdução ao manual...)
 
 ## Indice
@@ -17,6 +29,7 @@
     * [Diagonal-2](#f-diagonal-1)
     * [Diagonal-1](#f-diagonal-2)
     * [Tabuleiro-N-Ocupado](#f-tabuleiro-ocupado)
+    * [Remove-Peca](#f-remove-peca)
     * [Coloca-Peca-No-Tabuleiro](#f-coloca-peca-tabuleiro)
     * [Nova-Jogada](#f-nova-jogada)
     * [Seleciona-Peca](#f-seleciona-peca)
@@ -37,7 +50,9 @@
 (Breve descrição ...)
 
 ### <a name="f-tabuleiro-pecas">Tabuleiro-E-Pecas</a>
-Retorna duas listas, uma lista 4x4 com elementos de valor zero e outra com 16 elementos do tipo lista com 4 carateristicas, representando peças.
+Retorna uma lista com duas listas.
+
+Uma lista 4x4 com elementos de valor zero e outra com 16 elementos do tipo lista com 4 carateristicas, representando peças.
 
 ```lisp
 ;; função
@@ -71,6 +86,7 @@ Retorna duas listas, uma lista 4x4 com elementos de valor zero e outra com 16 el
 )
 
 ;; chamada
+;; retorna tabuleiro e peças
 (tabuleiro-e-pecas)
 
 ;; resultado
@@ -96,6 +112,7 @@ tab - lista
 )
 
 ;; chamada
+;; extrai só o tabuleiro
 (tabuleiro (tabuleiro-e-pecas))
 
 ;; resultado
@@ -121,6 +138,7 @@ l - Lista
 )
 
 ;; chamada
+;; extrai só as peças
 (reserva (tabuleiro-e-pecas))
 
 ;; resultado
@@ -155,24 +173,28 @@ l - lista
 )
 
 ;; chamada
+;; extrai do tabuleiro a posição -1
 (extrai-n -1 (tabuleiro (tabuleiro-e-pecas)))
 
 ;; resultado
 NIL
 
 ;; chamada
+;; extrai do tabuleiro a posição 0
 (extrai-n 0 (tabuleiro (tabuleiro-e-pecas)))
 
 ;; resultado
 (0 0 0 0)
 
 ;; chamada
+;; extrai do tabuleiro a coordenada (0,0)
 (extrai-n 0 (extrai-n 0 (tabuleiro (tabuleiro-e-pecas))))
 
 ;; resultado
 0
 
 ;; chamada
+;; extrai a peça na posição 0
 (extrai-n 0 (reserva (tabuleiro-e-pecas)))
 
 ;; resultado
@@ -197,12 +219,17 @@ tab - Tabuleiro ou reserva
 )
 
 ;; chamada
+;; extrai a peça na linha 0
 (linha 0 (reserva (tabuleiro-e-pecas)))
 
 ;; resultado
 (BRANCA REDONDA ALTA OCA)
 
+;; explicação do resultado
+;; as peças são elementos únicos, por isso ao chamar esta função, a peça na posição 0 da lista de peças é retornada
+
 ;; chamada
+;; extrai do tabuleiro a linha 0
 (linha 0 (tabuleiro (tabuleiro-e-pecas)))
 
 ;; resultado
@@ -230,6 +257,7 @@ tab - Tabuleiro
 )
 
 ;; chamada
+;; extrai coluna na posição 0
 (coluna 0 (tabuleiro (tabuleiro-e-pecas)))
 
 ;; resultado
@@ -259,11 +287,16 @@ tab - Tabuleiro
 )
 
 ;; chamada
+;; extrai das peças, o elemento na coordenada (0,0)
 (celula 0 0 (reserva (tabuleiro-e-pecas)))
 ;; resultado
 BRANCA
 
+;; explicação do resultado
+;; as peças são elementos únicos, por isso ao chamar esta função, é extraida o elemento na posição 0 da peça na posição 0
+
 ;; chamada
+;; extrai do tabuleiro o elemento na coordenada (0,0)
 (celula 0 0 (tabuleiro (tabuleiro-e-pecas)))
 
 ;; resultado
@@ -289,6 +322,8 @@ tab - Tabuleiro
 )
 
 ;; chamada
+;; retorna uma lista com as posições diagonal
+;; com a orientação da topo-esquerda para a direita
 (diagonal-1 (tabuleiro (tabuleiro-e-pecas)))
 
 ;; resultado
@@ -317,7 +352,8 @@ tab - Tabuleiro
 )
 
 ;; chamada
-;; chamada
+;; retorna uma lista com as posições diagonal
+;; com a orientação da fundo-esquerda para a direita
 (diagonal-1 (tabuleiro (tabuleiro-e-pecas)))
 
 ;; resultado
@@ -335,17 +371,50 @@ Uma posição encontra-se vazia, se na posição (r, c), o valor é 0.
 ;; função
 (defun tabuleiro-n-ocupado (r c tab)
  (cond
-  ((null tab) nil); tab vazia
+  ((null tab) nil)
   (t (listp (celula r c tab)))
  )
 )
 
 ;; chamada
+;; verifica se o tabuleiro nas coordenadas (0,1) 
+;; encontra-se ocupado
 (tabuleiro-n-ocupado 0 1 (tabuleiro (tabuleiro-e-pecas)))
 
 ;; resultado
 T
+
+;; chamada
+;; verifica se o tabuleiro nas coordenadas (0,0) 
+;; encontra-se ocupado
+(tabuleiro-n-ocupado 0 0 (tabuleiro (tabuleiro-e-pecas)))
+
+;; resultado
+NIL
 ````
+
+### <a nome="f-remove-peca">Remove-Peca</a>
+Remove um elemento de uma lista.
+
+Em contexto, esta função permite remover um elemento da lista de reserva desde que este seja igual ao elemento p enviado por parâmetro.
+
+```lisp
+;; função
+(defun remove-peca (pred p l)
+ (cond
+  ((or (null l) (null p)) nil)
+  ((funcall pred p (car l)) (remove-peca pred p (cdr l)))
+  (t (cons (car l) (remove-peca pred p (cdr l))))
+ )
+)
+
+;; chamada
+;; remove todas as peças da lista que seja igual à ;; peça do indice 0 da lista de reservas
+(remove-peca #'(lambda (p x) (equal p x)) (linha 0 (reserva (tabuleiro-e-pecas))) (reserva (tabuleiro-e-pecas)))
+
+;; resultado
+((PRETA REDONDA ALTA OCA) (BRANCA REDONDA BAIXA OCA) (PRETA REDONDA BAIXA OCA) (BRANCA QUADRADA ALTA OCA) (PRETA QUADRADA ALTA OCA) (BRANCA QUADRADA BAIXA OCA) (PRETA QUADRADA BAIXA OCA) (BRANCA REDONDA ALTA CHEIA) (PRETA REDONDA ALTA CHEIA) (BRANCA REDONDA BAIXA CHEIA) (PRETA REDONDA BAIXA CHEIA) (BRANCA QUADRADA ALTA CHEIA) (PRETA QUADRADA ALTA CHEIA) (BRANCA QUADRADA BAIXA CHEIA) (PRETA QUADRADA BAIXA CHEIA))
+```
 
 ### <a name="f-coloca-peca-tabuleiro">Coloca-Peca-No-Tabuleiro</a>
 Insere numa lista um valor
@@ -355,23 +424,28 @@ Insere numa lista um valor
 (defun coloca-peca-no-tabuleiro (r c p tab)
  (cond
   ((listp (celula r c tab)) nil)
-  (t (setf (nth r (nth c tab)) p))
+  (t
+  (remove-peca p (reserva (tabuleiro-e-pecas))) 
+  (setf (nth r (nth c tab)) p)
+  )
  )
 )
 
-;; chamada (usa funções auxiliares)
-(coloca-peca-no-tabuleiro 
- (nova-jogada (tabuleiro (tabuleiro-e-pecas))) 
- (nova-jogada (car (tabuleiro (tabuleiro-e-pecas)))) 
- (seleciona-peca (reserva (tabuleiro-e-pecas))) 
- (tabuleiro (tabuleiro-e-pecas))
-)
+;; chamada
+;; insere peça na posição 0 nas coordenadas (0,0)
+;; do tabuleiro
+(coloca-peca-no-tabuleiro 0 0 (extrai-n 0 (reserva (tabuleiro-e-pecas))) (tabuleiro (tabuleiro-e-pecas)))
 
 ;; resultado
 (BRANCA QUADRADA ALTA CHEIA)
 
-;; estado do tabuleiro
+;; chamada
+;; insere novamente peça na posição 0 nas 
+;;coordenadas (0,0) do tabuleiro
+(coloca-peca-no-tabuleiro 0 0 (extrai-n 0 (reserva (tabuleiro-e-pecas))) (tabuleiro (tabuleiro-e-pecas)))
 
+;; resultado
+NIL
 ````
 
 ### <a name="f-nova-jogada">Nova-Jogada</a>
