@@ -161,7 +161,8 @@
 (progn 
 (setf (nth 1 (tabuleiro-e-pecas)) (remove-peca #'(lambda (p x) (equal p x)) p (reserva (tabuleiro-e-pecas)))
 )
-(setf (nth r (nth c tab)) p)
+(setf (nth r (nth c tab)) p) 
+'T
 )
 )
 )
