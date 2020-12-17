@@ -7,8 +7,9 @@
 ## Indice
 * [Extrutura do Projeto](#doc-extrutura)
 * [Documentação de Funções](#doc-func)
+    * [Tabuleiro-E-Pecas](#f-tabuleiro-pecas)
     * [Tabuleiro](#f-tabuleiro)
-    * [Pecas](#f-pecas)
+    * [Reserva](#f-reserva)
     * [Extrai-N](#f-extrai)
     * [Tabuleiro-N-Ocupado](#f-tabuleiro-ocupado)
     * [Coloca-Peca-No-Tabuleiro](#f-coloca-peca-tabuleiro)
@@ -30,57 +31,82 @@
 
 (Breve descrição ...)
 
+### <a name="f-tabuleiro-pecas">Tabuleiro-E-Pecas</a>
+Retorna duas listas, uma lista 4x4 com elementos de valor zero e outra com 16 elementos do tipo lista com 4 carateristicas, representando peças.
+
+```lisp
+;; função
+(defun tabuleiro-e-pecas ()
+ '(
+  (
+   (0 0 0 0)
+   (0 0 0 0)
+   (0 0 0 0)
+   (0 0 0 0)
+  )
+  (
+   (branca redonda alta oca)
+   (preta redonda alta oca)
+   (branca redonda baixa oca)
+   (preta redonda baixa oca)
+   (branca quadrada alta oca)
+   (preta quadrada alta oca)
+   (branca quadrada baixa oca)
+   (preta quadrada baixa oca) 
+   (branca redonda alta cheia)
+   (preta redonda alta cheia)
+   (branca redonda baixa cheia)
+   (preta redonda baixa cheia)
+   (branca quadrada alta cheia)
+   (preta quadrada alta cheia)
+   (branca quadrada baixa cheia)
+   (preta quadrada baixa cheia)
+  )
+ )
+)
+
+;; chamada
+(tabuleiro-e-pecas)
+
+;; resultado
+(((0 0 0 0) (0 0 0 0) (0 0 0 0) (0 0 0 0)) ((BRANCA REDONDA ALTA OCA) (PRETA REDONDA ALTA OCA) (BRANCA REDONDA BAIXA OCA) (PRETA REDONDA BAIXA OCA) (BRANCA QUADRADA ALTA OCA) (PRETA QUADRADA ALTA OCA) (BRANCA QUADRADA BAIXA OCA) (PRETA QUADRADA BAIXA OCA) (BRANCA REDONDA ALTA CHEIA) (PRETA REDONDA ALTA CHEIA) (BRANCA REDONDA BAIXA CHEIA) (PRETA REDONDA BAIXA CHEIA) (BRANCA QUADRADA ALTA CHEIA) (PRETA QUADRADA ALTA CHEIA) (BRANCA QUADRADA BAIXA CHEIA) (PRETA QUADRADA BAIXA CHEIA)))
+```
+
 ### <a name="f-tabuleiro">Tabuleiro</a>
 Retorna uma lista de 4 listas com 4 elementos.
 O espaço do tabuleiro é representado por 0, quando a posição encontra-se vazia.
 
 ```lisp
 ;; função
-(defun tabuleiro ()
- '(
-  (0 0 0 0)
-  (0 0 0 0)
-  (0 0 0 0)
-  (0 0 0 0)
+(defun tabuleiro (l)
+ (cond 
+  ((null l) nil)
+  (t (car l))
  )
 )
 
 ;; chamada
-(tabuleiro)
+(tabuleiro (tabuleiro-e-pecas))
 
 ;; resultado
 ((0 0 0 0) (0 0 0 0) (0 0 0 0) (0 0 0 0))
 ````
 
-### <a name="f-pecas">Pecas</a>
+### <a name="f-reserva">Reserva</a>
 Retorna uma lista de 16 listas com 4 elementos.
 Esta lista contém todas as peças utilizadas no jogo. Cada peça é uma lista com 4 carateristicas da peça.
 
 ```lisp
 ;; função
-(defun pecas() 
- '(
- (branca redonda alta oca)
- (preta redonda alta oca)
- (branca redonda baixa oca)
- (preta redonda baixa oca)
- (branca quadrada alta oca)
- (preta quadrada alta oca)
- (branca quadrada baixa oca)
- (preta quadrada baixa oca) 
- (branca redonda alta cheia)
- (preta redonda alta cheia)
- (branca redonda baixa cheia)
- (preta redonda baixa cheia)
- (branca quadrada alta cheia)
- (preta quadrada alta cheia)
- (branca quadrada baixa cheia)
- (preta quadrada baixa cheia)
+(defun reserva(l) 
+ (cond 
+  ((null l) nil)
+  (t (cdr l))
  )
 )
 
 ;; chamada
-(pecas)
+(reserva (tabuleiro-e-pecas))
 
 ;; resultado
 ((BRANCA REDONDA ALTA OCA) (PRETA REDONDA ALTA OCA) (BRANCA REDONDA BAIXA OCA) 
