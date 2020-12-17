@@ -78,9 +78,9 @@
 ;; retorna elemento caso contrario
 (defun extrai-n (i l)
 (cond
-((null l) nil) ; l vazia
-((= i 0) (car l)) ; retorna valor esperado
-(t (extrai-n (1- i) (cdr l))) ; recursividade para achar o indice
+((null l) nil)
+((= i 0) (car l))
+(t (extrai-n (1- i) (cdr l)))
 )
 )
 
