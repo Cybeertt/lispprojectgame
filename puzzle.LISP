@@ -140,6 +140,16 @@
 )
 )
 
+;; remove-peca
+;; pred - função confição; p - peca; l - lista de pecas
+(defun remove-peca (pred p l)
+(cond
+((or (null l) (null p)) nil)
+((funcall pred p (car l)) (remove-peca pred p (cdr l)))
+(t (cons (car l) (remove-peca pred p (cdr l))))
+)
+)
+
 ;; coloca-peca-no-tabuleiro
 ;; r - linha; c - coluna; p - peca; tab - tabuleiro
 ;; retorna nil se p e vazia ou t e vazia ou r < 0 e/ou c < 0 ou tabuleiro com peca
