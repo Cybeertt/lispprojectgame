@@ -54,6 +54,7 @@
 )
 
 ;; tabuleiro
+;; l - lista de tabuleiro e pecas
 ;; retorna lista de 4 linhas com 4 elementos de valor 0
 (defun tabuleiro (l)
 (cond 
@@ -63,6 +64,7 @@
 )
 
 ;; reserva
+;; l - lista de tabuleiro e pecas
 ;; retorna lista com 16 pecas com 4 carateristicas
 (defun reserva (l)
 (cond 
