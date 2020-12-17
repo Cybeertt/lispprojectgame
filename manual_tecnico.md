@@ -427,7 +427,9 @@ Em contexto, esta função permite remover um elemento da lista de reserva desde
 ```
 
 ### <a name="f-coloca-peca-tabuleiro">Coloca-Peca-No-Tabuleiro</a>
-Insere numa lista um valor
+Insere numa lista um valor nas coordenadas enviadas por parâmetro. Quando o elemento da lista é substituído, a função retorna T, caso contrário NIL.
+
+Em contexto, esta função permite substituir um elemento do tabuleiro que se encontre com o valor zero e remove a peça da lista de reserva. Caso não encontrar o valor zero, a operação é ignorada e nada é alterado. 
 
 ```lisp
 ;; função
