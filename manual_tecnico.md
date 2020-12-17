@@ -336,7 +336,7 @@ Uma posição encontra-se vazia, se na posição (r, c), o valor é 0.
 (defun tabuleiro-n-ocupado (r c tab)
  (cond
   ((null tab) nil); tab vazia
-  (t (listp (extrai-n c (extrai-n r tab))))
+  (t (listp (celula r c tab)))
  )
 )
 
