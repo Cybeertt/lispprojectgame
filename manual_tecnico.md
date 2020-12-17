@@ -101,7 +101,7 @@ Esta lista contém todas as peças utilizadas no jogo. Cada peça é uma lista c
 (defun reserva(l) 
  (cond 
   ((null l) nil)
-  (t (cdr l))
+  (t (cadr l))
  )
 )
 
@@ -128,34 +128,40 @@ Esta função tem como propósito simular a função Peek.
   ((< i 0) nil)
   ((null l) nil)
   ((= i 0) (car l))
-  (t (extrai-n (1- i) (cdr l))) ; recursividade para achar o indice
+  (t (extrai-n (1- i) (cdr l)))
  )
 )
 
 ;; chamada
-(extrai-n -1 (tabuleiro))
+(extrai-n -1 (tabuleiro (tabuleiro-e-pecas)))
 
 ;; resultado
 NIL
 
 ;; chamada
-(extrai-n 0 (tabuleiro))
+(extrai-n 0 (tabuleiro (tabuleiro-e-pecas)))
 
 ;; resultado
 (0 0 0 0)
 
 ;; chamada
-(extrai-n 0 (extrai-n 0 (tabuleiro)))
+(extrai-n 0 (extrai-n 0 (tabuleiro (tabuleiro-e-pecas))))
 
 ;; resultado
 0
 
 ;; chamada
-(extrai-n 0 (pecas))
+(extrai-n 0 (reserva (tabuleiro-e-pecas)))
 
 ;; resultado
 (BRANCA REDONDA ALTA OCA)
 ````
+
+### <a name="f-linha">Linha</a>
+### <a name="f-linha">Linha</a>
+### <a name="f-linha">Linha</a>
+### <a name="f-linha">Linha</a>
+### <a name="f-linha">Linha</a>
 
 ### <a name="f-tabuleiro-ocupado">Tabuleiro-N-Ocupado</a>
 Retorna T se encontrar uma peça na posição indicada ou NIL caso eontrário.
@@ -171,7 +177,7 @@ Uma posição encontra-se vazia, se na posição (r, c), o valor é 0.
 )
 
 ;; chamada
-(tabuleiro-n-ocupado 0 1 (tabuleiro))
+(tabuleiro-n-ocupado 0 1 (tabuleiro (tabuleiro-e-pecas)))
 
 ;; resultado
 T
@@ -189,16 +195,19 @@ Insere numa lista um valor
  )
 )
 
-;; chamada (usa funções auxiiliares)
+;; chamada (usa funções auxiliares)
 (coloca-peca-no-tabuleiro 
- (nova-jogada (tabuleiro)) 
- (nova-jogada (car (tabuleiro))) 
- (seleciona-peca (pecas)) 
- (tabuleiro)
+ (nova-jogada (tabuleiro (tabuleiro-e-pecas))) 
+ (nova-jogada (car (tabuleiro (tabuleiro-e-pecas)))) 
+ (seleciona-peca (reserva (tabuleiro-e-pecas))) 
+ (tabuleiro (tabuleiro-e-pecas))
 )
 
 ;; resultado
 (BRANCA QUADRADA ALTA CHEIA)
+
+;; estado do tabuleiro
+
 ````
 
 ### <a name="f-nova-jogada">Nova-Jogada</a>
@@ -213,14 +222,14 @@ Em contexto do problema, esta função auxilia a escolha não inteligente da pos
 
 ;; chamada
 ;; gera uma posição linha
-(nova-jogada (tabuleiro))
+(nova-jogada (tabuleiro (tabuleiro-e-pecas)))
 
 ;; resultado
 0
 
 ;; chamada
 ;; gera uma posição coluna
-(nova-jogada (car (tabuleiro))
+(nova-jogada (car (tabuleiro-e-pecas))
 
 ;; resultado
 2
@@ -238,7 +247,7 @@ a escolha não inteligente de uma peça.
 )
 
 ;; chamada
-(seleciona-peca (pecas))
+(seleciona-peca (reserva (tabuleiro-e-pecas)))
 
 ;; resultado
 (BRANCA QUADRADA ALTA OCA)
@@ -259,14 +268,14 @@ Em contexto do problema, esta função compara duas peças, procurando pelo meno
 )
 
 ;; chamada
-(tem-atributo-igual (tem-atributo-igual (extrai-n 0 (pecas)) (extrai-n 0 (pecas))))
+(tem-atributo-igual (tem-atributo-igual (extrai-n 0 (reserva (tabuleiro-e-pecas))) (extrai-n 0 (reserva (tabuleiro-e-pecas)))))
 
 ;; resultado
 T
 
 ;; chamada
 ;; tabuleiro vazio
-(tem-atributo-igual (tem-atributo-igual (extrai-n 0 (pecas)) (extrai-n 0 (extrai-n 0 (tabuleiro)))))
+(tem-atributo-igual (tem-atributo-igual (extrai-n 0 (reserva (tabuleiro-e-pecas))) (extrai-n 0 (extrai-n 0 (tabuleiro (tabuleiro-e-pecas))))))
 
 ;; resultado
 NIL
