@@ -4,12 +4,12 @@
 ### Docente
 Joaquim Filipe
 
-??? - professor do rafael?
+
 
 ### Estudantes
 150221081 - Daniela Sineiro
 
-18 -Rafael Palma
+200221149 - Rafael Palma
 
 # Manual Técnico
 Neste manual encontram-se explicações sobre o jogo, como o iniciar, a estrutura do projeto, todas as funções utilizadas explicadas e ilustradas com exemplos e observações, e exemplos descritivos de testes com o código fonte por partes ou no global.
@@ -665,26 +665,31 @@ Mostra 6 tabuleiros diferentes com algumas peças em falta para jogar e com uso 
 ## <a name="Problema-A">Problema-A</a>
 
 ```lisp
-(defun Problema_A ()
-  '(
-    ((branca quadrada alta oca) (preta quadrada baixa cheia) 0 (preta quadrada alta oca))
-    ((branca redonda alta oca) (preta redonda alta oca) (branca redonda alta cheia) 0)
-    (0 (preta redonda alta cheia) (preta redonda baixa cheia) 0)
-    ((branca redonda baixa oca) (branca quadrada alta cheia) (preta redonda baixa oca) (branca redonda baixa cheia))
-   )
+(
+(((branca quadrada alta oca) (preta quadrada baixa cheia) 0 (preta quadrada alta oca))
+((branca redonda alta oca) (preta redonda alta oca) (branca redonda alta cheia) 0) 
+(0 (preta redonda alta cheia) (preta redonda baixa cheia) 0) 
+((branca redonda baixa oca) (branca quadrada alta cheia) (preta redonda baixa oca) (branca quadrada baixa cheia)))
+((preta quadrada alta cheia)
+(preta quadrada baixa oca)
+(branca redonda baixa cheia)
+(branca quadrada baixa oca))
 )
 ````
 
 ## <a name="Problema-B">Problema-B</a>
 
 ```lisp
-(defun Problema_B ()
-  '(
-    ((branca quadrada alta oca) (preta redonda baixa oca) (preta quadrada alta oca) (branca quadrada alta cheia))
-    ((branca redonda alta oca) 0 (branca redonda alta cheia) 0)
-    ((preta quadrada baixa cheia) (preta redonda alta cheia) (branca quadrada baixa oca) 0)
-    ((preta quadrada baixa oca) 0 (branca quadrada baixa cheia) 0)
-   )
+(
+(((branca quadrada alta oca) (preta redonda baixa oca) (preta quadrada alta oca) (branca quadrada alta cheia)) 
+((branca redonda alta oca) 0 (branca redonda alta cheia) 0) 
+((preta quadrada baixa cheia) (preta redonda alta cheia) (branca quadrada baixa oca) 0) 
+((preta quadrada baixa oca) 0 (branca quadrada baixa cheia) 0))
+ ((branca redonda baixa oca)
+ (preta redonda baixa cheia)
+ (preta redonda alta oca)
+ (preta quadrada alta cheia)
+ (branca redonda baixa cheia))
 )
 
 ````
@@ -692,13 +697,20 @@ Mostra 6 tabuleiros diferentes com algumas peças em falta para jogar e com uso 
 ## <a name="Problema-C">Problema-C</a>
 
 ```lisp
-(defun Problema_C ()
-  '(
-    ((branca quadrada baixa cheia) 0 (preta redonda alta cheia) (preta quadrada baixa oca))
-    (0 0 0 (branca redonda baixa oca))
-    ((branca redonda alta cheia) 0 (preta redonda alta oca) 0)
-    (0 (preta quadrada baixa cheia) 0 0)
-   )
+(
+(((branca quadrada baixa cheia) 0 (preta redonda alta cheia) (preta quadrada baixa oca))
+ (0 0 0 (branca redonda baixa oca)) 
+((branca redonda alta cheia) 0 (preta redonda alta oca) 0) 
+(0 (preta quadrada baixa cheia) 0 0))
+((branca quadrada alta cheia)
+ (branca quadrada alta oca)
+ (branca quadrada baixa oca)
+ (preta quadrada alta cheia)
+ (preta quadrada alta oca)
+ (branca redonda alta oca)
+ (branca redonda baixa cheia)
+ (preta redonda baixa cheia)
+ (preta redonda baixa oca))
 )
 
 ````
@@ -706,13 +718,21 @@ Mostra 6 tabuleiros diferentes com algumas peças em falta para jogar e com uso 
 ## <a name="Problema-D">Problema-D</a>
 
 ```lisp
-(defun Problema_D ()
-  '(
-    ((branca quadrada baixa cheia) (branca redonda alta cheia) (preta redonda alta cheia) (preta quadrada baixa oca))
-    (0 0 0 0)
-    (0 0 0 0)
-    (0 0 0 0)
-   )
+(
+(((branca quadrada baixa cheia) (branca redonda alta cheia) (preta redonda alta cheia) (preta quadrada baixa oca))
+(0 0 0 0) 
+(0 0 0 0) 
+(0 0 0 0))
+((branca quadrada alta cheia)
+(branca quadrada baixa cheia)
+(preta quadrada alta cheia)
+(preta quadrada alta oca)
+(preta quadrada baixa cheia)
+(branca redonda baixa oca)
+(branca redonda alta oca)
+(branca redonda baixa cheia)
+(preta redonda alta oca)
+(preta redonda baixa cheia))
 )
 
 ````
@@ -720,13 +740,26 @@ Mostra 6 tabuleiros diferentes com algumas peças em falta para jogar e com uso 
 ## <a name="Problema-E">Problema-E</a>
 
 ```lisp
-(defun Problema_E ()
-  '(
-    (0 0 0 0)
-    (0 0 0 0)
-    (0 0 (preta redonda alta oca) 0)
-    (0 0 0 0)
-   )
+(
+ ((0 0 0 0) 
+ (0 0 0 0) 
+ (0 0 (preta redonda alta oca) 0)
+ (0 0 0 0))
+((branca quadrada alta cheia)
+ (branca quadrada alta oca)
+ (branca quadrada baixa oca)
+ (branca quadrada baixa cheia)
+ (preta quadrada alta cheia)
+ (preta quadrada alta oca)
+ (preta quadrada baixa oca)
+ (preta quadrada baixa cheia)
+ (branca redonda alta cheia)
+ (branca redonda alta oca)
+ (branca redonda baixa cheia)
+ (branca redonda baixa oca)
+ (preta redonda alta cheia)
+ (preta redonda baixa cheia)
+ (preta redonda baixa oca))
 )
 
 ````
@@ -734,13 +767,27 @@ Mostra 6 tabuleiros diferentes com algumas peças em falta para jogar e com uso 
 ## <a name="Problema-F">Problema-F</a>
 
 ```lisp
-(defun Problema_F ()
-  '(
-    (0 0 0 0)
-    (0 0 0 0)
-    (0 0 0 0)
-    (0 0 0 0)
-   )
+(
+((0 0 0 0)
+ (0 0 0 0)
+ (0 0 0 0)
+ (0 0 0 0))
+((branca quadrada alta cheia)
+(branca quadrada alta oca)
+(branca quadrada baixa oca)
+(branca quadrada baixa cheia)
+(preta quadrada alta cheia)
+(preta quadrada alta oca)
+(preta quadrada baixa oca)
+(preta quadrada baixa cheia)
+(branca redonda alta cheia)
+(branca redonda alta oca)
+(branca redonda baixa cheia)
+(branca redonda baixa oca)
+(preta redonda alta cheia)
+(preta redonda alta oca)
+(preta redonda baixa cheia)
+(preta redonda baixa oca))
 )
 
 ````
@@ -788,5 +835,58 @@ Esta função retorna a procura de estados em comprimento.
               (t (dfs (car nos-succ) objetivop sucessoresf operadores
                       profundidade (abertos-dfs abertos (cdr nos-succ))
                       (cons no-inicial fechados)))))))
+
+```
+
+## <a name="Pesquisa em A Estrela">Pesquisa em A*</a>
+
+```lisp
+(defun a_star (no-inicial objetivop sucessoresf operadores profundidade
+                          heuristicaf &optional pqueue)
+  (if (funcall objetivop no-inicial)
+      no-inicial
+      (let* ((nos-succ (funcall sucessoresf no-inicial operadores 'a_star)) 
+             (distances (mapcar #'heuristicaf nos-succ)))     
+          (cond ((and (null nos-succ) (null pqueue)) nil)
+                (+ profundidade distances)
+                ((null pqueue)
+                 (a_star (car nos-succ) objetivop sucessoresf operadores 
+                         profundidade heuristicaf (cdr nos-succ)))
+                 (t (a_star (car pqueue) objetivop sucessoresf operadores 
+                         profundidade heuristicaf (cdr pqueue)))))))
+
+
+```
+
+
+## <a name="sim2">Simulação de Algoritmos</a>
+
+### <a name="teste-1-bfs">Teste 1 Procura em Largura</a>
+
+Chamar a função de Procura em Largura com o nó inicial, nó objetivo, sucessores e operadores.
+
+```lisp
+
+
+
+```
+
+### <a name="teste-1-dfs">Teste 1 Procura em Comprimento</a>
+
+Chamar a função de Procura em Comprimento com o nó inicial, nó objetivo, sucessores, operadores e profundidade.
+
+```lisp
+
+
+
+```
+
+### <a name="teste-1-a-star">Teste 1 Procura em A*</a>
+
+Chamar a função de Procura em A* com o nó inicial, nó objetivo, sucessores, operadores, profundidade e heuristica.
+
+```lisp
+
+
 
 ```
