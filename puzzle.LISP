@@ -188,6 +188,20 @@
 )
 )
 
+;; conta-peca
+;; l - lista
+;; retorna o número de elementos com pelo menos
+;; um atributo igual
+(defun conta-peca (l)
+(cond 
+((null l) 0)
+((and (not (null (car l))) (null (cadr l)) 1))
+((null (cadr l)) 0)
+((tem-atributo-igual (car l) (cadr l)) (1+ (conta-peca (cdr l))))
+(t 0)
+)
+)
+
 ;; px
 ;; l - lista com a contagem de pecas alinhadas com pelo menos um atributo em comum
 ;; retorna o valor maximo
