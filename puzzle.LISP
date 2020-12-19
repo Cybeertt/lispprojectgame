@@ -170,11 +170,11 @@
 
 ;; comparar atributos recursivo
 ;; p - peca 1
-;; l - peca 2
-(defun tem-atributo-igual (p l)
+;; p2 - peca 2
+(defun tem-atributo-igual (p p2)
 (cond
-((or (null p) (null l)) nil)
-((not (equal (car p) (car l))) (tem-atributo-igual (cdr p) (cdr l)))
+((or (null p) (null p2)) nil)
+((not (equal (car p) (car p2))) (tem-atributo-igual (cdr p) (cdr p2)))
 (t T)
 )
 )

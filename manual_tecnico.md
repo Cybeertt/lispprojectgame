@@ -15,6 +15,7 @@ Joaquim Filipe
 Neste manual encontram-se explicações sobre o jogo, como o iniciar, a estrutura do projeto, todas as funções utilizadas explicadas e ilustradas com exemplos e observações, e exemplos descritivos de testes com o código fonte por partes ou no global.
 
 ## Indice
+* [Abstrato](#doc-abstract)
 * [Extrutura do Projeto](#doc-extrutura)
 * [Documentação de Funções](#doc-func)
     * [Tabuleiro-E-Pecas](#f-tabuleiro-pecas)
@@ -39,15 +40,19 @@ Neste manual encontram-se explicações sobre o jogo, como o iniciar, a estrutur
     * [Teste3](#teste-3)
 * [// TODO](#todo)
 
-## <a name="doc-estrutura">Estrutura do Projeto</a>
+## <a name="doc-abstract">Abstrato</a>
+(sobre o jogo e o propósito do projeto e o contexto na cadeira)
 
+
+
+## <a name="doc-estrutura">Estrutura do Projeto</a>
 O projeto encontra-se distribuído por 3 ficheiros principais: project.LISP, puzzle.LISP e algorithm.LISP.
 
 O ficheiro "project.LISP" contém o código fonte que inicializa o jogo.
 
-O ficheiro "puzzle.LISP" contém todos o código fonte utilizado para criar e modificar o jogo.
+O ficheiro "puzzle.LISP" contém o código fonte utilizado para criar e modificar o jogo.
 
-O ficheiro "algorithm.LISP"  contém todos os algoritmos de procura utilizados no jogo.
+O ficheiro "algorithm.LISP" contém todos os algoritmos de procura utilizados no jogo.
 
 Em conjunto com os 3 ficheiros acima indicados, também encontram-se em anexo os Manuais de Utilizador e este manual.
 
@@ -55,7 +60,7 @@ O manual de utilizador apenas contém uma breve explicação sobre o jogo e como
 
 ## <a name="doc-func">Documentação de Funções</a>
 
-As seguintes funções utilizadas para desenvolver o projeto, contêm o seu corpo, breve descrição, parâmetros e exemplos de chamadas e de resultados
+As seguintes funções utilizadas para desenvolver o projeto, contêm o seu corpo, breve descrição, parâmetros e exemplos de chamadas e de resultados esperados.
 
 Excecionalmente, algumas funções contêm breves observações perante o resultado esperado, para melhor ilustrar o seu uso especifico.
 
@@ -512,10 +517,10 @@ Em contexto do problema, esta função compara duas peças, procurando pelo meno
 
 ```lisp
 ;; função
-(defun tem-atributo-igual (p l)
- (cond 
-  ((or (null p) (null l)) nil)
-  ((not (equal (car p) (car l))) (tem-atributo-igual (cdr p) (cdr l)))
+(defun tem-atributo-igual (p p2)
+ (cond
+  ((or (null p) (null p2)) nil)
+  ((not (equal (car p) (car p2))) (tem-atributo-igual (cdr p) (cdr p2)))
   (t T)
  )
 )
