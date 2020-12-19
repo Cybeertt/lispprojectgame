@@ -32,6 +32,7 @@ Neste manual encontram-se explicações sobre o jogo, como o iniciar, a estrutur
   * [Diagonal-1](#f-diagonal-2)
   * [Tabuleiro-N-Ocupado](#f-tabuleiro-ocupado)
   * [Remove-Peca](#f-remove-peca)
+  * [Filtra](#f-filtra)
   * [Coloca-Peca-No-Tabuleiro](#f-coloca-peca-tabuleiro)
   * [Tem-Atributo-Igual](#f-atributo-igual)
   * [Px](#f-px)
@@ -42,11 +43,10 @@ Neste manual encontram-se explicações sobre o jogo, como o iniciar, a estrutur
   * [Test2](#teste-2)
   * [Teste3](#teste-3)
 * [// TODO](#todo)
+* [Glossário](#doc-glossario)
 
 ## <a name="doc-abstract">Abstrato</a>
 (sobre o jogo e o propósito do projeto e o contexto na cadeira)
-
-
 
 ## <a name="doc-estrutura">Estrutura do Projeto</a>
 O projeto encontra-se distribuído por 3 ficheiros principais: project.LISP, puzzle.LISP e algorithm.LISP.
@@ -75,6 +75,10 @@ Esta função retorna um número aleatório consuante o tamanho da lista que rec
 
 Em contexto do problema, esta função auxilia a escolha aleatória da posição do tabuleiro.
 
+**Parâmetros**
+
+*l - Lista*
+
 ```lisp
 ;; função
 (defun nova-jogada (l)
@@ -102,6 +106,10 @@ Esta função retorna um elemento aleatório da lista que recebe.
 Em contexto do problema, esta função auxilia
 a escolha aleatória de uma peça.
 
+**Parâmetros**
+
+*p - Peça*
+
 ```lisp
 ;; função
 (defun seleciona-peca (p)
@@ -125,6 +133,10 @@ a escolha aleatória de uma peça.
 Retorna uma lista com duas listas.
 
 Uma lista 4x4 com elementos de valor zero e outra com 16 elementos do tipo lista com 4 carateristicas, representando peças.
+
+**Parâmetros**
+
+*Nenhum*
 
 ```lisp
 ;; função
@@ -172,7 +184,7 @@ O espaço do tabuleiro é representado por 0, quando a posição encontra-se vaz
 
 **Parametros**
 
-tab - lista
+*l - Lista*
 
 ```lisp
 ;; função
@@ -189,7 +201,7 @@ tab - lista
 
 ;; resultado
 ((0 0 0 0) (0 0 0 0) (0 0 0 0) (0 0 0 0))
-````
+```
 
 ### <a name="f-reserva">Reserva</a>
 Retorna uma lista de 16 listas com 4 elementos.
@@ -198,7 +210,7 @@ Esta lista contém todas as peças utilizadas no jogo. Cada peça é uma lista c
 
 **Parametros**
 
-l - Lista
+*l - Lista*
 
 ```lisp
 ;; função
@@ -220,7 +232,7 @@ l - Lista
 (PRETA REDONDA ALTA CHEIA) (BRANCA REDONDA BAIXA CHEIA) (PRETA REDONDA BAIXA CHEIA) 
 (BRANCA QUADRADA ALTA CHEIA) (PRETA QUADRADA ALTA CHEIA) 
 (BRANCA QUADRADA BAIXA CHEIA) (PRETA QUADRADA BAIXA CHEIA))
-````
+```
 
 ### <a name="f-extrai">Extrai-N</a>
 Retorna o elemento que se encontra no índice indicado. Caso o índice for inválido, retorna NIL.
@@ -229,9 +241,9 @@ Esta função tem como propósito simular a função Peek.
 
 **Parametros**
 
-i - Indice
+*i - Indice*
 
-l - lista
+*l - lista*
 
 ```lisp
 ;; função
@@ -271,7 +283,7 @@ NIL
 
 ;; resultado
 (BRANCA REDONDA ALTA OCA)
-````
+```
 
 ### <a name="f-linha">Linha</a>
 Retorna uma lista com elementos que se encontram numa linha.
@@ -280,9 +292,9 @@ Esta função limita-se a ser uma função redundante da função [extrai-n](#f-
 
 **Parametros**
 
-r - Indice de linha
+*r - Indice de linha*
 
-tab - Tabuleiro ou reserva
+*tab - Tabuleiro ou reserva*
 
 ```lisp
 ;; função
@@ -315,9 +327,9 @@ Esta função limita-se a ser uma função redundante da função [celula](#f-ce
 
 **Parametros**
 
-c - Indice de coluna
+*c - Indice de coluna*
 
-tab - Tabuleiro
+*tab - Tabuleiro*
 
 ```lisp
 ;; função
@@ -346,11 +358,11 @@ Esta função limita-se a ser uma função redundante da função [extrai-n](#f-
 
 **Parametros**
 
-r - Indice de linha
+*r - Indice de linha*
 
-c - Indice de coluna
+*c - Indice de coluna*
 
-tab - Tabuleiro
+*tab - Tabuleiro*
 
 ```lisp
 ;; função
@@ -382,7 +394,7 @@ Em contexto, esta função é utilizada para retornar uma diagonal de um tabulei
 
 **Parametros**
 
-tab - Tabuleiro
+*tab - Tabuleiro*
 
 ```lisp
 ;; função
@@ -412,7 +424,7 @@ Em contexto, esta função é utilizada para retornar uma diagonal de um tabulei
 
 **Parametros**
 
-tab - Tabuleiro
+*tab - Tabuleiro*
 
 ```lisp
 ;; função
@@ -439,6 +451,14 @@ tab - Tabuleiro
 Retorna T se encontrar uma peça na posição indicada ou NIL caso eontrário.
 Uma posição encontra-se vazia, se na posição (r, c), o valor é 0.
 
+**Parâmetros**
+
+*r - Linha*
+
+*c - Coluna*
+
+*tab - Tabuleiro*
+
 ```lisp
 ;; função
 (defun tabuleiro-n-ocupado (r c tab)
@@ -463,14 +483,27 @@ T
 
 ;; resultado
 NIL
-````
+```
 
 ### <a nome="f-remove-peca">Remove-Peca</a>
 Remove um elemento de uma lista.
 
 Em contexto, esta função permite remover um elemento da lista de reserva desde que este seja igual ao elemento p enviado por parâmetro.
 
+**Parâmetros**
+
+*pred - Função que retorna T ou NIL*
+
+*p - Peça*
+
+*l - Lista reserva*
+
 ```lisp
+;; parâmetro pred
+;; avalia se duas peças são iguais
+;; retorna T se verdade, caso contrário NIL
+;; #'(lambda (p x) (equal p x))
+
 ;; função
 (defun remove-peca (pred p l)
  (cond
@@ -486,6 +519,68 @@ Em contexto, esta função permite remover um elemento da lista de reserva desde
 
 ;; resultado
 ((PRETA REDONDA ALTA OCA) (BRANCA REDONDA BAIXA OCA) (PRETA REDONDA BAIXA OCA) (BRANCA QUADRADA ALTA OCA) (PRETA QUADRADA ALTA OCA) (BRANCA QUADRADA BAIXA OCA) (PRETA QUADRADA BAIXA OCA) (BRANCA REDONDA ALTA CHEIA) (PRETA REDONDA ALTA CHEIA) (BRANCA REDONDA BAIXA CHEIA) (PRETA REDONDA BAIXA CHEIA) (BRANCA QUADRADA ALTA CHEIA) (PRETA QUADRADA ALTA CHEIA) (BRANCA QUADRADA BAIXA CHEIA) (PRETA QUADRADA BAIXA CHEIA))
+```
+
+### <a name="f-filtra">Filtra</a>
+Recebe uma lista e remove todos os elementos consuante a condição enviada por parâmetro.
+
+**Limitações**
+
+Não compatível com elementos sublista.
+
+**Parametros**
+
+*pred - Função que retorna T ou NIL*
+
+*l - Lista*
+
+
+```lisp
+;; parâmetro pred
+;; avalia se um elemento é igual a 0
+;; retorna T se verdade, caso contrário NIL
+;; #'(lambda (x) (equal 0 x))
+
+;; função
+(defun filtra(pred l)
+ (cond 
+  ((null l) nil)
+  ((funcall pred (car l)) (filtra pred (cdr l)))
+  (t (cons (car l) (filtra pred (cdr l))))
+ )
+)
+
+;; chamada
+;; filtra linha 0 do tabuleiro vazio
+(filtra #'(lambda (x) (equal 0 x)) (linha 0   (tabuleiro (tabuleiro-e-pecas))))
+
+;; resultado
+NIL
+
+;; chamada
+;; filtra a coluna do tabuleiro vazio
+(filtra #'(lambda (x) (equal 0 x)) (coluna 0 (tabuleiro (tabuleiro-e-pecas))))
+
+;; resultado
+NIL
+```
+
+```lisp
+;; lista de exemplo
+(defun linha-0 ()
+ '((branca quadrada alta oca) (preta quadrada baixa cheia) 0 (preta quadrada alta oca))
+)
+
+;; chamada
+;; chama a lista linha-0
+((BRANCA QUADRADA ALTA OCA) (PRETA QUADRADA BAIXA CHEIA) 0 (PRETA QUADRADA ALTA OCA))
+
+;; chamada
+;; remove todos os elementos iguais a zero
+(filtra #'(lambda (x) (equal 0 x)) (linha-0))
+
+;; resultado
+((BRANCA QUADRADA ALTA OCA) (PRETA QUADRADA BAIXA CHEIA) (PRETA QUADRADA ALTA OCA))
 ```
 
 ### <a name="f-coloca-peca-tabuleiro">Coloca-Peca-No-Tabuleiro</a>
@@ -523,7 +618,8 @@ Em contexto, esta função permite substituir um elemento do tabuleiro que se en
 
 ;; resultado
 NIL
-````
+```
+
 ### <a name="f-atributo-igual">Tem-Atributo-Igual</a>
 Esta função retorna o valor T ou Nil consuante as peças que compara.
 Em contexto do problema, esta função compara duas peças, procurando pelo menos na existencia de um atributo em comum.
@@ -584,10 +680,13 @@ Coloca aleatóriamente uma peça aleatória, num dos espaços do tabuleiro, trê
 ### <a name="demo-1">Inserir Peça</a>
 
 #### <a name="demo-11">Tabuleiro Vazio</a>
-Inserir uma peça aleatóreamente, numa posição aleatória no tabuleiro vazio.
+**Demostração**
 
-Resultado Esperado:
-* O tabuleiro contém uma peça numa dada posição.
+Inserir uma peça aleatóreamente, numa posição aleatória no tabuleiro vazio, recorrendo às [funções auxiliares](#f-auxiliar).
+
+**Resultado Esperado:**
+
+O tabuleiro contém uma peça p numa dada coordenada (r, c) e é removida da reserva a peça p.
 
 ```lisp
 ;; chamada
@@ -598,27 +697,28 @@ Resultado Esperado:
 ((0 0 0 0) (0 0 0 0) (0 0 0 0) (0 0 0 0))
 
 ;; chamada
-;; ???? remover
-(coloca-peca-no-tabuleiro 
-(nova-jogada (tabulerio (tabueiro-e-pecas)) 
-(nova-jogada (car (tabulerio (tabueiro-e-pecas)))) 
-(seleciona-peca (reserva (tabuleiro-e-pecas))) 
-(tabulerio (tabueiro-e-pecas))
-)
+;; coloca peça aleatória numa coordenada aleatória
+;; do tabuleiro
+(coloca-peca-no-tabuleiro (nova-jogada (linha 0 (tabuleiro (tabuleiro-e-pecas)))) (nova-jogada (coluna 0 (tabuleiro (tabuleiro-e-pecas)))) (seleciona-peca (reserva (tabuleiro-e-pecas))) (tabuleiro (tabuleiro-e-pecas)))
 
 ;; resultado
-;; peça removida da reserva e inserida no tabuleiro
-(BRANCA QUADRADA ALTA CHEIA)
+;; pedra aleatóriamente selecionada
+(PRETA REDONDA ALTA CHEIA)
 
 ;; chamada
 ;; visualização do estado do tabuleiro
-(tabulerio (tabueiro-e-pecas))
+(tabuleiro (tabuleiro-e-pecas))
 
 ;; resultado
-;; 
-((0 (BRANCA QUADRADA ALTA CHEIA) 0 0) 
-(0 0 0 0) (0 0 0 0) (0 0 0 0))
-````
+((0 0 0 0) (0 0 (PRETA REDONDA ALTA CHEIA) 0) (0 0 0 0) (0 0 0 0))
+
+;; chamada
+;; visualização do estado da reserva
+(reserva (tabuleiro-e-pecas))
+
+;;resultado
+((BRANCA REDONDA ALTA OCA) (PRETA REDONDA ALTA OCA) (BRANCA REDONDA BAIXA OCA) (PRETA REDONDA BAIXA OCA) (BRANCA QUADRADA ALTA OCA) (PRETA QUADRADA ALTA OCA) (BRANCA QUADRADA BAIXA OCA) (PRETA QUADRADA BAIXA OCA) (BRANCA REDONDA ALTA CHEIA) (BRANCA REDONDA BAIXA CHEIA) (PRETA REDONDA BAIXA CHEIA) (BRANCA QUADRADA ALTA CHEIA) (PRETA QUADRADA ALTA CHEIA) (BRANCA QUADRADA BAIXA CHEIA) (PRETA QUADRADA BAIXA CHEIA))
+```
 
 #### <a name="demo-12">Posição no Tabuleiro com Peça</a>
 (Descrição aqui)
@@ -919,3 +1019,5 @@ Chamar a função de Procura em A* com o nó inicial, nó objetivo, sucessores, 
 
 
 ```
+
+## <a name="doc-glossario">Glossário</a>
