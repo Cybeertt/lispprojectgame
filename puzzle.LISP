@@ -150,6 +150,15 @@
 )
 )
 
+;; filtra
+;; pred - lambda; l - lista
+(defun filtra(pred l)
+(cond ((null l) nil)
+((funcall pred (car l)) (filtra pred (cdr l)))
+(t (cons (car l) (filtra pred (cdr l))))
+)
+)
+
 ;; coloca-peca-no-tabuleiro
 ;; r - linha; c - coluna; p - peca; tab - tabuleiro
 ;; retorna nil se p e vazia ou t e vazia ou r < 0 e/ou c < 0 ou tabuleiro com peca
