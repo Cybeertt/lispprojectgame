@@ -18,26 +18,29 @@ Neste manual encontram-se explicações sobre o jogo, como o iniciar, a estrutur
 * [Abstrato](#doc-abstract)
 * [Extrutura do Projeto](#doc-extrutura)
 * [Documentação de Funções](#doc-func)
-    * [Tabuleiro-E-Pecas](#f-tabuleiro-pecas)
-    * [Tabuleiro](#f-tabuleiro)
-    * [Reserva](#f-reserva)
-    * [Extrai-N](#f-extrai)
-    * [Linha](#f-linha)
-    * [Coluna](#f-coluna)
-    * [Celula](#f-celula)
-    * [Diagonal-2](#f-diagonal-1)
-    * [Diagonal-1](#f-diagonal-2)
-    * [Tabuleiro-N-Ocupado](#f-tabuleiro-ocupado)
-    * [Remove-Peca](#f-remove-peca)
-    * [Coloca-Peca-No-Tabuleiro](#f-coloca-peca-tabuleiro)
+  * [Funções Auxiliares](#f-auxiliar)
     * [Nova-Jogada](#f-nova-jogada)
     * [Seleciona-Peca](#f-seleciona-peca)
-    * [Tem-Atributo-Igual](#f-atributo-igual)
-    * [Px](#f-px)
-* [Simulação](#sim)
-    * [Teste 1](#teste-1)
-    * [Test2](#teste-2)
-    * [Teste3](#teste-3)
+  * [Tabuleiro-E-Pecas](#f-tabuleiro-pecas)
+  * [Tabuleiro](#f-tabuleiro)
+  * [Reserva](#f-reserva)
+  * [Extrai-N](#f-extrai)
+  * [Linha](#f-linha)
+  * [Coluna](#f-coluna)
+  * [Celula](#f-celula)
+  * [Diagonal-2](#f-diagonal-1)
+  * [Diagonal-1](#f-diagonal-2)
+  * [Tabuleiro-N-Ocupado](#f-tabuleiro-ocupado)
+  * [Remove-Peca](#f-remove-peca)
+  * [Coloca-Peca-No-Tabuleiro](#f-coloca-peca-tabuleiro)
+  * [Tem-Atributo-Igual](#f-atributo-igual)
+  * [Px](#f-px)
+* [Demostrações](#demo)
+  * [Inserir Peça](#demo-1)
+    * [Tabuleiro Vazio](#demo-11)
+    * [Posição no Tabuleiro com Peça](#demo-12)
+  * [Test2](#teste-2)
+  * [Teste3](#teste-3)
 * [// TODO](#todo)
 
 ## <a name="doc-abstract">Abstrato</a>
@@ -63,6 +66,60 @@ O manual de utilizador apenas contém uma breve explicação sobre o jogo e como
 As seguintes funções utilizadas para desenvolver o projeto, contêm o seu corpo, breve descrição, parâmetros e exemplos de chamadas e de resultados esperados.
 
 Excecionalmente, algumas funções contêm breves observações perante o resultado esperado, para melhor ilustrar o seu uso especifico.
+
+### <a nome="f-auxiliar">Funções Auxiliares</a>
+As seguintes funções foram desenvolvidas para agilizar o processo de testes para todas as funções desenvolvidas do projeto que requerem receber por parâmetro peças e/ou coordenadas do tabuleiro.
+
+#### <a name="f-nova-jogada">Nova-Jogada</a>
+Esta função retorna um número aleatório consuante o tamanho da lista que recebe.
+
+Em contexto do problema, esta função auxilia a escolha aleatória da posição do tabuleiro.
+
+```lisp
+;; função
+(defun nova-jogada (l)
+ (random (length l))
+)
+
+;; chamada
+;; gera uma posição linha
+(nova-jogada (tabuleiro (tabuleiro-e-pecas)))
+
+;; resultado
+0
+
+;; chamada
+;; gera uma posição coluna
+(nova-jogada (tabuleiro (tabuleiro-e-pecas))
+
+;; resultado
+2
+```
+
+#### <a name="f-seleciona-peca">Seleciona-Peca</a>
+Esta função retorna um elemento aleatório da lista que recebe.
+
+Em contexto do problema, esta função auxilia
+a escolha aleatória de uma peça.
+
+```lisp
+;; função
+(defun seleciona-peca (p)
+ (extrai-n (random (length p)) p)
+)
+
+;; chamada
+(seleciona-peca (reserva (tabuleiro-e-pecas)))
+
+;; resultado
+(BRANCA QUADRADA ALTA OCA)
+
+;; chamada
+(seleciona-peca (reserva (tabuleiro-e-pecas)))
+
+;; resultado
+(PRETA REDONDA ALTA CHEIA)
+```
 
 ### <a name="f-tabuleiro-pecas">Tabuleiro-E-Pecas</a>
 Retorna uma lista com duas listas.
@@ -467,50 +524,6 @@ Em contexto, esta função permite substituir um elemento do tabuleiro que se en
 ;; resultado
 NIL
 ````
-
-### <a name="f-nova-jogada">Nova-Jogada</a>
-Esta função retorna um número aleatório consuante o tamanho da lista que recebe.
-Em contexto do problema, esta função auxilia a escolha não inteligente da posição do tabuleiro.
-
-```lisp
-;; função
-(defun nova-jogada (l)
- (random (length l))
-)
-
-;; chamada
-;; gera uma posição linha
-(nova-jogada (tabuleiro (tabuleiro-e-pecas)))
-
-;; resultado
-0
-
-;; chamada
-;; gera uma posição coluna
-(nova-jogada (car (tabuleiro-e-pecas))
-
-;; resultado
-2
-```
-
-### <a name="f-seleciona-peca">Seleciona-Peca</a>
-Esta função retorna um elemento aleatório da lista que recebe.
-Em contexto do problema, esta função auxilia
-a escolha não inteligente de uma peça.
-
-```lisp
-;; função
-(defun seleciona-peca (p)
- (extrai-n (random (length p)) p)
-)
-
-;; chamada
-(seleciona-peca (reserva (tabuleiro-e-pecas)))
-
-;; resultado
-(BRANCA QUADRADA ALTA OCA)
-```
-
 ### <a name="f-atributo-igual">Tem-Atributo-Igual</a>
 Esta função retorna o valor T ou Nil consuante as peças que compara.
 Em contexto do problema, esta função compara duas peças, procurando pelo menos na existencia de um atributo em comum.
@@ -565,39 +578,50 @@ Em contexto do problema, esta função retorna a contagem máxima de peças com 
 0
 ```
 
-## <a name="sim">Simulação</a>
+## <a name="demo">Demostrações</a>
+Coloca aleatóriamente uma peça aleatória, num dos espaços do tabuleiro, três vezes.
 
-### <a name="teste-1">Teste 1</a>
-Preencher o tabuleiro pela primeira vez.
+### <a name="demo-1">Inserir Peça</a>
+
+#### <a name="demo-11">Tabuleiro Vazio</a>
+Inserir uma peça aleatóreamente, numa posição aleatória no tabuleiro vazio.
+
+Resultado Esperado:
+* O tabuleiro contém uma peça numa dada posição.
 
 ```lisp
 ;; chamada
-(tabulerio)
+;; visualização do estado do tabuleiro
+(tabulerio (tabueiro-e-pecas))
 
 ;; resultado
 ((0 0 0 0) (0 0 0 0) (0 0 0 0) (0 0 0 0))
 
 ;; chamada
+;; ???? remover
 (coloca-peca-no-tabuleiro 
-(nova-jogada (tabuleiro)) 
-(nova-jogada (car (tabuleiro))) 
-(seleciona-peca (pecas)) 
-(tabuleiro)
+(nova-jogada (tabulerio (tabueiro-e-pecas)) 
+(nova-jogada (car (tabulerio (tabueiro-e-pecas)))) 
+(seleciona-peca (reserva (tabuleiro-e-pecas))) 
+(tabulerio (tabueiro-e-pecas))
 )
 
 ;; resultado
+;; peça removida da reserva e inserida no tabuleiro
 (BRANCA QUADRADA ALTA CHEIA)
 
 ;; chamada
-(tabulerio)
+;; visualização do estado do tabuleiro
+(tabulerio (tabueiro-e-pecas))
 
 ;; resultado
+;; 
 ((0 (BRANCA QUADRADA ALTA CHEIA) 0 0) 
 (0 0 0 0) (0 0 0 0) (0 0 0 0))
 ````
 
-### <a name="teste-2">Teste 2</a>
-Preencher tabuleiro doo teste anterior.
+#### <a name="demo-12">Posição no Tabuleiro com Peça</a>
+(Descrição aqui)
 
 ```lisp
 ;; chamada
@@ -609,10 +633,10 @@ Preencher tabuleiro doo teste anterior.
 
 ;; chamada
 (coloca-peca-no-tabuleiro 
-(nova-jogada (tabuleiro)) 
-(nova-jogada (car (tabuleiro))) 
-(seleciona-peca (pecas)) 
-(tabuleiro)
+(nova-jogada (tabulerio (tabueiro-e-pecas)) 
+(nova-jogada (car (tabulerio (tabueiro-e-pecas)))) 
+(seleciona-peca (reserva (tabuleiro-e-pecas))) 
+(tabulerio (tabueiro-e-pecas))
 )
 
 ;; resultado
@@ -641,10 +665,10 @@ Preencher tabuleiro doo teste anterior.
 
 ;; chamada
 (coloca-peca-no-tabuleiro 
-(nova-jogada (tabuleiro)) 
-(nova-jogada (car (tabuleiro))) 
-(seleciona-peca (pecas)) 
-(tabuleiro)
+(nova-jogada (tabulerio (tabueiro-e-pecas)) 
+(nova-jogada (car (tabulerio (tabueiro-e-pecas)))) 
+(seleciona-peca (reserva (tabuleiro-e-pecas))) 
+(tabulerio (tabueiro-e-pecas))
 )
 
 ;; resultado
