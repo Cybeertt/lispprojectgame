@@ -27,14 +27,18 @@ Neste manual encontram-se explicações sobre o jogo, como o iniciar, a estrutur
   * [Extrai-N](#f-extrai)
   * [Linha](#f-linha)
   * [Coluna](#f-coluna)
+  * [Colunas](#f-colunas)
   * [Celula](#f-celula)
   * [Diagonal-2](#f-diagonal-1)
   * [Diagonal-1](#f-diagonal-2)
+  * [Diagonais](#f-diagonais)
   * [Tabuleiro-N-Ocupado](#f-tabuleiro-ocupado)
   * [Remove-Peca](#f-remove-peca)
   * [Filtra](#f-filtra)
   * [Coloca-Peca-No-Tabuleiro](#f-coloca-peca-tabuleiro)
   * [Tem-Atributo-Igual](#f-atributo-igual)
+  * [Conta-Pecas](#f-conta)
+  * [Conta-Pecas-No-Tabuleiro](#f-conta-tabuleiro)
   * [Px](#f-px)
 * [Demostrações](#demo)
   * [Inserir Peça](#demo-1)
@@ -319,7 +323,6 @@ Esta função limita-se a ser uma função redundante da função [extrai-n](#f-
 ;; resultado
 (0 0 0 0)
 ```
-
 ### <a name="f-coluna">Coluna</a>
 Retorna uma lista de elementos que se encontram numa coluna e limita-se a retornar 4 elementos.
 
@@ -349,6 +352,29 @@ Esta função limita-se a ser uma função redundante da função [celula](#f-ce
 
 ;; representação do resultado com coordenadas
 ;; ((0,0) (1,0) (2,0) (3,0))
+```
+
+### <a name="f-colunas">Colunas</a>
+(descrição)
+
+**Limitações**
+Limita-se ao tamanho máximo 4 do número de elementos por coluna, do tabuleiro.
+
+**parametros**
+
+*tab - Tabuleiro*
+
+```lisp
+;; função
+(defun colunas (tab)
+ (cons (coluna 0 tab) (cons (coluna 1 tab) (cons (coluna 2 tab) (cons (coluna 3 tab) nil))))
+)
+
+;; chamada
+(colunas (tabuleiro (tabuleiro-e-pecas)))
+
+;; resultado
+((0 0 0 0) (0 0 0 0) (0 0 0 0) (0 0 0 0))
 ```
 
 ### <a name="f-celula">Celula</a>
@@ -445,6 +471,29 @@ Em contexto, esta função é utilizada para retornar uma diagonal de um tabulei
 
 ;; representação do resultado com coordenadas
 ;; ((3,0) (2,1) (1,2) (0,3))
+```
+
+### <a name="f-colunas">Diagonais</a>
+(descrição)
+
+**Limitações**
+Limita-se ao tamanho máximo 4 do número de elementos por diagonal, do tabuleiro.
+
+**parametros**
+
+*tab - Tabuleiro*
+
+```lisp
+;; função
+(defun diagonais (tab)
+ (cons (diagonal-1 tab) (cons (diagonal-2 tab) nil))
+)
+
+;; chamada
+(diagonais (tabuleiro (tabuleiro-e-pecas)))
+
+;; resultado
+((0 0 0 0) (0 0 0 0))
 ```
 
 ### <a name="f-tabuleiro-ocupado">Tabuleiro-N-Ocupado</a>
@@ -624,6 +673,14 @@ NIL
 Esta função retorna o valor T ou Nil consuante as peças que compara.
 Em contexto do problema, esta função compara duas peças, procurando pelo menos na existencia de um atributo em comum.
 
+**Limitações**
+Todos os elementos em p e p2 são 0 ou lista.
+
+**Parâmetros**
+
+*p - Peça 1*
+*p2 - Peça 2*
+
 ```lisp
 ;; função
 (defun tem-atributo-igual (p p2)
@@ -646,6 +703,80 @@ T
 
 ;; resultado
 NIL
+```
+
+### <a nome="f-conta">Conta-Pecas</a>
+Retorna a contagem de elementos sublista que partilham pelo menos um elemento em comum.
+
+Em contexto, esta função conta quantas peças com pelo menos um atributo em comum possuem, relativamente a uma [linha](#f-linha), [coluna](#f-coluna), [diagonal-1](f-diagonal-1) e [diagonal-2](#f-diagonla-2) do tabuleiro, após aplicado o [filtro](#f-filtro).
+
+***Limitações**
+
+Herda as limitações da função [tem-atributo-igual](#f-atributo-igual).
+
+**Parâmetros**
+
+*l - Lista*
+
+```lisp
+;; função
+(defun conta-pecas (l)
+ (cond 
+  ((null l) 0)
+  ((and (not (null (car l))) (null (cadr l)) 1))
+  ((null (cadr l)) 0)
+  ((tem-atributo-igual (car l) (cadr l)) (1+ (conta-pecas (cdr l))))
+  (t 0)
+ )
+)
+
+;; lista de exemplo
+(defun linha-0 ()
+ '((branca quadrada alta oca) (preta quadrada baixa cheia) 0 (preta quadrada alta oca))
+)
+
+;; chamada
+;; conta númmero de peças que partilhe pelo menos
+;; um atributo em comum
+;; ao chamar a função, a lista é filtrada no perâmetro
+(conta-pecas (filtra #'(lambda (x) (equal 0 x)) (cdr (pecas-1))))
+
+;; resultado
+3
+```
+
+### <a name="f-conta-pecas-tabuleiro">Conta-Pecas-Tabuleiro</a>
+Retorna um lista com a contagem de todas os elementos que partilhem pelo menos um atributo em comum, por linha, coluna e as diagonais.
+
+Em contexto, esta função pretende contar o total de peças por linha, coluna e diagonais, para verificar qual o máximo de peças alinhadas no tabuleiro, sendo o valor 0 o mínimo e o valor 4 o máximo.
+
+**Limitações**
+Esta função limita-se ao tamanho 4, defenido ser o tamanho máximo de cada linha, coluna e diagonais.
+
+**Parâmetros**
+
+*tab - Tabuleiro*
+
+```lisp
+;; função
+(defun conta-pecas-tabuleiro (tab)
+ (cond 
+  ((null tab) (cons 0 nil))
+  (t 
+   (append (mapcar #'conta-pecas (mapcar #'(lambda (l) (funcall #'filtra #'(lambda (x) (equal 0 x)) l)) tab)) 
+   (append (mapcar #'conta-pecas (mapcar #'(lambda (l) (funcall #'filtra #'(lambda (x) (equal 0 x)) l)) (colunas tab))) 
+   (mapcar #'conta-pecas (mapcar #'(lambda (l) (funcall #'filtra #'(lambda (x) (equal 0 x)) l)) (diagonais tab)))))
+  )
+ )
+)
+
+;; chamada
+;; conta o número de peças no tabuleiro, por
+;; linha, coluna e diagonais
+(conta-pecas-tabuleiro (tabuleiro (tabuleiro-e-pecas)))
+
+;; resultado
+(0 0 0 0 0 0 0 0 0 0)
 ```
 
 ### <a name="f-px">Px</a>

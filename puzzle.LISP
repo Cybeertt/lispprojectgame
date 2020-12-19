@@ -128,6 +128,20 @@
 )
 )
 
+;; colunas
+;; tab - tabuleiro
+;; retorna todos os elementos por colunas do tabuleiro
+(defun colunas (tab)
+(cons (coluna 0 tab) (cons (coluna 1 tab) (cons (coluna 2 tab) (cons (coluna 3 tab) nil))))
+)
+
+;; diagonais
+;; tab - tabuleiro
+;; retorna todos os elementos das diagonais do tabuleiro
+(defun diagonais (tab)
+(cons (diagonal-1 tab) (cons (diagonal-2 tab) nil))
+)
+
 ;; tabuleiro-n-ocupado
 ;; r - row; c - coluna; t - tabuleiro
 ;; retorna nil se r inferior a 0 ou c iinferior a 0 ou tab vazia
@@ -177,7 +191,7 @@
 )
 )
 
-;; comparar atributos recursivo
+;; tem-atributo-igual
 ;; p - peca 1
 ;; p2 - peca 2
 (defun tem-atributo-igual (p p2)
@@ -199,6 +213,21 @@
 ((null (cadr l)) 0)
 ((tem-atributo-igual (car l) (cadr l)) (1+ (conta-peca (cdr l))))
 (t 0)
+)
+)
+
+;; conta-pecas-tabuleiro
+;; tab - tabuleiro
+;; retorna lista com contagem de pecas com pelo menos 1 attributo igual
+;; limitações: tabuleiro 4x4
+(defun conta-pecas-tabuleiro (tab)
+(cond 
+((null tab) (cons 0 nil))
+(t 
+(append (mapcar #'conta-pecas (mapcar #'(lambda (l) (funcall #'filtra #'(lambda (x) (equal 0 x)) l)) tab)) 
+(append (mapcar #'conta-pecas (mapcar #'(lambda (l) (funcall #'filtra #'(lambda (x) (equal 0 x)) l)) (colunas tab))) 
+(mapcar #'conta-pecas (mapcar #'(lambda (l) (funcall #'filtra #'(lambda (x) (equal 0 x)) l)) (diagonais tab)))))
+)
 )
 )
 
