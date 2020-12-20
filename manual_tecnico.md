@@ -50,7 +50,13 @@ Neste manual encontram-se explicações sobre o jogo, como o iniciar, a estrutur
 * [Glossário](#doc-glossario)
 
 ## <a name="doc-abstract">Abstrato</a>
-(sobre o jogo e o propósito do projeto e o contexto na cadeira)
+Este projeto tem com o intuito de aplicar conenhecimentos adquiridos no ambito da cadeira curricular IA e realizar uma análise entre os algoritmos de procura para os diferentes estados do jogo Quatro.
+
+Quatro, é um jogo que contém um tabuleiro 4x4 e 16 peças com quatro carateristicas. Cada carateristica utiliza dois valores possíveis, tal como um sistema binário, permitindo a facilidade de fazer combinações de 16 peças que tenham pelo menos uma carateristica em comum.
+
+Quatro é um jogo sequêncial disputado por 2 jogadores, num tabuleiro 4x4 e 16 peças com
+
+O jogo é jogo acaba quando se alinha 4 peças com a mesma carateristica, no entanto cada tu  
 
 ## <a name="doc-estrutura">Estrutura do Projeto</a>
 O projeto encontra-se distribuído por 3 ficheiros principais: ***project.LISP***, ***puzzle.LISP*** e ***procura.LISP***.
