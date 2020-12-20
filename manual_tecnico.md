@@ -50,13 +50,18 @@ Neste manual encontram-se explicações sobre o jogo, como o iniciar, a estrutur
 * [Glossário](#doc-glossario)
 
 ## <a name="doc-abstract">Abstrato</a>
-Este projeto tem com o intuito de aplicar conenhecimentos adquiridos no ambito da cadeira curricular IA e realizar uma análise entre os algoritmos de procura para os diferentes estados do jogo Quatro.
+Este projeto tem com o intuito de aplicar conhecimentos adquiridos no ambito da cadeira curricular IA e realizar uma análise entre os algoritmos de procura para os diferentes estados do jogo Quatro.
 
-Quatro, é um jogo que contém um tabuleiro 4x4 e 16 peças com quatro carateristicas. Cada carateristica utiliza dois valores possíveis, tal como um sistema binário, permitindo a facilidade de fazer combinações de 16 peças que tenham pelo menos uma carateristica em comum.
+Quatro, é um jogo que contém um tabuleiro 4x4 e 16 peças com quatro carateristicas. Cada carateristica de uma peça utiliza dois valores possíveis, tal como um sistema binário, permitindo fazer combinações de 16 peças. Por norma uma peça tem 14 peças com pelo menos uma carateristica em comum e 1 peça sem qualquer carateristica em comum.
 
-Quatro é um jogo sequêncial disputado por 2 jogadores, num tabuleiro 4x4 e 16 peças com
+Quatro, é um jogo sequêncial disputado por 2 competidores.
+O jogo é realizado num tabuleiro 4x4 e 16 peças com 4 carateristicas.
 
-O jogo é jogo acaba quando se alinha 4 peças com a mesma carateristica, no entanto cada tu  
+A cada turno, a peça é sempre escolhida pelo adversário que tem como missão entregar a peça com menos atributos iguais às peças que atualmente se encontram no tabuleiro.
+
+O Quatro finaliza quando um jogador consegue alinhar 4 peças com pelo menos uma carateristica em comum, seja na vertical, horizontal ou diagonal, independentemente da direção.
+
+Nesta versão do manual, o Quatro é apenas jogado disputado por dois competidores humanos que informam as suas jogadas através da consola.
 
 ## <a name="doc-estrutura">Estrutura do Projeto</a>
 O projeto encontra-se distribuído por 3 ficheiros principais: ***project.LISP***, ***puzzle.LISP*** e ***procura.LISP***.
