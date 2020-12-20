@@ -247,8 +247,8 @@
 (defun mostra-tabuleiro (tab)
 (let ((seperator "_________________________________________________________________________________________________________________________"))
 (format nil "~%TABULEIRO~%~A~%~A~%~A~%~A~%~A~%~A~%~%" 
-seperator (print-row 0 tab) (print-row 1 tab) 
-(print-row 2 tab) (print-row 3 tab) seperator)
+seperator (mostra-linha 0 tab) (mostra-linha 1 tab) 
+(mostra-linha 2 tab) (mostra-linha 3 tab) seperator)
 )
 )
 
@@ -261,3 +261,4 @@ seperator (print-row 0 tab) (print-row 1 tab)
 (extrai-n 2 li) (extrai-n 3 li))
 )
 )
+
