@@ -916,8 +916,8 @@ A função apresenta as mesmas limitações que a função [Mostrar-Linha](#f-mo
 (defun mostra-tabuleiro (tab)
  (let ((seperator "_________________________________________________________________________________________________________________________"))
   (format nil "~%TABULEIRO~%~A~%~A~%~A~%~A~%~A~%~A~%~%" 
-  seperator (print-row 0 tab) (print-row 1 tab) 
-  (print-row 2 tab) (print-row 3 tab) seperator)
+  seperator (mostra-linha 0 tab) (mostra-linha 1 tab) 
+  (mostra-linha 2 tab) (mostra-linha 3 tab) seperator)
  )
 )
 ```
@@ -1023,6 +1023,7 @@ O tabuleiro contém uma peça p numa dada coordenada (r, c) e é removida da res
 (0 0 0 0) (0 0 0 0) (0 0 0 0))
 
 ;; chamada
+;; coloca peça aleatória numa coordenada aleatória
 (coloca-peca-no-tabuleiro 
 (nova-jogada (tabulerio (tabueiro-e-pecas)) 
 (nova-jogada (car (tabulerio (tabueiro-e-pecas)))) 
@@ -1055,6 +1056,7 @@ Preencher tabuleiro doo teste anterior.
 (0 0 0 0) (0 0 0 0) (0 0 0 0))
 
 ;; chamada
+;; coloca peça aleatória numa coordenada aleatória
 (coloca-peca-no-tabuleiro 
 (nova-jogada (tabulerio (tabueiro-e-pecas)) 
 (nova-jogada (car (tabulerio (tabueiro-e-pecas)))) 
