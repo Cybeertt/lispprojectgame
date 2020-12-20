@@ -240,3 +240,24 @@
 (t (max (car l) (px (cdr l))))
 )
 )
+
+;; mostra-tabuleiro
+;; tab - tabuleiro
+;; retorna string com o estado atual do tabuleiro, formatada como tabela
+(defun mostra-tabuleiro (tab)
+(let ((seperator "_________________________________________________________________________________________________________________________"))
+(format nil "~%TABULEIRO~%~A~%~A~%~A~%~A~%~A~%~A~%~%" 
+seperator (print-row 0 tab) (print-row 1 tab) 
+(print-row 2 tab) (print-row 3 tab) seperator)
+)
+)
+
+;; mostra-linha
+;; i - indice; l - lista
+;; retorna uma lista formatada com separadores
+(defun mostra-linha (i l)
+(let* ((li (linha i l)) (rows "| ~A | ~A | ~A | ~A |"))
+(format nil rows (extrai-n 0 li) (extrai-n 1 li) 
+(extrai-n 2 li) (extrai-n 3 li))
+)
+)
