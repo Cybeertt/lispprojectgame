@@ -40,6 +40,8 @@ Neste manual encontram-se explicações sobre o jogo, como o iniciar, a estrutur
   * [Conta-Pecas](#f-conta)
   * [Conta-Pecas-No-Tabuleiro](#f-conta-tabuleiro)
   * [Px](#f-px)
+  * [Mostra-Linha](#f-mostra-linha)
+  * [Mostra-Tabuleiro](#f-mostra-tabuleiro)
 * [Demostrações](#demo)
   * [Inserir Peça](#demo-1)
     * [Tabuleiro Vazio](#demo-11)
@@ -61,22 +63,26 @@ A cada turno, a peça é sempre escolhida pelo adversário que tem como missão 
 
 O Quatro finaliza quando um jogador consegue alinhar 4 peças com pelo menos uma carateristica em comum, seja na vertical, horizontal ou diagonal, independentemente da direção.
 
-Nesta versão do manual, o Quatro é apenas jogado disputado por dois competidores humanos que informam as suas jogadas através da consola.
+Nesta versão do manual, o Quatro é apenas disputado por dois competidores humanos que informam as suas jogadas através da consola.
 
 ## <a name="doc-estrutura">Estrutura do Projeto</a>
-O projeto encontra-se distribuído por 3 ficheiros principais: ***project.LISP***, ***puzzle.LISP*** e ***procura.LISP***.
+O projeto encontra-se distribuído por 3 ficheiros principais: ***projecto.LISP***, ***puzzle.LISP*** e ***procura.LISP***.
 
-O ficheiro ***project.LISP*** contém o código fonte que inicializa o jogo.
+O ficheiro ***projecto.LISP*** contém o código fonte que inicializa o jogo.
 
 O ficheiro ***puzzle.LISP*** contém o código fonte utilizado para criar e modificar o jogo.
 
 O ficheiro ***procura.LISP*** contém todos os algoritmos de procura utilizados no jogo e é definido como pacote **algo**.
 
-Ao abrir o ficheiro ***procura.LISP***, por este ser um pacote, o IDE LispWorks pede sempre para criar o pacote no IDE.
+Ao abrir o ficheiro ***procura.LISP***, por este ser um pacote, o IDE LispWorks pede sempre para criar o pacote no IDE. Todo este processo é responsabilidade do IDE e é automático.
 
-Em conjunto com os 3 ficheiros acima indicados, também encontram-se em anexo os Manuais de Utilizador e este manual.
+Em conjunto com os 3 ficheiros acima indicados, também se encontram em anexo os ***manual de utilizador*** e ***problemas.dat***.
 
-O manual de utilizador apenas contém uma breve explicação sobre o jogo e como o iniciar.
+O ***manual de utilizador*** apenas contém uma breve explicação sobre o jogo e como o iniciar.
+
+O ***problemas.dat*** contém em formato de lista em Commun Lisp, uma série de tabuleiros com peças em situações diferentes. 
+
+Este ficheiro guarda vários tabuleiros com peças pré-colocadas. Cada tabuleiro será selecionado para continuar o jogo no tabuleiro atual.
 
 ## <a name="doc-func">Documentação de Funções</a>
 
@@ -148,7 +154,7 @@ a escolha aleatória de uma peça.
 (PRETA REDONDA ALTA CHEIA)
 ```
 
-### <a name="f-tabuleiro-pecas">Tabuleiro-E-Pecas</a>
+#### <a name="f-tabuleiro-pecas">Tabuleiro-E-Pecas</a>
 Retorna uma lista com duas listas.
 
 Uma lista 4x4 com elementos de valor zero e outra com 16 elementos do tipo lista com 4 carateristicas, representando peças.
@@ -858,6 +864,105 @@ Em contexto do problema, esta função retorna a contagem máxima de peças com 
 
 ;; resultado
 0
+```
+
+### <a name="f-mostra-linha">Mostra-Linha</a>
+Esta função retorna a formatação de uma lista em string.
+
+Em contexto, esta função permite ilustrar melhor os espaços do tabuleiro com e sem peças numa linha.
+
+**Limitações**
+
+A função limita-se a considerar o número máximo de elementos por linha, que é 4.
+
+**Parâmatros**
+
+*i - Indice*
+
+*l - Lista*
+
+```lisp
+;; função
+(defun mostra-linha (i l)
+ (let* ((li (linha i l)) (rows "| ~A | ~A | ~A | ~A |"))
+  (format nil rows (extrai-n 0 li) (extrai-n 1 li) 
+  (extrai-n 2 li) (extrai-n 3 li))
+ )
+)
+```
+
+```lisp
+;; chamada
+(mostra-linha 0 (tabuleiro (tabuleiro-e-pecas)))
+
+;; resultado
+"| 0 | 0 | 0 | 0 |"
+```
+
+### <a name="f-mostra-tabela">Mostra-Tabela</a>
+Esta função retorna a formatação de uma lista com sublistas em string.
+
+Em contexto, esta função permite ilustrar melhor os espaços de um tabuleiro com e sem peças.
+
+**Limitações**
+A função apresenta as mesmas limitações que a função [Mostrar-Linha](#f-mostra-linha).
+
+**Parâmetros**
+
+*tab - Tabuleiro*
+
+```lisp
+;; função
+(defun mostra-tabuleiro (tab)
+ (let ((seperator "_________________________________________________________________________________________________________________________"))
+  (format nil "~%TABULEIRO~%~A~%~A~%~A~%~A~%~A~%~A~%~%" 
+  seperator (print-row 0 tab) (print-row 1 tab) 
+  (print-row 2 tab) (print-row 3 tab) seperator)
+ )
+)
+```
+
+```lisp
+;; chamada
+;; mostra tabuleiro vazio
+ (mostra-tabuleiro (tabuleiro (tabuleiro-e-pecas)))
+
+;; resultado
+"
+TABULEIRO
+_________________________________________________________________________________________________________________________
+| 0 | 0 | 0 | 0 |
+| 0 | 0 | 0 | 0 |
+| 0 | 0 | 0 | 0 |
+| 0 | 0 | 0 | 0 |
+_________________________________________________________________________________________________________________________
+
+"
+
+;; lista 
+;; tabuleiro de exemplo
+(defun tabuleiro-exemplo ()
+ '(((branca quadrada alta oca) (preta quadrada baixa cheia) 0 (preta quadrada alta oca))
+((branca redonda alta oca) (preta redonda alta oca) (branca redonda alta cheia) 0) 
+(0 (preta redonda alta cheia) (preta redonda baixa cheia) 0) 
+((branca redonda baixa oca) (branca quadrada alta cheia) (preta redonda baixa oca) (branca quadrada baixa cheia)))
+)
+
+;; chamada
+;; mostra tabuleiro preenchido
+(mostra-tabuleiro (tabuleiro-exemplo))
+
+;; resultado
+"
+TABULEIRO
+_________________________________________________________________________________________________________________________
+| (BRANCA QUADRADA ALTA OCA) | (PRETA QUADRADA BAIXA CHEIA) | 0 | (PRETA QUADRADA ALTA OCA) |
+| (BRANCA REDONDA ALTA OCA) | (PRETA REDONDA ALTA OCA) | (BRANCA REDONDA ALTA CHEIA) | 0 |
+| 0 | (PRETA REDONDA ALTA CHEIA) | (PRETA REDONDA BAIXA CHEIA) | 0 |
+| (BRANCA REDONDA BAIXA OCA) | (BRANCA QUADRADA ALTA CHEIA) | (PRETA REDONDA BAIXA OCA) | (BRANCA QUADRADA BAIXA CHEIA) |
+_________________________________________________________________________________________________________________________
+
+"
 ```
 
 ## <a name="demo">Demostrações</a>
