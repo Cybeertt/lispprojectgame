@@ -53,13 +53,15 @@ Neste manual encontram-se explicações sobre o jogo, como o iniciar, a estrutur
 (sobre o jogo e o propósito do projeto e o contexto na cadeira)
 
 ## <a name="doc-estrutura">Estrutura do Projeto</a>
-O projeto encontra-se distribuído por 3 ficheiros principais: project.LISP, puzzle.LISP e algorithm.LISP.
+O projeto encontra-se distribuído por 3 ficheiros principais: ***project.LISP***, ***puzzle.LISP*** e ***procura.LISP***.
 
-O ficheiro "project.LISP" contém o código fonte que inicializa o jogo.
+O ficheiro ***project.LISP*** contém o código fonte que inicializa o jogo.
 
-O ficheiro "puzzle.LISP" contém o código fonte utilizado para criar e modificar o jogo.
+O ficheiro ***puzzle.LISP*** contém o código fonte utilizado para criar e modificar o jogo.
 
-O ficheiro "algorithm.LISP" contém todos os algoritmos de procura utilizados no jogo.
+O ficheiro ***procura.LISP*** contém todos os algoritmos de procura utilizados no jogo e é definido como pacote **algo**.
+
+Ao abrir o ficheiro ***procura.LISP***, por este ser um pacote, o IDE LispWorks pede sempre para criar o pacote no IDE.
 
 Em conjunto com os 3 ficheiros acima indicados, também encontram-se em anexo os Manuais de Utilizador e este manual.
 
@@ -88,7 +90,9 @@ Em contexto do problema, esta função auxilia a escolha aleatória da posição
 (defun nova-jogada (l)
  (random (length l))
 )
+```
 
+```lisp
 ;; chamada
 ;; gera uma posição linha
 (nova-jogada (tabuleiro (tabuleiro-e-pecas)))
@@ -172,7 +176,9 @@ Uma lista 4x4 com elementos de valor zero e outra com 16 elementos do tipo lista
   )
  )
 )
+```
 
+```lisp
 ;; chamada
 ;; retorna tabuleiro e peças
 (tabuleiro-e-pecas)
@@ -198,7 +204,9 @@ O espaço do tabuleiro é representado por 0, quando a posição encontra-se vaz
   (t (car l))
  )
 )
+```
 
+```lisp
 ;; chamada
 ;; extrai só o tabuleiro
 (tabuleiro (tabuleiro-e-pecas))
@@ -224,7 +232,9 @@ Esta lista contém todas as peças utilizadas no jogo. Cada peça é uma lista c
   (t (cadr l))
  )
 )
+```
 
+```lisp
 ;; chamada
 ;; extrai só as peças
 (reserva (tabuleiro-e-pecas))
@@ -259,7 +269,9 @@ Esta função tem como propósito simular a função Peek.
   (t (extrai-n (1- i) (cdr l)))
  )
 )
+```
 
+```lisp
 ;; chamada
 ;; extrai do tabuleiro a posição -1
 (extrai-n -1 (tabuleiro (tabuleiro-e-pecas)))
@@ -292,7 +304,7 @@ NIL
 ### <a name="f-linha">Linha</a>
 Retorna uma lista com elementos que se encontram numa linha.
 
-Esta função limita-se a ser uma função redundante da função [extrai-n](#f-extrai-n) para aumentar legibilidade do código.
+Esta função limita-se a ser uma função redundante da função [extrai-n](#f-extrai) para aumentar legibilidade do código.
 
 **Parametros**
 
@@ -305,7 +317,9 @@ Esta função limita-se a ser uma função redundante da função [extrai-n](#f-
 (defun linha (r tab)
  (extrai-n r tab)
 )
+```
 
+```lisp
 ;; chamada
 ;; extrai a peça na linha 0
 (linha 0 (reserva (tabuleiro-e-pecas)))
@@ -342,7 +356,9 @@ Esta função limita-se a ser uma função redundante da função [celula](#f-ce
   (t (cons (celula 0 c tab) (cons (celula 1 0 tab) (cons (celula 2 c tab) (cons (celula 3 c tab) nil)))))
  )
 )
+```
 
+```lisp
 ;; chamada
 ;; extrai coluna na posição 0
 (coluna 0 (tabuleiro (tabuleiro-e-pecas)))
@@ -369,7 +385,9 @@ Limita-se ao tamanho máximo 4 do número de elementos por coluna, do tabuleiro.
 (defun colunas (tab)
  (cons (coluna 0 tab) (cons (coluna 1 tab) (cons (coluna 2 tab) (cons (coluna 3 tab) nil))))
 )
+```
 
+```lisp
 ;; chamada
 (colunas (tabuleiro (tabuleiro-e-pecas)))
 
@@ -380,7 +398,7 @@ Limita-se ao tamanho máximo 4 do número de elementos por coluna, do tabuleiro.
 ### <a name="f-celula">Celula</a>
 Retorna um elementos que se encontram numa linha e coluna.
 
-Esta função limita-se a ser uma função redundante da função [extrai-n](#f-extrai-n) para aumentar legibilidade do código.
+Esta função limita-se a ser uma função redundante da função [extrai-n](#f-extrai) para aumentar legibilidade do código.
 
 **Parametros**
 
@@ -395,7 +413,9 @@ Esta função limita-se a ser uma função redundante da função [extrai-n](#f-
 (defun celula (r c tab)
  (extrai-n c (extrai-n r tab))
 )
+```
 
+```lisp
 ;; chamada
 ;; extrai das peças, o elemento na coordenada (0,0)
 (celula 0 0 (reserva (tabuleiro-e-pecas)))
@@ -430,7 +450,9 @@ Em contexto, esta função é utilizada para retornar uma diagonal de um tabulei
   (t (cons (celula 0 0 tab) (cons (celula 1 1 tab) (cons (celula 2 2 tab) (cons (celula 3 3 tab) nil)))))
  )
 )
+```
 
+```lisp
 ;; chamada
 ;; retorna uma lista com as posições diagonal
 ;; com a orientação da topo-esquerda para a direita
@@ -460,7 +482,9 @@ Em contexto, esta função é utilizada para retornar uma diagonal de um tabulei
   (t (cons (celula 3 0 tab) (cons (celula 2 1 tab) (cons (celula 1 2 tab) (cons (celula 0 3 tab) nil)))))
  )
 )
+```
 
+```lisp
 ;; chamada
 ;; retorna uma lista com as posições diagonal
 ;; com a orientação da fundo-esquerda para a direita
@@ -488,7 +512,9 @@ Limita-se ao tamanho máximo 4 do número de elementos por diagonal, do tabuleir
 (defun diagonais (tab)
  (cons (diagonal-1 tab) (cons (diagonal-2 tab) nil))
 )
+```
 
+```lisp
 ;; chamada
 (diagonais (tabuleiro (tabuleiro-e-pecas)))
 
@@ -516,7 +542,9 @@ Uma posição encontra-se vazia, se na posição (r, c), o valor é 0.
   (t (listp (celula r c tab)))
  )
 )
+```
 
+```lisp
 ;; chamada
 ;; verifica se o tabuleiro nas coordenadas (0,1) 
 ;; encontra-se ocupado
@@ -561,7 +589,9 @@ Em contexto, esta função permite remover um elemento da lista de reserva desde
   (t (cons (car l) (remove-peca pred p (cdr l))))
  )
 )
+```
 
+```lisp
 ;; chamada
 ;; remove todas as peças da lista que seja igual à ;; peça do indice 0 da lista de reservas
 (remove-peca #'(lambda (p x) (equal p x)) (linha 0 (reserva (tabuleiro-e-pecas))) (reserva (tabuleiro-e-pecas)))
@@ -598,7 +628,9 @@ Não compatível com elementos sublista.
   (t (cons (car l) (filtra pred (cdr l))))
  )
 )
+```
 
+```lisp
 ;; chamada
 ;; filtra linha 0 do tabuleiro vazio
 (filtra #'(lambda (x) (equal 0 x)) (linha 0   (tabuleiro (tabuleiro-e-pecas))))
@@ -651,7 +683,9 @@ Em contexto, esta função permite substituir um elemento do tabuleiro que se en
   )
  )
 )
+```
 
+```lisp
 ;; chamada
 ;; insere peça na posição 0 nas coordenadas (0,0)
 ;; do tabuleiro
@@ -690,7 +724,9 @@ Todos os elementos em p e p2 são 0 ou lista.
   (t T)
  )
 )
+```
 
+```lisp
 ;; chamada
 (tem-atributo-igual (tem-atributo-igual (extrai-n 0 (reserva (tabuleiro-e-pecas))) (extrai-n 0 (reserva (tabuleiro-e-pecas)))))
 
@@ -729,7 +765,9 @@ Herda as limitações da função [tem-atributo-igual](#f-atributo-igual).
   (t 0)
  )
 )
+```
 
+```lisp
 ;; lista de exemplo
 (defun linha-0 ()
  '((branca quadrada alta oca) (preta quadrada baixa cheia) 0 (preta quadrada alta oca))
@@ -769,7 +807,9 @@ Esta função limita-se ao tamanho 4, defenido ser o tamanho máximo de cada lin
   )
  )
 )
+```
 
+```lisp
 ;; chamada
 ;; conta o número de peças no tabuleiro, por
 ;; linha, coluna e diagonais
@@ -791,14 +831,18 @@ Em contexto do problema, esta função retorna a contagem máxima de peças com 
   (t (max (car l) (px (cdr l))))
  )
 )
+```
 
+```lisp
 ;; chamada
+;; retorna o valor maior da lista
 (px '(0 1 1 2 3 0 1 3 0 1 3 4 2 2))
 
 ;; resultado
 4
 
 ;; chamada
+;; retorna o valor maior da lista
 (px '(0 0 0))
 
 ;; resultado
