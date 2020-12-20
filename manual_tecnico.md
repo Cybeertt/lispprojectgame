@@ -964,6 +964,260 @@ ________________________________________________________________________________
 
 "
 ```
+### <a name="f-ler-tabuleiro">Ler-Tabuleiro</a>
+Esta função retorna valor correspondente ao valor do intervalo [1,8]. Caso o valor introduzido esteja fora do intervalo acima indicado, a função repete até obter um valor possível.
+
+Em contexto, esta função permite selecionar até 8 tabuleiros diferentes para jogar, retornando o nome da função do tabuleiro correspondente ao número inserido.
+
+**Parâmetros**
+
+Nenhum
+
+```lisp
+;; função
+(defun ler-tabuleiro ()
+ (progn
+  (format t "Selecione o tabuleiro a usar~%")
+  (format t "1 - Tabuleiro A~%")
+  (format t "2 - Tabuleiro B~%")
+  (format t "3 - Tabuleiro C~%")
+  (format t "4 - Tabuleiro D~%")
+  (format t "5 - Tabuleiro E~%")
+  (format t "6 - Tabuleiro F~%")
+  (format t "7 - Tabuleiro Vazio~%")
+  (format t "8 - Tabuleiro Teste~%")
+
+  (let ((escolha (read)))
+   (cond 
+    ((= escolha 1) 'tabuleiro-a) ;; A
+    ((= escolha 2) 'tabuleiro-b) ;; B
+    ((= escolha 3) 'tabuleiro-c) ;; C
+    ((= escolha 4) 'tabuleiro-d) ;; D
+    ((= escolha 5) 'tabuleiro-e) ;; E
+    ((= escolha 6) 'tabuleiro-f) ;; F
+    ((= escolha 7) 'tabuleiro-v) ;; vazio
+    ((= escolha 8) 'tabuleiro-f) ;; extra
+    (t (format t "Escolha invalida~%~%") (ler-tabuleiro))
+   )
+  )
+ )
+)
+```
+
+```lisp
+;; chamada
+;; lê e retorna o nome da função que retorna o 
+;; tabuleiro correspondente
+(ler-tabuleiro)
+
+;; resultado
+Selecione o tabuleiro a usar
+1 - Tabuleiro A
+2 - Tabuleiro B
+3 - Tabuleiro C
+4 - Tabuleiro D
+5 - Tabuleiro E
+6 - Tabuleiro F
+7 - Tabuleiro Vazio
+8 - Tabuleiro Teste
+7
+TABULEIRO-V
+
+;; chamada
+;; lê valores negativo e acima do 8
+(ler-tabuleiro)
+
+;; resultado
+Selecione o tabuleiro a usar
+1 - Tabuleiro A
+2 - Tabuleiro B
+3 - Tabuleiro C
+4 - Tabuleiro D
+5 - Tabuleiro E
+6 - Tabuleiro F
+7 - Tabuleiro Vazio
+8 - Tabuleiro Teste
+-1
+Escolha invalida
+
+Selecione o tabuleiro a usar
+1 - Tabuleiro A
+2 - Tabuleiro B
+3 - Tabuleiro C
+4 - Tabuleiro D
+5 - Tabuleiro E
+6 - Tabuleiro F
+7 - Tabuleiro Vazio
+8 - Tabuleiro Teste
+9
+Escolha invalida
+
+Selecione o tabuleiro a usar
+1 - Tabuleiro A
+2 - Tabuleiro B
+3 - Tabuleiro C
+4 - Tabuleiro D
+5 - Tabuleiro E
+6 - Tabuleiro F
+7 - Tabuleiro Vazio
+8 - Tabuleiro Teste
+4
+TABULEIRO-D
+
+;; observações do resultado
+;; repete a função até receber um dos valores esperados
+```
+
+### <a name="f-ler-mostra-tabuleiro">Ler-Mostra-Tabuleiro</a>
+(desc)
+
+**Parâmetros**
+
+Nenhum
+
+```lisp
+
+```
+
+### <a name="f-ler-procura">Ler-Algoritmo-Procura</a>
+Esta função retorna valor correspondente ao valor do intervalo [1,3]. Caso o valor introduzido esteja fora do intervalo acima indicado, a função repete até obter um valor possível.
+
+Em contexto, esta função permite selecionar até 3 algoritmos de prócura diferentes utilizados no jogo, retornando o nome da função do algoritmo correspondente ao número inserido.
+
+**Parâmetros**
+
+Nenhum
+
+```lisp
+(defun ler-algoritmo-procura ()
+ (progn
+  (format t "Selecione o algoritmo de procura a usar~%")
+  (format t "1 - Procura na largura~%")
+  (format t "2 - Procura na profundidade~%")
+  (format t "3 - A*~%")
+
+  (let ((escolha (read)))
+   (cond
+    ((= escolha 1) 'bfs)
+    ((= escolha 2) 'dfs)
+    ((= escolha 3) 'a-star)
+    (t (format t "Escolha invalida~%~%") (ler-algoritmo-procura))
+   )
+  )
+ )
+)
+```
+
+```lisp
+;; chamada
+;; lê e retorna o nome da função que retorna o 
+;; tabuleiro correspondente
+(ler-algoritmo-procura)
+
+;; resultado
+Selecione o algoritmo de procura a usar
+1 - Procura na largura
+2 - Procura na profundidade
+3 - A*
+3
+A-STAR
+
+;; chamada
+;; lê valores negativo e acima do 3
+(ler-algoritmo-procura)
+
+;; resultado
+Selecione o algoritmo de procura a usar
+1 - Procura na largura
+2 - Procura na profundidade
+3 - A*
+-1
+Escolha invalida
+Selecione o algoritmo de procura a usar
+1 - Procura na largura
+2 - Procura na profundidade
+3 - A*
+4
+Escolha invalida
+Selecione o algoritmo de procura a usar
+1 - Procura na largura
+2 - Procura na profundidade
+3 - A*
+2
+DFS
+
+;; observações do resultado
+;; repete a função até receber um dos valores esperados
+```
+
+### <a name="f-ler-profundidade">Ler-Profundidade</a>
+Esta função retorna um valor dentro do intervalo [0,999]. Caso o valor introduzido esteja fora do intervalo acima indicado, a função repete até obter um valor possível.
+
+Em contexto, esta função permite informar qual a profundidade relativa ao algoritmo de prócura Depth-First Search  (DFS), utilizado no jogo, retornando o valor válido inserido.
+
+**Parâmetros**
+
+Nenhum
+
+```lisp
+;; função
+(defun ler-profundidade ()
+ (progn
+  (format t "Insira a profundidade limite~%")
+  (let ((escolha (read)))
+   (cond
+    ((and (numberp escolha) (and (> escolha -1) (< escolha 1000))) escolha)
+    (t (format t "Valor invalido~%~%") (ler-profundidade))
+   )
+  )
+ )
+)
+```
+```lisp
+;; chamada
+;; lê e retorna o valor da profundidade dentro
+;; do intervalo [1, 999]
+(ler-profundidade)
+
+;; resultado
+Insira a profundidade limite
+14
+14
+
+;; chamada
+;; lê e retorna o valor da profundidade fora
+;; do intervalo [1, 999]
+(ler-profundidade)
+
+;; resultado
+Insira a profundidade limite
+-1
+Valor invalido
+
+Insira a profundidade limite
+1000
+Valor invalido
+
+Insira a profundidade limite
+999
+999
+
+;; observações do resultado
+;; repete a função até receber um dos valores esperados
+```
+
+### <a name="f-consola">Consola</a>
+Esta função permite criar um meio de interação entre o utilizador e o jogo através da leitura de input.
+
+Em contexto, esta função chama todas as funções de leitura de input [ler-tabuleiro](#f-ler-tabuleiro), [ler-mostra-tabuleiro](#f-ler-mostra-tabuleiro), [ler-procura](#f-ler-procura), [ler-profundidade](#f-ler-profundidade) e permite iniciar o jogo.
+
+**Parâmetros**
+
+Nenhum
+
+```lisp
+
+```
 
 ## <a name="demo">Demostrações</a>
 Coloca aleatóriamente uma peça aleatória, num dos espaços do tabuleiro, três vezes.

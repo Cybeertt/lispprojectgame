@@ -262,3 +262,70 @@ seperator (mostra-linha 0 tab) (mostra-linha 1 tab)
 )
 )
 
+;; ler-tabuleiro
+;; referencia: laboratorio 6
+;; lê o valor inserido correspondente ao tabuleiro 
+;; e retorna-o
+;; caso o valor seja diferente do esperado, repete
+(defun ler-tabuleiro ()
+(progn
+(format t "Selecione o tabuleiro a usar~%")
+(format t "1 - Tabuleiro A~%")
+(format t "2 - Tabuleiro B~%")
+(format t "3 - Tabuleiro C~%")
+(format t "4 - Tabuleiro D~%")
+(format t "5 - Tabuleiro E~%")
+(format t "6 - Tabuleiro F~%")
+(format t "7 - Tabuleiro Vazio~%")
+(format t "8 - Tabuleiro Teste~%")
+
+(let ((escolha (read)))
+(cond 
+((= escolha 1) 'tabuleiro-a)
+((= escolha 2) 'tabuleiro-b)
+((= escolha 3) 'tabuleiro-c)
+((= escolha 4) 'tabuleiro-d)
+((= escolha 5) 'tabuleiro-e)
+((= escolha 6) 'tabuleiro-f)
+((= escolha 7) 'tabuleiro-v)
+((= escolha 8) 'tabuleiro-f);; novo problema
+(t (format t "Escolha invalida~%~%") (ler-tabuleiro))
+)
+)
+)
+)
+
+;; ler-algoritmo-procura
+;; referencia: laboratorio 6
+(defun ler-algoritmo-procura ()
+(progn
+(format t "Selecione o algoritmo de procura a usar~%")
+(format t "1 - Procura na largura~%")
+(format t "2 - Procura na profundidade~%")
+(format t "3 - A*~%")
+
+(let ((escolha (read)))
+(cond
+((= escolha 1) 'bfs)
+((= escolha 2) 'dfs)
+((= escolha 3) 'a-star)
+(t (format t "Escolha invalida~%~%") (ler-algoritmo-procura))
+)
+)
+)
+)
+
+;; ler-profundidade
+;; referencia: laboratorio 6
+(defun ler-profundidade ()
+(progn
+(format t "Insira a profundidade limite~%")
+(let ((escolha (read)))
+(cond
+((and (numberp escolha) (and (> escolha -1) (< escolha 1000))) escolha)
+(t (format t "Valor invalido~%~%") (ler-profundidade))
+)
+)
+)
+)
+
