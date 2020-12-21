@@ -19,14 +19,7 @@
   )
 
 (defun operadores()
-  (list 'operate:tabuleiro-e-pecas 
-   'operate:tabuleiro 'operate:reserva 'operate:linha
-   'operate:coluna 'operate:celula 'operate:diagonal-1 
-   'operate:diagonal-2 'operate:tabuleiro-n-ocupado
-   'operate:coloca-peca-no-tabuleiro 
-   'operate:tem-atributo-igual 'operate:conta-pecas-tabuleiro
-   'operate:conta-pecas 'operate:px 'operate:extrai-n 'operate:remove-peca 
-   'operate:filtra 'operate:tabuleiro-cheio ))
+  (list 'operate:testeprocura))
 
 (defun novo-sucessor (teste x)
   (let ((novo-estado (funcall x (no-estado teste))))
@@ -58,7 +51,7 @@
   (COND 
    ;((OR (= 1 (car (car teste))) (= 1 (cadr (car teste)))) T)
    ((or (operate:tabuleiro-cheio (operate:reserva teste))
-    (px (operate:conta-pecas-tabuleiro (operate:tabuleiro teste))))
+    (= 4 (px (operate:conta-pecas-tabuleiro (operate:tabuleiro teste)))))
          T) 
    (T NIL)
    )
