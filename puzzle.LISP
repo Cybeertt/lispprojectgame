@@ -296,6 +296,19 @@ seperator (mostra-linha 0 tab) (mostra-linha 1 tab)
       (do ((prob (read s) (read s nil 'eof))) ((eq prob 'eof) problems)
         (setq problems (cons prob problems))))))
 
+(defun ler-ficheiro ()
+(progn
+(format t "Qual o ficheiro com problemas a usar?~%")
+
+(let ((ficheiro (read)))
+(cond
+((null ficheiro) "problemas.dat")
+(t ficheiro)
+)
+)
+)
+)
+
 ;; ler-tabuleiro
 ;; referencia: laboratorio 6
 ;; lê o valor inserido correspondente ao tabuleiro 
@@ -316,18 +329,18 @@ seperator (mostra-linha 0 tab) (mostra-linha 1 tab)
 (let* 
       ((tabuleiros (get-problems filename))
        (escolha (read)))
-   ;(princ tabuleiros)
+   
 (cond 
 
 ((and (> escolha 0) (< escolha 9))
  (let ((tabuleiro (nth (1- escolha) tabuleiros)))
    (cond
     ((null tabuleiro) (format t "Ainda nao existe tabuleiro~%~%") (ler-tabuleiro filename))
-    (t tabuleiro))
+    (t tabuleiro)
+)))
+(t (format t "Escolha invalida~%~%") (ler-tabuleiro filename)))
 )
-(t (format t "Escolha invalida~%~%") (ler-tabuleiro filename)))))
-)
-)
+))
 
 ;; ler-algoritmo-procura
 ;; referencia: laboratorio 6
@@ -366,14 +379,18 @@ seperator (mostra-linha 0 tab) (mostra-linha 1 tab)
 ;; consola
 ;; referencia: laboratorio 6
 (defun consola ()
-(let* ((tabuleiro (ler-tabuleiro "problems.dat"))
+(let* ((filename (ler-ficheiro))
+       (problema (ler-tabuleiro filename))
 (procura (ler-algoritmo-procura))
 (profundidade (cond ((eql procura 'dfs) (ler-profundidade)) (t 999)
 )))
+;(princ tabuleiro)
+(progn
+(format t "~A" (mostra-tabuleiro (tabuleiro problema)))
 (cond
 ((equal procura 'bfs) 'bfs) ; breath-first search
 ((equal procura 'dfs) 'dfs) ; depth-first search
 (t 'a-star) ; a-star
 )
 )
-)
+))
