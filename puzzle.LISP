@@ -15,7 +15,9 @@
    :conta-pecas :px :tabuleiro-cheio :soma-lista
    :extrai-n :remove-peca :filtra 
    :mostra-tabuleiro :mostra-linha :ler-tabuleiro 
-   :ler-algoritmo-procura :ler-profundidade))
+   :ler-algoritmo-procura :ler-profundidade
+   :consola
+))
 
 (in-package :operate)
 
@@ -288,12 +290,18 @@ seperator (mostra-linha 0 tab) (mostra-linha 1 tab)
 )
 )
 
+(defun get-problems (file)
+  (with-open-file (s file)
+    (let ((problems nil))
+      (do ((prob (read s) (read s nil 'eof))) ((eq prob 'eof) problems)
+        (setq problems (cons prob problems))))))
+
 ;; ler-tabuleiro
 ;; referencia: laboratorio 6
 ;; lê o valor inserido correspondente ao tabuleiro 
 ;; e retorna-o
 ;; caso o valor seja diferente do esperado, repete
-(defun ler-tabuleiro ()
+(defun ler-tabuleiro (filename)
 (progn
 (format t "Selecione o tabuleiro a usar~%")
 (format t "1 - Tabuleiro A~%")
@@ -305,19 +313,19 @@ seperator (mostra-linha 0 tab) (mostra-linha 1 tab)
 (format t "7 - Tabuleiro Vazio~%")
 (format t "8 - Tabuleiro Teste~%")
 
-(let ((escolha (read)))
+(let* 
+      ((tabuleiros (get-problems filename))
+       (escolha (read)))
+   ;(princ tabuleiros)
 (cond 
-((= escolha 1) 'tabuleiro-a)
-((= escolha 2) 'tabuleiro-b)
-((= escolha 3) 'tabuleiro-c)
-((= escolha 4) 'tabuleiro-d)
-((= escolha 5) 'tabuleiro-e)
-((= escolha 6) 'tabuleiro-f)
-((= escolha 7) 'tabuleiro-v)
-((= escolha 8) 'tabuleiro-f);; novo problema
-(t (format t "Escolha invalida~%~%") (ler-tabuleiro))
+
+((and (> escolha 0) (< escolha 9))
+ (let ((tabuleiro (nth (1- escolha) tabuleiros)))
+   (cond
+    ((null tabuleiro) (format t "Ainda nao existe tabuleiro~%~%") (ler-tabuleiro filename))
+    (t tabuleiro))
 )
-)
+(t (format t "Escolha invalida~%~%") (ler-tabuleiro filename)))))
 )
 )
 
@@ -358,14 +366,14 @@ seperator (mostra-linha 0 tab) (mostra-linha 1 tab)
 ;; consola
 ;; referencia: laboratorio 6
 (defun consola ()
-(let* ((tabuleiro (ler-mostra-tabuleiro (ler-tabuleiro)))
+(let* ((tabuleiro (ler-tabuleiro "problems.dat"))
 (procura (ler-algoritmo-procura))
 (profundidade (cond ((eql procura 'dfs) (ler-profundidade)) (t 999)
 )))
 (cond
-((equal procura 'bfs) ) ; breath-first search
-((equal procura 'dfs) ) ; depth-first search
-(t ) ; a-star
+((equal procura 'bfs) 'bfs) ; breath-first search
+((equal procura 'dfs) 'dfs) ; depth-first search
+(t 'a-star) ; a-star
 )
 )
 )
