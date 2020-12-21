@@ -216,16 +216,16 @@
 )
 )
 
-;; conta-peca
+;; conta-pecas
 ;; l - lista
 ;; retorna o número de elementos com pelo menos
 ;; um atributo igual
-(defun conta-peca (l)
+(defun conta-pecas (l)
 (cond 
 ((null l) 0)
 ((and (not (null (car l))) (null (cadr l)) 1))
 ((null (cadr l)) 0)
-((tem-atributo-igual (car l) (cadr l)) (1+ (conta-peca (cdr l))))
+((tem-atributo-igual (car l) (cadr l)) (1+ (conta-pecas (cdr l))))
 (t 0)
 )
 )
@@ -258,7 +258,7 @@
 (defun tabuleiro-cheio(tab)
   (cond
    ((null tab) nil)
-   ((= 16 (soma-lista (mapcar #'conta-peca (mapcar #'(lambda (l) (funcall #'filtra #'(lambda (x) (equal 0 x) l)))tab)))) 'T)
+   ((= 16 (soma-lista (mapcar #'conta-pecas (mapcar #'(lambda (l) (funcall #'filtra #'(lambda (x) (equal 0 x) l)))tab)))) 'T)
    (T nil)
   )
 )
