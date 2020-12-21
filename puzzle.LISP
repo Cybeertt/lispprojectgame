@@ -4,6 +4,20 @@
 ;;; PROJETO fase 1
 ;;;
 
+(defpackage #:operate
+  (:use #:cl)
+  (:export :tabuleiro-e-pecas 
+   :tabuleiro :reserva :linha
+   :coluna :celula :diagonal-1 
+   :diagonal-2 :tabuleiro-n-ocupado
+   :coloca-peca-no-tabuleiro
+   :tem-atributo-igual :conta-pecas-tabuleiro
+   :conta-peca :px :tabuleiro-cheio :extrai-n :remove-peca :filtro 
+   :mostra-tabuleiro :mostra-linha :ler-tabuleiro 
+   :ler-algoritmo-procura :ler-profundidade))
+
+(in-package :operate)
+
 ;;; funcoes auxiliares
 
 ;; nova-jogada PC random
@@ -239,6 +253,21 @@
 ((null l) 0)
 (t (max (car l) (px (cdr l))))
 )
+)
+
+(defun tabuleiro-cheio(tab)
+  (cond
+   ((null tab) nil)
+   ((= 16 (soma-lista (mapcar #'conta-peca (mapcar #'(lambda (l) (funcall #'filtra #'(lambda (x) (equal 0 x) l)) tab))))) 'T)
+   (T nil)
+  )
+)
+
+(defun soma-lista(lista)
+  (cond
+   ((null lista) 0)
+   ( T (+(car lista) (soma-lista(cdr lista))))
+  )
 )
 
 ;; mostra-tabuleiro
