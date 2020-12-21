@@ -138,7 +138,7 @@ a escolha aleatória de uma peça.
 ```lisp
 ;; função
 (defun seleciona-peca (p)
- (extrai-n (random (length p)) p)
+ (extrai-n (random (length p)))
 )
 
 ;; chamada

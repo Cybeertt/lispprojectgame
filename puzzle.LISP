@@ -16,7 +16,7 @@
    :extrai-n :remove-peca :filtra 
    :mostra-tabuleiro :mostra-linha :ler-tabuleiro 
    :ler-algoritmo-procura :ler-profundidade
-   :consola
+   :consola :nova-jogada :seleciona-peca
 ))
 
 (in-package :operate)
@@ -195,14 +195,20 @@
 ;; retorna nil se p e vazia ou t e vazia ou r < 0 e/ou c < 0 ou tabuleiro com peca
 ;; retorna t - coloca peca no tabuleiro
 (defun coloca-peca-no-tabuleiro (r c p tab)
+(princ p)
 (cond
 ((listp (celula r c tab)) nil)
-(t 
-(progn 
-(setf (nth 1 (tabuleiro-e-pecas)) (remove-peca #'(lambda (p x) (equal p x)) p (reserva (tabuleiro-e-pecas)))
-)
-(setf (nth r (nth c tab)) p) 
-'T
+(t
+(progn
+; (let ((n nil))
+;(setf n (copy-list (remove-peca #'(lambda (p x) (equal p x)) p (reserva tab))))
+;;(psetf (nth 1 tab) n (nth r (nth c tab)) p)
+(setf (nth r (nth c tab)) p)
+;p
+;n
+;(append (tabuleiro tab) (remove-peca #'(lambda (p x) (equal p x)) p (reserva tab)))
+
+;;'T
 )
 )
 )

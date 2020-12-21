@@ -1,6 +1,6 @@
 (defpackage #:algos
   (:use #:cl)
-  (:export :no-estado :bfs :dfs :a-star)
+  (:export :no-estado :bfs :dfs :a-star :gera-estados-tabuleiro-1)
 )
 
 (in-package :algos)
@@ -194,3 +194,36 @@
 		(remove-first new-pq)
 	      (a-star next-node objetivop sucessoresf operadores
 		      heuristicaf next-pq))))))
+
+;; no tabuleiro com pecas
+(defun gera-estados-tabuleiro-1 (no-tabuleiro)
+(let* ((no nil) (p (operate:reserva no-tabuleiro)))
+ ;;(loop for x in '(1 2 3)
+ ;; collect (* x 10))
+;;(loop for )
+
+;; random num tabuleiro e remover peca
+;; random noutro tabuleiro e comparar ao anterior
+;;(let ((s nil)) (cons 3 s))
+;;(loop for )
+(let ((e nil))
+(setq e (copy-list no-tabuleiro))
+
+;; coloca peca aleatoriamente
+(princ e)
+
+(operate:coloca-peca-no-tabuleiro 
+(operate:nova-jogada 
+(operate:linha 0 (operate:tabuleiro e)))
+
+(operate:nova-jogada 
+(operate:coluna 0 (operate:tabuleiro e)))
+ 
+(operate:seleciona-peca (operate:reserva e)) (operate:tabuleiro e))
+(format t "~%~%")
+(princ e)
+;; resultado
+(cons e no)
+)
+)
+)
