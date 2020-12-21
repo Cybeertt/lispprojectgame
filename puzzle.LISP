@@ -195,20 +195,14 @@
 ;; retorna nil se p e vazia ou t e vazia ou r < 0 e/ou c < 0 ou tabuleiro com peca
 ;; retorna t - coloca peca no tabuleiro
 (defun coloca-peca-no-tabuleiro (r c p tab)
-(princ p)
 (cond
-((listp (celula r c tab)) nil)
-(t
+;((listp (extrai-n c (extrai-n r tab))) nil)
+((listp (celula r c (tabuleiro tab))) nil)
+(t 
 (progn
-; (let ((n nil))
-;(setf n (copy-list (remove-peca #'(lambda (p x) (equal p x)) p (reserva tab))))
-;;(psetf (nth 1 tab) n (nth r (nth c tab)) p)
+(setf (nth 1 tab) (remove-peca #'(lambda (p x) (equal p x)) p (reserva tab)))
 (setf (nth r (nth c tab)) p)
-;p
-;n
-;(append (tabuleiro tab) (remove-peca #'(lambda (p x) (equal p x)) p (reserva tab)))
-
-;;'T
+p
 )
 )
 )

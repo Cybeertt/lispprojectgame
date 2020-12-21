@@ -692,12 +692,12 @@ Em contexto, esta função permite substituir um elemento do tabuleiro que se en
 ;; função
 (defun coloca-peca-no-tabuleiro (r c p tab)
  (cond
-  ((listp (celula r c tab)) nil)
+  ((listp (celula r c (tabuleiro tab))) nil)
   (t 
-   (progn 
-    (setf (nth 1 (tabuleiro-e-pecas)) (remove-peca #'(lambda (p x) (equal p x)) p (reserva (tabuleiro-e-pecas))))
-    (setf (nth r (nth c tab)) p) 
-    'T
+   (progn
+    (setf (nth 1 tab) (remove-peca #'(lambda (p x) (equal p x)) p (reserva tab)))
+    (setf (nth r (nth c tab)) p)
+    p
    )
   )
  )
