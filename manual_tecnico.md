@@ -856,14 +856,14 @@ Em contexto do problema, esta função retorna a contagem máxima de peças com 
 ```lisp
 ;; chamada
 ;; retorna o valor maior da lista
-(px '(0 1 1 2 3 0 1 3 0 1 3 4 2 2))
+(operate:px '(0 1 1 2 3 0 1 3 0 1 3 4 2 2))
 
 ;; resultado
 4
 
 ;; chamada
 ;; retorna o valor maior da lista
-(px '(0 0 0))
+(operate:px '(0 0 0))
 
 ;; resultado
 0
@@ -896,7 +896,7 @@ A função limita-se a considerar o número máximo de elementos por linha, que 
 
 ```lisp
 ;; chamada
-(mostra-linha 0 (tabuleiro (tabuleiro-e-pecas)))
+(operate:mostra-linha 0 (operate:tabuleiro (operate:tabuleiro-e-pecas)))
 
 ;; resultado
 "| 0 | 0 | 0 | 0 |"
@@ -928,7 +928,7 @@ A função apresenta as mesmas limitações que a função [Mostrar-Linha](#f-mo
 ```lisp
 ;; chamada
 ;; mostra tabuleiro vazio
- (mostra-tabuleiro (tabuleiro (tabuleiro-e-pecas)))
+ (operate:mostra-tabuleiro (operate:tabuleiro (operate:tabuleiro-e-pecas)))
 
 ;; resultado
 "
@@ -944,6 +944,7 @@ ________________________________________________________________________________
 
 ;; lista 
 ;; tabuleiro de exemplo
+;; esta função não se encontra no pacote
 (defun tabuleiro-exemplo ()
  '(((branca quadrada alta oca) (preta quadrada baixa cheia) 0 (preta quadrada alta oca))
 ((branca redonda alta oca) (preta redonda alta oca) (branca redonda alta cheia) 0) 
@@ -953,7 +954,7 @@ ________________________________________________________________________________
 
 ;; chamada
 ;; mostra tabuleiro preenchido
-(mostra-tabuleiro (tabuleiro-exemplo))
+(operate:mostra-tabuleiro (tabuleiro-exemplo))
 
 ;; resultado
 "
@@ -1011,7 +1012,7 @@ Nenhum
 ;; chamada
 ;; lê e retorna o nome da função que retorna o 
 ;; tabuleiro correspondente
-(ler-tabuleiro)
+(operate:ler-tabuleiro)
 
 ;; resultado
 Selecione o tabuleiro a usar
@@ -1028,7 +1029,7 @@ TABULEIRO-V
 
 ;; chamada
 ;; lê valores negativo e acima do 8
-(ler-tabuleiro)
+(operate:ler-tabuleiro)
 
 ;; resultado
 Selecione o tabuleiro a usar
@@ -1115,7 +1116,7 @@ Nenhum
 ;; chamada
 ;; lê e retorna o nome da função que retorna o 
 ;; tabuleiro correspondente
-(ler-algoritmo-procura)
+(operate:ler-algoritmo-procura)
 
 ;; resultado
 Selecione o algoritmo de procura a usar
@@ -1127,7 +1128,7 @@ A-STAR
 
 ;; chamada
 ;; lê valores negativo e acima do 3
-(ler-algoritmo-procura)
+(operate:ler-algoritmo-procura)
 
 ;; resultado
 Selecione o algoritmo de procura a usar

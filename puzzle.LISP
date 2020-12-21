@@ -355,3 +355,17 @@ seperator (mostra-linha 0 tab) (mostra-linha 1 tab)
 )
 )
 
+;; consola
+;; referencia: laboratorio 6
+(defun consola ()
+(let* ((tabuleiro (ler-mostra-tabuleiro (ler-tabuleiro)))
+(procura (ler-algoritmo-procura))
+(profundidade (cond ((eql procura 'dfs) (ler-profundidade-1)) (t 999)
+)))
+(cond
+((equal procura 'bfs) ) ; breath-first search
+((equal procura 'dfs) ) ; depth-first search
+(t ) ; a-star
+)
+)
+)
