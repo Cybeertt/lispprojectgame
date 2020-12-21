@@ -1,5 +1,6 @@
 (setq *DEFAULT-PATHNAME-DEFAULTS* (pathname "D:\\LEI\\IA\\20_21\\projeto1\\lispprojectgame\\"))
 
+
 (defun startup ()
   (load "puzzle.lisp" :if-does-not-exist nil)
   (use-package 'operate)
@@ -10,18 +11,9 @@
 
 (startup)
 
-
-(defun string-to-list (str)
-        (if (not (streamp str))
-           (string-to-list (make-string-input-stream str))
-           (if (listen str)
-                (cons (read str) (string-to-list str))
-               nil)))
-
-
-(defun loadfile(file)
-   (let (doc (read-line file))
-        (print do
-)
-)
+(defun get-problems (file)
+  (with-open-file (s file)
+    (let ((problems nil))
+      (do ((prob (read s) (read s nil 'eof))) ((eq prob 'eof) problems)
+        (setq problems (cons prob problems))))))
 
