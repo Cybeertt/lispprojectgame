@@ -16,8 +16,7 @@
    :extrai-n :remove-peca :filtra 
    :mostra-tabuleiro :mostra-linha :ler-tabuleiro 
    :ler-algoritmo-procura :ler-profundidade
-   :consola :nova-jogada :seleciona-peca
-))
+   :consola :obter-problemas :testeprocura))
 
 (in-package :operate)
 
@@ -28,7 +27,9 @@
 ;; obter linha: (length (tabuleiro))
 ;; obter coluna: (length (car (tabuleiro)))
 (defun nova-jogada (l)
+(princ l)
 (random (length l))
+
 )
 
 ;; seleciona-peca PC random
@@ -69,6 +70,8 @@
 )
 )
 )
+
+
 
 ;; tabuleiro
 ;; l - lista de tabuleiro e pecas
@@ -290,7 +293,7 @@ seperator (mostra-linha 0 tab) (mostra-linha 1 tab)
 )
 )
 
-(defun get-problems (file)
+(defun obter-problemas (file)
   (with-open-file (s file)
     (let ((problems nil))
       (do ((prob (read s) (read s nil 'eof))) ((eq prob 'eof) problems)
@@ -327,7 +330,7 @@ seperator (mostra-linha 0 tab) (mostra-linha 1 tab)
 (format t "8 - Tabuleiro Teste~%")
 
 (let* 
-      ((tabuleiros (get-problems filename))
+      ((tabuleiros (obter-problemas filename))
        (escolha (read)))
    
 (cond 

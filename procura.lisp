@@ -58,7 +58,7 @@
   (COND 
    ;((OR (= 1 (car (car teste))) (= 1 (cadr (car teste)))) T)
    ((or (operate:tabuleiro-cheio (operate:reserva teste))
-    (px (operate:conta-pecas-tabuleiro (operate:tabuleiro teste))))
+    (= 4 (px (operate:conta-pecas-tabuleiro (operate:tabuleiro teste)))))
          T) 
    (T NIL)
    )
