@@ -70,7 +70,7 @@ O projeto encontra-se distribuído por 3 ficheiros principais: ***projecto.LISP*
 
 O ficheiro ***projecto.LISP*** contém o código fonte que inicializa o jogo.
 
-O ficheiro ***puzzle.LISP*** contém o código fonte utilizado para criar e modificar o jogo.
+O ficheiro ***puzzle.LISP*** contém o código fonte utilizado para criar e modificar o jogo e é definido como pacote **operate**.
 
 O ficheiro ***procura.LISP*** contém todos os algoritmos de procura utilizados no jogo e é definido como pacote **algo**.
 
@@ -515,7 +515,9 @@ Em contexto, esta função é utilizada para retornar uma diagonal de um tabulei
 ```
 
 ### <a name="f-colunas">Diagonais</a>
-(descrição)
+Retorna uma lista com todas as diagonais possíveis.
+
+Em contexto, esta função é utilizada para retornar as duas diagonais de um tabuleiro 4x4.
 
 **Limitações**
 Limita-se ao tamanho máximo 4 do número de elementos por diagonal, do tabuleiro.
@@ -908,6 +910,7 @@ Esta função retorna a formatação de uma lista com sublistas em string.
 Em contexto, esta função permite ilustrar melhor os espaços de um tabuleiro com e sem peças.
 
 **Limitações**
+
 A função apresenta as mesmas limitações que a função [Mostrar-Linha](#f-mostra-linha).
 
 **Parâmetros**
