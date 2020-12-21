@@ -1,8 +1,11 @@
 (defpackage #:algos
   (:use #:cl)
-  (:export :bfs :dfs :a-star))
+  (:export :no-estado :bfs :dfs :a-star)
+)
 
-(in-package #:algos)
+(in-package :algos)
+
+(use-package 'operate)
 
 (defun no-estado (teste)
   (car teste))
@@ -14,6 +17,16 @@
 (defun no-profundidade (teste)
   (cadr teste)
   )
+
+(defun operadores()
+  (list 'operate:tabuleiro-e-pecas 
+   'operate:tabuleiro 'operate:reserva 'operate:linha
+   'operate:coluna 'operate:celula 'operate:diagonal-1 
+   'operate:diagonal-2 'operate:tabuleiro-n-ocupado
+   'operate:coloca-peca-no-tabuleiro 
+  'operate:tem-atributo-igual 'operate:conta-pecas-tabuleiro
+   'operate:conta-peca 'operate:px 'operate:extrai-n 'operate:remove-peca 
+   'operate:filtro 'tabuleiro-cheio ))
 
 (defun novo-sucessor (teste x)
   (let ((novo-estado (funcall x (no-estado teste))))
@@ -40,6 +53,16 @@
 (defun abertos-dfs (abertos sucessores)
   (append sucessores abertos)
   )
+
+(defun no-solucaop (teste)
+  (COND 
+   ;((OR (= 1 (car (car teste))) (= 1 (cadr (car teste)))) T)
+   ((or (px (operate:conta-pecas-tabuleiro teste)))) 
+   (T NIL)
+   )
+)
+
+
 
 (defun no-existep (no lista algoritmo)
   (cond ((null lista) nil)

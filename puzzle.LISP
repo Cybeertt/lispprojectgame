@@ -12,7 +12,7 @@
    :diagonal-2 :tabuleiro-n-ocupado
    :coloca-peca-no-tabuleiro
    :tem-atributo-igual :conta-pecas-tabuleiro
-   :conta-peca :px :tabuleiro-cheio :extrai-n :remove-peca :filtro 
+   :conta-peca :px :tabuleiro-cheio :extrai-n :remove-peca :filtra 
    :mostra-tabuleiro :mostra-linha :ler-tabuleiro 
    :ler-algoritmo-procura :ler-profundidade))
 
@@ -258,7 +258,7 @@
 (defun tabuleiro-cheio(tab)
   (cond
    ((null tab) nil)
-   ((= 16 (soma-lista (mapcar #'conta-peca (mapcar #'(lambda (l) (funcall #'filtra #'(lambda (x) (equal 0 x) l)) tab))))) 'T)
+   ((= 16 (soma-lista (mapcar #'conta-peca (mapcar #'(lambda (l) (funcall #'filtra #'(lambda (x) (equal 0 x) l)))tab)))) 'T)
    (T nil)
   )
 )
