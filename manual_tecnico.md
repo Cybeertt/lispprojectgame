@@ -112,14 +112,14 @@ Em contexto do problema, esta função auxilia a escolha aleatória da posição
 ```lisp
 ;; chamada
 ;; gera uma posição linha
-(nova-jogada (tabuleiro (tabuleiro-e-pecas)))
+(operate:nova-jogada (operate:tabuleiro (operate:tabuleiro-e-pecas)))
 
 ;; resultado
 0
 
 ;; chamada
 ;; gera uma posição coluna
-(nova-jogada (tabuleiro (tabuleiro-e-pecas))
+(operate:nova-jogada (operate:tabuleiro (operate:tabuleiro-e-pecas))
 
 ;; resultado
 2
@@ -142,13 +142,13 @@ a escolha aleatória de uma peça.
 )
 
 ;; chamada
-(seleciona-peca (reserva (tabuleiro-e-pecas)))
+(operate:seleciona-peca (operate:reserva (operate:tabuleiro-e-pecas)))
 
 ;; resultado
 (BRANCA QUADRADA ALTA OCA)
 
 ;; chamada
-(seleciona-peca (reserva (tabuleiro-e-pecas)))
+(operate:seleciona-peca (operate:reserva (operate:tabuleiro-e-pecas)))
 
 ;; resultado
 (PRETA REDONDA ALTA CHEIA)
@@ -198,7 +198,7 @@ Uma lista 4x4 com elementos de valor zero e outra com 16 elementos do tipo lista
 ```lisp
 ;; chamada
 ;; retorna tabuleiro e peças
-(tabuleiro-e-pecas)
+(operate:tabuleiro-e-pecas)
 
 ;; resultado
 (((0 0 0 0) (0 0 0 0) (0 0 0 0) (0 0 0 0)) ((BRANCA REDONDA ALTA OCA) (PRETA REDONDA ALTA OCA) (BRANCA REDONDA BAIXA OCA) (PRETA REDONDA BAIXA OCA) (BRANCA QUADRADA ALTA OCA) (PRETA QUADRADA ALTA OCA) (BRANCA QUADRADA BAIXA OCA) (PRETA QUADRADA BAIXA OCA) (BRANCA REDONDA ALTA CHEIA) (PRETA REDONDA ALTA CHEIA) (BRANCA REDONDA BAIXA CHEIA) (PRETA REDONDA BAIXA CHEIA) (BRANCA QUADRADA ALTA CHEIA) (PRETA QUADRADA ALTA CHEIA) (BRANCA QUADRADA BAIXA CHEIA) (PRETA QUADRADA BAIXA CHEIA)))
@@ -226,7 +226,7 @@ O espaço do tabuleiro é representado por 0, quando a posição encontra-se vaz
 ```lisp
 ;; chamada
 ;; extrai só o tabuleiro
-(tabuleiro (tabuleiro-e-pecas))
+(operate:tabuleiro (operate:tabuleiro-e-pecas))
 
 ;; resultado
 ((0 0 0 0) (0 0 0 0) (0 0 0 0) (0 0 0 0))
@@ -254,7 +254,7 @@ Esta lista contém todas as peças utilizadas no jogo. Cada peça é uma lista c
 ```lisp
 ;; chamada
 ;; extrai só as peças
-(reserva (tabuleiro-e-pecas))
+(operate:reserva (operate:tabuleiro-e-pecas))
 
 ;; resultado
 ((BRANCA REDONDA ALTA OCA) (PRETA REDONDA ALTA OCA) (BRANCA REDONDA BAIXA OCA) 
@@ -291,28 +291,28 @@ Esta função tem como propósito simular a função Peek.
 ```lisp
 ;; chamada
 ;; extrai do tabuleiro a posição -1
-(extrai-n -1 (tabuleiro (tabuleiro-e-pecas)))
+(operate:extrai-n -1 (operate:tabuleiro (operate:tabuleiro-e-pecas)))
 
 ;; resultado
 NIL
 
 ;; chamada
 ;; extrai do tabuleiro a posição 0
-(extrai-n 0 (tabuleiro (tabuleiro-e-pecas)))
+(operate:extrai-n 0 (operate:tabuleiro (operate:tabuleiro-e-pecas)))
 
 ;; resultado
 (0 0 0 0)
 
 ;; chamada
 ;; extrai do tabuleiro a coordenada (0,0)
-(extrai-n 0 (extrai-n 0 (tabuleiro (tabuleiro-e-pecas))))
+(operate:extrai-n 0 (operate:extrai-n 0 (operate:tabuleiro (operate:tabuleiro-e-pecas))))
 
 ;; resultado
 0
 
 ;; chamada
 ;; extrai a peça na posição 0
-(extrai-n 0 (reserva (tabuleiro-e-pecas)))
+(operate:extrai-n 0 (operate:reserva (operate:tabuleiro-e-pecas)))
 
 ;; resultado
 (BRANCA REDONDA ALTA OCA)
@@ -339,7 +339,7 @@ Esta função limita-se a ser uma função redundante da função [extrai-n](#f-
 ```lisp
 ;; chamada
 ;; extrai a peça na linha 0
-(linha 0 (reserva (tabuleiro-e-pecas)))
+(operate:linha 0 (operate:reserva (operate:tabuleiro-e-pecas)))
 
 ;; resultado
 (BRANCA REDONDA ALTA OCA)
@@ -349,7 +349,7 @@ Esta função limita-se a ser uma função redundante da função [extrai-n](#f-
 
 ;; chamada
 ;; extrai do tabuleiro a linha 0
-(linha 0 (tabuleiro (tabuleiro-e-pecas)))
+(operate:linha 0 (operate:tabuleiro (operate:tabuleiro-e-pecas)))
 
 ;; resultado
 (0 0 0 0)
@@ -378,7 +378,7 @@ Esta função limita-se a ser uma função redundante da função [celula](#f-ce
 ```lisp
 ;; chamada
 ;; extrai coluna na posição 0
-(coluna 0 (tabuleiro (tabuleiro-e-pecas)))
+(operate:coluna 0 (operate:tabuleiro (operate:tabuleiro-e-pecas)))
 
 ;; resultado
 (0 0 0 0)
@@ -406,7 +406,7 @@ Limita-se ao tamanho máximo 4 do número de elementos por coluna, do tabuleiro.
 
 ```lisp
 ;; chamada
-(colunas (tabuleiro (tabuleiro-e-pecas)))
+(operate:colunas (operate:tabuleiro (operate:tabuleiro-e-pecas)))
 
 ;; resultado
 ((0 0 0 0) (0 0 0 0) (0 0 0 0) (0 0 0 0))
@@ -435,7 +435,7 @@ Esta função limita-se a ser uma função redundante da função [extrai-n](#f-
 ```lisp
 ;; chamada
 ;; extrai das peças, o elemento na coordenada (0,0)
-(celula 0 0 (reserva (tabuleiro-e-pecas)))
+(operate:celula 0 0 (operate:reserva (operate:tabuleiro-e-pecas)))
 ;; resultado
 BRANCA
 
@@ -444,7 +444,7 @@ BRANCA
 
 ;; chamada
 ;; extrai do tabuleiro o elemento na coordenada (0,0)
-(celula 0 0 (tabuleiro (tabuleiro-e-pecas)))
+(operate:celula 0 0 (operate:tabuleiro (operate:tabuleiro-e-pecas)))
 
 ;; resultado
 0
@@ -473,7 +473,7 @@ Em contexto, esta função é utilizada para retornar uma diagonal de um tabulei
 ;; chamada
 ;; retorna uma lista com as posições diagonal
 ;; com a orientação da topo-esquerda para a direita
-(diagonal-1 (tabuleiro (tabuleiro-e-pecas)))
+(operate:diagonal-1 (operate:tabuleiro (operate:tabuleiro-e-pecas)))
 
 ;; resultado
 (0 0 0 0)
@@ -505,7 +505,7 @@ Em contexto, esta função é utilizada para retornar uma diagonal de um tabulei
 ;; chamada
 ;; retorna uma lista com as posições diagonal
 ;; com a orientação da fundo-esquerda para a direita
-(diagonal-1 (tabuleiro (tabuleiro-e-pecas)))
+(operate:diagonal-1 (operate:tabuleiro (operate:tabuleiro-e-pecas)))
 
 ;; resultado
 (0 0 0 0)
@@ -533,7 +533,7 @@ Limita-se ao tamanho máximo 4 do número de elementos por diagonal, do tabuleir
 
 ```lisp
 ;; chamada
-(diagonais (tabuleiro (tabuleiro-e-pecas)))
+(operate:diagonais (operate:tabuleiro (operate:tabuleiro-e-pecas)))
 
 ;; resultado
 ((0 0 0 0) (0 0 0 0))
@@ -565,7 +565,7 @@ Uma posição encontra-se vazia, se na posição (r, c), o valor é 0.
 ;; chamada
 ;; verifica se o tabuleiro nas coordenadas (0,1) 
 ;; encontra-se ocupado
-(tabuleiro-n-ocupado 0 1 (tabuleiro (tabuleiro-e-pecas)))
+(operate:tabuleiro-n-ocupado 0 1 (operate:tabuleiro (operate:tabuleiro-e-pecas)))
 
 ;; resultado
 T
@@ -573,7 +573,7 @@ T
 ;; chamada
 ;; verifica se o tabuleiro nas coordenadas (0,0) 
 ;; encontra-se ocupado
-(tabuleiro-n-ocupado 0 0 (tabuleiro (tabuleiro-e-pecas)))
+(operate:tabuleiro-n-ocupado 0 0 (operate:tabuleiro (operate:tabuleiro-e-pecas)))
 
 ;; resultado
 NIL
@@ -610,8 +610,9 @@ Em contexto, esta função permite remover um elemento da lista de reserva desde
 
 ```lisp
 ;; chamada
-;; remove todas as peças da lista que seja igual à ;; peça do indice 0 da lista de reservas
-(remove-peca #'(lambda (p x) (equal p x)) (linha 0 (reserva (tabuleiro-e-pecas))) (reserva (tabuleiro-e-pecas)))
+;; remove todas as peças da lista que seja igual à
+;; peça do indice 0 da lista de reservas
+(operate:remove-peca #'(lambda (p x) (equal p x)) (operate:linha 0 (operate:reserva (operate:tabuleiro-e-pecas))) (operate:reserva (operate:tabuleiro-e-pecas)))
 
 ;; resultado
 ((PRETA REDONDA ALTA OCA) (BRANCA REDONDA BAIXA OCA) (PRETA REDONDA BAIXA OCA) (BRANCA QUADRADA ALTA OCA) (PRETA QUADRADA ALTA OCA) (BRANCA QUADRADA BAIXA OCA) (PRETA QUADRADA BAIXA OCA) (BRANCA REDONDA ALTA CHEIA) (PRETA REDONDA ALTA CHEIA) (BRANCA REDONDA BAIXA CHEIA) (PRETA REDONDA BAIXA CHEIA) (BRANCA QUADRADA ALTA CHEIA) (PRETA QUADRADA ALTA CHEIA) (BRANCA QUADRADA BAIXA CHEIA) (PRETA QUADRADA BAIXA CHEIA))
@@ -650,14 +651,14 @@ Não compatível com elementos sublista.
 ```lisp
 ;; chamada
 ;; filtra linha 0 do tabuleiro vazio
-(filtra #'(lambda (x) (equal 0 x)) (linha 0   (tabuleiro (tabuleiro-e-pecas))))
+(operate:filtra #'(lambda (x) (equal 0 x)) (operate:linha 0   (operate:tabuleiro (operate:tabuleiro-e-pecas))))
 
 ;; resultado
 NIL
 
 ;; chamada
 ;; filtra a coluna do tabuleiro vazio
-(filtra #'(lambda (x) (equal 0 x)) (coluna 0 (tabuleiro (tabuleiro-e-pecas))))
+(operate:filtra #'(lambda (x) (equal 0 x)) (operate:coluna 0 (operate:tabuleiro (operate:tabuleiro-e-pecas))))
 
 ;; resultado
 NIL
@@ -665,6 +666,7 @@ NIL
 
 ```lisp
 ;; lista de exemplo
+;; esta função não se encontra no pacote
 (defun linha-0 ()
  '((branca quadrada alta oca) (preta quadrada baixa cheia) 0 (preta quadrada alta oca))
 )
@@ -675,7 +677,7 @@ NIL
 
 ;; chamada
 ;; remove todos os elementos iguais a zero
-(filtra #'(lambda (x) (equal 0 x)) (linha-0))
+(operate:filtra #'(lambda (x) (equal 0 x)) (linha-0))
 
 ;; resultado
 ((BRANCA QUADRADA ALTA OCA) (PRETA QUADRADA BAIXA CHEIA) (PRETA QUADRADA ALTA OCA))
@@ -706,7 +708,7 @@ Em contexto, esta função permite substituir um elemento do tabuleiro que se en
 ;; chamada
 ;; insere peça na posição 0 nas coordenadas (0,0)
 ;; do tabuleiro
-(coloca-peca-no-tabuleiro 0 0 (extrai-n 0 (reserva (tabuleiro-e-pecas))) (tabuleiro (tabuleiro-e-pecas)))
+(operate:coloca-peca-no-tabuleiro 0 0 (operate:extrai-n 0 (operate:reserva (operate:tabuleiro-e-pecas))) (operate:tabuleiro (operate:tabuleiro-e-pecas)))
 
 ;; resultado
 (BRANCA QUADRADA ALTA CHEIA)
@@ -714,7 +716,7 @@ Em contexto, esta função permite substituir um elemento do tabuleiro que se en
 ;; chamada
 ;; insere novamente peça na posição 0 nas 
 ;;coordenadas (0,0) do tabuleiro
-(coloca-peca-no-tabuleiro 0 0 (extrai-n 0 (reserva (tabuleiro-e-pecas))) (tabuleiro (tabuleiro-e-pecas)))
+(operate:coloca-peca-no-tabuleiro 0 0 (operate:extrai-n 0 (operate:reserva (operate:tabuleiro-e-pecas))) (operate:tabuleiro (operate:tabuleiro-e-pecas)))
 
 ;; resultado
 NIL
@@ -745,14 +747,14 @@ Todos os elementos em p e p2 são 0 ou lista.
 
 ```lisp
 ;; chamada
-(tem-atributo-igual (tem-atributo-igual (extrai-n 0 (reserva (tabuleiro-e-pecas))) (extrai-n 0 (reserva (tabuleiro-e-pecas)))))
+(operate:tem-atributo-igual (operate:tem-atributo-igual (operate:extrai-n 0 (operate:reserva (operate:tabuleiro-e-pecas))) (operate:extrai-n 0 (operate:reserva (operate:tabuleiro-e-pecas)))))
 
 ;; resultado
 T
 
 ;; chamada
 ;; tabuleiro vazio
-(tem-atributo-igual (tem-atributo-igual (extrai-n 0 (reserva (tabuleiro-e-pecas))) (extrai-n 0 (extrai-n 0 (tabuleiro (tabuleiro-e-pecas))))))
+(tem-atributo-igual (tem-atributo-igual (operate:extrai-n 0 (operate:reserva (operate:tabuleiro-e-pecas))) (operate:extrai-n 0 (operate:extrai-n 0 (operate:tabuleiro (operate:tabuleiro-e-pecas))))))
 
 ;; resultado
 NIL
@@ -786,6 +788,7 @@ Herda as limitações da função [tem-atributo-igual](#f-atributo-igual).
 
 ```lisp
 ;; lista de exemplo
+;; esta função não se encontra no pacote
 (defun linha-0 ()
  '((branca quadrada alta oca) (preta quadrada baixa cheia) 0 (preta quadrada alta oca))
 )
@@ -794,7 +797,7 @@ Herda as limitações da função [tem-atributo-igual](#f-atributo-igual).
 ;; conta númmero de peças que partilhe pelo menos
 ;; um atributo em comum
 ;; ao chamar a função, a lista é filtrada no perâmetro
-(conta-pecas (filtra #'(lambda (x) (equal 0 x)) (cdr (pecas-1))))
+(operate:conta-pecas (filtra #'(lambda (x) (equal 0 x)) (linha-0)))
 
 ;; resultado
 3
@@ -830,7 +833,7 @@ Esta função limita-se ao tamanho 4, defenido ser o tamanho máximo de cada lin
 ;; chamada
 ;; conta o número de peças no tabuleiro, por
 ;; linha, coluna e diagonais
-(conta-pecas-tabuleiro (tabuleiro (tabuleiro-e-pecas)))
+(operate:conta-pecas-tabuleiro (operate:tabuleiro (operate:tabuleiro-e-pecas)))
 
 ;; resultado
 (0 0 0 0 0 0 0 0 0 0)
