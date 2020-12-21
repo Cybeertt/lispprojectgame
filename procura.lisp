@@ -25,8 +25,8 @@
    'operate:diagonal-2 'operate:tabuleiro-n-ocupado
    'operate:coloca-peca-no-tabuleiro 
    'operate:tem-atributo-igual 'operate:conta-pecas-tabuleiro
-   'operate:conta-peca 'operate:px 'operate:extrai-n 'operate:remove-peca 
-   'operate:filtra 'tabuleiro-cheio ))
+   'operate:conta-pecas 'operate:px 'operate:extrai-n 'operate:remove-peca 
+   'operate:filtra 'operate:tabuleiro-cheio ))
 
 (defun novo-sucessor (teste x)
   (let ((novo-estado (funcall x (no-estado teste))))
