@@ -257,11 +257,7 @@
 )
 
 (defun tabuleiro-cheio(tab)
-  (cond
-   ((null tab) nil)
-   ((= 16 (soma-lista (mapcar #'conta-pecas (mapcar #'(lambda (l) (funcall #'filtra #'(lambda (x) (equal 0 x)) l))tab)))) 'T)
-   (T nil)
-  )
+   (null tab)  
 )
 
 (defun soma-lista(lista)
