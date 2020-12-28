@@ -559,7 +559,7 @@ l - Lista de numeros
 |#
 (defun numero-maximo (l)
 (cond
-((null l) most-negative-double-float)
+((null l) 0)
 (t (reduce 'max l))
 )
 )
