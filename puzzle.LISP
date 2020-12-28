@@ -559,8 +559,8 @@ l - Lista de numeros
 |#
 (defun numero-maximo (l)
 (cond
-((null l) 0)
-(t (max (car l) (numero-maximo (cdr l))))
+((null number-list) most-negative-double-float)
+(t (reduce 'max number-list))
 )
 )
 
