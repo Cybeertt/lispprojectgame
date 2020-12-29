@@ -672,9 +672,9 @@ problema - Problema
 (cond
 ((not (casa-vaziap l c (tabuleiro problema))) NIL)
 (t 
-(let* ((novo-problema problema) (novo-tabuleiro (tabuleiro novo-problema)) (nova-reserva novo-problema))
+(let* ((novo-problema problema) (novo-tabuleiro (tabuleiro novo-problema)) (nova-reserva (reserva novo-problema)))
 (substituir-posicao c p (linha l novo-tabuleiro))
-(setf (nth 1 nova-reserva) (remove-peca p nova-reserva)) ; 1
+(setf (nth 1 novo-problema) (remove-peca p nova-reserva))
 novo-problema
 )
 )
