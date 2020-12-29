@@ -726,3 +726,15 @@ CL-USER> (nova-jogada (problema))
 LIMITACOES
 Apenas aceita uma lista com sublistas, uma com um tabuleiro 4x4 e outra reserva
 |#
+
+(defun no-solucaop (no)
+  
+  (COND 
+   ((null no) nil)
+   ((or (reserva-conteudo no)
+    (= 4 (conta-pecas-atributo-tabuleiro (tabuleiro-conteudo no))))
+         T) 
+   (T NIL)
+   )
+  ;(princ (car no))
+)
