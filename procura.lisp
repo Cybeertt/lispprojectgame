@@ -1,11 +1,37 @@
-(defpackage #:algos
+#|(defpackage #:algos
   (:use #:cl)
-  (:export :no-estado :bfs :dfs :a-star :no-solucaop :sucessores :operadores)
+  (:export :no-estado :tabuleiro-conteudo :reserva-conteudo :obter-problemas :cria-no :bfs :dfs :a-star :no-solucaop :sucessores :operadores)
 )
 
-(in-package :algos)
+(in-package :algos)|#
 
-(use-package 'operate)
+;(use-package 'operate)
+
+(setq *DEFAULT-PATHNAME-DEFAULTS* (pathname "D:\\LEI\\IA\\20_21\\projeto1\\"))
+
+#|(defun obter-problemas (file)
+  (with-open-file (s file)
+    (let ((problems nil))
+      (do ((prob (read s) (read s nil 'eof))) ((eq prob 'eof) problems)
+        (setq problems (cons prob problems))))))|#
+
+(defun cria-no (estado  &optional (g 0) (pai nil))
+  (list estado g pai)
+)
+
+#|TABULEIRO-CONTEUDO
+no - No
+|#
+(defun tabuleiro-conteudo (no)
+(caar no)
+)
+
+#|RESERVA-CONTEUDO
+no - No
+|#
+(defun reserva-conteudo (no)
+(cdar no)
+)
 
 (defun no-estado (teste)
   (car teste))
@@ -19,7 +45,7 @@
   )
 
 (defun operadores()
-  (list 'operate:testeprocura))
+  (list 'nova-jogada))
 
 (defun novo-sucessor (teste x)
   (let ((novo-estado (funcall x (no-estado teste))))
@@ -46,16 +72,6 @@
 (defun abertos-dfs (abertos sucessores)
   (append sucessores abertos)
   )
-
-(defun no-solucaop (teste)
-  (COND 
-   ;((OR (= 1 (car (car teste))) (= 1 (cadr (car teste)))) T)
-   ((or (operate:tabuleiro-cheio (operate:reserva teste))
-    (= 4 (px (operate:conta-pecas-tabuleiro (operate:tabuleiro teste)))))
-         T) 
-   (T NIL)
-   )
-)
 
 
 
