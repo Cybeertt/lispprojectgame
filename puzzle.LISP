@@ -73,6 +73,18 @@ e outra com 16 sublistas de 4 elementos especiais
 (defun problema ()
 '(
 (
+((BRANCA QUADRADA BAIXA CHEIA) 0 (PRETA REDONDA ALTA CHEIA) (PRETA QUADRADA BAIXA OCA)) 
+(0 0 0 (BRANCA REDONDA BAIXA OCA)) 
+((BRANCA REDONDA ALTA CHEIA) 0 (PRETA REDONDA ALTA OCA) (BRANCA QUADRADA BAIXA OCA)) 
+(0 (PRETA QUADRADA BAIXA CHEIA) 0 0)
+)(
+(BRANCA QUADRADA ALTA CHEIA) (BRANCA QUADRADA ALTA OCA) (PRETA QUADRADA ALTA CHEIA) (PRETA QUADRADA ALTA OCA) 
+(BRANCA REDONDA ALTA OCA) (BRANCA REDONDA BAIXA CHEIA) (PRETA REDONDA BAIXA CHEIA) (PRETA REDONDA BAIXA OCA)
+)
+)) 
+
+#|'(
+(
 ((branca quadrada baixa cheia) 0 (preta redonda alta cheia) (preta quadrada baixa oca))
 (0 0 0 (branca redonda baixa oca)) 
 ((branca redonda alta cheia) 0 (preta redonda alta oca) 0) 
@@ -89,7 +101,7 @@ e outra com 16 sublistas de 4 elementos especiais
  (preta redonda baixa cheia)
  (preta redonda baixa oca)
 )
-))
+))|#
 #|(
 (0 0 0 0)
 (0 0 0 0)
@@ -429,31 +441,66 @@ tabuleiro - Tabuleiro
 (cond
 ((null tabuleiro) 0)
 (t
-(numero-maximo 
-; linhas
-(append (mapcar (lambda (l) 
-(numero-maximo 
-(mapcar #'(lambda (pivot) 
-(conta-pecas-atributo (conta-atributos-l pivot 
-(remove-valor #'(lambda (x) (equal x 0)) l)))) 
-(remove-valor #'(lambda (x) (equal x 0)) l)))) tabuleiro)
+(let (
+(l0 (remove-valor #'(lambda (x) (equal x 0)) (linha 0 tabuleiro)))
+(l1 (remove-valor #'(lambda (x) (equal x 0)) (linha 1 tabuleiro)))
+(l2 (remove-valor #'(lambda (x) (equal x 0)) (linha 2 tabuleiro)))
+(l3 (remove-valor #'(lambda (x) (equal x 0)) (linha 3 tabuleiro)))
+(c0 (remove-valor #'(lambda (x) (equal x 0)) (coluna 0 tabuleiro)))
+(c1 (remove-valor #'(lambda (x) (equal x 0)) (coluna 1 tabuleiro)))
+(c2 (remove-valor #'(lambda (x) (equal x 0)) (coluna 2 tabuleiro)))
+(c3 (remove-valor #'(lambda (x) (equal x 0)) (coluna 3 tabuleiro)))
+(de (remove-valor #'(lambda (x) (equal x 0)) (diagonal-esquerda tabuleiro)))
+(dd (remove-valor #'(lambda (x) (equal x 0)) (diagonal-direita tabuleiro)))
+)
 
-; colunas
-(append (mapcar (lambda (l) 
 (numero-maximo 
+(append 
+;linhas 
 (mapcar #'(lambda (pivot) 
-(conta-pecas-atributo (conta-atributos-l pivot 
-(remove-valor #'(lambda (x) (equal x 0)) l)))) 
-(remove-valor #'(lambda (x) (equal x 0)) l)))) (colunas tabuleiro))
+(conta-pecas-atributo (conta-atributos-l pivot l0))) l0)
 
-; diagonais
-(mapcar (lambda (l) 
-(numero-maximo 
+(append 
 (mapcar #'(lambda (pivot) 
-(conta-pecas-atributo (conta-atributos-l pivot 
-(remove-valor #'(lambda (x) (equal x 0)) l)))) 
-(remove-valor #'(lambda (x) (equal x 0)) l)))) (diagonais tabuleiro))
-)))
+(conta-pecas-atributo (conta-atributos-l pivot l1))) l1)
+
+(append 
+(mapcar #'(lambda (pivot) 
+(conta-pecas-atributo (conta-atributos-l pivot l2))) l2)
+
+(append  
+(mapcar #'(lambda (pivot) 
+(conta-pecas-atributo (conta-atributos-l pivot l3))) l3)
+
+(append 
+;colunas
+(mapcar #'(lambda (pivot) 
+(conta-pecas-atributo (conta-atributos-l pivot c0))) c0)
+
+(append 
+(mapcar #'(lambda (pivot) 
+(conta-pecas-atributo (conta-atributos-l pivot c1))) c1)
+
+(append 
+(mapcar #'(lambda (pivot) 
+(conta-pecas-atributo (conta-atributos-l pivot c2))) c2)
+
+(append 
+(mapcar #'(lambda (pivot) 
+(conta-pecas-atributo (conta-atributos-l pivot c3))) c3)
+
+(append 
+; diagonal esquerda
+(mapcar #'(lambda (pivot) 
+(conta-pecas-atributo (conta-atributos-l pivot de))) de)
+
+(append 
+; diagonal direita 
+(mapcar #'(lambda (pivot) 
+(conta-pecas-atributo (conta-atributos-l pivot dd))) dd)
+nil))))))))))
+)
+)
 )
 )
 )
@@ -467,7 +514,7 @@ Usando o tabuleiro com problema
 
 ; conta o numero maximo de pecas no tabuleiro
 CL-USER> (conta-pecas-atributo-tabuleiro (tabuleiro (problema)))
-2 ;((2 1 2 1) (2 1 2 2) (1 1)) <=> (2 1 2 1 2 1 2 2 1 1)
+3 ;(2 2 2 1 2 2 2 1 2 2 1 2 2 3 3 3 1 1 1)
 
 ; conta o numero maximo de pecas no tabuleiro vazio
 CL-USER> (conta-pecas-atributo-tabuleiro (tabuleiro (problema)))
@@ -503,6 +550,8 @@ linha-tabuleiro - Linha de tabuleiro
 )
 )
 )
+;pivot: '(BRANCA QUADRADA BAIXA CHEIA)
+;linha-tabuleiro: '((BRANCA QUADRADA BAIXA CHEIA) (PRETA REDONDA ALTA CHEIA) (PRETA QUADRADA BAIXA OCA)) 
 
 #|TESTES
 
