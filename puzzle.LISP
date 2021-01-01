@@ -507,6 +507,6 @@ NIL
   
 )
 
-(defun heuristic (problema)
+(defun heuristic (estado)
   (- 4
-     (max-p-a (tabuleiro problema))))
+     (max-p-a (tabuleiro estado))))
