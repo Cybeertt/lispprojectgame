@@ -1,11 +1,4 @@
-#|(defpackage #:algos
-  (:use #:cl)
-  (:export :no-estado :tabuleiro-conteudo :reserva-conteudo :obter-problemas :cria-no :bfs :dfs :a-star :no-solucaop :sucessores :operadores)
-)
 
-(in-package :algos)|#
-
-;(use-package 'operate)
 
 (setq *DEFAULT-PATHNAME-DEFAULTS* (pathname "D:\\LEI\\IA\\20_21\\projeto1\\"))
 
@@ -44,8 +37,6 @@ no - No
   (cadr teste)
   )
 
-(defun operadores()
-  (list 'nova-jogada))
 
 (defun novo-sucessor (teste x)
   (let ((novo-estado (funcall x (no-estado teste))))
@@ -53,12 +44,29 @@ no - No
 	  (t (list novo-estado (1+ (no-profundidade teste)) teste))))
   )
 
-(defun sucessores (no operadores algoritmo &optional (max-prof nil))
+#|(defun sucessores (no operadores algoritmo &optional (max-prof nil))
   (cond ((and max-prof (eq algoritmo 'dfs)
 	      (>= (no-profundidade no)
 		  max-prof)) nil)
 	(t (remove nil
-		   (mapcar #'(lambda (operador) (novo-sucessor no operador)) operadores)))))
+		   (mapcar #'(lambda (operador) (novo-sucessor no operador)) operadores)))))|#
+
+(defun sucessores-quatro (no operadoresf algoritmo &optional (max-prof nil))
+  (cond ((and max-prof (eq algoritmo 'dfs)
+	      (>= (no-profundidade no)
+		  max-prof)) nil)
+	(t (remove nil
+		   (mapcar #'(lambda (operador) (novo-sucessor no operador)) (funcall operadoresf (no-estado no)))))))
+  
+(defun operadores-quatro (estado-jogo)
+  (let ((casas (casas-vazias (tabuleiro estado-jogo)))
+        (pecas (reserva estado-jogo)))
+    (apply #'append (mapcar #'(lambda (casa)
+                (mapcar #'(lambda (peca)
+                            (lambda (estado) (jogada (car casa) (cadr casa) peca estado)))
+                            pecas))
+            casas))))
+
 
 
 (defun nivel-no (no)
@@ -83,7 +91,7 @@ no - No
 
 
 ;;Algoritmo de Procura em Largura
-(defun bfs (no-inicial objetivop sucessoresf operadores &optional abertos fechados)
+(defun bfs (no-inicial objetivop sucessoresf operadores &optional (abertos nil) (fechados nil))
   (if (funcall objetivop no-inicial)
       no-inicial
       (let ((nos-succ (remove-if #'(lambda (x) (or (no-existep x abertos 'bfs)
@@ -181,6 +189,8 @@ no - No
   (let ((popped (elem heap))
 	(trees (children heap)))
     (values popped (reduce #'meld (pairwise-link trees) :from-end t))))
+
+
 
 ;;Algoritmo de Procura em A*
 (defun a-star (no-inicial objetivop sucessoresf operadores

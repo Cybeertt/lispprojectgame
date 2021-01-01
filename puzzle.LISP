@@ -16,7 +16,7 @@ SOBRE
 Este ficheiro contem algumas funcoes retiradas da resolucao dos guias de laboratorios da UC IA.
 |#
 
-#|PECOTE :puzzle
+#|PACOTE :puzzle
 <breve descricao>
 |#
 
@@ -26,16 +26,16 @@ Funcoes auxiliares para teste
 
 #|NOVA-COORDENADA
 Retorna um valor de coordenada entre 0 e o tamanho da lista
-tamanho-linha - Tamanho da lista
+tamanho-fila - Tamanho da lista
 |#
 (defun nova-coordenada (l)
-(random (length l))
+  (random (length l))
 )
 
 #|TESTES
 
-; gera coordenada linha
-CL-USER> (nova-coordenada (linha 0 (tabuleiro (problema))))
+; gera coordenada fila
+CL-USER> (nova-coordenada (fila 0 (tabuleiro (problema))))
 3
 
 ; gera coordenada coluna
@@ -51,7 +51,7 @@ Retorna uma peca da reserva
 reserva - Reserva
 |#
 (defun seleciona-peca (reserva)
-(nth (random (length reserva)) reserva)
+  (nth (random (length reserva)) reserva)
 )
 
 #|TESTES
@@ -71,17 +71,27 @@ uma com 4 sublistas de 4 elementos de valor zero
 e outra com 16 sublistas de 4 elementos especiais
 |#
 (defun problema ()
-'(
-(
-((BRANCA QUADRADA BAIXA CHEIA) 0 (PRETA REDONDA ALTA CHEIA) (PRETA QUADRADA BAIXA OCA)) 
-(0 0 0 (BRANCA REDONDA BAIXA OCA)) 
-((BRANCA REDONDA ALTA CHEIA) 0 (PRETA REDONDA ALTA OCA) (BRANCA QUADRADA BAIXA OCA)) 
-(0 (PRETA QUADRADA BAIXA CHEIA) 0 0)
-)(
-(BRANCA QUADRADA ALTA CHEIA) (BRANCA QUADRADA ALTA OCA) (PRETA QUADRADA ALTA CHEIA) (PRETA QUADRADA ALTA OCA) 
-(BRANCA REDONDA ALTA OCA) (BRANCA REDONDA BAIXA CHEIA) (PRETA REDONDA BAIXA CHEIA) (PRETA REDONDA BAIXA OCA)
+  '(
+    (
+     ((BRANCA QUADRADA BAIXA CHEIA) 0 (PRETA REDONDA ALTA CHEIA) (PRETA QUADRADA BAIXA OCA)) 
+     (0 0 0 (BRANCA REDONDA BAIXA OCA)) 
+     ((BRANCA REDONDA ALTA CHEIA) 0 (PRETA REDONDA ALTA OCA) (BRANCA QUADRADA BAIXA OCA)) 
+     (0 (PRETA QUADRADA BAIXA CHEIA) 0 0)
+     )(
+       (BRANCA QUADRADA ALTA CHEIA) (BRANCA QUADRADA ALTA OCA) (PRETA QUADRADA ALTA CHEIA) (PRETA QUADRADA ALTA OCA) 
+       (BRANCA REDONDA ALTA OCA) (BRANCA REDONDA BAIXA CHEIA) (PRETA REDONDA BAIXA CHEIA) (PRETA REDONDA BAIXA OCA)
+       )
+    ))
+
+(defun A ()
+  #|'((((branca quadrada alta oca) (preta redonda baixa oca) (preta quadrada alta oca) (branca quadrada alta cheia))((branca redonda alta oca) 0 (branca redonda alta cheia) 0) 
+((preta quadrada baixa cheia) (preta redonda alta cheia) (branca quadrada baixa oca) 0)((preta quadrada baixa oca) 0 (branca quadrada baixa cheia) 0))
+ ((branca redonda baixa oca) (preta redonda baixa cheia) (preta redonda alta oca) (preta quadrada alta cheia) (branca redonda baixa cheia))
+)|#
+  '((((branca quadrada alta oca) (preta quadrada baixa cheia) 0 (preta quadrada alta oca))((branca redonda alta oca) (preta redonda alta oca) (branca redonda alta cheia) 0)(0 (preta redonda alta cheia) (preta redonda baixa cheia) 0)
+((branca redonda baixa oca) (branca quadrada alta cheia) (preta redonda baixa oca) (branca quadrada baixa cheia)))((preta quadrada alta cheia)(preta quadrada baixa oca)(branca redonda baixa cheia)(branca quadrada baixa oca)))
+
 )
-)) 
 
 #|'(
 (
@@ -156,7 +166,7 @@ Retorna pecas de reserva
 problema - Tabuleiro com reserva
 |#
 (defun reserva (problema)
-(cadr problema)
+  (cadr problema)
 )
 
 #|TESTES
@@ -170,27 +180,29 @@ CL-USER> (reserva nil)
 NIL
 |#
 
-#|LINHA
-Retorna linha
-l - Linha
+#|FILA
+Retorna fila
+l - Fila
 tabuleiro - Tabuleiro
 |#
-(defun linha (l tabuleiro)
-(nth l tabuleiro)
+(defun fila (l tabuleiro)
+  (nth l tabuleiro)
 )
 
+(defun filas (tabuleiro)
+  tabuleiro)
 #|TESTES
 
-; primeira linha do tabuleiro
-CL-USER> (linha 0 (tabuleiro (problema)))
+; primeira fila do tabuleiro
+CL-USER> (fila 0 (tabuleiro (problema)))
 (0 0 0 0)
 
-; primeira linha do tabuleiro
-CL-USER> (linha 0 nil)
+; primeira fila do tabuleiro
+CL-USER> (fila 0 nil)
 NIL
 
 LIMITACOES
--1 > l < tamanho da linha
+-1 > l < tamanho da fila
 |#
 
 #|COLUNA
@@ -200,7 +212,7 @@ tabuleiro - Tabuleiro
 |#
 (defun coluna (c tabuleiro)
 ; e - Elemento do tabuleiro
-(mapcar #'(lambda (e) (nth c e)) tabuleiro)
+  (mapcar #'(lambda (e) (nth c e)) tabuleiro)
 )
 
 #|TESTES
@@ -219,12 +231,12 @@ LIMITACOES
 
 #|CELULA
 Retorna celula
-l - Linha
+l - Fila
 c - Coluna
 tabuleiro - Tabuleiro
 |#
 (defun celula (l c tabuleiro)
-(nth l (nth c tabuleiro))
+  (nth l (nth c tabuleiro))
 )
 
 #|TESTES
@@ -238,7 +250,7 @@ CL-USER> (celula 0 0 nil)
 NIL
 
 LIMITACOES
--1 > l < tamanho da linha
+-1 > l < tamanho da fila
 -1 > c < tamanho da coluna
 |#
 
@@ -248,10 +260,10 @@ Retorna uma lista com inteiros de 0 a i-1
 i - Indice maximo
 |#
 (defun cria-lista-indice (i)
-(cond 
-((< i 1) nil)
-(t (cons (1- i) (cria-lista-indice (1- i))))
-)
+  (cond 
+   ((< i 1) nil)
+   (t (cons (1- i) (cria-lista-indice (1- i))))
+   )
 )
 
 #|TESTES
@@ -274,7 +286,7 @@ tabuleiro - Tabuleiro
 |#
 (defun diagonal-esquerda (tabuleiro)
 ; e - Elemento da lista
-(mapcar #'(lambda (e) (celula e e tabuleiro)) (reverse (cria-lista-indice (length tabuleiro))))
+  (mapcar #'(lambda (e) (celula e e tabuleiro)) (reverse (cria-lista-indice (length tabuleiro))))
 )
 
 #|TESTES
@@ -294,9 +306,9 @@ tabuleiro - Tabuleiro
 |#
 (defun diagonal-direita (tabuleiro)
 ; i - indice
-(let ((i (1- (length tabuleiro))))
+  (let ((i (1- (length tabuleiro))))
 ; e - Elemento da lista
-(mapcar #'(lambda (e) (celula e (- i e) tabuleiro)) (reverse (cria-lista-indice (length tabuleiro))))
+    (mapcar #'(lambda (e) (celula e (- i e) tabuleiro)) (reverse (cria-lista-indice (length tabuleiro))))
 )
 )
 
@@ -317,25 +329,25 @@ Retorna NIL se o valor for lista
 tabuleiro
 |#
 (defun casa-vaziap (l c tabuleiro)
-(numberp (celula l c tabuleiro))
+  (numberp (celula l c tabuleiro))
 )
 
 #|TESTES
-
-; verifica se a linha 0 coluna 0 do tabuleiro esta vazia
+;
+; verifica se a fila 0 coluna 0 do tabuleiro esta vazia
 CL-USER> (casa-vaziap 0 0 (tabuleiro (problema)))
 T
 
-; verifica se a linha 0 coluna 0 do tabuleiro esta vazia
+; verifica se a fila 0 coluna 0 do tabuleiro esta vazia
 CL-USER> (casa-vaziap 0 0 (tabuleiro (problema)))
 NIL
 
-; verifica se a linha 0 coluna 0 do tabuleiro esta vazia
+; verifica se a fila 0 coluna 0 do tabuleiro esta vazia
 CL-USER> (casa-vaziap 0 0 nil)
 NIL
 
 LIMITACOES
--1 > l > tamanho da linha
+-1 > l > tamanho da fila
 -1 > c > tamanho da coluna
 |#
 
@@ -345,11 +357,11 @@ p - Peca
 reserva - Reserva
 |#
 (defun remove-peca (p reserva)
-(let ((predp #'(lambda (p e) (equal p e))))
-(cond
-((or (null reserva) (null p)) NIL)
-((funcall predp p (car reserva)) (remove-peca p (cdr reserva)))
-(t (cons (car reserva) (remove-peca p (cdr reserva))))
+  (let ((predp #'(lambda (p e) (equal p e))))
+    (cond
+     ((or (null reserva) (null p)) NIL)
+     ((funcall predp p (car reserva)) (remove-peca p (cdr reserva)))
+     (t (cons (car reserva) (remove-peca p (cdr reserva))))
 )
 )
 )
@@ -376,11 +388,11 @@ p - Peca
 reserva - Reserva
 |#
 (defun filtra (predp p reserva)
-(cond 
-((null reserva) nil)
-((funcall predp p (car reserva)) (filtra predp p (cdr reserva)))
-(t (cons (car reserva) (filtra predp p (cdr reserva))))
-)
+  (cond 
+   ((null reserva) nil)
+   ((funcall predp p (car reserva)) (filtra predp p (cdr reserva)))
+   (t (cons (car reserva) (filtra predp p (cdr reserva))))
+   )
 )
 
 #|TESTES
@@ -405,26 +417,26 @@ Depende do parametro predp para realizar a filtracao de elementos da lista
 Retorna a peca substituida quando operacao e realizada com sucesso, caso contrario retorna NIL
 i - Indice
 p - Peca
-linha-tabuleiro - Linha do tabuleiro
+fila-tabuleiro - Fila do tabuleiro
 |#
-(defun substituir-posicao (i p linha-tabuleiro)
-(cond
-((or (null p) (null linha-tabuleiro)) NIL)
-(t (setf (nth i linha-tabuleiro) p))
-)
+(defun substituir-posicao (i p fila-tabuleiro)
+  (cond
+   ((or (null p) (null fila-tabuleiro)) NIL)
+   (t (setf (nth i fila-tabuleiro) p))
+   )
 )
 
 #|TESTES
 
-; substituir posicao 0 da linha 0 do tabuleiro com a primeira peca da reserva
-CL-USER> (substituir-posicao 0 (nth 0 (reserva (problema))) (linha 0 (tabuleiro (problema))))
+; substituir posicao 0 da fila 0 do tabuleiro com a primeira peca da reserva
+CL-USER> (substituir-posicao 0 (nth 0 (reserva (problema))) (fila 0 (tabuleiro (problema))))
 (BRANCA REDONDA ALTA OCA)
 
-; substituir posicao 0 da linha 0 do tabuleiro com a primeira peca da reserva
-CL-USER> (substituir-posicao 0 nil (linha 0 (tabuleiro (problema))))
+; substituir posicao 0 da fila 0 do tabuleiro com a primeira peca da reserva
+CL-USER> (substituir-posicao 0 nil (fila 0 (tabuleiro (problema))))
 NIL
 
-; substituir posicao 0 da linha 0 do tabuleiro com a peca NIL da reserva
+; substituir posicao 0 da fila 0 do tabuleiro com a peca NIL da reserva
 CL-USER> (substituir-posicao 0 (nth 0 (reserva (problema))) nil)
 NIL
 
@@ -437,78 +449,133 @@ Retorna o numero maximo de pecas em todo o tabuleiro com pelo menos um
 atributo em comum
 tabuleiro - Tabuleiro
 |#
-(defun conta-pecas-atributo-tabuleiro (tabuleiro)
-(cond
-((null tabuleiro) 0)
-(t
-(let (
-(l0 (remove-valor #'(lambda (x) (equal x 0)) (linha 0 tabuleiro)))
-(l1 (remove-valor #'(lambda (x) (equal x 0)) (linha 1 tabuleiro)))
-(l2 (remove-valor #'(lambda (x) (equal x 0)) (linha 2 tabuleiro)))
-(l3 (remove-valor #'(lambda (x) (equal x 0)) (linha 3 tabuleiro)))
-(c0 (remove-valor #'(lambda (x) (equal x 0)) (coluna 0 tabuleiro)))
-(c1 (remove-valor #'(lambda (x) (equal x 0)) (coluna 1 tabuleiro)))
-(c2 (remove-valor #'(lambda (x) (equal x 0)) (coluna 2 tabuleiro)))
-(c3 (remove-valor #'(lambda (x) (equal x 0)) (coluna 3 tabuleiro)))
-(de (remove-valor #'(lambda (x) (equal x 0)) (diagonal-esquerda tabuleiro)))
-(dd (remove-valor #'(lambda (x) (equal x 0)) (diagonal-direita tabuleiro)))
-)
 
-(numero-maximo 
-(append 
-;linhas 
-(mapcar #'(lambda (pivot) 
-(conta-pecas-atributo (conta-atributos-l pivot l0))) l0)
+;;NO-SOLUCAOP
+(defun quatro-linha-p (tabuleiro)
+  (cond
+   ((null tabuleiro) nil)
+   (t
+    (let* ((linhas (append tabuleiro (colunas tabuleiro) (diagonais tabuleiro)))
+           (linhas-cheias (remove-if-not #'(lambda (z) 
+                                             (= 4 (list-length z)))
+                                         (mapcar #'(lambda (x) 
+                                                     (remove-if #'(lambda (y) (eq y 0)) x))
+                                                 linhas))))
+      (cond
+       ((null linhas-cheias) nil)
+       (t (reduce #'(lambda (&optional x y) (or x y)) (mapcar #'sao-iguaisp linhas-cheias))))))))
+           ;(n-atributos (mapcar #'(lambda (pivot) (conta-pecas-atributo (conta-atributos-l pivot l0))) l0)
 
-(append 
-(mapcar #'(lambda (pivot) 
-(conta-pecas-atributo (conta-atributos-l pivot l1))) l1)
 
-(append 
-(mapcar #'(lambda (pivot) 
-(conta-pecas-atributo (conta-atributos-l pivot l2))) l2)
+(defun max-p-a (tabuleiro)
+  (cond
+   ((null tabuleiro) nil)
+   (t
+    (let* ((linhas (append tabuleiro (colunas tabuleiro) (diagonais tabuleiro)))
+           (linhas-pecas (mapcar #'(lambda (x) 
+                                     (remove-if #'(lambda (y) (eq y 0)) x))
+                                 linhas)))
+      (cond
+       ((null linhas-pecas) 0)
+       (t (reduce #'max (mapcar #'max (remove nil (mapcar #'(lambda (em-linha len) (and em-linha len))
+                                (mapcar #'sao-iguaisp linhas-pecas)
+                                (mapcar #'length linhas-pecas)))))))))))
 
-(append  
-(mapcar #'(lambda (pivot) 
-(conta-pecas-atributo (conta-atributos-l pivot l3))) l3)
+(defun heuristic (tab)
+  (- 4
+     (max-p-a (tabuleiro tab))))
 
-(append 
+
+(defun sao-iguaisp (linha)
+  (labels ((eq-list (x &rest y) 
+             (cond 
+              ((null y) T) 
+              ((eq x (car y)) (apply #'eq-list x (cdr y)))
+              (t nil))))
+    (cond
+     ((null linha) nil)
+     (t (reduce #'(lambda (&optional a b) (or a b)) (apply #'mapcar #'eq-list linha))))))
+
+
+#|(defun quatro-pecas-p (tabuleiro)
+  (cond
+   ((null tabuleiro) nil)
+   (t
+    (let* ((linhas (append tabuleiro (colunas tabuleiro) (diagonais tabuleiro)))
+           (linhas-cheias (remove-if-not #'(lambda (x) 
+                                             (= 4 (length x))) ;numero de pecas inserida
+                                         (remove-if #'(lambda (a) (null a))
+                                                        (mapcar #'(lambda (y)
+                                                                    (remove-if #'(lambda(z) (eq z 0)) y))                                                         linhas)) tabuleiro)))
+      (cond 
+       ((null linhas-cheias) nil)
+       (if
+       (t nil )))))))|#
+      #| (a b c) -> A tem 2 atributos
+                    (ou (A0 = B0 = C0) (A1 = B1 = C1))
+                    A0 = B0 : T +1  A0 = B0 : nil +0
+                    A0 = C0 : T +1  A0 = C0 : nil +0
+                    B0 = C0 : T +1  B0 = C0 : nil +0
+)))))|#
+
+
+                      
+
+     #| (numero-maximo 
+       (append 
+;filas 
+        (mapcar #'(lambda (pivot) 
+                    (conta-pecas-atributo (conta-atributos-l pivot l0))) l0)
+
+        (append 
+         (mapcar #'(lambda (pivot) 
+                     (conta-pecas-atributo (conta-atributos-l pivot l1))) l1)
+
+         (append 
+          (mapcar #'(lambda (pivot) 
+                      (conta-pecas-atributo (conta-atributos-l pivot l2))) l2)
+
+          (append  
+           (mapcar #'(lambda (pivot) 
+                       (conta-pecas-atributo (conta-atributos-l pivot l3))) l3)
+
+           (append 
 ;colunas
-(mapcar #'(lambda (pivot) 
-(conta-pecas-atributo (conta-atributos-l pivot c0))) c0)
+            (mapcar #'(lambda (pivot) 
+                        (conta-pecas-atributo (conta-atributos-l pivot c0))) c0)
 
-(append 
-(mapcar #'(lambda (pivot) 
-(conta-pecas-atributo (conta-atributos-l pivot c1))) c1)
+            (append 
+             (mapcar #'(lambda (pivot) 
+                         (conta-pecas-atributo (conta-atributos-l pivot c1))) c1)
 
-(append 
-(mapcar #'(lambda (pivot) 
-(conta-pecas-atributo (conta-atributos-l pivot c2))) c2)
+             (append 
+              (mapcar #'(lambda (pivot) 
+                          (conta-pecas-atributo (conta-atributos-l pivot c2))) c2)
 
-(append 
-(mapcar #'(lambda (pivot) 
-(conta-pecas-atributo (conta-atributos-l pivot c3))) c3)
+              (append 
+               (mapcar #'(lambda (pivot) 
+                           (conta-pecas-atributo (conta-atributos-l pivot c3))) c3)
 
-(append 
+               (append 
 ; diagonal esquerda
-(mapcar #'(lambda (pivot) 
-(conta-pecas-atributo (conta-atributos-l pivot de))) de)
+                (mapcar #'(lambda (pivot) 
+                            (conta-pecas-atributo (conta-atributos-l pivot de))) de)
 
-(append 
+                (append 
 ; diagonal direita 
-(mapcar #'(lambda (pivot) 
-(conta-pecas-atributo (conta-atributos-l pivot dd))) dd)
-nil))))))))))
-)
-)
-)
-)
-)
+                 (mapcar #'(lambda (pivot) 
+                             (conta-pecas-atributo (conta-atributos-l pivot dd))) dd)
+                 nil))))))))))
+       )
+      )
+    )
+   )
+  )|#
 
 #|
 
 Usando o tabuleiro com problema
-(2 1 2 1) - linhas
+(2 1 2 1) - filas
 (2 1 2 2) - colunas
 (1 1) - diagonais
 
@@ -529,42 +596,42 @@ Apenas aceita tabuleiro 4x4 e cada peca tem de ter 4 atributos
 |#
 
 #|CONTA-ATRIBUTOS-L
-Retorna a contagem de atributos entre uma peca pivot e uma linha de tabuleiro com pecas
+Retorna a contagem de atributos entre uma peca pivot e uma fila de tabuleiro com pecas
 pivot - Peca
-linha-tabuleiro - Linha de tabuleiro
+fila-tabuleiro - Fila de tabuleiro
 |#
-(defun conta-atributos-l (pivot linha-tabuleiro)
-(cond
-((or (null linha-tabuleiro) (null pivot)) (list 0))
-(t
-(mapcar #'(lambda (e) 
-(mapcar #'(lambda (x) 
-(cond 
-((equal x (car pivot)) 1)
-((equal x (cadr pivot)) 1)
-((equal x (caddr pivot)) 1)
-((equal x (cadddr pivot)) 1)
-(t 0)
-)) e)
-) linha-tabuleiro)
-)
-)
-)
+#|(defun conta-atributos-l (pivot fila-tabuleiro)
+  (cond
+   ((or (null fila-tabuleiro) (null pivot)) (list 0))
+   (t
+    (mapcar #'(lambda (e) 
+                (mapcar #'(lambda (x) 
+                            (cond 
+                             ((or ((equal x (car pivot))
+                             (equal x (cadr pivot))
+                             (equal x (caddr pivot))
+                             (equal x (cadddr pivot)) ))1)
+                             (t 0)
+                             )) e)
+                ) fila-tabuleiro)
+    )
+   )
+)|#
 ;pivot: '(BRANCA QUADRADA BAIXA CHEIA)
-;linha-tabuleiro: '((BRANCA QUADRADA BAIXA CHEIA) (PRETA REDONDA ALTA CHEIA) (PRETA QUADRADA BAIXA OCA)) 
+;fila-tabuleiro: '((BRANCA QUADRADA BAIXA CHEIA) (PRETA REDONDA ALTA CHEIA) (PRETA QUADRADA BAIXA OCA)) 
 
 #|TESTES
 
-; conta o numero de pecas com atributos de uma linha de um tabuleiro vazio
+; conta o numero de pecas com atributos de uma fila de um tabuleiro vazio
 CL-USER> (conta-atributos-l '(0 0 0 0))
 NIL
 
-; conta o numero de pecas com atributos de uma linha de um tabuleiro vazio
+; conta o numero de pecas com atributos de uma fila de um tabuleiro vazio
 CL-USER> (conta-atributos-l '(0 0 0 0))
 NIL
 
-; conta o numero de pecas com atributos na linha 0 do tabuleiro
-CL-USER> (conta-atributos-l (linha 0 (tabuleiro (problema))))
+; conta o numero de pecas com atributos na fila 0 do tabuleiro
+CL-USER> (conta-atributos-l (fila 0 (tabuleiro (problema))))
 ((1 1 1 1) (0 0 0 1) (0 1 1 0))
 
 LIMITES
@@ -577,24 +644,21 @@ elementos de valores 0 e 1
 contagem - Lista com sublistas de 4 elementos com valores 0 e 1
 |#
 (defun conta-pecas-atributo (contagem)
-(cond
-((null contagem) 0)
-(t (numero-maximo
-(cons (reduce #'+ (mapcar #'car contagem)) 
-(cons (reduce #'+ (mapcar #'cadr contagem)) 
-(cons (reduce #'+ (mapcar #'caddr contagem)) 
-(cons (reduce #'+ (mapcar #'cadddr contagem)) nil)))))
-)
-)
-)
+  (cond
+   ((null contagem) 0)
+   (t (numero-maximo
+       (cons (reduce #'+ (mapcar #'car contagem)) 
+             (cons (reduce #'+ (mapcar #'cadr contagem)) 
+                   (cons (reduce #'+ (mapcar #'caddr contagem)) 
+                         (cons (reduce #'+ (mapcar #'cadddr contagem)) nil))))))))
 
 #|TESTES
 
-; conta o maximo numero de pecas na linha 0 do tabuleiro
-CL-USER> (conta-pecas-atributo (conta-atributos-l (linha 0 (tabuleiro (problema)))))
+; conta o maximo numero de pecas na fila 0 do tabuleiro
+CL-USER> (conta-pecas-atributo (conta-atributos-l (fila 0 (tabuleiro (problema)))))
 2
 
-; conta o maximo numero de pecas de uma linha de um tabuleiro vazio
+; conta o maximo numero de pecas de uma fila de um tabuleiro vazio
 CL-USER> (conta-pecas-atributo (conta-atributos-l '(0 0 0 0)))
 0
 
@@ -637,24 +701,24 @@ predp - Funcao booleana
 l - Lista
 |#
 (defun remove-valor (predp l)
-(cond
-((null l) NIL)
-((funcall predp (car l)) (remove-valor predp (cdr l)))
-(t (cons (car l) (remove-valor predp (cdr l))))
-)
+  (cond
+   ((null l) NIL)
+   ((funcall predp (car l)) (remove-valor predp (cdr l)))
+   (t (cons (car l) (remove-valor predp (cdr l))))
+   )
 )
 
 #|
 
-; remove o valor 0 da linha 0 do tabuleiro vazio
+; remove o valor 0 da fila 0 do tabuleiro vazio
 ; predp -> (lambda (x) (equal x 0))
-CL-USER> (remove-valor #'(lambda (x) (equal x 0)) (linha 0 (tabuleiro (problema))))
+CL-USER> (remove-valor #'(lambda (x) (equal x 0)) (fila 0 (tabuleiro (problema))))
 NIL
 
-; remove o valor 0 da linha 0 do tabuleiro nao vazio
-; linha 0 -> ((BRANCA QUADRADA BAIXA CHEIA) 0 (PRETA REDONDA ALTA CHEIA) (PRETA QUADRADA BAIXA OCA))
+; remove o valor 0 da fila 0 do tabuleiro nao vazio
+; fila 0 -> ((BRANCA QUADRADA BAIXA CHEIA) 0 (PRETA REDONDA ALTA CHEIA) (PRETA QUADRADA BAIXA OCA))
 ; predp -> (lambda (x) (equal x 0))
-CL-USER> (remove-valor #'(lambda (x) (equal x 0)) (linha 0 (tabuleiro (problema))))
+CL-USER> (remove-valor #'(lambda (x) (equal x 0)) (fila 0 (tabuleiro (problema))))
 ((BRANCA QUADRADA BAIXA CHEIA) (PRETA REDONDA ALTA CHEIA) (PRETA QUADRADA BAIXA OCA))
 
 ; remove o valor 0 da lista vazia
@@ -671,8 +735,7 @@ Retorna uma lista com todas as colunas possiveis de um tabuleiro
 tabuleiro - Tabuleiro
 |#
 (defun colunas (tabuleiro)
-(cons (coluna 0 tabuleiro) (cons (coluna 1 tabuleiro) (cons (coluna 2 tabuleiro) (cons (coluna 3 tabuleiro) nil))))
-)
+  (list (coluna 0 tabuleiro)  (coluna 1 tabuleiro) (coluna 2 tabuleiro) (coluna 3 tabuleiro)))
 #|TESTES
 
 ; colunas de um tabuleiro vazio
@@ -692,8 +755,8 @@ Retorna uma lista com as duas diagonais possiveis de um tabuleiro
 tabuleiro - Tabuleiro
 |#
 (defun diagonais (tabuleiro)
-(cons (diagonal-direita tabuleiro) (cons (diagonal-esquerda tabuleiro) nil))
-)
+(list (diagonal-direita tabuleiro) (diagonal-esquerda tabuleiro)))
+
 
 #|TESTES
 
@@ -712,39 +775,53 @@ Apenas aceita um tabuleiro 4x4, cujo as diagonais sao duas
 
 #|JOGADA
 Remove peca da reserva e coloca-a nas coordenadas do tabuleiro, verificando se nao se encontra ocupado. Se a coordenada do tabuleiro encontra-se ocupada retorna NIL, caso contrario retorna o problema alterado. Se a peca for NIL, ignora a operacao e retorna NIL.
-l - Linha
+l - Fila
 c - Coluna
 p - Peca
 problema - Problema
 |#
 (defun jogada (l c p problema)
-(cond
-((not (casa-vaziap l c (tabuleiro problema))) NIL)
-(t 
-(let* ((novo-problema problema) (novo-tabuleiro (tabuleiro novo-problema)) (nova-reserva (reserva novo-problema)))
-(substituir-posicao c p (linha l novo-tabuleiro))
-(setf (nth 1 novo-problema) (remove-peca p nova-reserva))
-novo-problema
+  (cond
+   ;((null (reserva problema)) nil)
+   ((not (casa-vaziap l c (tabuleiro problema))) nil)
+   (t 
+    (let ((novo-tabuleiro (copy-tree (tabuleiro problema))))
+      (substituir-posicao c p (fila l novo-tabuleiro))
+      (list novo-tabuleiro (remove-peca p (reserva problema)))
+    )
+   ))
+  
 )
-)
-)
-)
+
+(defun casas-vazias (tab &optional (l 0))
+  (cond 
+   ((null tab) nil)
+    (t (append (coordenadas (car tab) l) 
+     (casas-vazias (cdr tab) (1+ l)))))) 
+
+
+(defun coordenadas (fila l &optional (c 0))
+  (cond
+   ((null fila) nil)
+   ((eq (car fila) 0) 
+    (cons (list l c) (coordenadas (cdr fila) l (1+ c))))
+   (t (coordenadas (cdr fila) l (1+ c)))))
 
 #|TESTES
 
-; coloca na linha 0 coluna 0 do tabuleiro, a primeira peca
+; coloca na fila 0 coluna 0 do tabuleiro, a primeira peca
 CL-USER> (operador 0 0 (nth 0 (reserva (problema))) (problema))
 
 
-; coloca na linha 0 coluna 0 ocupada do tabuleiro, a primeira peca
+; coloca na fila 0 coluna 0 ocupada do tabuleiro, a primeira peca
 CL-USER> (operador 0 0 (nth 0 (reserva (problema))) (problema))
 NIL
 
-; coloca na linha 0 coluna 0 do tabuleiro, a primeira peca
+; coloca na fila 0 coluna 0 do tabuleiro, a primeira peca
 CL-USER> (operador 0 0 (nth 0 (reserva (problema))) nil)
 NIL
 
-; coloca na linha 0 coluna 0 do tabuleiro, a peca NIL
+; coloca na fila 0 coluna 0 do tabuleiro, a peca NIL
 CL-USER> (operador 0 0 nil (problema))
 NIL
 |#
@@ -755,11 +832,16 @@ com a peca colocada no tabuleiro e removida da reserva
 problema - Problema
 |#
 (defun nova-jogada (problema)
-(jogada 
-(nova-coordenada (linha 0 (tabuleiro problema))) 
-(nova-coordenada (coluna 0 (tabuleiro problema))) 
-(seleciona-peca (reserva problema)) 
-problema)
+  (let ((play (jogada 
+           (nova-coordenada (fila 0 (tabuleiro problema)))
+           (nova-coordenada (coluna 0 (tabuleiro problema))) 
+           (seleciona-peca (reserva problema)) 
+    problema)))
+  (cond
+   ((null (reserva problema)) nil)
+   ((null play) (nova-jogada problema))
+   (t play)
+   ))
 )
 
 #|
@@ -777,13 +859,8 @@ Apenas aceita uma lista com sublistas, uma com um tabuleiro 4x4 e outra reserva
 |#
 
 (defun no-solucaop (no)
-  
-  (COND 
-   ((null no) nil)
-   ((or (reserva-conteudo no)
-    (= 4 (conta-pecas-atributo-tabuleiro (tabuleiro-conteudo no))))
-         T) 
-   (T NIL)
-   )
+  ;(princ (conta-pecas-atributo-tabuleiro (tabuleiro-conteudo no)))
+  (if (null no) nil (quatro-linha-p (tabuleiro-conteudo no)))
   ;(princ (car no))
+  
 )
