@@ -4,8 +4,6 @@
 ### Docente
 Joaquim Filipe
 
-
-
 ### Estudantes
 150221081 - Daniela Sineiro
 
@@ -18,38 +16,30 @@ Neste manual encontram-se explicações sobre o jogo, como o iniciar, a estrutur
 * [Abstrato](#doc-abstract)
 * [Extrutura do Projeto](#doc-extrutura)
 * [Documentação de Funções](#doc-func)
-  * [Funções Auxiliares](#f-auxiliar)
-    * [Nova-Jogada](#f-nova-jogada)
-    * [Seleciona-Peca](#f-seleciona-peca)
-  * [Tabuleiro-E-Pecas](#f-tabuleiro-pecas)
-  * [Tabuleiro](#f-tabuleiro)
-  * [Reserva](#f-reserva)
-  * [Extrai-N](#f-extrai)
-  * [Linha](#f-linha)
-  * [Coluna](#f-coluna)
-  * [Colunas](#f-colunas)
-  * [Celula](#f-celula)
-  * [Diagonal-2](#f-diagonal-1)
-  * [Diagonal-1](#f-diagonal-2)
-  * [Diagonais](#f-diagonais)
-  * [Tabuleiro-N-Ocupado](#f-tabuleiro-ocupado)
-  * [Remove-Peca](#f-remove-peca)
-  * [Filtra](#f-filtra)
-  * [Coloca-Peca-No-Tabuleiro](#f-coloca-peca-tabuleiro)
-  * [Tem-Atributo-Igual](#f-atributo-igual)
-  * [Conta-Pecas](#f-conta)
-  * [Conta-Pecas-No-Tabuleiro](#f-conta-tabuleiro)
-  * [Px](#f-px)
-  * [Mostra-Linha](#f-mostra-linha)
-  * [Mostra-Tabuleiro](#f-mostra-tabuleiro)
-* [Demostrações](#demo)
-  * [Inserir Peça](#demo-1)
-    * [Tabuleiro Vazio](#demo-11)
-    * [Posição no Tabuleiro com Peça](#demo-12)
-  * [Test2](#teste-2)
-  * [Teste3](#teste-3)
-* [// TODO](#todo)
-* [Glossário](#doc-glossario)
+  * [Puzzle](#f-puzzle)
+    * [Tabuleiro](#f-tabuleiro)
+    * [Reserva](#f-reserva)
+    * [Fila](#f-fila)
+    * [Coluna](#f-coluna)
+    * [Celula](#f-celula)
+    * [Cria-Lista-Indice](#f-cria-lista-indice)
+    * [Diagonal-Esquerda](#f-diagonal-esquerda)
+    * [Diagonal-Direita](#f-diagonal-direita)
+    * [Casa-Vaziap](#f-casa-vaziap)
+    * [Remove-Peca](#f-remove-peca)
+    * [Substituir-Posicao](#f-substituir-posicao)
+    * [Colunas](#f-colunas)
+    * [Diagnonais](#f-diagonais)
+    * [Quatro-Fila-P](#f-quatro-fila-p)
+    * [Max-A-P](#f-max-a-p)
+    * [Sao-Iguaisp](#f-sao-iguaisp)
+    * [Jogada](#f-jogada)
+    * [Casas-Vazias](#f-casas-vazias)
+    * [Coordenadas](#f-coordenadas)
+    * [No-Solucaop](#f-no-solucaop)
+    * [Heuristic](#f-heuristic)
+  * [Procura](#f-procura)
+  * [Projeto](#f-projeto)
 
 ## <a name="doc-abstract">Abstrato</a>
 Este projeto tem com o intuito de aplicar conhecimentos adquiridos no ambito da cadeira curricular IA e realizar uma análise entre os algoritmos de procura para os diferentes estados do jogo Quatro.
@@ -90,119 +80,8 @@ As seguintes funções utilizadas para desenvolver o projeto, contêm o seu corp
 
 Excecionalmente, algumas funções contêm breves observações perante o resultado esperado, para melhor ilustrar o seu uso especifico.
 
-### <a nome="f-auxiliar">Funções Auxiliares</a>
-As seguintes funções foram desenvolvidas para agilizar o processo de testes para todas as funções desenvolvidas do projeto que requerem receber por parâmetro peças e/ou coordenadas do tabuleiro.
-
-#### <a name="f-nova-jogada">Nova-Jogada</a>
-Esta função retorna um número aleatório consuante o tamanho da lista que recebe.
-
-Em contexto do problema, esta função auxilia a escolha aleatória da posição do tabuleiro.
-
-**Parâmetros**
-
-*l - Lista*
-
-```lisp
-;; função
-(defun nova-jogada (l)
- (random (length l))
-)
-```
-
-```lisp
-;; chamada
-;; gera uma posição linha
-(operate:nova-jogada (operate:tabuleiro (operate:tabuleiro-e-pecas)))
-
-;; resultado
-0
-
-;; chamada
-;; gera uma posição coluna
-(operate:nova-jogada (operate:tabuleiro (operate:tabuleiro-e-pecas))
-
-;; resultado
-2
-```
-
-#### <a name="f-seleciona-peca">Seleciona-Peca</a>
-Esta função retorna um elemento aleatório da lista que recebe.
-
-Em contexto do problema, esta função auxilia
-a escolha aleatória de uma peça.
-
-**Parâmetros**
-
-*p - Peça*
-
-```lisp
-;; função
-(defun seleciona-peca (p)
- (extrai-n (random (length p)))
-)
-
-;; chamada
-(operate:seleciona-peca (operate:reserva (operate:tabuleiro-e-pecas)))
-
-;; resultado
-(BRANCA QUADRADA ALTA OCA)
-
-;; chamada
-(operate:seleciona-peca (operate:reserva (operate:tabuleiro-e-pecas)))
-
-;; resultado
-(PRETA REDONDA ALTA CHEIA)
-```
-
-#### <a name="f-tabuleiro-pecas">Tabuleiro-E-Pecas</a>
-Retorna uma lista com duas listas.
-
-Uma lista 4x4 com elementos de valor zero e outra com 16 elementos do tipo lista com 4 carateristicas, representando peças.
-
-**Parâmetros**
-
-*Nenhum*
-
-```lisp
-;; função
-(defun tabuleiro-e-pecas ()
- '(
-  (
-   (0 0 0 0)
-   (0 0 0 0)
-   (0 0 0 0)
-   (0 0 0 0)
-  )
-  (
-   (branca redonda alta oca)
-   (preta redonda alta oca)
-   (branca redonda baixa oca)
-   (preta redonda baixa oca)
-   (branca quadrada alta oca)
-   (preta quadrada alta oca)
-   (branca quadrada baixa oca)
-   (preta quadrada baixa oca) 
-   (branca redonda alta cheia)
-   (preta redonda alta cheia)
-   (branca redonda baixa cheia)
-   (preta redonda baixa cheia)
-   (branca quadrada alta cheia)
-   (preta quadrada alta cheia)
-   (branca quadrada baixa cheia)
-   (preta quadrada baixa cheia)
-  )
- )
-)
-```
-
-```lisp
-;; chamada
-;; retorna tabuleiro e peças
-(operate:tabuleiro-e-pecas)
-
-;; resultado
-(((0 0 0 0) (0 0 0 0) (0 0 0 0) (0 0 0 0)) ((BRANCA REDONDA ALTA OCA) (PRETA REDONDA ALTA OCA) (BRANCA REDONDA BAIXA OCA) (PRETA REDONDA BAIXA OCA) (BRANCA QUADRADA ALTA OCA) (PRETA QUADRADA ALTA OCA) (BRANCA QUADRADA BAIXA OCA) (PRETA QUADRADA BAIXA OCA) (BRANCA REDONDA ALTA CHEIA) (PRETA REDONDA ALTA CHEIA) (BRANCA REDONDA BAIXA CHEIA) (PRETA REDONDA BAIXA CHEIA) (BRANCA QUADRADA ALTA CHEIA) (PRETA QUADRADA ALTA CHEIA) (BRANCA QUADRADA BAIXA CHEIA) (PRETA QUADRADA BAIXA CHEIA)))
-```
+### <a nome="f-puzzle">Puzzle</a>
+As seguintes funções permitem definir o jogo do Problema do Quatro.
 
 ### <a name="f-tabuleiro">Tabuleiro</a>
 Retorna uma lista de 4 listas com 4 elementos.
@@ -214,21 +93,20 @@ O espaço do tabuleiro é representado por 0, quando a posição encontra-se vaz
 *l - Lista*
 
 ```lisp
-;; função
+; funcao
 (defun tabuleiro (l)
  (cond 
   ((null l) nil)
-  (t (car l))
- )
+  (t (car l)))
 )
 ```
 
 ```lisp
-;; chamada
-;; extrai só o tabuleiro
-(operate:tabuleiro (operate:tabuleiro-e-pecas))
+; problema
+(((0 0 0 0) (0 0 0 0) (0 0 0 0) (0 0 0 0)) ((BRANCA REDONDA ALTA OCA) (PRETA REDONDA ALTA OCA) (BRANCA REDONDA BAIXA OCA) (PRETA REDONDA BAIXA OCA) (BRANCA QUADRADA ALTA OCA) (PRETA QUADRADA ALTA OCA) (BRANCA QUADRADA BAIXA OCA) (PRETA QUADRADA BAIXA OCA) (BRANCA REDONDA ALTA CHEIA) (PRETA REDONDA ALTA CHEIA) (BRANCA REDONDA BAIXA CHEIA) (PRETA REDONDA BAIXA CHEIA) (BRANCA QUADRADA ALTA CHEIA) (PRETA QUADRADA ALTA CHEIA) (BRANCA QUADRADA BAIXA CHEIA) (PRETA QUADRADA BAIXA CHEIA)))
 
-;; resultado
+; chamada
+CL-USER> (tabuleiro problema)
 ((0 0 0 0) (0 0 0 0) (0 0 0 0) (0 0 0 0))
 ```
 
@@ -242,7 +120,7 @@ Esta lista contém todas as peças utilizadas no jogo. Cada peça é uma lista c
 *l - Lista*
 
 ```lisp
-;; função
+; funcao
 (defun reserva(l) 
  (cond 
   ((null l) nil)
@@ -252,109 +130,52 @@ Esta lista contém todas as peças utilizadas no jogo. Cada peça é uma lista c
 ```
 
 ```lisp
-;; chamada
-;; extrai só as peças
-(operate:reserva (operate:tabuleiro-e-pecas))
+; problema
+(((0 0 0 0) (0 0 0 0) (0 0 0 0) (0 0 0 0)) ((BRANCA REDONDA ALTA OCA) (PRETA REDONDA ALTA OCA) (BRANCA REDONDA BAIXA OCA) (PRETA REDONDA BAIXA OCA) (BRANCA QUADRADA ALTA OCA) (PRETA QUADRADA ALTA OCA) (BRANCA QUADRADA BAIXA OCA) (PRETA QUADRADA BAIXA OCA) (BRANCA REDONDA ALTA CHEIA) (PRETA REDONDA ALTA CHEIA) (BRANCA REDONDA BAIXA CHEIA) (PRETA REDONDA BAIXA CHEIA) (BRANCA QUADRADA ALTA CHEIA) (PRETA QUADRADA ALTA CHEIA) (BRANCA QUADRADA BAIXA CHEIA) (PRETA QUADRADA BAIXA CHEIA)))
 
-;; resultado
-((BRANCA REDONDA ALTA OCA) (PRETA REDONDA ALTA OCA) (BRANCA REDONDA BAIXA OCA) 
-(PRETA REDONDA BAIXA OCA) (BRANCA QUADRADA ALTA OCA) (PRETA QUADRADA ALTA OCA) 
-(BRANCA QUADRADA BAIXA OCA) (PRETA QUADRADA BAIXA OCA) (BRANCA REDONDA ALTA CHEIA) 
-(PRETA REDONDA ALTA CHEIA) (BRANCA REDONDA BAIXA CHEIA) (PRETA REDONDA BAIXA CHEIA) 
-(BRANCA QUADRADA ALTA CHEIA) (PRETA QUADRADA ALTA CHEIA) 
-(BRANCA QUADRADA BAIXA CHEIA) (PRETA QUADRADA BAIXA CHEIA))
+; chamada
+CL-USER> (reserva problema)
+((BRANCA REDONDA ALTA OCA) (PRETA REDONDA ALTA OCA) (BRANCA REDONDA BAIXA OCA) (PRETA REDONDA BAIXA OCA) (BRANCA QUADRADA ALTA OCA) (PRETA QUADRADA ALTA OCA) (BRANCA QUADRADA BAIXA OCA) (PRETA QUADRADA BAIXA OCA) (BRANCA REDONDA ALTA CHEIA) (PRETA REDONDA ALTA CHEIA) (BRANCA REDONDA BAIXA CHEIA) (PRETA REDONDA BAIXA CHEIA) (BRANCA QUADRADA ALTA CHEIA) (PRETA QUADRADA ALTA CHEIA) (BRANCA QUADRADA BAIXA CHEIA) (PRETA QUADRADA BAIXA CHEIA))
 ```
 
-### <a name="f-extrai">Extrai-N</a>
-Retorna o elemento que se encontra no índice indicado. Caso o índice for inválido, retorna NIL.
-
-Esta função tem como propósito simular a função Peek.
+#### <a nome="f-">Fila</a>
+Retorna uma lista com elementos que se encontram numa fila.
 
 **Parametros**
 
-*i - Indice*
+*l - Indice de fila*
 
-*l - lista*
+*tabuleiro - Tabuleiro ou reserva*
 
 ```lisp
-;; função
-(defun extrai-n (i l)
- (cond
-  ((< i 0) nil)
-  ((null l) nil)
-  ((= i 0) (car l))
-  (t (extrai-n (1- i) (cdr l)))
- )
+; funcao
+(defun fila (l tabuleiro)
+  (nth l tabuleiro)
 )
 ```
+Retorna a primeira peça da reserva com 16 peças.
 
 ```lisp
-;; chamada
-;; extrai do tabuleiro a posição -1
-(operate:extrai-n -1 (operate:tabuleiro (operate:tabuleiro-e-pecas)))
+; reserva
+((BRANCA REDONDA ALTA OCA) (PRETA REDONDA ALTA OCA) (BRANCA REDONDA BAIXA OCA) (PRETA REDONDA BAIXA OCA) (BRANCA QUADRADA ALTA OCA) (PRETA QUADRADA ALTA OCA) (BRANCA QUADRADA BAIXA OCA) (PRETA QUADRADA BAIXA OCA) (BRANCA REDONDA ALTA CHEIA) (PRETA REDONDA ALTA CHEIA) (BRANCA REDONDA BAIXA CHEIA) (PRETA REDONDA BAIXA CHEIA) (BRANCA QUADRADA ALTA CHEIA) (PRETA QUADRADA ALTA CHEIA) (BRANCA QUADRADA BAIXA CHEIA) (PRETA QUADRADA BAIXA CHEIA)))
 
-;; resultado
-NIL
-
-;; chamada
-;; extrai do tabuleiro a posição 0
-(operate:extrai-n 0 (operate:tabuleiro (operate:tabuleiro-e-pecas)))
-
-;; resultado
-(0 0 0 0)
-
-;; chamada
-;; extrai do tabuleiro a coordenada (0,0)
-(operate:extrai-n 0 (operate:extrai-n 0 (operate:tabuleiro (operate:tabuleiro-e-pecas))))
-
-;; resultado
-0
-
-;; chamada
-;; extrai a peça na posição 0
-(operate:extrai-n 0 (operate:reserva (operate:tabuleiro-e-pecas)))
-
-;; resultado
+; chamada
+CL-USER> (fila 0 reserva))
 (BRANCA REDONDA ALTA OCA)
-```
+````
 
-### <a name="f-linha">Linha</a>
-Retorna uma lista com elementos que se encontram numa linha.
-
-Esta função limita-se a ser uma função redundante da função [extrai-n](#f-extrai) para aumentar legibilidade do código.
-
-**Parametros**
-
-*r - Indice de linha*
-
-*tab - Tabuleiro ou reserva*
+Retorna a primeira fila do tabuleiro vazio.
 
 ```lisp
-;; função
-(defun linha (r tab)
- (extrai-n r tab)
-)
-```
+; tabuleiro
+((0 0 0 0) (0 0 0 0) (0 0 0 0) (0 0 0 0))
 
-```lisp
-;; chamada
-;; extrai a peça na linha 0
-(operate:linha 0 (operate:reserva (operate:tabuleiro-e-pecas)))
-
-;; resultado
-(BRANCA REDONDA ALTA OCA)
-
-;; explicação do resultado
-;; as peças são elementos únicos, por isso ao chamar esta função, a peça na posição 0 da lista de peças é retornada
-
-;; chamada
-;; extrai do tabuleiro a linha 0
-(operate:linha 0 (operate:tabuleiro (operate:tabuleiro-e-pecas)))
-
-;; resultado
+; chamada
+CL-USER> (fila 0 tabuleiro)
 (0 0 0 0)
 ```
-### <a name="f-coluna">Coluna</a>
+
+#### <a nome="f-">Coluna</a>
 Retorna uma lista de elementos que se encontram numa coluna e limita-se a retornar 4 elementos.
 
 Esta função limita-se a ser uma função redundante da função [celula](#f-celula) para aumentar legibilidade do código.
@@ -366,977 +187,975 @@ Esta função limita-se a ser uma função redundante da função [celula](#f-ce
 *tab - Tabuleiro*
 
 ```lisp
-;; função
-(defun coluna (c tab)
- (cond 
-  ((null tab) nil)
-  (t (cons (celula 0 c tab) (cons (celula 1 0 tab) (cons (celula 2 c tab) (cons (celula 3 c tab) nil)))))
- )
+; funcao
+(defun coluna (c tabuleiro)
+; e - Elemento do tabuleiro
+  (mapcar #'(lambda (e) (nth c e)) tabuleiro)
 )
 ```
 
-```lisp
-;; chamada
-;; extrai coluna na posição 0
-(operate:coluna 0 (operate:tabuleiro (operate:tabuleiro-e-pecas)))
+Retorna a primeira coluna do tabuleiro vazio.
 
-;; resultado
+```lisp
+; tabuleiro
+((0 0 0 0) (0 0 0 0) (0 0 0 0) (0 0 0 0))
+
+;chamada
+CL-USER (coluna 0 tabuleiro)
 (0 0 0 0)
 
 ;; representação do resultado com coordenadas
 ;; ((0,0) (1,0) (2,0) (3,0))
 ```
 
-### <a name="f-colunas">Colunas</a>
-(descrição)
-
-**Limitações**
-Limita-se ao tamanho máximo 4 do número de elementos por coluna, do tabuleiro.
-
-**parametros**
-
-*tab - Tabuleiro*
-
-```lisp
-;; função
-(defun colunas (tab)
- (cons (coluna 0 tab) (cons (coluna 1 tab) (cons (coluna 2 tab) (cons (coluna 3 tab) nil))))
-)
-```
-
-```lisp
-;; chamada
-(operate:colunas (operate:tabuleiro (operate:tabuleiro-e-pecas)))
-
-;; resultado
-((0 0 0 0) (0 0 0 0) (0 0 0 0) (0 0 0 0))
-```
-
-### <a name="f-celula">Celula</a>
-Retorna um elementos que se encontram numa linha e coluna.
-
-Esta função limita-se a ser uma função redundante da função [extrai-n](#f-extrai) para aumentar legibilidade do código.
+#### <a nome="f-">Celula</a>
+Retorna um elementos que se encontram numa fila ou coluna.
 
 **Parametros**
 
-*r - Indice de linha*
+*l - Indice de fila*
 
 *c - Indice de coluna*
 
-*tab - Tabuleiro*
+*tabuleiro - Tabuleiro*
 
 ```lisp
-;; função
-(defun celula (r c tab)
- (extrai-n c (extrai-n r tab))
+; funcao
+(defun celula (l c tabuleiro)
+  (nth l (nth c tabuleiro))
 )
 ```
 
+Retorna o valor da céluna na coordenada (0,0) do tabuleiro vazio.
+
 ```lisp
-;; chamada
-;; extrai das peças, o elemento na coordenada (0,0)
-(operate:celula 0 0 (operate:reserva (operate:tabuleiro-e-pecas)))
-;; resultado
-BRANCA
+; tabuleiro
 
-;; explicação do resultado
-;; as peças são elementos únicos, por isso ao chamar esta função, é extraida o elemento na posição 0 da peça na posição 0
-
-;; chamada
-;; extrai do tabuleiro o elemento na coordenada (0,0)
-(operate:celula 0 0 (operate:tabuleiro (operate:tabuleiro-e-pecas)))
-
-;; resultado
+; chamada
+CL-USER> (celula 0 0 tabuleiro)
 0
 ```
 
-### <a name="f-diagonal-1">Diagonal-1</a>
-Retorna uma lista com elementos que se encontram na diagonal, desde da coordenada (0,0) à coordenada (3,3).
+#### <a nome="f-">Cria-Lista-Indice</a>
+Retorna uma lista com todos os indices correspondentes do tamanho máximo da lista parameterizada.
 
-Em contexto, esta função é utilizada para retornar uma diagonal de um tabuleiro 4x4.
+Esta função auxilia na geração de coordenadas para as funções [diagonal-esquerda](#f-diagonal-esquerda) e [diagonal-direita](#f-diagonal-direita).
 
-**Parametros**
+**Parâmetros**
 
-*tab - Tabuleiro*
+*i - Tamanho da lista*
 
 ```lisp
-;; função
-(defun diagonal-1 (tab)
- (cond 
-  ((null tab) nil)
-  (t (cons (celula 0 0 tab) (cons (celula 1 1 tab) (cons (celula 2 2 tab) (cons (celula 3 3 tab) nil)))))
- )
+; funcao
+(defun cria-lista-indice (i)
+  (cond 
+   ((< i 1) nil)
+   (t (cons (1- i) (cria-lista-indice (1- i)))))
 )
 ```
 
+Gera lista com indices de 4.
+
 ```lisp
-;; chamada
-;; retorna uma lista com as posições diagonal
-;; com a orientação da topo-esquerda para a direita
-(operate:diagonal-1 (operate:tabuleiro (operate:tabuleiro-e-pecas)))
-
-;; resultado
-(0 0 0 0)
-
-;; representação do resultado com coordenadas
-;; ((0,0) (1,1) (2,2) (3,3))
+; chamada
+CL-USER> (cria-lista-indice 4)
+(3 2 1 0)
 ```
 
-### <a name="f-diagonal-2">Diagonal-2</a>
-Retorna uma lista com elementos que se encontram na diagonal, desde da coordenada (3,0) à coordenada (0,3).
-
-Em contexto, esta função é utilizada para retornar uma diagonal de um tabuleiro 4x4.
-
-**Parametros**
-
-*tab - Tabuleiro*
+Gera uma lista com indices de 0.
 
 ```lisp
-;; função
-(defun diagonal-2 (tab)
- (cond 
-  ((null tab) nil)
-  (t (cons (celula 3 0 tab) (cons (celula 2 1 tab) (cons (celula 1 2 tab) (cons (celula 0 3 tab) nil)))))
- )
+; chamada
+CL-USER> (cria-lista-indice 0)
+NIL
+```
+
+#### <a nome="f-">Diagonal-Esquerda</a>
+Retorna a diagonal esquerda do tabuleiro.
+
+As coordenadas da diagonal esquerda são o conjunto de pares coordenados {(0,0), (1,1), (2, 2), (3,3)}.
+
+**Parâmetros**
+
+*tabuleiro - Tabuleiro*
+
+```lisp
+; funcao
+(defun diagonal-esquerda (tabuleiro)
+  ; e - Elemento da lista
+  (mapcar #'(lambda (e) (celula e e tabuleiro)) (reverse (cria-lista-indice (length tabuleiro))))
 )
 ```
 
-```lisp
-;; chamada
-;; retorna uma lista com as posições diagonal
-;; com a orientação da fundo-esquerda para a direita
-(operate:diagonal-1 (operate:tabuleiro (operate:tabuleiro-e-pecas)))
-
-;; resultado
-(0 0 0 0)
-
-;; representação do resultado com coordenadas
-;; ((3,0) (2,1) (1,2) (0,3))
-```
-
-### <a name="f-colunas">Diagonais</a>
-Retorna uma lista com todas as diagonais possíveis.
-
-Em contexto, esta função é utilizada para retornar as duas diagonais de um tabuleiro 4x4.
-
-**Limitações**
-Limita-se ao tamanho máximo 4 do número de elementos por diagonal, do tabuleiro.
-
-**parametros**
-
-*tab - Tabuleiro*
+Retorna a diagonal esquerda (0,0) a (3,3) de um tabuleiro vazio.
 
 ```lisp
-;; função
-(defun diagonais (tab)
- (cons (diagonal-1 tab) (cons (diagonal-2 tab) nil))
-)
-```
+; tabuleiro
+((0 0 0 0) (0 0 0 0) (0 0 0 0) (0 0 0 0))
 
-```lisp
-;; chamada
-(operate:diagonais (operate:tabuleiro (operate:tabuleiro-e-pecas)))
-
-;; resultado
+; chamada
+(diagonal-esquerda tabuleiro)
 ((0 0 0 0) (0 0 0 0))
 ```
 
-### <a name="f-tabuleiro-ocupado">Tabuleiro-N-Ocupado</a>
-Retorna T se encontrar uma peça na posição indicada ou NIL caso eontrário.
-Uma posição encontra-se vazia, se na posição (r, c), o valor é 0.
-
-**Parâmetros**
-
-*r - Linha*
-
-*c - Coluna*
-
-*tab - Tabuleiro*
+Retorna a diagonal esquerda (0,3) a (3,0) de um tabuleiro preenchido.
 
 ```lisp
-;; função
-(defun tabuleiro-n-ocupado (r c tab)
- (cond
-  ((null tab) nil)
-  (t (listp (celula r c tab)))
- )
-)
+; tabuleiro
+(((BRANCA QUADRADA BAIXA CHEIA) 0 (PRETA REDONDA ALTA CHEIA) (PRETA QUADRADA BAIXA OCA)) (0 0 0 (BRANCA REDONDA BAIXA OCA)) ((BRANCA REDONDA ALTA CHEIA) 0 (PRETA REDONDA ALTA OCA) (BRANCA QUADRADA BAIXA OCA)) (0 (PRETA QUADRADA BAIXA CHEIA) 0 0))
+
+; chamada
+(diagonal-esquerda tabuleiro)
+((BRANCA QUADRADA BAIXA CHEIA) 0 (PRETA REDONDA ALTA OCA) 0)
 ```
 
+Retorna a diagonal esquerda (0,0) a (3,3) de um tabuleiro NIL.
+
 ```lisp
-;; chamada
-;; verifica se o tabuleiro nas coordenadas (0,1) 
-;; encontra-se ocupado
-(operate:tabuleiro-n-ocupado 0 1 (operate:tabuleiro (operate:tabuleiro-e-pecas)))
-
-;; resultado
-T
-
-;; chamada
-;; verifica se o tabuleiro nas coordenadas (0,0) 
-;; encontra-se ocupado
-(operate:tabuleiro-n-ocupado 0 0 (operate:tabuleiro (operate:tabuleiro-e-pecas)))
-
-;; resultado
+; chamada
+(diagonal-esquerda NIL)
 NIL
 ```
 
-### <a nome="f-remove-peca">Remove-Peca</a>
-Remove um elemento de uma lista.
+#### <a nome="f-">Diagonal-Direita</a>
+Retorna a diagonal direita do tabuleiro.
 
-Em contexto, esta função permite remover um elemento da lista de reserva desde que este seja igual ao elemento p enviado por parâmetro.
+As coordenadas da diagonal são o conjunto de pares coordenados {(3,0), (2,1), (1, 2), (0,3)}.
 
 **Parâmetros**
 
-*pred - Função que retorna T ou NIL*
+*tabuleiro - Tabuleiro*
+
+```lisp
+; funcao
+(defun diagonal-direita (tabuleiro)
+  ; i - indice
+  (let ((i (1- (length tabuleiro))))
+    ; e - Elemento da lista
+    (mapcar #'(lambda (e) (celula e (- i e) tabuleiro)) (reverse (cria-lista-indice (length tabuleiro)))))
+)
+```
+
+Retorna a diagonal direita (0,3) a (3,0) de um tabuleiro vazio.
+
+```lisp
+; tabuleiro
+((0 0 0 0) (0 0 0 0) (0 0 0 0) (0 0 0 0))
+
+; chamada
+(diagonal-direita tabuleiro)
+((0 0 0 0) (0 0 0 0))
+```
+
+Retorna a diagonal direita (0,3) a (3,0) de um tabuleiro preenchido.
+
+```lisp
+; tabuleiro
+(((BRANCA QUADRADA BAIXA CHEIA) 0 (PRETA REDONDA ALTA CHEIA) (PRETA QUADRADA BAIXA OCA)) (0 0 0 (BRANCA REDONDA BAIXA OCA)) ((BRANCA REDONDA ALTA CHEIA) 0 (PRETA REDONDA ALTA OCA) (BRANCA QUADRADA BAIXA OCA)) (0 (PRETA QUADRADA BAIXA CHEIA) 0 0))
+
+; chamada
+(diagonal-direita tabuleiro)
+(0 0 0 (PRETA QUADRADA BAIXA OCA))
+```
+
+Retorna a diagonal direita (0,3) a (3,0) de um tabuleiro NIL.
+
+```lisp
+; chamada
+(diagonal-direita NIL)
+NIL
+```
+
+#### <a nome="f-">Casa-Vaziap</a>
+Verifica se uma coordenada do tabuleiro encontra-se vazia. Uma coordenada é considerada vazia se o seu valor for zero.
+
+**Parâmetros**
+
+*l - Coordenada da linha*
+
+*c - Coordenada da coluna*
+
+*tabuleiro - Tabuleiro*
+
+```lisp
+; funcao
+(defun casa-vaziap (l c tabuleiro)
+  (numberp (celula l c tabuleiro))
+)
+```
+Verifica se o tabuleiro vazio encontra-se não tem peça nas coordenadas (0,0).
+
+```lisp
+; tabuleiro
+((0 0 0 0) (0 0 0 0) (0 0 0 0) (0 0 0 0))
+
+; chamada
+CL-USER> (casa-vaziap 0 0 tabuleiro)
+T
+```
+
+Verifica se o tabuleiro preenchido encontra-se não tem peça nas coordenadas (1,3).
+
+```lisp
+; tabuleiro
+(((BRANCA QUADRADA BAIXA CHEIA) 0 (PRETA REDONDA ALTA CHEIA) (PRETA QUADRADA BAIXA OCA)) (0 0 0 (BRANCA REDONDA BAIXA OCA)) ((BRANCA REDONDA ALTA CHEIA) 0 (PRETA REDONDA ALTA OCA) (BRANCA QUADRADA BAIXA OCA)) (0 (PRETA QUADRADA BAIXA CHEIA) 0 0))
+
+; chamada
+CL-USER> (casa-vaziap 1 3 tabuleiro)
+NIL
+```
+
+Verifica se o tabuleiro preenchido encontra-se não tem peça nas coordenadas (0,3).
+
+```lisp
+; tabuleiro
+(((BRANCA QUADRADA BAIXA CHEIA) 0 (PRETA REDONDA ALTA CHEIA) (PRETA QUADRADA BAIXA OCA)) (0 0 0 (BRANCA REDONDA BAIXA OCA)) ((BRANCA REDONDA ALTA CHEIA) 0 (PRETA REDONDA ALTA OCA) (BRANCA QUADRADA BAIXA OCA)) (0 (PRETA QUADRADA BAIXA CHEIA) 0 0))
+
+; chamada
+CL-USER> (casa-vaziap 0 3 tabuleiro)
+T
+```
+
+#### <a nome="f-">Remove-Peca</a>
+Remove da lista uma peça igual ao da peça parametrizada. Caso existir a peça, é retornada a lista sem a peça, caso contrário não é efetuada qualquer alteração e retorna-se a lista parametrizada.
+
+**Parâmetros**
 
 *p - Peça*
 
-*l - Lista reserva*
+*reserva - Reserva do Tabuleiro*
 
 ```lisp
-;; parâmetro pred
-;; avalia se duas peças são iguais
-;; retorna T se verdade, caso contrário NIL
-;; #'(lambda (p x) (equal p x))
-
-;; função
-(defun remove-peca (pred p l)
- (cond
-  ((or (null l) (null p)) nil)
-  ((funcall pred p (car l)) (remove-peca pred p (cdr l)))
-  (t (cons (car l) (remove-peca pred p (cdr l))))
- )
+; funcao
+(defun remove-peca (p reserva)
+  (let ((predp #'(lambda (p e) (equal p e))))
+    (cond
+     ((or (null reserva) (null p)) NIL)
+     ((funcall predp p (car reserva)) (remove-peca p (cdr reserva)))
+     (t (cons (car reserva) (remove-peca p (cdr reserva))))))
 )
 ```
 
-```lisp
-;; chamada
-;; remove todas as peças da lista que seja igual à
-;; peça do indice 0 da lista de reservas
-(operate:remove-peca #'(lambda (p x) (equal p x)) (operate:linha 0 (operate:reserva (operate:tabuleiro-e-pecas))) (operate:reserva (operate:tabuleiro-e-pecas)))
-
-;; resultado
-((PRETA REDONDA ALTA OCA) (BRANCA REDONDA BAIXA OCA) (PRETA REDONDA BAIXA OCA) (BRANCA QUADRADA ALTA OCA) (PRETA QUADRADA ALTA OCA) (BRANCA QUADRADA BAIXA OCA) (PRETA QUADRADA BAIXA OCA) (BRANCA REDONDA ALTA CHEIA) (PRETA REDONDA ALTA CHEIA) (BRANCA REDONDA BAIXA CHEIA) (PRETA REDONDA BAIXA CHEIA) (BRANCA QUADRADA ALTA CHEIA) (PRETA QUADRADA ALTA CHEIA) (BRANCA QUADRADA BAIXA CHEIA) (PRETA QUADRADA BAIXA CHEIA))
-```
-
-### <a name="f-filtra">Filtra</a>
-Recebe uma lista e remove todos os elementos consuante a condição enviada por parâmetro.
-
-**Limitações**
-
-Não compatível com elementos sublista.
-
-**Parametros**
-
-*pred - Função que retorna T ou NIL*
-
-*l - Lista*
-
+Remove peça (BRANCA QUADRADA ALTA CHEIA) da lista.
 
 ```lisp
-;; parâmetro pred
-;; avalia se um elemento é igual a 0
-;; retorna T se verdade, caso contrário NIL
-;; #'(lambda (x) (equal 0 x))
+; reserva
+((BRANCA QUADRADA ALTA CHEIA) (BRANCA QUADRADA ALTA OCA) (PRETA QUADRADA ALTA CHEIA) (PRETA QUADRADA ALTA OCA) (BRANCA REDONDA ALTA OCA) (BRANCA REDONDA BAIXA CHEIA) (PRETA REDONDA BAIXA CHEIA) (PRETA REDONDA BAIXA OCA))
 
-;; função
-(defun filtra(pred l)
- (cond 
-  ((null l) nil)
-  ((funcall pred (car l)) (filtra pred (cdr l)))
-  (t (cons (car l) (filtra pred (cdr l))))
- )
-)
+; chamada
+CL-USER> (remove-peca '(BRANCA QUADRADA ALTA CHEIA) reserva)
+((BRANCA QUADRADA ALTA OCA) (PRETA QUADRADA ALTA CHEIA) (PRETA QUADRADA ALTA OCA) (BRANCA REDONDA ALTA OCA) (BRANCA REDONDA BAIXA CHEIA) (PRETA REDONDA BAIXA CHEIA) (PRETA REDONDA BAIXA OCA))
 ```
+
+Remove peça (BRANCA REDONDA BAIXA CHEIA) da lista.
 
 ```lisp
-;; chamada
-;; filtra linha 0 do tabuleiro vazio
-(operate:filtra #'(lambda (x) (equal 0 x)) (operate:linha 0   (operate:tabuleiro (operate:tabuleiro-e-pecas))))
+; reserva
+((BRANCA QUADRADA ALTA OCA) (PRETA QUADRADA ALTA CHEIA) (PRETA QUADRADA ALTA OCA) (BRANCA REDONDA ALTA OCA) (BRANCA REDONDA BAIXA CHEIA) (PRETA REDONDA BAIXA CHEIA) (PRETA REDONDA BAIXA OCA))
 
-;; resultado
-NIL
-
-;; chamada
-;; filtra a coluna do tabuleiro vazio
-(operate:filtra #'(lambda (x) (equal 0 x)) (operate:coluna 0 (operate:tabuleiro (operate:tabuleiro-e-pecas))))
-
-;; resultado
-NIL
+; chamada
+CL-USER> (remove-peca '(BRANCA REDONDA BAIXA CHEIA) reserva)
+((BRANCA QUADRADA ALTA OCA) (PRETA QUADRADA ALTA CHEIA) (PRETA QUADRADA ALTA OCA) (BRANCA REDONDA ALTA OCA) (PRETA REDONDA BAIXA CHEIA) (PRETA REDONDA BAIXA OCA))
 ```
+
+Remove peça (BRANCA QUADRADA ALTA CHEIA) da lista. Esta peça não existe na lista.
 
 ```lisp
-;; lista de exemplo
-;; esta função não se encontra no pacote
-(defun linha-0 ()
- '((branca quadrada alta oca) (preta quadrada baixa cheia) 0 (preta quadrada alta oca))
-)
+; reserva
+((BRANCA QUADRADA ALTA OCA) (PRETA QUADRADA ALTA CHEIA) (PRETA QUADRADA ALTA OCA) (BRANCA REDONDA ALTA OCA) (BRANCA REDONDA BAIXA CHEIA) (PRETA REDONDA BAIXA CHEIA) (PRETA REDONDA BAIXA OCA))
 
-;; chamada
-;; chama a lista linha-0
-((BRANCA QUADRADA ALTA OCA) (PRETA QUADRADA BAIXA CHEIA) 0 (PRETA QUADRADA ALTA OCA))
-
-;; chamada
-;; remove todos os elementos iguais a zero
-(operate:filtra #'(lambda (x) (equal 0 x)) (linha-0))
-
-;; resultado
-((BRANCA QUADRADA ALTA OCA) (PRETA QUADRADA BAIXA CHEIA) (PRETA QUADRADA ALTA OCA))
+; chamada
+CL-USER> (remove-peca '(BRANCA QUADRADA ALTA CHEIA) reserva)
+((BRANCA QUADRADA ALTA OCA) (PRETA QUADRADA ALTA CHEIA) (PRETA QUADRADA ALTA OCA) (BRANCA REDONDA ALTA OCA) (BRANCA REDONDA BAIXA CHEIA) (PRETA REDONDA BAIXA CHEIA) (PRETA REDONDA BAIXA OCA))
 ```
 
-### <a name="f-coloca-peca-tabuleiro">Coloca-Peca-No-Tabuleiro</a>
-Insere numa lista um valor nas coordenadas enviadas por parâmetro. Quando o elemento da lista é substituído, a função retorna T, caso contrário NIL.
-
-Em contexto, esta função permite substituir um elemento do tabuleiro que se encontre com o valor zero e remove a peça da lista de reserva. Caso não encontrar o valor zero, a operação é ignorada e nada é alterado. 
-
-```lisp
-;; função
-(defun coloca-peca-no-tabuleiro (r c p tab)
- (cond
-  ((listp (celula r c (tabuleiro tab))) nil)
-  (t 
-   (progn
-    (setf (nth 1 tab) (remove-peca #'(lambda (p x) (equal p x)) p (reserva tab)))
-    (setf (nth r (nth c tab)) p)
-    p
-   )
-  )
- )
-)
-```
-
-```lisp
-;; chamada
-;; insere peça na posição 0 nas coordenadas (0,0)
-;; do tabuleiro
-(operate:coloca-peca-no-tabuleiro 0 0 (operate:extrai-n 0 (operate:reserva (operate:tabuleiro-e-pecas))) (operate:tabuleiro (operate:tabuleiro-e-pecas)))
-
-;; resultado
-(BRANCA QUADRADA ALTA CHEIA)
-
-;; chamada
-;; insere novamente peça na posição 0 nas 
-;;coordenadas (0,0) do tabuleiro
-(operate:coloca-peca-no-tabuleiro 0 0 (operate:extrai-n 0 (operate:reserva (operate:tabuleiro-e-pecas))) (operate:tabuleiro (operate:tabuleiro-e-pecas)))
-
-;; resultado
-NIL
-```
-
-### <a name="f-atributo-igual">Tem-Atributo-Igual</a>
-Esta função retorna o valor T ou Nil consuante as peças que compara.
-Em contexto do problema, esta função compara duas peças, procurando pelo menos na existencia de um atributo em comum.
-
-**Limitações**
-Todos os elementos em p e p2 são 0 ou lista.
+#### <a nome="f-">Substituir-Posicao</a>
+Substitui o valor de uma coordenada da fila com uma peça. Caso a coordenada da fila encontra-se vazia (com o valor zero), retorna-se o tabuleiro com a peça na coordenada parametrizada. Caso contrário retorna NIL.
 
 **Parâmetros**
 
-*p - Peça 1*
-*p2 - Peça 2*
+*i - Coordenada da fila*
+
+*p - Peça*
+
+*fila-tabuleiro - Fila do tabuleiro*
 
 ```lisp
-;; função
-(defun tem-atributo-igual (p p2)
- (cond
-  ((or (null p) (null p2)) nil)
-  ((not (equal (car p) (car p2))) (tem-atributo-igual (cdr p) (cdr p2)))
-  (t T)
- )
+; funcao
+(defun substituir-posicao (i p fila-tabuleiro)
+  (cond
+   ((or (null p) (null fila-tabuleiro)) NIL)
+   (t (setf (nth i fila-tabuleiro) p))
+  )
 )
 ```
 
-```lisp
-;; chamada
-(operate:tem-atributo-igual (operate:tem-atributo-igual (operate:extrai-n 0 (operate:reserva (operate:tabuleiro-e-pecas))) (operate:extrai-n 0 (operate:reserva (operate:tabuleiro-e-pecas)))))
+Substitui posição 0 da fila 0 do tabuleiro com a peça (BRANCA REDONDA ALTA OCA).
 
-;; resultado
+```lisp
+; tabuleiro
+((0 0 0 0) (0 0 0 0) (0 0 0 0) (0 0 0 0))
+
+; chamada
+CL-USER> (substituir-posicao 0 '(BRANCA REDONDA ALTA OCA) tabuleiro)
+(BRANCA REDONDA ALTA OCA)
+```
+
+Substitui posição 0 da fila 0 do tabuleiro NIL com a peça (BRANCA REDONDA ALTA OCA).
+
+```lisp
+; chamada
+CL-USER> (substituir-posicao 0 '(BRANCA REDONDA ALTA OCA) NIL)
+NIL
+```
+
+#### <a nome="f-">Colunas</a>
+Retorna as linhas do tabuleiro reposicionadas como colunas.
+
+**Parâmetros**
+
+*tabuleiro - Tabuleiro*
+
+```lisp
+; funcao
+(defun colunas (tabuleiro)
+  (list (coluna 0 tabuleiro)  (coluna 1 tabuleiro) (coluna 2 tabuleiro) (coluna 3 tabuleiro))
+)
+```
+Retorna as colunas de um tabuleiro vazio.
+
+```lisp
+; tabuleiro
+((0 0 0 0) (0 0 0 0) (0 0 0 0) (0 0 0 0))
+
+; chamada
+CL-USER> (colunas tabuleiro)
+((0 0 0 0) (0 0 0 0) (0 0 0 0) (0 0 0 0))
+```
+
+Retorna as colunas de um tabuleiro preenchido.
+
+```lisp
+; tabuleiro
+(((BRANCA QUADRADA BAIXA CHEIA) 0 (PRETA REDONDA ALTA CHEIA) (PRETA QUADRADA BAIXA OCA)) (0 0 0 (BRANCA REDONDA BAIXA OCA)) ((BRANCA REDONDA ALTA CHEIA) 0 (PRETA REDONDA ALTA OCA) (BRANCA QUADRADA BAIXA OCA)) (0 (PRETA QUADRADA BAIXA CHEIA) 0 0))
+
+; chamada
+CL-USER> (colunas tabuleiro)
+(((BRANCA QUADRADA BAIXA CHEIA) 0 (BRANCA REDONDA ALTA CHEIA) 0) (0 0 0 (PRETA QUADRADA BAIXA CHEIA)) ((PRETA REDONDA ALTA CHEIA) 0 (PRETA REDONDA ALTA OCA) 0) ((PRETA QUADRADA BAIXA OCA) (BRANCA REDONDA BAIXA OCA) (BRANCA QUADRADA BAIXA OCA) 0))
+```
+
+#### <a nome="f-">Diagnonais</a>
+Retorna uma lista com todas as diagonais do tabuleiro.
+
+**Parâmetros**
+
+*tabuleiro - Tabuleiro*
+
+```lisp
+; funcao
+(defun diagonais (tabuleiro)
+  (list (diagonal-direita tabuleiro) (diagonal-esquerda tabuleiro))
+)
+```
+
+Retorna as diagonais de um tabuleiro vazio.
+
+```lisp
+; tabuleiro
+((0 0 0 0) (0 0 0 0) (0 0 0 0) (0 0 0 0))
+
+; chamada
+CL-USER> (diagonais tabuleiro)
+((0 0 0 0) (0 0 0 0))
+```
+
+Retorna as diagonais de um tabuleiro preenchido.
+
+```lisp
+; tabuleiro
+(((BRANCA QUADRADA BAIXA CHEIA) 0 (PRETA REDONDA ALTA CHEIA) (PRETA QUADRADA BAIXA OCA)) (0 0 0 (BRANCA REDONDA BAIXA OCA)) ((BRANCA REDONDA ALTA CHEIA) 0 (PRETA REDONDA ALTA OCA) (BRANCA QUADRADA BAIXA OCA)) (0 (PRETA QUADRADA BAIXA CHEIA) 0 0))
+
+; chamada
+CL-USER> (diagonais tabuleiro)
+((0 0 0 (PRETA QUADRADA BAIXA OCA)) ((BRANCA QUADRADA BAIXA CHEIA) 0 (PRETA REDONDA ALTA OCA) 0))
+```
+
+Retorna as diagonais de um tabuleiro cheio.
+
+*Um tabuleiro só poderá estar cheio, se este for dado inicialmente.*
+
+```lisp
+; chamada
+CL-USER> (diagonais tabuleiro)
+(((PRETA REDONDA BAIXA CHEIA) (BRANCA QUADRADA ALTA CHEIA) (BRANCA REDONDA BAIXA CHEIA) (PRETA QUADRADA BAIXA OCA)) ((BRANCA QUADRADA BAIXA CHEIA) (BRANCA REDONDA ALTA OCA) (PRETA REDONDA ALTA OCA) (BRANCA QUADRADA ALTA OCA)))
+```
+
+#### <a nome="f-">Quatro-Fila-P</a>
+Verifica se no tabuleiro inteiro existem quatro peças com pelo menos um atributo em comum. Caso se verifique, retorna T, caso contrário retorna NIL.
+
+**Parâmetros**
+
+*tabuleiro - Tabuleiro*
+
+```lisp
+; funcao
+(defun quatro-fila-p (tabuleiro)
+  (cond
+   ((null tabuleiro) nil)
+   (t
+    (let* ((filas (append tabuleiro (colunas tabuleiro) (diagonais tabuleiro)))
+           (filas-cheias (remove-if-not #'(lambda (z) 
+                                             (= 4 (list-length z)))
+                                         (mapcar #'(lambda (x) 
+                                                     (remove-if #'(lambda (y) (eq y 0)) x))
+                                                 filas))))
+      (cond
+       ((null filas-cheias) nil)
+       (t (reduce #'(lambda (&optional x y) (or x y)) (mapcar #'sao-iguaisp filas-cheias)))))))
+)
+```
+Encontra 4 peças com pelo menos um atributo em comum num tabuleiro vazio.
+
+```lisp
+; tabuleiro
+((0 0 0 0) (0 0 0 0) (0 0 0 0) (0 0 0 0))
+
+; chamada
+CL-USER> (quatro-fila-p tabuleiro)
+NIL
+```
+
+Encontra 4 peças com pelo menos um atributo em comum num tabuleiro com peças desalinhadas entre si.
+
+```lisp
+; tabuleiro
+(((BRANCA REDONDA ALTA OCA) 0 0 0) (0 0 (PRETA REDONDA ALTA OCA) 0) (0 0 0 (BRANCA REDONDA BAIXA OCA)) (0 (PRETA REDONDA BAIXA OCA) 0 0))
+
+; chamada
+CL-USER> (quatro-fila-p tabuleiro)
+NIL
+```
+
+Encontra 4 peças com pelo menos um atributo em comum num tabuleiro com peças alinhadas na diagonal.
+
+```lisp
+; tabuleiro
+(((BRANCA REDONDA ALTA OCA) 0 0 0) (0 (PRETA REDONDA ALTA OCA) 0 0) (0 0 (BRANCA REDONDA BAIXA OCA) 0) (0 0 0 (PRETA REDONDA BAIXA OCA)))
+
+; chamada
+CL-USER> (quatro-fila-p tabuleiro)
 T
-
-;; chamada
-;; tabuleiro vazio
-(tem-atributo-igual (tem-atributo-igual (operate:extrai-n 0 (operate:reserva (operate:tabuleiro-e-pecas))) (operate:extrai-n 0 (operate:extrai-n 0 (operate:tabuleiro (operate:tabuleiro-e-pecas))))))
-
-;; resultado
-NIL
 ```
 
-### <a nome="f-conta">Conta-Pecas</a>
-Retorna a contagem de elementos sublista que partilham pelo menos um elemento em comum.
+Encontra 4 peças com pelo menos um atributo em comum num tabuleiro cheio.
 
-Em contexto, esta função conta quantas peças com pelo menos um atributo em comum possuem, relativamente a uma [linha](#f-linha), [coluna](#f-coluna), [diagonal-1](f-diagonal-1) e [diagonal-2](#f-diagonla-2) do tabuleiro, após aplicado o [filtro](#f-filtro).
+*Um tabuleiro só poderá estar cheio, se este for dado inicialmente.*
 
-***Limitações**
+```lisp
+; chamada
+CL-USER> (quatro-fila-p tabuleiro)
+T
+```
 
-Herda as limitações da função [tem-atributo-igual](#f-atributo-igual).
+#### <a nome="f-">Max-A-P</a>
+Retorna a contagem máxima de peças com pelo menos um atributo em comum em todo o tabuleiro. O intervalo de contágem máxima varia entre o intervalo inteiro [0, 4].
+
+Esta função é considerada um operador do jogo, por ser utilizada como meio de gerar um estado do problema.
 
 **Parâmetros**
 
-*l - Lista*
+*tabuleiro - Tabuleiro*
 
 ```lisp
-;; função
-(defun conta-pecas (l)
- (cond 
-  ((null l) 0)
-  ((and (not (null (car l))) (null (cadr l)) 1))
-  ((null (cadr l)) 0)
-  ((tem-atributo-igual (car l) (cadr l)) (1+ (conta-pecas (cdr l))))
-  (t 0)
- )
+; funcao
+(defun max-p-a (tabuleiro)
+  (cond
+   ((null tabuleiro) nil)
+   (t
+    (let* ((filas (append tabuleiro (colunas tabuleiro) (diagonais tabuleiro)))
+           (filas-pecas (mapcar #'(lambda (x) 
+                                     (remove-if #'(lambda (y) (eq y 0)) x))
+                                 filas)))
+      (cond
+       ((null filas-pecas) 0)
+       (t (reduce #'max (mapcar #'max (remove nil (mapcar #'(lambda (em-fila len) (and em-fila len))
+                                (mapcar #'sao-iguaisp filas-pecas)
+                                (mapcar #'length filas-pecas))))))))))
 )
 ```
+Numero máximo de peças com pelo menos 1 atributo em comum num tabuleiro vazio.
 
 ```lisp
-;; lista de exemplo
-;; esta função não se encontra no pacote
-(defun linha-0 ()
- '((branca quadrada alta oca) (preta quadrada baixa cheia) 0 (preta quadrada alta oca))
-)
+; tabuleiro
+((0 0 0 0) (0 0 0 0) (0 0 0 0) (0 0 0 0))
 
-;; chamada
-;; conta númmero de peças que partilhe pelo menos
-;; um atributo em comum
-;; ao chamar a função, a lista é filtrada no perâmetro
-(operate:conta-pecas (filtra #'(lambda (x) (equal 0 x)) (linha-0)))
-
-;; resultado
-3
-```
-
-### <a name="f-conta-pecas-tabuleiro">Conta-Pecas-Tabuleiro</a>
-Retorna um lista com a contagem de todas os elementos que partilhem pelo menos um atributo em comum, por linha, coluna e as diagonais.
-
-Em contexto, esta função pretende contar o total de peças por linha, coluna e diagonais, para verificar qual o máximo de peças alinhadas no tabuleiro, sendo o valor 0 o mínimo e o valor 4 o máximo.
-
-**Limitações**
-Esta função limita-se ao tamanho 4, defenido ser o tamanho máximo de cada linha, coluna e diagonais.
-
-**Parâmetros**
-
-*tab - Tabuleiro*
-
-```lisp
-;; função
-(defun conta-pecas-tabuleiro (tab)
- (cond 
-  ((null tab) (cons 0 nil))
-  (t 
-   (append (mapcar #'conta-pecas (mapcar #'(lambda (l) (funcall #'filtra #'(lambda (x) (equal 0 x)) l)) tab)) 
-   (append (mapcar #'conta-pecas (mapcar #'(lambda (l) (funcall #'filtra #'(lambda (x) (equal 0 x)) l)) (colunas tab))) 
-   (mapcar #'conta-pecas (mapcar #'(lambda (l) (funcall #'filtra #'(lambda (x) (equal 0 x)) l)) (diagonais tab)))))
-  )
- )
-)
-```
-
-```lisp
-;; chamada
-;; conta o número de peças no tabuleiro, por
-;; linha, coluna e diagonais
-(operate:conta-pecas-tabuleiro (operate:tabuleiro (operate:tabuleiro-e-pecas)))
-
-;; resultado
-(0 0 0 0 0 0 0 0 0 0)
-```
-
-### <a name="f-px">Px</a>
-Esta função retorna o valor mais alto de uma lista.
-Em contexto do problema, esta função retorna a contagem máxima de peças com pelo menos um atributo em comum.
-
-```lisp
-;; função
-(defun px (l)
- (cond 
-  ((null l) 0)
-  (t (max (car l) (px (cdr l))))
- )
-)
-```
-
-```lisp
-;; chamada
-;; retorna o valor maior da lista
-(operate:px '(0 1 1 2 3 0 1 3 0 1 3 4 2 2))
-
-;; resultado
-4
-
-;; chamada
-;; retorna o valor maior da lista
-(operate:px '(0 0 0))
-
-;; resultado
+; chamada
+CL-USER> (max-p-a tabuleiro)
 0
 ```
 
-### <a name="f-mostra-linha">Mostra-Linha</a>
-Esta função retorna a formatação de uma lista em string.
-
-Em contexto, esta função permite ilustrar melhor os espaços do tabuleiro com e sem peças numa linha.
-
-**Limitações**
-
-A função limita-se a considerar o número máximo de elementos por linha, que é 4.
-
-**Parâmatros**
-
-*i - Indice*
-
-*l - Lista*
+Numero máximo de peças com pelo menos 1 atributo em comum num tabuleiro preenchido com no máximo uma peça com o mesmo atributo.
 
 ```lisp
-;; função
-(defun mostra-linha (i l)
- (let* ((li (linha i l)) (rows "| ~A | ~A | ~A | ~A |"))
-  (format nil rows (extrai-n 0 li) (extrai-n 1 li) 
-  (extrai-n 2 li) (extrai-n 3 li))
- )
-)
+; tabuleiro
+(((BRANCA QUADRADA BAIXA CHEIA) (PRETA REDONDA ALTA CHEIA) (PRETA QUADRADA BAIXA OCA)) ((BRANCA REDONDA BAIXA OCA)) ((BRANCA REDONDA ALTA CHEIA) (PRETA REDONDA ALTA OCA) (BRANCA QUADRADA BAIXA OCA)) ((PRETA QUADRADA BAIXA CHEIA)))
+
+; chamada
+CL-USER> (max-p-a tabuleiro)
+1
 ```
 
-```lisp
-;; chamada
-(operate:mostra-linha 0 (operate:tabuleiro (operate:tabuleiro-e-pecas)))
-
-;; resultado
-"| 0 | 0 | 0 | 0 |"
-```
-
-### <a name="f-mostra-tabela">Mostra-Tabela</a>
-Esta função retorna a formatação de uma lista com sublistas em string.
-
-Em contexto, esta função permite ilustrar melhor os espaços de um tabuleiro com e sem peças.
-
-**Limitações**
-
-A função apresenta as mesmas limitações que a função [Mostrar-Linha](#f-mostra-linha).
-
-**Parâmetros**
-
-*tab - Tabuleiro*
+Numero máximo de peças com pelo menos 1 atributo em comum num tabuleiro preenchido com no máximo quatro peças com o mesmo atributo.
 
 ```lisp
-;; função
-(defun mostra-tabuleiro (tab)
- (let ((seperator "_________________________________________________________________________________________________________________________"))
-  (format nil "~%TABULEIRO~%~A~%~A~%~A~%~A~%~A~%~A~%~%" 
-  seperator (mostra-linha 0 tab) (mostra-linha 1 tab) 
-  (mostra-linha 2 tab) (mostra-linha 3 tab) seperator)
- )
-)
-```
+; tabuleiro
+(((BRANCA QUADRADA BAIXA CHEIA) (PRETA REDONDA ALTA CHEIA) (PRETA QUADRADA BAIXA OCA)) ((BRANCA REDONDA BAIXA OCA)) ((BRANCA REDONDA ALTA CHEIA) (PRETA REDONDA ALTA OCA) (BRANCA QUADRADA BAIXA OCA)) ((BRANCA QUADRADA ALTA CHEIA) (PRETA QUADRADA BAIXA CHEIA)))
 
-```lisp
-;; chamada
-;; mostra tabuleiro vazio
- (operate:mostra-tabuleiro (operate:tabuleiro (operate:tabuleiro-e-pecas)))
-
-;; resultado
-"
-TABULEIRO
-_________________________________________________________________________________________________________________________
-| 0 | 0 | 0 | 0 |
-| 0 | 0 | 0 | 0 |
-| 0 | 0 | 0 | 0 |
-| 0 | 0 | 0 | 0 |
-_________________________________________________________________________________________________________________________
-
-"
-
-;; lista 
-;; tabuleiro de exemplo
-;; esta função não se encontra no pacote
-(defun tabuleiro-exemplo ()
- '(((branca quadrada alta oca) (preta quadrada baixa cheia) 0 (preta quadrada alta oca))
-((branca redonda alta oca) (preta redonda alta oca) (branca redonda alta cheia) 0) 
-(0 (preta redonda alta cheia) (preta redonda baixa cheia) 0) 
-((branca redonda baixa oca) (branca quadrada alta cheia) (preta redonda baixa oca) (branca quadrada baixa cheia)))
-)
-
-;; chamada
-;; mostra tabuleiro preenchido
-(operate:mostra-tabuleiro (tabuleiro-exemplo))
-
-;; resultado
-"
-TABULEIRO
-_________________________________________________________________________________________________________________________
-| (BRANCA QUADRADA ALTA OCA) | (PRETA QUADRADA BAIXA CHEIA) | 0 | (PRETA QUADRADA ALTA OCA) |
-| (BRANCA REDONDA ALTA OCA) | (PRETA REDONDA ALTA OCA) | (BRANCA REDONDA ALTA CHEIA) | 0 |
-| 0 | (PRETA REDONDA ALTA CHEIA) | (PRETA REDONDA BAIXA CHEIA) | 0 |
-| (BRANCA REDONDA BAIXA OCA) | (BRANCA QUADRADA ALTA CHEIA) | (PRETA REDONDA BAIXA OCA) | (BRANCA QUADRADA BAIXA CHEIA) |
-_________________________________________________________________________________________________________________________
-
-"
-```
-### <a name="f-ler-tabuleiro">Ler-Tabuleiro</a>
-Esta função retorna valor correspondente ao valor do intervalo [1,8]. Caso o valor introduzido esteja fora do intervalo acima indicado, a função repete até obter um valor possível.
-
-Em contexto, esta função permite selecionar até 8 tabuleiros diferentes para jogar, retornando o nome da função do tabuleiro correspondente ao número inserido.
-
-**Parâmetros**
-
-Nenhum
-
-```lisp
-;; função
-(defun ler-tabuleiro ()
- (progn
-  (format t "Selecione o tabuleiro a usar~%")
-  (format t "1 - Tabuleiro A~%")
-  (format t "2 - Tabuleiro B~%")
-  (format t "3 - Tabuleiro C~%")
-  (format t "4 - Tabuleiro D~%")
-  (format t "5 - Tabuleiro E~%")
-  (format t "6 - Tabuleiro F~%")
-  (format t "7 - Tabuleiro Vazio~%")
-  (format t "8 - Tabuleiro Teste~%")
-
-  (let ((escolha (read)))
-   (cond 
-    ((= escolha 1) 'tabuleiro-a) ;; A
-    ((= escolha 2) 'tabuleiro-b) ;; B
-    ((= escolha 3) 'tabuleiro-c) ;; C
-    ((= escolha 4) 'tabuleiro-d) ;; D
-    ((= escolha 5) 'tabuleiro-e) ;; E
-    ((= escolha 6) 'tabuleiro-f) ;; F
-    ((= escolha 7) 'tabuleiro-v) ;; vazio
-    ((= escolha 8) 'tabuleiro-f) ;; extra
-    (t (format t "Escolha invalida~%~%") (ler-tabuleiro))
-   )
-  )
- )
-)
-```
-
-```lisp
-;; chamada
-;; lê e retorna o nome da função que retorna o 
-;; tabuleiro correspondente
-(operate:ler-tabuleiro)
-
-;; resultado
-Selecione o tabuleiro a usar
-1 - Tabuleiro A
-2 - Tabuleiro B
-3 - Tabuleiro C
-4 - Tabuleiro D
-5 - Tabuleiro E
-6 - Tabuleiro F
-7 - Tabuleiro Vazio
-8 - Tabuleiro Teste
-7
-TABULEIRO-V
-
-;; chamada
-;; lê valores negativo e acima do 8
-(operate:ler-tabuleiro)
-
-;; resultado
-Selecione o tabuleiro a usar
-1 - Tabuleiro A
-2 - Tabuleiro B
-3 - Tabuleiro C
-4 - Tabuleiro D
-5 - Tabuleiro E
-6 - Tabuleiro F
-7 - Tabuleiro Vazio
-8 - Tabuleiro Teste
--1
-Escolha invalida
-
-Selecione o tabuleiro a usar
-1 - Tabuleiro A
-2 - Tabuleiro B
-3 - Tabuleiro C
-4 - Tabuleiro D
-5 - Tabuleiro E
-6 - Tabuleiro F
-7 - Tabuleiro Vazio
-8 - Tabuleiro Teste
-9
-Escolha invalida
-
-Selecione o tabuleiro a usar
-1 - Tabuleiro A
-2 - Tabuleiro B
-3 - Tabuleiro C
-4 - Tabuleiro D
-5 - Tabuleiro E
-6 - Tabuleiro F
-7 - Tabuleiro Vazio
-8 - Tabuleiro Teste
+; chamada
+CL-USER> (max-p-a tabuleiro)
 4
-TABULEIRO-D
-
-;; observações do resultado
-;; repete a função até receber um dos valores esperados
 ```
 
-### <a name="f-ler-mostra-tabuleiro">Ler-Mostra-Tabuleiro</a>
-(desc)
+#### <a nome="f-">Sao-Iguaisp</a>
+Verifica se existe pelo menos um atributo em comum em todas as peças da fila. Caso encontre uma peça com atributo diferente retorna NIL. Caso contrário retorna T.
 
-**Parâmetros**
+**Parametros**
 
-Nenhum
-
-```lisp
-
-```
-
-### <a name="f-ler-procura">Ler-Algoritmo-Procura</a>
-Esta função retorna valor correspondente ao valor do intervalo [1,3]. Caso o valor introduzido esteja fora do intervalo acima indicado, a função repete até obter um valor possível.
-
-Em contexto, esta função permite selecionar até 3 algoritmos de prócura diferentes utilizados no jogo, retornando o nome da função do algoritmo correspondente ao número inserido.
-
-**Parâmetros**
-
-Nenhum
+*fila - Fila*
 
 ```lisp
-(defun ler-algoritmo-procura ()
- (progn
-  (format t "Selecione o algoritmo de procura a usar~%")
-  (format t "1 - Procura na largura~%")
-  (format t "2 - Procura na profundidade~%")
-  (format t "3 - A*~%")
-
-  (let ((escolha (read)))
-   (cond
-    ((= escolha 1) 'bfs)
-    ((= escolha 2) 'dfs)
-    ((= escolha 3) 'a-star)
-    (t (format t "Escolha invalida~%~%") (ler-algoritmo-procura))
-   )
-  )
- )
+; funcao
+(defun sao-iguaisp (fila)
+  (labels ((eq-list (x &rest y) 
+             (cond 
+              ((null y) T) 
+              ((eq x (car y)) (apply #'eq-list x (cdr y)))
+              (t nil))))
+    (cond
+     ((null fila) nil)
+     (t (reduce #'(lambda (&optional a b) (or a b)) (apply #'mapcar #'eq-list fila)))))
 )
 ```
 
+Enconta atributos iguais com uma fila de  1 peça.
+
 ```lisp
-;; chamada
-;; lê e retorna o nome da função que retorna o 
-;; tabuleiro correspondente
-(operate:ler-algoritmo-procura)
+; fila filtrada
+((BRANCA REDONDA ALTA OCA))
 
-;; resultado
-Selecione o algoritmo de procura a usar
-1 - Procura na largura
-2 - Procura na profundidade
-3 - A*
-3
-A-STAR
-
-;; chamada
-;; lê valores negativo e acima do 3
-(operate:ler-algoritmo-procura)
-
-;; resultado
-Selecione o algoritmo de procura a usar
-1 - Procura na largura
-2 - Procura na profundidade
-3 - A*
--1
-Escolha invalida
-Selecione o algoritmo de procura a usar
-1 - Procura na largura
-2 - Procura na profundidade
-3 - A*
-4
-Escolha invalida
-Selecione o algoritmo de procura a usar
-1 - Procura na largura
-2 - Procura na profundidade
-3 - A*
-2
-DFS
-
-;; observações do resultado
-;; repete a função até receber um dos valores esperados
+; chamada
+CL-USER> (sao-iguaisp fila)
+T
 ```
 
-### <a name="f-ler-profundidade">Ler-Profundidade</a>
-Esta função retorna um valor dentro do intervalo [0,999]. Caso o valor introduzido esteja fora do intervalo acima indicado, a função repete até obter um valor possível.
+Enconta atributos iguais com uma fila de  2 peças diferentes.
 
-Em contexto, esta função permite informar qual a profundidade relativa ao algoritmo de prócura Depth-First Search  (DFS), utilizado no jogo, retornando o valor válido inserido.
+```lisp
+; fila filtrada
+((BRANCA REDONDA ALTA OCA) (PRETA QUADRADA BAIXA CHEIA))
+
+; chamada
+CL-USER> (sao-iguaisp fila)
+NIL
+```
+
+Enconta atributos iguais com uma fila de 3 peças.
+
+```lisp
+; fila filtrada
+((BRANCA REDONDA ALTA OCA) (PRETA QUADRADA BAIXA CHEIA) (BRANCA QUADRADA ALTA CHEIA))
+
+; chamada
+CL-USER> (sao-iguais fila)
+NIL
+```
+
+#### <a nome="f-">Jogada</a>
+Efetua uma jogada em que remove a peça enviada por parâmetro da reserva do problema e insere-a na coordenada do tabuleiro.
 
 **Parâmetros**
 
-Nenhum
+*l - Coordenada da linha*
+
+*c - Coordenada da Coluna*
+
+*p - Peça*
+
+*problema - Problema*
 
 ```lisp
-;; função
-(defun ler-profundidade ()
- (progn
-  (format t "Insira a profundidade limite~%")
-  (let ((escolha (read)))
-   (cond
-    ((and (numberp escolha) (and (> escolha -1) (< escolha 1000))) escolha)
-    (t (format t "Valor invalido~%~%") (ler-profundidade))
-   )
-  )
- )
+; funcao
+(defun jogada (l c p problema)
+  (cond
+   ;((null (reserva problema)) nil)
+   ((not (casa-vaziap l c (tabuleiro problema))) nil)
+   (t 
+    (let ((novo-tabuleiro (copy-tree (tabuleiro problema))))
+      (substituir-posicao c p (fila l novo-tabuleiro))
+      (list novo-tabuleiro (remove-peca p (reserva problema)))
+    )
+   ))
 )
 ```
+
+Insere na coordenada (0, 0) do tabuleiro a peça (BRANCA REDONDA ALTA OCA).
+
 ```lisp
-;; chamada
-;; lê e retorna o valor da profundidade dentro
-;; do intervalo [1, 999]
-(ler-profundidade)
+; problema
+(((0 0 0 0) (0 0 0 0) (0 0 0 0) (0 0 0 0))
+(branca redonda alta oca) (preta redonda alta oca) (branca redonda baixa oca) (preta redonda baixa oca) (branca quadrada alta oca) (preta quadrada alta oca) (branca quadrada baixa oca)(preta quadrada baixa oca) (branca redonda alta cheia) (preta redonda alta cheia) (branca redonda baixa cheia) (preta redonda baixa cheia) (branca quadrada alta cheia) (preta quadrada alta cheia) (branca quadrada baixa cheia) (preta quadrada baixa cheia))
 
-;; resultado
-Insira a profundidade limite
-14
-14
+; peca
+(BRANCA REDONDA ALTA OCA)
 
-;; chamada
-;; lê e retorna o valor da profundidade fora
-;; do intervalo [1, 999]
-(ler-profundidade)
-
-;; resultado
-Insira a profundidade limite
--1
-Valor invalido
-
-Insira a profundidade limite
-1000
-Valor invalido
-
-Insira a profundidade limite
-999
-999
-
-;; observações do resultado
-;; repete a função até receber um dos valores esperados
+; chamada
+CL-USER> (jogada 0 0 peca problema)
+((((BRANCA REDONDA ALTA OCA) 0 0 0) (0 0 0 0) (0 0 0 0) (0 0 0 0)) ((PRETA REDONDA ALTA OCA) (BRANCA REDONDA BAIXA OCA) (PRETA REDONDA BAIXA OCA) (BRANCA QUADRADA ALTA OCA) (PRETA QUADRADA ALTA OCA) (BRANCA QUADRADA BAIXA OCA) (PRETA QUADRADA BAIXA OCA) (BRANCA REDONDA ALTA CHEIA) (PRETA REDONDA ALTA CHEIA) (BRANCA REDONDA BAIXA CHEIA) (PRETA REDONDA BAIXA CHEIA) (BRANCA QUADRADA ALTA CHEIA) (PRETA QUADRADA ALTA CHEIA) (BRANCA QUADRADA BAIXA CHEIA) (PRETA QUADRADA BAIXA CHEIA)))
 ```
 
-### <a name="f-consola">Consola</a>
-Esta função permite criar um meio de interação entre o utilizador e o jogo através da leitura de input.
+Insere na coordenada (0, 0) do tabuleiro a peça (PRETA QUADRADA BAIXA CHEIA).
 
-Em contexto, esta função chama todas as funções de leitura de input [ler-tabuleiro](#f-ler-tabuleiro), [ler-mostra-tabuleiro](#f-ler-mostra-tabuleiro), [ler-procura](#f-ler-procura), [ler-profundidade](#f-ler-profundidade) e permite iniciar o jogo.
+*Esta função apenas tem delegada a função de substituir o valor da coordenada parameterizada pelo novo valor.*
+
+```lisp
+; problema
+(((0 0 0 0) (0 0 0 0) (0 0 0 0) (0 0 0 0))
+(branca redonda alta oca) (preta redonda alta oca) (branca redonda baixa oca) (preta redonda baixa oca) (branca quadrada alta oca) (preta quadrada alta oca) (branca quadrada baixa oca)(preta quadrada baixa oca) (branca redonda alta cheia) (preta redonda alta cheia) (branca redonda baixa cheia) (preta redonda baixa cheia) (branca quadrada alta cheia) (preta quadrada alta cheia) (branca quadrada baixa cheia) (preta quadrada baixa cheia))
+
+; peca
+(PRETA QUADRADA BAIXA CHEIA)
+
+; chamada
+CL-USER> (jogada 0 0 peca problema)
+((((PRETA QUADRADA BAIXA CHEIA) 0 0 0) (0 0 0 0) (0 0 0 0) (0 0 0 0)) ((BRANCA REDONDA ALTA OCA) (PRETA REDONDA ALTA OCA) (BRANCA REDONDA BAIXA OCA) (PRETA REDONDA BAIXA OCA) (BRANCA QUADRADA ALTA OCA) (PRETA QUADRADA ALTA OCA) (BRANCA QUADRADA BAIXA OCA) (PRETA QUADRADA BAIXA OCA) (BRANCA REDONDA ALTA CHEIA) (PRETA REDONDA ALTA CHEIA) (BRANCA REDONDA BAIXA CHEIA) (PRETA REDONDA BAIXA CHEIA) (BRANCA QUADRADA ALTA CHEIA) (PRETA QUADRADA ALTA CHEIA) (BRANCA QUADRADA BAIXA CHEIA)))
+```
+
+#### <a nome="f-">Casas-Vazias</a>
+Retorna uma lista com todas as coordenadas vazias num tabuleiro.
 
 **Parâmetros**
 
-Nenhum
+*tab - tabuleiro*
+
+*l - Coordenada da linha (opcional)*
 
 ```lisp
-
+; funcao
+(defun casas-vazias (tab &optional (l 0))
+  (cond 
+   ((null tab) nil)
+    (t (append (coordenadas (car tab) l) 
+     (casas-vazias (cdr tab) (1+ l)))))) 
 ```
 
-## <a name="demo">Demostrações</a>
-Coloca aleatóriamente uma peça aleatória, num dos espaços do tabuleiro, três vezes.
-
-### <a name="demo-1">Inserir Peça</a>
-
-#### <a name="demo-11">Tabuleiro Vazio</a>
-**Demostração**
-
-Inserir uma peça aleatóreamente, numa posição aleatória no tabuleiro vazio, recorrendo às [funções auxiliares](#f-auxiliar).
-
-**Resultado Esperado:**
-
-O tabuleiro contém uma peça p numa dada coordenada (r, c) e é removida da reserva a peça p.
+Tabuleiro vazio.
 
 ```lisp
-;; chamada
-;; visualização do estado do tabuleiro
-(tabulerio (tabueiro-e-pecas))
-
-;; resultado
+; tabuleiro
 ((0 0 0 0) (0 0 0 0) (0 0 0 0) (0 0 0 0))
 
-;; chamada
-;; coloca peça aleatória numa coordenada aleatória
-;; do tabuleiro
-(coloca-peca-no-tabuleiro (nova-jogada (linha 0 (tabuleiro (tabuleiro-e-pecas)))) (nova-jogada (coluna 0 (tabuleiro (tabuleiro-e-pecas)))) (seleciona-peca (reserva (tabuleiro-e-pecas))) (tabuleiro (tabuleiro-e-pecas)))
+; chamada
+CL-USER> (casas-vazias tabuleiro)
+((0 0) (0 1) (0 2) (0 3) (1 0) (1 1) (1 2) (1 3) (2 0) (2 1) (2 2) (2 3) (3 0) (3 1) (3 2) (3 3))
 
-;; resultado
-;; pedra aleatóriamente selecionada
-(PRETA REDONDA ALTA CHEIA)
-
-;; chamada
-;; visualização do estado do tabuleiro
-(tabuleiro (tabuleiro-e-pecas))
-
-;; resultado
-((0 0 0 0) (0 0 (PRETA REDONDA ALTA CHEIA) 0) (0 0 0 0) (0 0 0 0))
-
-;; chamada
-;; visualização do estado da reserva
-(reserva (tabuleiro-e-pecas))
-
-;;resultado
-((BRANCA REDONDA ALTA OCA) (PRETA REDONDA ALTA OCA) (BRANCA REDONDA BAIXA OCA) (PRETA REDONDA BAIXA OCA) (BRANCA QUADRADA ALTA OCA) (PRETA QUADRADA ALTA OCA) (BRANCA QUADRADA BAIXA OCA) (PRETA QUADRADA BAIXA OCA) (BRANCA REDONDA ALTA CHEIA) (BRANCA REDONDA BAIXA CHEIA) (PRETA REDONDA BAIXA CHEIA) (BRANCA QUADRADA ALTA CHEIA) (PRETA QUADRADA ALTA CHEIA) (BRANCA QUADRADA BAIXA CHEIA) (PRETA QUADRADA BAIXA CHEIA))
 ```
 
-#### <a name="demo-12">Posição no Tabuleiro com Peça</a>
-(Descrição aqui)
+Tabuleiro com 8 casas vazias.
 
 ```lisp
-;; chamada
-(tabulerio)
+; tabuleiro
+(((BRANCA QUADRADA BAIXA CHEIA) 0 (PRETA REDONDA ALTA CHEIA) (PRETA QUADRADA BAIXA OCA)) (0 0 0 (BRANCA REDONDA BAIXA OCA)) ((BRANCA REDONDA ALTA CHEIA) 0 (PRETA REDONDA ALTA OCA) (BRANCA QUADRADA BAIXA OCA)) (0 (PRETA QUADRADA BAIXA CHEIA) 0 0))
 
-;; resultado
-((0 (BRANCA QUADRADA ALTA CHEIA) 0 0) 
-(0 0 0 0) (0 0 0 0) (0 0 0 0))
+;chamada
+CL-USER> (casas-vazias tabuleiro)
+((0 1) (1 0) (1 1) (1 2) (2 1) (3 0) (3 2) (3 3))
 
-;; chamada
-;; coloca peça aleatória numa coordenada aleatória
-(coloca-peca-no-tabuleiro 
-(nova-jogada (tabulerio (tabueiro-e-pecas)) 
-(nova-jogada (car (tabulerio (tabueiro-e-pecas)))) 
-(seleciona-peca (reserva (tabuleiro-e-pecas))) 
-(tabulerio (tabueiro-e-pecas))
-)
+```
+Tabuleiro com zero casas vazias. 
 
-;; resultado
-(PRETA REDONDA BAIXA OCA)
-
-;; chamada
-(tabulerio)
-
-;; resultado
-((0 (BRANCA QUADRADA ALTA CHEIA) 
-(PRETA REDONDA BAIXA OCA) 0) 
-(0 0 0 0) (0 0 0 0) (0 0 0 0))
-````
-
-### <a name="teste-3">Teste 3</a>
-Preencher tabuleiro doo teste anterior.
+*Um tabuleiro só poderá estar cheio, se este for dado inicialmente.*
 
 ```lisp
-;; chamada
-(tabulerio)
+; chamada
+CL-USER> (casas-vazias tabuleiro)
+NIL
+```
 
-;; resultado
-((0 (BRANCA QUADRADA ALTA CHEIA) 
-(PRETA REDONDA BAIXA OCA) 0) 
-(0 0 0 0) (0 0 0 0) (0 0 0 0))
+#### <a nome="f-">Coordenadas</a>
+Retorna uma lista com as coordenadas da fila do tabuleiro que se encontram vazias. Opcionalmente, coloca-se a coordenada da coluna.
 
-;; chamada
-;; coloca peça aleatória numa coordenada aleatória
-(coloca-peca-no-tabuleiro 
-(nova-jogada (tabulerio (tabueiro-e-pecas)) 
-(nova-jogada (car (tabulerio (tabueiro-e-pecas)))) 
-(seleciona-peca (reserva (tabuleiro-e-pecas))) 
-(tabulerio (tabueiro-e-pecas))
+**Parâmetros**
+
+*fila - Fila do tabuleiro*
+
+*l - Coordenada da fila*
+
+*c - Coordenada da coluna (opcional)*
+
+```lisp
+; funcao
+(defun coordenadas (fila l &optional (c 0))
+  (cond
+   ((null fila) nil)
+   ((eq (car fila) 0) 
+    (cons (list l c) (coordenadas (cdr fila) l (1+ c))))
+   (t (coordenadas (cdr fila) l (1+ c)))))
+```
+
+Fila com um espaço vazio e a coordenada 2.
+
+```lisp
+; fila
+((branca quadrada baixa cheia) 0 (preta redonda alta cheia) (preta quadrada baixa oca))
+
+; chamada
+CL-USER> (coordenadas fila 2)
+((0 1))
+```
+
+Fila com dois espaços vazios e a coordenada 0.
+
+```lisp
+; fila
+((preta redonda alta cheia) (preta quadrada baixa oca) 0 0)
+
+; chamada
+CL-USER> (coordenadas fila 0)
+((0 2) (0 3))
+```
+
+Fila com zero espaços vazios e a coordenada 3.
+
+```lisp
+; fila
+((branca quadrada alta cheia)
+(branca quadrada alta oca)
+(branca quadrada baixa oca)
+(branca quadrada baixa cheia))
+
+; chamada
+CL-USER> (coordenadas fila 3)
+NIL
+```
+Fila com 4 espaços vazios e a coordenada 2.
+
+```lisp
+; fila
+(0 0 0 0)
+
+; chamada
+CL-USER> (coordenadas fila 1)
+((1 0) (1 1))
+```
+
+#### <a nome="f-">No-Solucaop</a>
+Valida se o estado do nó encontra-se com 4 peças com pelo menos um atributo em comum, retornando T caso se verifique ser verdade, case contrário retorna NIL.
+
+**Parâmetros**
+
+*no - Nó*
+
+```lisp
+; funcao
+(defun no-solucaop (no)
+  (if (null no) nil (quatro-fila-p (tabuleiro-conteudo no))) 
 )
+```
+Nó com o estado com 4 peças com pelo menos um atributo em comum.
 
-;; resultado
-(BRANCA QUADRADA ALTA OCA)
+```lisp
+; no
+((((preta quadrada alta oca) 
+(preta quadrada baixa oca) 
+(branca redonda baixa oca) 
+(preta redonda alta oca))
+ (0 0 0 0)
+ (0 0 0 0)
+ (0 0 0 0))
+((branca quadrada alta cheia)
+(branca quadrada alta oca)
+(branca quadrada baixa oca)
+(branca quadrada baixa cheia)
+(preta quadrada alta cheia)
+(preta quadrada baixa cheia)
+(branca redonda alta cheia)
+(branca redonda alta oca)
+(branca redonda baixa cheia)
+(preta redonda alta cheia)
+(preta redonda baixa cheia)
+(preta redonda baixa oca))) 0 NIL)
 
-;; chamada
-(tabulerio)
+; chamada
+CL-USER> (no-solucaop no)
+T
+```
 
-;; resultado
-((0 (BRANCA QUADRADA ALTA CHEIA) 
-(PRETA REDONDA BAIXA OCA) 0) 
-(0 0 0 0) (0 0 0 0) 
-(0 (BRANCA QUADRADA ALTA OCA) 0 0))
-````
+Nó com o estado com 2 peças com pelo menos um atributo em comum.
+
+```lisp
+; no
+(((0 (preta quadrada baixa oca) (branca redonda baixa oca) 0)
+ (0 0 0 0)
+ (0 0 0 0)
+ (0 0 0 0))
+((branca quadrada alta cheia)
+(branca quadrada alta oca)
+(branca quadrada baixa oca)
+(branca quadrada baixa cheia)
+(preta quadrada alta cheia)
+(preta quadrada alta oca)
+(preta quadrada baixa cheia)
+(branca redonda alta cheia)
+(branca redonda alta oca)
+(branca redonda baixa cheia)
+(preta redonda alta cheia)
+(preta redonda alta oca)
+(preta redonda baixa cheia)
+(preta redonda baixa oca))) 0 NIL)
+
+; chamada
+CL-USER> (no-solucaop no)
+NIL
+```
+
+Nó com o estado com nenhuma peça com pelo menos um atributo em comum.
+
+```lisp
+; no
+(((0 (preta quadrada baixa oca) (branca redonda alta cheia) 0)
+ (0 0 0 0)
+ (0 0 0 0)
+ (0 0 0 0))
+((branca quadrada alta cheia)
+(branca quadrada alta oca)
+(branca quadrada baixa oca)
+(branca quadrada baixa cheia)
+(preta quadrada alta cheia)
+(preta quadrada alta oca)
+(preta quadrada baixa cheia)
+(branca redonda alta oca)
+(branca redonda baixa cheia)
+(branca redonda baixa oca)
+(preta redonda alta cheia)
+(preta redonda alta oca)
+(preta redonda baixa cheia)
+(preta redonda baixa oca)))) 0 NIL)
+
+; chamada
+CL-USER> (no-solucaop no)
+NIL
+```
+
+#### <a nome="f-">Heuristic</a>
+A heuristica f(x) = 4 - h(x) é utilizada no algoritmo A*.
+
+Esta heuristica baseia-se na substração entre o número máximo de peças necessárias para ganhar o jogo e o número máximo de peças atuais no tabuleiro.
+
+**Parâmetros**
+
+*estado - Estado do nó*
+
+```lisp
+; funcao
+(defun heuristic (estado)
+  (- 4
+     (max-p-a (tabuleiro estado))))
+```
+
+Estado com o tabuleiro vazio.
+
+```lisp
+; chamada
+CL-USER> (heuristic estado)
+4
+```
+
+Estado com o tabuleiro com três 3 pecas com o pelo menos um atributo.
+
+```lisp
+; chamada
+CL-USER> (heuristic estado)
+1
+```
+
+Estado com o tabuleiro com 4 pecas com o pelo menos um atributo.
+
+```lisp
+; chamada
+CL-USER> (heuristic estado)
+0
+```
+
+### <a nome="f-procura">Procura</a>
+
+```lisp
+; funcao
+(defun cria-no (estado  &optional (g 0) (pai nil))
+  (list estado g pai)
+)
+```
+
+```lisp
+; funcao
+(defun tabuleiro-conteudo (no)
+(caar no)
+)
+```
+
+```lisp
+; funcao
+(defun reserva-conteudo (no)
+(cdar no)
+)
+```
+
+```lisp
+; funcao
+(defun no-estado (teste)
+  (car teste)
+)
+```
+
+```lisp
+; funcao
+(defun no-pai (teste)
+  (cddr teste)
+)
+```
+
+```lisp
+; funcao
+(defun no-profundidade (teste)
+  (cadr teste)
+)
+```
+
+```lisp
+; funcao
+(defun novo-sucessor (teste x)
+  (let ((novo-estado (funcall x (no-estado teste))))
+    (cond ((null novo-estado) nil)
+	  (t (list novo-estado (1+ (no-profundidade teste)) teste))))
+  )
+```
+
+```lisp
+; funcao
+(defun sucessores-quatro (no operadoresf algoritmo &optional (max-prof nil))
+  (cond ((and max-prof (eq algoritmo 'dfs)
+	      (>= (no-profundidade no)
+		  max-prof)) nil)
+	(t (remove nil
+		   (mapcar #'(lambda (operador) (novo-sucessor no operador)) (funcall operadoresf (no-estado no))))))
+)
+```
+
+
+```lisp
+; chamada
+CL-USER> 
+
+```
 
 ###  <a name="todo">// TODO</a>
 (adiciona mais aqui ...)
