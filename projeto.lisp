@@ -1,19 +1,25 @@
-(setq *DEFAULT-PATHNAME-DEFAULTS* (pathname "D:\\LEI\\IA\\20_21\\projeto1\\"))
+;(setq *DEFAULT-PATHNAME-DEFAULTS* (pathname "D:\\LEI\\IA\\20_21\\projeto1\\"))
 
 
-(defun startup (filename)
-  (load "puzzle.lisp" :if-does-not-exist nil)
-  ;(use-package 'operate)
+(defvar *base-pathname* (or *load-truename* *compile-file-truename*))
+
+(defun asset-path (file) (merge-pathnames file *base-pathname*))
+
+(progn
+  (load (asset-path "puzzle.lisp"))
+  (load (asset-path "procura.lisp")))
+
+(defun startup ()
+  #|(load "puzzle.lisp" :if-does-not-exist nil)
   (load "procura.lisp" :if-does-not-exist nil)
-  ;(use-package 'algos)
-  ;(load "problemas.dat" :if-does-not-exist nil)
-  (menu-principal filename)
+  ;(menu-principal filename)|#
+  (menu-principal (asset-path "problemas.dat"))
 )
 
 (defun obter-problemas (file)
   (with-open-file (s file)
     (let ((problems nil))
-      (do ((prob (read s) (read s nil 'eof))) ((eq prob 'eof) problems)
+      (do ((prob (read s) (read s nil 'eof))) ((eq prob 'eof) (reverse problems))
         (setq problems (cons prob problems))))))
 
 
@@ -43,9 +49,10 @@
                                                     (1 (progn (tabuleiros filename) t))
                                                     (2 (progn (regras)  t))
                                                     (3 (progn (imprime-tabs) t))
-                                                    (4 (progn (format t "~%~%~%          PROGRAMA TERMINADO") nil))))
+                                                    (4 (progn (format t "~%~%~%          PROGRAMA TERMINADO") ))))
                 ( T (progn  (format t "~%          ESCOLHA INVALIDA~%~%          Option -> ")
-                            (setf escolha (read)))))))))))
+                            (setf escolha (read))))))) 
+(return)))))
 
 
 (defun regras ()
@@ -88,58 +95,100 @@ ________________________________________________________________________________
     (let* 
       ((tabuleiros (obter-problemas filename))
        (escolha (read)))
-   
+       ;(princ tabuleiros)
 	(cond 
-
+        
 	((and (> escolha 0) (< escolha 9))
- 	(let ((tabuleiro (nth (1- escolha) tabuleiros)))
-          ;(princ tabuleiro)
+ 	(let ((tab (nth (1- escolha) tabuleiros)))
+         
    	(cond
-   	 ((null tabuleiro) (format t "Ainda nao existe tabuleiro~%~%") (tabuleiros filename))
-    	(T (menu-algoritmos tabuleiro filename))
+   	 ((null tab) (format t "Ainda nao existe tabuleiro~%~%") (tabuleiros filename))
+    	(T (menu-algoritmos tab filename))
 	)))
 	(t (format t "Escolha invalida~%~%") (ler-tabuleiro filename)))
 	)
  ))
 
+(defun write-bfsdfs-statistics (start-board solution-node start-time end-time algorithm)
+  "Writes the statistics file with the solution and it's statistic data, for breadth first and depth first algorithms"
+
+  (cond (
+    (null solution-node) nil)
+        (t 
+         (with-open-file (file (asset-path "solucao.dat") :direction :output :if-exists :append :if-does-not-exist :create)
+           (progn 
+             (terpri)
+             (format file "~%~t  Algoritmo: ~a " algorithm)
+             (format file "~%~t  Inicio: ~a:~a:~a" (first start-time) (second start-time) (third start-time))
+             (format file "~%~t  Fim: ~a:~a:~a" (first end-time) (second end-time) (third end-time))
+             (format file "~%~t  Numero de nos gerados: ~a" (second solution-node))
+             (format file "~%~t  Numero de nos expandidos: ~a" (- (second solution-node) 1))
+             (format file "~%~t  Nivel de penetracao: ~F" (penetrancia solution-node))
+             (if (eq algorithm 'DFS)
+                 (format file "~%~t  Profundidade Maxima: ~a" (second solution-node)))
+             (format file "~%~t  Tamanho da solucao: ~a" (tamanho-solucao solution-node)))
+             (terpri)
+             (format file "~%~t  Solucao: ~a"  (first solution-node))
+             (terpri)    (format file "~%~t  Tabuleiro-inicial:")
+             (print-board start-board file)
+             (terpri)
+             (format file "~%~t  Tabuleiro-final:")
+             (print-board solution-node file)
+             ))))
+
+(defun print-board(board &optional (file-stream t))
+  "lista a board"
+  (not (null (mapcar #'(lambda(line) 
+        (format file-stream "~%~t~t ~a" line)) board)))
+  )
+
 (defun menu-algoritmos (problema filename)
   "1.3 Sub menu escolhe algoritmo "
-  (princ (cria-no (problema)))
-  (loop
-   (progn
-     (format t "~%           ______________________________________________________")
-     (format t "~%          з                                                      з")
-     (format t "~%          з                  ESCOLHA O ALGORITMO                 з")
-     (format t "~%          з                 (algoritmo de procura)               з")
-     (format t "~%          з                                                      з")
-     (format t "~%          з                 1-Procura em largura                 з")
-     (format t "~%          з                 2-Procura em profundidade            з")
-     (format t "~%          з                 3-Procura em A*                      з")
-     (format t "~%          з                 4-Algorithm SMA*                     з")
-     (format t "~%          з                 0-Home Menu                          з")
-     (format t "~%          з                                                      з")
-     (format t "~%          з______________________________________________________з") 
-     (format t "~%~%~%          Option -> ")
-     )
-   (cond ((not (let ((escolha (read))) 
-                 (cond 
-                  ((and (numberp escolha) (< escolha 5) (> escolha -1)) (case escolha
-                                                                         (1 (bfs (cria-no problema) #'no-solucaop  #'sucessores-quatro #'operadores-quatro))
-                                                                         (2 (ler-profundidade problema filename))
-                                                                         (3 (menu-heuristic problema  'A*))
-                                                                         (4 (menu-memory problema 'SMA* ))
-                                                                         (0 (menu-principal filename))))
-                  ( T (progn  (format t "~%          Escolha Invalida~%~%          Option -> ")
-                        (setf escolha (read))))))) 
-          (return)))))
+  (princ (cria-no problema))
+  (let ((temp (tempo)))
+      (loop
+       (progn
+         (format t "~%           ______________________________________________________")
+         (format t "~%          з                                                      з")
+         (format t "~%          з                  ESCOLHA O ALGORITMO                 з")
+         (format t "~%          з                 (algoritmo de procura)               з")
+         (format t "~%          з                                                      з")
+         (format t "~%          з                 1-Procura em largura                 з")
+         (format t "~%          з                 2-Procura em profundidade            з")
+         (format t "~%          з                 3-Procura em A*                      з")
+    ; (format t "~%          з                 4-Algorithm SMA*                     з")
+         (format t "~%          з                 0-Home Menu                          з")
+         (format t "~%          з                                                      з")
+         (format t "~%          з______________________________________________________з") 
+         (format t "~%~%~%          Option -> ")
+         )
+       (cond ((not (let ((escolha (read))) 
+                     (cond 
+                      ((and (numberp escolha) (< escolha 5) (> escolha -1)) (case escolha
+                                                                              (1 (write-bfsdfs-statistics problema (bfs (cria-no problema) #'no-solucaop #'sucessores-quatro #'operadores-quatro) temp (tempo) 'BFS))
+                                                                              (2 (ler-profundidade problema filename))
+                                                                              (3 (write-bfsdfs-statistics problema (a-star (cria-no problema)  #'no-solucaop #'sucessores-quatro #'operadores-quatro #'heuristic) temp (tempo) 'A-STAR))
+                                                                         ;(4 (menu-memory problema 'SMA* ))
+                                                                              (0 (menu-principal filename))))
+                      ( T (progn  (format t "~%          Escolha Invalida~%~%          Option -> ")
+                            (setf escolha (read))))))) 
+              (return))))))
 
+
+(defun tempo()
+  "Returns the current time with the format (h m s)"
+  ;;Hour-minute-second
+  (multiple-value-bind (s m h) (get-decoded-time)
+    (list h m s)
+    )
+  )
 
 
 ;; ler-profundidade
 ;; referencia: laboratorio 6
 (defun ler-profundidade (problema filename)
-
-(loop
+  (let ((temp (tempo)))
+  (loop
    (progn
      (format t "~%           ______________________________________________________")
      (format t "~%          з                    PROFUNDIDADE                      з")
@@ -152,52 +201,17 @@ ________________________________________________________________________________
      (format t "~%          з______________________________________________________з")
      (format t "~%~%~%          Depth-> ")
      )
-(cond ((not (let ((depth (read)))
+   (cond ((not (let ((depth (read)))
                  (cond 
                   ((and (numberp depth) (> depth -1) ) (case depth
                                                          (0 (menu-principal filename))
-                                                         (t (dfs (cria-no (problema)) #'no-solucaop  #'sucessores-quatro #'operadores-quatro depth ))))
+                                                         (t (write-bfsdfs-statistics problema (dfs (cria-no problema) #'no-solucaop #'sucessores-quatro #'operadores-quatro depth) temp (tempo) 'DFS) (menu-algoritmos problema filename))))
+                                                         ;(t (dfs (cria-no problema) #'no-solucaop #'sucessores-quatro #'operadores-quatro depth))))
+                                                         ;(t (princ (dfs (cria-no problema) #'no-solucaop #'sucessores-quatro #'operadores-quatro depth)))))
+
                   ( T (progn  (format t "~%          Invalid Choice~%~%          Depth ->  ")
                         (setf depth (read))))))) 
-          (return)))))
-
-
-(defun escrever-estatisticas ( node algoritmo  )
-"Escreve o Resultado no ficheiro Soluчуo "
-  (with-open-file (str ("solucao.dat") 
-                       :direction :output
-                       :if-exists :append
-                       :if-does-not-exist :create)
-
-    (cond 
-     ((eq node nil) (progn (format str "~%~%~%~%                          ж SOLUTION NOT FOUND ж ~% ~%")))
-     (t (progn 
-          (format str "~% ______________STATS______________ ~%")
-          (format str "~% _______ ~A _______ ~%" (date-time))
-          (format str "~%~% Final State: ~%")
-          (pprint  (no-estado (first node)) str)
-          (format str "~% ___________________________________~%")
-          (format str "~%          Algorithm: ~a " algoritmo)
-          (format str "~%          G (Depth): ~a " (no-profundidade (first node)))
-          (format str "~%          H (Heuristic): ~a" (no-H (first node)))
-          (format str "~%          Solution Length: ~a" (solution-length node)) 
-          (format str "~%          Generated Nodes: ~a" (second node))
-          (format str "~%          Expanded Nodes: ~a" (third node))
-          (format str "~%          Penetration: ~f" (float (/ (no-profundidade (first node)) (second node))))
-          (format str "~%          Points: ~d" (number-of-points node) )
-          (format str "~%          Objective: ~d" (objetivo) )
-          (format str "~%          Average branching factor: ~f" (branching-factor node) )
-          (cond 
-           ((>= (number-of-points node) (objetivo))   (format str "%~%          OBJECTIVE REACHED  ~%~%"  ))
-           (T  (format str "%~%          OBJECTIVE NOT REACHED  ~%~%"  )))
-          (format str "~%~%~%~%~%~%")
-          ))))
-  (escreve-no node)
-  (menu-path node)
-  )
-
-
-
+          (return))))))
 
 
 
