@@ -428,9 +428,11 @@ Apenas aceita um tabuleiro 4x4, cujo as diagonais sao duas
    ((null tabuleiro) nil)
    (t
     (let* ((linhas (append tabuleiro (colunas tabuleiro) (diagonais tabuleiro)))
-           (linhas-pecas (mapcar #'(lambda (x) 
-                                     (remove-if #'(lambda (y) (eq y 0)) x))
-                                 linhas)))
+           (linhas-pecas (remove-if #'(lambda (z) 
+                                             (null z))
+                                    (mapcar #'(lambda (x) 
+                                                  (remove-if #'(lambda (y) (eq y 0)) x))
+                                 linhas))))
       (cond
        ((null linhas-pecas) 0)
        (t (reduce #'max (mapcar #'max (remove nil (mapcar #'(lambda (em-linha len) (and em-linha len))
