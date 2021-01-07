@@ -200,7 +200,7 @@ CL-USER> (reserva problema)
 ((BRANCA REDONDA ALTA OCA) (PRETA REDONDA ALTA OCA) (BRANCA REDONDA BAIXA OCA) (PRETA REDONDA BAIXA OCA) (BRANCA QUADRADA ALTA OCA) (PRETA QUADRADA ALTA OCA) (BRANCA QUADRADA BAIXA OCA) (PRETA QUADRADA BAIXA OCA) (BRANCA REDONDA ALTA CHEIA) (PRETA REDONDA ALTA CHEIA) (BRANCA REDONDA BAIXA CHEIA) (PRETA REDONDA BAIXA CHEIA) (BRANCA QUADRADA ALTA CHEIA) (PRETA QUADRADA ALTA CHEIA) (BRANCA QUADRADA BAIXA CHEIA) (PRETA QUADRADA BAIXA CHEIA))
 ```
 
-#### <a nome="f-">Fila</a>
+#### <a nome="f-fila">Fila</a>
 Retorna uma lista com elementos que se encontram numa fila.
 
 **Parametros**
@@ -237,7 +237,7 @@ CL-USER> (fila 0 tabuleiro)
 (0 0 0 0)
 ```
 
-#### <a nome="f-">Coluna</a>
+#### <a nome="f-coluna">Coluna</a>
 Retorna uma lista de elementos que se encontram numa coluna e limita-se a retornar 4 elementos.
 
 Esta função limita-se a ser uma função redundante da função [celula](#f-celula) para aumentar legibilidade do código.
@@ -270,7 +270,7 @@ CL-USER (coluna 0 tabuleiro)
 ;; ((0,0) (1,0) (2,0) (3,0))
 ```
 
-#### <a nome="f-">Celula</a>
+#### <a nome="f-celula">Celula</a>
 Retorna um elementos que se encontram numa fila ou coluna.
 
 **Parametros**
@@ -298,7 +298,7 @@ CL-USER> (celula 0 0 tabuleiro)
 0
 ```
 
-#### <a nome="f-">Cria-Lista-Indice</a>
+#### <a nome="f-cria-lista-indice">Cria-Lista-Indice</a>
 Retorna uma lista com todos os indices correspondentes do tamanho máximo da lista parameterizada.
 
 Esta função auxilia na geração de coordenadas para as funções [diagonal-esquerda](#f-diagonal-esquerda) e [diagonal-direita](#f-diagonal-direita).
@@ -332,7 +332,7 @@ CL-USER> (cria-lista-indice 0)
 NIL
 ```
 
-#### <a nome="f-">Diagonal-Esquerda</a>
+#### <a nome="f-diagonal-esquerda">Diagonal-Esquerda</a>
 Retorna a diagonal esquerda do tabuleiro.
 
 As coordenadas da diagonal esquerda são o conjunto de pares coordenados {(0,0), (1,1), (2, 2), (3,3)}.
@@ -379,7 +379,7 @@ Retorna a diagonal esquerda (0,0) a (3,3) de um tabuleiro NIL.
 NIL
 ```
 
-#### <a nome="f-">Diagonal-Direita</a>
+#### <a nome="f-diagonal-direita">Diagonal-Direita</a>
 Retorna a diagonal direita do tabuleiro.
 
 As coordenadas da diagonal são o conjunto de pares coordenados {(3,0), (2,1), (1, 2), (0,3)}.
@@ -428,7 +428,7 @@ Retorna a diagonal direita (0,3) a (3,0) de um tabuleiro NIL.
 NIL
 ```
 
-#### <a nome="f-">Casa-Vaziap</a>
+#### <a nome="f-casa-vaziap">Casa-Vaziap</a>
 Verifica se uma coordenada do tabuleiro encontra-se vazia. Uma coordenada é considerada vazia se o seu valor for zero.
 
 **Parâmetros**
@@ -478,7 +478,7 @@ CL-USER> (casa-vaziap 0 3 tabuleiro)
 T
 ```
 
-#### <a nome="f-">Remove-Peca</a>
+#### <a nome="f-remove-peca">Remove-Peca</a>
 Remove da lista uma peça igual ao da peça parametrizada. Caso existir a peça, é retornada a lista sem a peça, caso contrário não é efetuada qualquer alteração e retorna-se a lista parametrizada.
 
 **Parâmetros**
@@ -531,7 +531,7 @@ CL-USER> (remove-peca '(BRANCA QUADRADA ALTA CHEIA) reserva)
 ((BRANCA QUADRADA ALTA OCA) (PRETA QUADRADA ALTA CHEIA) (PRETA QUADRADA ALTA OCA) (BRANCA REDONDA ALTA OCA) (BRANCA REDONDA BAIXA CHEIA) (PRETA REDONDA BAIXA CHEIA) (PRETA REDONDA BAIXA OCA))
 ```
 
-#### <a nome="f-">Substituir-Posicao</a>
+#### <a nome="f-substituir-peca">Substituir-Posicao</a>
 Substitui o valor de uma coordenada da fila com uma peça. Caso a coordenada da fila encontra-se vazia (com o valor zero), retorna-se o tabuleiro com a peça na coordenada parametrizada. Caso contrário retorna NIL.
 
 **Parâmetros**
@@ -571,7 +571,7 @@ CL-USER> (substituir-posicao 0 '(BRANCA REDONDA ALTA OCA) NIL)
 NIL
 ```
 
-#### <a nome="f-">Colunas</a>
+#### <a nome="f-colunas">Colunas</a>
 Retorna as linhas do tabuleiro reposicionadas como colunas.
 
 **Parâmetros**
@@ -606,7 +606,7 @@ CL-USER> (colunas tabuleiro)
 (((BRANCA QUADRADA BAIXA CHEIA) 0 (BRANCA REDONDA ALTA CHEIA) 0) (0 0 0 (PRETA QUADRADA BAIXA CHEIA)) ((PRETA REDONDA ALTA CHEIA) 0 (PRETA REDONDA ALTA OCA) 0) ((PRETA QUADRADA BAIXA OCA) (BRANCA REDONDA BAIXA OCA) (BRANCA QUADRADA BAIXA OCA) 0))
 ```
 
-#### <a nome="f-">Diagnonais</a>
+#### <a nome="f-diagonais">Diagnonais</a>
 Retorna uma lista com todas as diagonais do tabuleiro.
 
 **Parâmetros**
@@ -652,7 +652,7 @@ CL-USER> (diagonais tabuleiro)
 (((PRETA REDONDA BAIXA CHEIA) (BRANCA QUADRADA ALTA CHEIA) (BRANCA REDONDA BAIXA CHEIA) (PRETA QUADRADA BAIXA OCA)) ((BRANCA QUADRADA BAIXA CHEIA) (BRANCA REDONDA ALTA OCA) (PRETA REDONDA ALTA OCA) (BRANCA QUADRADA ALTA OCA)))
 ```
 
-#### <a nome="f-">Quatro-Fila-P</a>
+#### <a nome="f-quatro-fila-p">Quatro-Fila-P</a>
 Verifica se no tabuleiro inteiro existem quatro peças com pelo menos um atributo em comum. Caso se verifique, retorna T, caso contrário retorna NIL.
 
 **Parâmetros**
@@ -719,7 +719,7 @@ CL-USER> (quatro-fila-p tabuleiro)
 T
 ```
 
-#### <a nome="f-">Max-A-P</a>
+#### <a nome="f-max-a-p">Max-A-P</a>
 Retorna a contagem máxima de peças com pelo menos um atributo em comum em todo o tabuleiro. O intervalo de contágem máxima varia entre o intervalo inteiro [0, 4].
 
 Esta função é considerada um operador do jogo, por ser utilizada como meio de gerar um estado do problema.
@@ -778,7 +778,7 @@ CL-USER> (max-p-a tabuleiro)
 4
 ```
 
-#### <a nome="f-">Sao-Iguaisp</a>
+#### <a nome="f-sao-iguaisp">Sao-Iguaisp</a>
 Verifica se existe pelo menos um atributo em comum em todas as peças da fila. Caso encontre uma peça com atributo diferente retorna NIL. Caso contrário retorna T.
 
 **Parametros**
@@ -832,7 +832,7 @@ CL-USER> (sao-iguais fila)
 NIL
 ```
 
-#### <a nome="f-">Jogada</a>
+#### <a nome="f-jogada">Jogada</a>
 Efetua uma jogada em que remove a peça enviada por parâmetro da reserva do problema e insere-a na coordenada do tabuleiro.
 
 **Parâmetros**
@@ -892,7 +892,7 @@ CL-USER> (jogada 0 0 peca problema)
 ((((PRETA QUADRADA BAIXA CHEIA) 0 0 0) (0 0 0 0) (0 0 0 0) (0 0 0 0)) ((BRANCA REDONDA ALTA OCA) (PRETA REDONDA ALTA OCA) (BRANCA REDONDA BAIXA OCA) (PRETA REDONDA BAIXA OCA) (BRANCA QUADRADA ALTA OCA) (PRETA QUADRADA ALTA OCA) (BRANCA QUADRADA BAIXA OCA) (PRETA QUADRADA BAIXA OCA) (BRANCA REDONDA ALTA CHEIA) (PRETA REDONDA ALTA CHEIA) (BRANCA REDONDA BAIXA CHEIA) (PRETA REDONDA BAIXA CHEIA) (BRANCA QUADRADA ALTA CHEIA) (PRETA QUADRADA ALTA CHEIA) (BRANCA QUADRADA BAIXA CHEIA)))
 ```
 
-#### <a nome="f-">Casas-Vazias</a>
+#### <a nome="f-casas-vazias">Casas-Vazias</a>
 Retorna uma lista com todas as coordenadas vazias num tabuleiro.
 
 **Parâmetros**
@@ -943,7 +943,7 @@ CL-USER> (casas-vazias tabuleiro)
 NIL
 ```
 
-#### <a nome="f-">Coordenadas</a>
+#### <a nome="f-coordenadas">Coordenadas</a>
 Retorna uma lista com as coordenadas da fila do tabuleiro que se encontram vazias. Opcionalmente, coloca-se a coordenada da coluna.
 
 **Parâmetros**
@@ -1010,7 +1010,7 @@ CL-USER> (coordenadas fila 1)
 ((1 0) (1 1))
 ```
 
-#### <a nome="f-">No-Solucaop</a>
+#### <a nome="f-no-solucaop">No-Solucaop</a>
 Valida se o estado do nó encontra-se com 4 peças com pelo menos um atributo em comum, retornando T caso se verifique ser verdade, case contrário retorna NIL.
 
 **Parâmetros**
@@ -1108,7 +1108,7 @@ CL-USER> (no-solucaop no)
 NIL
 ```
 
-#### <a nome="f-">Heuristic</a>
+#### <a nome="f-heuristic">Heuristic</a>
 A heuristica f(x) = 4 - h(x) é utilizada no algoritmo A*.
 
 Esta heuristica baseia-se na substração entre o número máximo de peças necessárias para ganhar o jogo e o número máximo de peças atuais no tabuleiro.
