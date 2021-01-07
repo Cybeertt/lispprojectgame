@@ -1,7 +1,3 @@
-
-
-(setq *DEFAULT-PATHNAME-DEFAULTS* (pathname "D:\\LEI\\IA\\20_21\\projeto1\\"))
-
 #|(defun obter-problemas (file)
   (with-open-file (s file)
     (let ((problems nil))
@@ -81,7 +77,9 @@ no - No
   (append sucessores abertos)
   )
 
-
+(defun tamanho-solucao (node)
+  "Devolve o comprimento de uma  solucao"
+  (length (car node)))
 
 (defun no-existep (no lista algoritmo)
   (cond ((null lista) nil)
@@ -89,6 +87,11 @@ no - No
 	      (equal (no-estado (car lista)) (no-estado no))) t)
 	(t (no-existep no (cdr lista) algoritmo))))
 
+
+(defun penetrancia (solucao)
+"Penetrancia"
+  (/ (tamanho-solucao solucao) (second solucao))
+)
 
 ;;Algoritmo de Procura em Largura
 (defun bfs (no-inicial objetivop sucessoresf operadores &optional (abertos nil) (fechados nil))
@@ -104,7 +107,9 @@ no - No
 		    (cdr nos-succ) (cons no-inicial fechados)))
 	      (t (bfs (car abertos) objetivop sucessoresf operadores
 		      (abertos-bfs (cdr abertos) nos-succ)
-		      (cons no-inicial fechados)))))))
+		      (cons no-inicial fechados))))))
+  
+)
 
 
 ;;Algoritmo de Procura em Profundidade
@@ -215,4 +220,3 @@ no - No
 		(remove-first new-pq)
 	      (a-star next-node objetivop sucessoresf operadores
 		      heuristicaf next-pq))))))
-
