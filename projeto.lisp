@@ -1,4 +1,4 @@
-(setq *DEFAULT-PATHNAME-DEFAULTS* (pathname "D:\\LEI\\IA\\20_21\\projeto1\\"))
+;(setq *DEFAULT-PATHNAME-DEFAULTS* (pathname "D:\\LEI\\IA\\20_21\\projeto1\\"))
 
 
 (defvar *base-pathname* (or *load-truename* *compile-file-truename*))
@@ -29,15 +29,15 @@
     (progn
       (format t "~%~%~%~%~%~%~%~%~%")
       (format t "~%           _______________________________________________________")
-      (format t "~%          §                  JOGO DO PROBlEMA DO 4                §")
+      (format t "~%          §                  JOGO DO PROBlEMA DO 4               §")
       (format t "~%          §                                                      §")
       (format t "~%          §                                                      §")
       (format t "~%          §                                                      §")
       (format t "~%          §                                                      §")
       (format t "~%          §                 1-Resolver o jogo                    §")
       (format t "~%          §                 2-Regras do Jogo                     §")
-      (format t "~%          §                 3-Mostrar Tabuleiros                 §")
-      (format t "~%          §                 4-Sair                               §")
+     ; (format t "~%          §                 3-Mostrar Tabuleiros                 §")
+      (format t "~%          §                 3-Sair                               §")
       (format t "~%          §                                                      §")
       (format t "~%          §______________________________________________________§")
 
@@ -47,9 +47,7 @@
                (cond 
                 ((and (numberp escolha) (< escolha 5) (> escolha 0)) (case escolha
                                                     (1 (progn (tabuleiros filename) t))
-                                                    (2 (progn (regras)  t))
-                                                    (3 (progn (imprime-tabs) t))
-                                                    (4 (progn (format t "~%~%~%          PROGRAMA TERMINADO") ))))
+                                                    (2 (progn (regras)  t))                                                                                             (3 (progn (format t "~%~%~%          PROGRAMA TERMINADO") ))))
                 ( T (progn  (format t "~%          ESCOLHA INVALIDA~%~%          Option -> ")
                             (setf escolha (read))))))) 
 (return)))))
@@ -99,17 +97,21 @@ ________________________________________________________________________________
 	(cond 
         
 	((and (> escolha 0) (< escolha 9))
+         
  	(let ((tab (nth (1- escolha) tabuleiros)))
+          
          
    	(cond
    	 ((null tab) (format t "Ainda nao existe tabuleiro~%~%") (tabuleiros filename))
+         
     	(T (menu-algoritmos tab filename))
 	)))
+        (9 (menu-principal (asset-path "problemas.dat")))
 	(t (format t "Escolha invalida~%~%") (ler-tabuleiro filename)))
 	)
  ))
 
-(defun write-bfsdfs-statistics (start-board solution-node start-time end-time algorithm)
+(defun Escrever-Estatistica (start-board solution-node start-time end-time algorithm)
   "Writes the statistics file with the solution and it's statistic data, for breadth first and depth first algorithms"
 
   (cond (
@@ -133,7 +135,7 @@ ________________________________________________________________________________
              (print-board start-board file)
              (terpri)
              (format file "~%~t  Tabuleiro-final:")
-             (print-board solution-node file)
+             (print-board (first solution-node) file)
              ))))
 
 (defun print-board(board &optional (file-stream t))
@@ -165,9 +167,9 @@ ________________________________________________________________________________
        (cond ((not (let ((escolha (read))) 
                      (cond 
                       ((and (numberp escolha) (< escolha 5) (> escolha -1)) (case escolha
-                                                                              (1 (write-bfsdfs-statistics problema (bfs (cria-no problema) #'no-solucaop #'sucessores-quatro #'operadores-quatro) temp (tempo) 'BFS))
+                                                                              (1 (Escrever-Estatistica problema (bfs (cria-no problema) #'no-solucaop #'sucessores-quatro #'operadores-quatro) temp (tempo) 'BFS))
                                                                               (2 (ler-profundidade problema filename))
-                                                                              (3 (write-bfsdfs-statistics problema (a-star (cria-no problema)  #'no-solucaop #'sucessores-quatro #'operadores-quatro #'heuristic) temp (tempo) 'A-STAR))
+                                                                              (3 (Escrever-Estatistica problema (a-star (cria-no problema)  #'no-solucaop #'sucessores-quatro #'operadores-quatro #'heuristic) temp (tempo) 'A-STAR))
                                                                          ;(4 (menu-memory problema 'SMA* ))
                                                                               (0 (menu-principal filename))))
                       ( T (progn  (format t "~%          Escolha Invalida~%~%          Option -> ")
@@ -205,7 +207,7 @@ ________________________________________________________________________________
                  (cond 
                   ((and (numberp depth) (> depth -1) ) (case depth
                                                          (0 (menu-principal filename))
-                                                         (t (write-bfsdfs-statistics problema (dfs (cria-no problema) #'no-solucaop #'sucessores-quatro #'operadores-quatro depth) temp (tempo) 'DFS) (menu-algoritmos problema filename))))
+                                                         (t (Escrever-Estatistica problema (dfs (cria-no problema) #'no-solucaop #'sucessores-quatro #'operadores-quatro depth) temp (tempo) 'DFS) (menu-algoritmos problema filename))))
                                                          ;(t (dfs (cria-no problema) #'no-solucaop #'sucessores-quatro #'operadores-quatro depth))))
                                                          ;(t (princ (dfs (cria-no problema) #'no-solucaop #'sucessores-quatro #'operadores-quatro depth)))))
 
