@@ -1,4 +1,3 @@
-
 #|(defun obter-problemas (file)
   (with-open-file (s file)
     (let ((problems nil))
@@ -221,4 +220,3 @@ no - No
 		(remove-first new-pq)
 	      (a-star next-node objetivop sucessoresf operadores
 		      heuristicaf next-pq))))))
-

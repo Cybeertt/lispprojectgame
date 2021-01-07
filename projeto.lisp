@@ -1,4 +1,4 @@
-;(setq *DEFAULT-PATHNAME-DEFAULTS* (pathname "D:\\LEI\\IA\\20_21\\projeto1\\"))
+(setq *DEFAULT-PATHNAME-DEFAULTS* (pathname "D:\\LEI\\IA\\20_21\\projeto1\\"))
 
 
 (defvar *base-pathname* (or *load-truename* *compile-file-truename*))

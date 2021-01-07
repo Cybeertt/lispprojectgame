@@ -1,18 +1,17 @@
-# IPS ESTS
-## Projeto IA 2020/21
+# Projeto IA 2020/21 IPS ESTS
 
-### Docente
+### **Docente**
 Joaquim Filipe
 
-### Estudantes
+### **Estudantes**
 150221081 - Daniela Sineiro
 
 200221149 - Rafael Palma
 
-# Manual Técnico
+## **Manual Técnico**
 Neste manual encontram-se explicações sobre o jogo, como o iniciar, a estrutura do projeto, todas as funções utilizadas explicadas e ilustradas com exemplos e observações, e exemplos descritivos de testes com o código fonte por partes ou no global.
 
-## Indice
+## **Indice**
 * [Abstrato](#doc-abstract)
 * [Extrutura do Projeto](#doc-extrutura)
 * [Documentação de Funções](#doc-func)
@@ -39,11 +38,106 @@ Neste manual encontram-se explicações sobre o jogo, como o iniciar, a estrutur
     * [No-Solucaop](#f-no-solucaop)
     * [Heuristic](#f-heuristic)
   * [Procura](#f-procura)
-  * [Algorithm](#f-Algoritm)
+    * [Cria-No](#f-p-cria-no)
+    * [Tabuleiro-Conteudo](#f-p-tabuleiro-conteudo)
+    * [Reserva-Conteudo](#f-p-reserva-conteudo)
+    * [No-Estado](#f-p-no-estado)
+    * [No-Pai](#f-p-no-pai)
+    * [No-Profundidade](#f-p-no-profundidade)
+    * [Novo-Sucessor](#f-p-no-sucessor)
+    * [Sucessores-Quatro](#-f-p-sucessores-quatro)
+    * [Operadores-Quatro](#f-p-operadores-quatro)
+    * [Nivel-no](#f-p-nivel-no)
+    * [Abertos-Bfs](#f-p-abertos-bfs)
+    * [Abertos-Dfs](#f-p-abertos-dfs)
+    * [No-Existep](#f-p-no-existep)
+    * [Bfs](#f-p-bfs)
+    * [Dfs](#f-p-dfs)
+    * [Empty-Heap-P](#f-p-empty-heap-p)
+    * [Make-Heap](#f-p-make-heap)
+    * [Meld](#f-p-meld)
+    * [Insert](#f-p-insert)
+    * [Priority](#f-p-priority)
+    * [Elem](#f-p-elem)
+    * [child](#f-p-child)
+    * [O-Sibling](#f-p-o-sibling)
+    * [Siblings](#f-p-siblings)
+    * [Children](#f-p-children)
+    * [Pairwise-Link](#f-p-pairwise-link)
+    * [Remove-First](#f-p-remove-first)
+    * [A-Star](#f-p-a-star)
+    * [Tamanho-Solucao](#f-p-tamanho-solucao)
+    * [Penetrancia](#f-p-penetrancia)
   * [Projeto](#f-projeto)
+    * [Base-Pathname](#proj-constante-base-pathname)
+    * [Asset-Path](#f-proj-asset-path)
+    * [Load Files](#proj-load-files)
+    * [Startup](#f-proj-startup)
+    * [Obter-Problemas](#f-proj-obter-problemas)
+    * [Menu-Principal](#f-proj-menu-principal)
+    * [Regras](#f-proj-regras)
+    * [Tabuleiros](#f-proj-tabuleiros)
+    * [Write-BfsDfs-Statistics](#f-proj-write-bfsdfs-statistics)
+    * [Print-Board](#f-proj-print-board)
+    * [Menu-Algoritmos](#f-proj-menu-algoritmos)
+    * [Tempo](#f-proj-tempo)
+    * [Ler-Profundidade](#f-proj-ler-profundidade)
+* [Lista de Problemas](#lista-problemas)
+  * [Problema A](#lp-a)
+  * [Problema B](#lp-b)
+  * [Problema C](#lp-c)
+  * [Problema D](#lp-d)
+  * [Problema E](#lp-e)
+  * [Problema F](#lp-f)
+* [Aplicação dos Algoritmos de Prócura](#aplica-algoritmos)
+  * [Problema A](#aplica-algoritmos-problema-a)
+    * [BFS](#aplica-algoritmos-problema-a-bfs)
+      * [Observações](#a-res-bfs)
+    * [DFS](#aplica-algoritmos-problema-a-dfs)
+      * [Observações](#a-res-dfs)
+    * [A*](#aplica-algoritmos-problema-a-a-star)
+      * [Observações](#a-res-a-star)
+  * [Problema B](#aplica-algoritmos-problema-b)
+    * [BFS](#aplica-algoritmos-problema-b-bfs)
+      * [Observações](#b-res-bfs)
+    * [DFS](#aplica-algoritmos-problema-b-dfs)
+      * [Observações](#b-res-dfs)
+    * [A*](#aplica-algoritmos-problema-b)
+      * [Observações](#b-res-a-star)
+  * [Problema C](#aplica-algoritmos-problema-c)
+    * [BFS](#aplica-algoritmos-problema-c-bfs)
+      * [Observações](#c-res-bfs)
+    * [DFS](#aplica-algoritmos-problema-c-dfs)
+      * [Observações](#c-res-dfs)
+    * [A*](#aplica-algoritmos-problema-c-a-star)
+      * [Observações](#c-res-a-star)
+  * [Problema D](#aplica-algoritmos-problema-d)
+    * [BFS](#aplica-algoritmos-problema-d-bfs)
+      * [Observações](#d-res-bfs)
+    * [DFS](#aplica-algoritmos-problema-d-dfs)
+      * [Observações](#d-res-dfs)
+    * [A*](#aplica-algoritmos-problema-d-a-star)
+      * [Observações](#d-res-a-star)
+  * [Problema E](#aplica-algoritmos-problema-e)
+    * [BFS](#aplica-algoritmos-problema-e-bfs)
+      * [Observações](#e-res-bfs)
+    * [DFS](#aplica-algoritmos-problema-e-dfs)
+      * [Observações](#e-res-dfs)
+    * [A*](#aplica-algoritmos-problema-e-a-star)
+      * [Observações](#e-res-a-star)
+  * [Problema F](#aplica-algoritmos-problema-f)
+    * [BFS](#aplica-algoritmos-problema-f-bfs)
+      * [Observações](#f-res-bfs)
+    * [DFS](#aplica-algoritmos-problema-f-dfs)
+      * [Observações](#f-res-dfs)
+    * [A*](#aplica-algoritmos-problema-f-a-star)
+      * [Observações](#f-res-a-star)
+* [Conslusão](#conclusao)
+* [Glossário](#glossario)
 
-## <a name="doc-abstract">Abstrato</a>
-Este projeto tem com o intuito de aplicar conhecimentos adquiridos no ambito da cadeira curricular IA e realizar uma análise entre os algoritmos de procura para os diferentes estados do jogo Quatro.
+
+## <a name="doc-abstract">**Abstrato**</a>
+Este projeto tem com o intuito de aplicar conhecimentos adquiridos no ambito da cadeira curricular IA e realizar uma análise entre os algoritmos de prócura para os diferentes estados do jogo Quatro.
 
 Quatro, é um jogo que contém um tabuleiro 4x4 e 16 peças com quatro carateristicas. Cada carateristica de uma peça utiliza dois valores possíveis, tal como um sistema binário, permitindo fazer combinações de 16 peças. Por norma uma peça tem 14 peças com pelo menos uma carateristica em comum e 1 peça sem qualquer carateristica em comum.
 
@@ -54,16 +148,16 @@ A cada turno, a peça é sempre escolhida pelo adversário que tem como missão 
 
 O Quatro finaliza quando um jogador consegue alinhar 4 peças com pelo menos uma carateristica em comum, seja na vertical, horizontal ou diagonal, independentemente da direção.
 
-Nesta versão do manual, o Quatro é apenas disputado por dois competidores humanos que informam as suas jogadas através da consola.
+Nesta versão do manual, o Quatro não é jogado, mas é selecionado um estado do tabuleiro e criada uma previsão para resolver o jogo com quatro peças com pelo menos um atributo em comum.
 
-## <a name="doc-estrutura">Estrutura do Projeto</a>
+## <a name="doc-estrutura">**Estrutura do Projeto**</a>
 O projeto encontra-se distribuído por 3 ficheiros principais: ***projecto.LISP***, ***puzzle.LISP*** e ***procura.LISP***.
 
 O ficheiro ***projecto.LISP*** contém o código fonte que inicializa o jogo.
 
-O ficheiro ***puzzle.LISP*** contém o código fonte utilizado para criar e modificar o jogo e é definido como pacote **operate**.
+O ficheiro ***puzzle.LISP*** contém o código fonte utilizado para criar e modificar o jogo.
 
-O ficheiro ***procura.LISP*** contém todos os algoritmos de procura utilizados no jogo e é definido como pacote **algo**.
+O ficheiro ***procura.LISP*** contém todos os algoritmos de procura utilizados no jogo.
 
 Ao abrir o ficheiro ***procura.LISP***, por este ser um pacote, o IDE LispWorks pede sempre para criar o pacote no IDE. Todo este processo é responsabilidade do IDE e é automático.
 
@@ -75,16 +169,16 @@ O ***problemas.dat*** contém em formato de lista em Commun Lisp, uma série de 
 
 Este ficheiro guarda vários tabuleiros com peças pré-colocadas. Cada tabuleiro será selecionado para continuar o jogo no tabuleiro atual.
 
-## <a name="doc-func">Documentação de Funções</a>
+## <a name="doc-func">**Documentação de Funções**</a>
 
 As seguintes funções utilizadas para desenvolver o projeto, contêm o seu corpo, breve descrição, parâmetros e exemplos de chamadas e de resultados esperados.
 
 Excecionalmente, algumas funções contêm breves observações perante o resultado esperado, para melhor ilustrar o seu uso especifico.
 
-### <a nome="f-puzzle">Puzzle</a>
+### <a nome="f-puzzle">**Puzzle**</a>
 As seguintes funções permitem definir o jogo do Problema do Quatro.
 
-### <a name="f-tabuleiro">Tabuleiro</a>
+#### <a name="f-tabuleiro">Tabuleiro</a>
 Retorna uma lista de 4 listas com 4 elementos.
 
 O espaço do tabuleiro é representado por 0, quando a posição encontra-se vazia.
@@ -139,7 +233,7 @@ CL-USER> (reserva problema)
 ((BRANCA REDONDA ALTA OCA) (PRETA REDONDA ALTA OCA) (BRANCA REDONDA BAIXA OCA) (PRETA REDONDA BAIXA OCA) (BRANCA QUADRADA ALTA OCA) (PRETA QUADRADA ALTA OCA) (BRANCA QUADRADA BAIXA OCA) (PRETA QUADRADA BAIXA OCA) (BRANCA REDONDA ALTA CHEIA) (PRETA REDONDA ALTA CHEIA) (BRANCA REDONDA BAIXA CHEIA) (PRETA REDONDA BAIXA CHEIA) (BRANCA QUADRADA ALTA CHEIA) (PRETA QUADRADA ALTA CHEIA) (BRANCA QUADRADA BAIXA CHEIA) (PRETA QUADRADA BAIXA CHEIA))
 ```
 
-#### <a nome="f-">Fila</a>
+#### <a nome="f-fila">Fila</a>
 Retorna uma lista com elementos que se encontram numa fila.
 
 **Parametros**
@@ -176,7 +270,7 @@ CL-USER> (fila 0 tabuleiro)
 (0 0 0 0)
 ```
 
-#### <a nome="f-">Coluna</a>
+#### <a nome="f-coluna">Coluna</a>
 Retorna uma lista de elementos que se encontram numa coluna e limita-se a retornar 4 elementos.
 
 Esta função limita-se a ser uma função redundante da função [celula](#f-celula) para aumentar legibilidade do código.
@@ -209,7 +303,7 @@ CL-USER (coluna 0 tabuleiro)
 ;; ((0,0) (1,0) (2,0) (3,0))
 ```
 
-#### <a nome="f-">Celula</a>
+#### <a nome="f-celula">Celula</a>
 Retorna um elementos que se encontram numa fila ou coluna.
 
 **Parametros**
@@ -237,7 +331,7 @@ CL-USER> (celula 0 0 tabuleiro)
 0
 ```
 
-#### <a nome="f-">Cria-Lista-Indice</a>
+#### <a nome="f-cria-lista-indice">Cria-Lista-Indice</a>
 Retorna uma lista com todos os indices correspondentes do tamanho máximo da lista parameterizada.
 
 Esta função auxilia na geração de coordenadas para as funções [diagonal-esquerda](#f-diagonal-esquerda) e [diagonal-direita](#f-diagonal-direita).
@@ -271,7 +365,7 @@ CL-USER> (cria-lista-indice 0)
 NIL
 ```
 
-#### <a nome="f-">Diagonal-Esquerda</a>
+#### <a nome="f-diagonal-esquerda">Diagonal-Esquerda</a>
 Retorna a diagonal esquerda do tabuleiro.
 
 As coordenadas da diagonal esquerda são o conjunto de pares coordenados {(0,0), (1,1), (2, 2), (3,3)}.
@@ -318,7 +412,7 @@ Retorna a diagonal esquerda (0,0) a (3,3) de um tabuleiro NIL.
 NIL
 ```
 
-#### <a nome="f-">Diagonal-Direita</a>
+#### <a nome="f-diagonal-direita">Diagonal-Direita</a>
 Retorna a diagonal direita do tabuleiro.
 
 As coordenadas da diagonal são o conjunto de pares coordenados {(3,0), (2,1), (1, 2), (0,3)}.
@@ -367,7 +461,7 @@ Retorna a diagonal direita (0,3) a (3,0) de um tabuleiro NIL.
 NIL
 ```
 
-#### <a nome="f-">Casa-Vaziap</a>
+#### <a nome="f-casa-vaziap">Casa-Vaziap</a>
 Verifica se uma coordenada do tabuleiro encontra-se vazia. Uma coordenada é considerada vazia se o seu valor for zero.
 
 **Parâmetros**
@@ -417,7 +511,7 @@ CL-USER> (casa-vaziap 0 3 tabuleiro)
 T
 ```
 
-#### <a nome="f-">Remove-Peca</a>
+#### <a nome="f-remove-peca">Remove-Peca</a>
 Remove da lista uma peça igual ao da peça parametrizada. Caso existir a peça, é retornada a lista sem a peça, caso contrário não é efetuada qualquer alteração e retorna-se a lista parametrizada.
 
 **Parâmetros**
@@ -470,7 +564,7 @@ CL-USER> (remove-peca '(BRANCA QUADRADA ALTA CHEIA) reserva)
 ((BRANCA QUADRADA ALTA OCA) (PRETA QUADRADA ALTA CHEIA) (PRETA QUADRADA ALTA OCA) (BRANCA REDONDA ALTA OCA) (BRANCA REDONDA BAIXA CHEIA) (PRETA REDONDA BAIXA CHEIA) (PRETA REDONDA BAIXA OCA))
 ```
 
-#### <a nome="f-">Substituir-Posicao</a>
+#### <a nome="f-substituir-peca">Substituir-Posicao</a>
 Substitui o valor de uma coordenada da fila com uma peça. Caso a coordenada da fila encontra-se vazia (com o valor zero), retorna-se o tabuleiro com a peça na coordenada parametrizada. Caso contrário retorna NIL.
 
 **Parâmetros**
@@ -510,7 +604,7 @@ CL-USER> (substituir-posicao 0 '(BRANCA REDONDA ALTA OCA) NIL)
 NIL
 ```
 
-#### <a nome="f-">Colunas</a>
+#### <a nome="f-colunas">Colunas</a>
 Retorna as linhas do tabuleiro reposicionadas como colunas.
 
 **Parâmetros**
@@ -545,7 +639,7 @@ CL-USER> (colunas tabuleiro)
 (((BRANCA QUADRADA BAIXA CHEIA) 0 (BRANCA REDONDA ALTA CHEIA) 0) (0 0 0 (PRETA QUADRADA BAIXA CHEIA)) ((PRETA REDONDA ALTA CHEIA) 0 (PRETA REDONDA ALTA OCA) 0) ((PRETA QUADRADA BAIXA OCA) (BRANCA REDONDA BAIXA OCA) (BRANCA QUADRADA BAIXA OCA) 0))
 ```
 
-#### <a nome="f-">Diagnonais</a>
+#### <a nome="f-diagonais">Diagnonais</a>
 Retorna uma lista com todas as diagonais do tabuleiro.
 
 **Parâmetros**
@@ -591,7 +685,7 @@ CL-USER> (diagonais tabuleiro)
 (((PRETA REDONDA BAIXA CHEIA) (BRANCA QUADRADA ALTA CHEIA) (BRANCA REDONDA BAIXA CHEIA) (PRETA QUADRADA BAIXA OCA)) ((BRANCA QUADRADA BAIXA CHEIA) (BRANCA REDONDA ALTA OCA) (PRETA REDONDA ALTA OCA) (BRANCA QUADRADA ALTA OCA)))
 ```
 
-#### <a nome="f-">Quatro-Fila-P</a>
+#### <a nome="f-quatro-fila-p">Quatro-Fila-P</a>
 Verifica se no tabuleiro inteiro existem quatro peças com pelo menos um atributo em comum. Caso se verifique, retorna T, caso contrário retorna NIL.
 
 **Parâmetros**
@@ -658,7 +752,7 @@ CL-USER> (quatro-fila-p tabuleiro)
 T
 ```
 
-#### <a nome="f-">Max-A-P</a>
+#### <a nome="f-max-a-p">Max-A-P</a>
 Retorna a contagem máxima de peças com pelo menos um atributo em comum em todo o tabuleiro. O intervalo de contágem máxima varia entre o intervalo inteiro [0, 4].
 
 Esta função é considerada um operador do jogo, por ser utilizada como meio de gerar um estado do problema.
@@ -717,7 +811,7 @@ CL-USER> (max-p-a tabuleiro)
 4
 ```
 
-#### <a nome="f-">Sao-Iguaisp</a>
+#### <a nome="f-sao-iguaisp">Sao-Iguaisp</a>
 Verifica se existe pelo menos um atributo em comum em todas as peças da fila. Caso encontre uma peça com atributo diferente retorna NIL. Caso contrário retorna T.
 
 **Parametros**
@@ -771,7 +865,7 @@ CL-USER> (sao-iguais fila)
 NIL
 ```
 
-#### <a nome="f-">Jogada</a>
+#### <a nome="f-jogada">Jogada</a>
 Efetua uma jogada em que remove a peça enviada por parâmetro da reserva do problema e insere-a na coordenada do tabuleiro.
 
 **Parâmetros**
@@ -831,7 +925,7 @@ CL-USER> (jogada 0 0 peca problema)
 ((((PRETA QUADRADA BAIXA CHEIA) 0 0 0) (0 0 0 0) (0 0 0 0) (0 0 0 0)) ((BRANCA REDONDA ALTA OCA) (PRETA REDONDA ALTA OCA) (BRANCA REDONDA BAIXA OCA) (PRETA REDONDA BAIXA OCA) (BRANCA QUADRADA ALTA OCA) (PRETA QUADRADA ALTA OCA) (BRANCA QUADRADA BAIXA OCA) (PRETA QUADRADA BAIXA OCA) (BRANCA REDONDA ALTA CHEIA) (PRETA REDONDA ALTA CHEIA) (BRANCA REDONDA BAIXA CHEIA) (PRETA REDONDA BAIXA CHEIA) (BRANCA QUADRADA ALTA CHEIA) (PRETA QUADRADA ALTA CHEIA) (BRANCA QUADRADA BAIXA CHEIA)))
 ```
 
-#### <a nome="f-">Casas-Vazias</a>
+#### <a nome="f-casas-vazias">Casas-Vazias</a>
 Retorna uma lista com todas as coordenadas vazias num tabuleiro.
 
 **Parâmetros**
@@ -882,7 +976,7 @@ CL-USER> (casas-vazias tabuleiro)
 NIL
 ```
 
-#### <a nome="f-">Coordenadas</a>
+#### <a nome="f-coordenadas">Coordenadas</a>
 Retorna uma lista com as coordenadas da fila do tabuleiro que se encontram vazias. Opcionalmente, coloca-se a coordenada da coluna.
 
 **Parâmetros**
@@ -949,7 +1043,7 @@ CL-USER> (coordenadas fila 1)
 ((1 0) (1 1))
 ```
 
-#### <a nome="f-">No-Solucaop</a>
+#### <a nome="f-no-solucaop">No-Solucaop</a>
 Valida se o estado do nó encontra-se com 4 peças com pelo menos um atributo em comum, retornando T caso se verifique ser verdade, case contrário retorna NIL.
 
 **Parâmetros**
@@ -1047,7 +1141,7 @@ CL-USER> (no-solucaop no)
 NIL
 ```
 
-#### <a nome="f-">Heuristic</a>
+#### <a nome="f-heuristic">Heuristic</a>
 A heuristica f(x) = 4 - h(x) é utilizada no algoritmo A*.
 
 Esta heuristica baseia-se na substração entre o número máximo de peças necessárias para ganhar o jogo e o número máximo de peças atuais no tabuleiro.
@@ -1087,11 +1181,18 @@ CL-USER> (heuristic estado)
 0
 ```
 
-# <a nome="f-procura">Procura</a>
+### <a nome="f-procura">**Prócura**</a>
 
-#### <a nome="f-">cria-no</a>
+#### <a nome="f-p-cria-no">Cria-No</a>
+Gera um nó constituído por estado (problema), profundidade e nó predecessor.
 
-Server para criar o estado inicial dos problemas
+**Parâmetros**
+
+*estado - Estado do problema*
+
+*Profundidade - Número de profundidade (opcional)*
+
+*pai - Nó predecessor (opcional)*
 
 ```lisp
 ; funcao
@@ -1100,8 +1201,12 @@ Server para criar o estado inicial dos problemas
 )
 ```
 
-#### <a nome="f-">tabuleiro-conteudo</a>
-Mostra o tabuleiro do jogo
+#### <a nome="f-p-tabuleiro-conteudo">Tabuleiro-Conteudo</a>
+Retorna o tabuleiro que se encontra no estado do nó.
+
+**Parâmetros**
+
+*no - Nó*
 
 ```lisp
 ; funcao
@@ -1109,8 +1214,13 @@ Mostra o tabuleiro do jogo
 (caar no)
 )
 ```
-#### <a nome="f-">reserva-conteudo</a>
-Mostra a reserva de peças do jogo
+
+#### <a nome="f-p-reserva-conteudo">Reserva-Conteudo</a>
+Retorna a reserva de peças que se encontra no estado do nó.
+
+**Parâmetros**
+
+*no - Nó*
 
 ```lisp
 ; funcao
@@ -1118,48 +1228,79 @@ Mostra a reserva de peças do jogo
 (cdar no)
 )
 ```
-#### <a nome="f-">no-estado</a>
-Mostra o estado atual do nó
+
+#### <a nome="f-p-no-estado">No-Estado</a>
+Retorna o estado do nó.
+
+**Parâmetros**
+
+*no - Nó*
 
 ```lisp
 ; funcao
-(defun no-estado (teste)
-  (car teste)
+(defun no-estado (no)
+  (car no)
 )
 ```
 
-#### <a nome="f-">no-pai</a>
-Mostra o nó pai
+#### <a nome="f-p-no-pai">No-Pai</a>
+Retorna o nó predecessor do nó.
+
+**Parâmetros**
+
+*no - Nó*
 
 ```lisp
 ; funcao
-(defun no-pai (teste)
-  (cddr teste)
+(defun no-pai (no)
+  (cddr no)
 )
 ```
-#### <a nome="f-">no-profundidade</a>
-Mostra a profundidade do estado do jogo
+
+#### <a nome="f-p-no-profundidade">No-Profundidade</a>
+Retorna a profundidade do nó.
+
+**Parâmetros**
+
+*no - Nó*
 
 ```lisp
 ; funcao
-(defun no-profundidade (teste)
-  (cadr teste)
+(defun no-profundidade (no)
+  (cadr no)
 )
 ```
-#### <a nome="f-">novo-sucessor</a>
-O novo sucessor dos nos atuais
+
+#### <a nome="f-p-novo-sucessor">Novo-Sucessor</a>
+Gera um novo nó sucessor, recebendo um nó por parâmetro.
+
+**Parâmetros**
+
+*no - Nó*
+
+*x - Função que cria um novo nó*
 
 ```lisp
 ; funcao
-(defun novo-sucessor (teste x)
-  (let ((novo-estado (funcall x (no-estado teste))))
+(defun novo-sucessor (no x)
+  (let ((novo-estado (funcall x (no-estado no))))
     (cond ((null novo-estado) nil)
-	  (t (list novo-estado (1+ (no-profundidade teste)) teste))))
+	  (t (list novo-estado (1+ (no-profundidade no)) no))))
   )
 ```
 
-#### <a nome="f-">sucessores-quatro</a>
-Sucessores dos nos
+#### <a nome="f-p-sucessores-quatro">Sucessores-Quatro</a>
+Gera sucessores de um nó especificamente desenvolvido para o  problema quatro, de acordo com um dos algoritmos de prócura, DFS ou BFS.
+
+**Parâmetros**
+
+*no - Nó*
+
+*operadoresf - Função com operadores*
+
+*algoritmo - Algoritmo de prócura DFS ou BFS*
+
+*max-prof - Máxima profundidade (opcional)*
 
 ```lisp
 ; funcao
@@ -1172,24 +1313,816 @@ Sucessores dos nos
 )
 ```
 
+#### <a nome="f-p-operadores-quatro">Operadores-Quatro</a>
+Aplica a um estado todos os movimentos possíveis do jogo, designados por operadores.
+
+**Parâmetros**
+
+*estado-jogo - Estado do problema*
+
+```lisp
+; funcao
+(defun operadores-quatro (estado-jogo)
+  (let ((casas (casas-vazias (tabuleiro estado-jogo)))
+        (pecas (reserva estado-jogo)))
+    (apply #'append (mapcar #'(lambda (casa)
+                (mapcar #'(lambda (peca)
+                            (lambda (estado) (jogada (car casa) (cadr casa) peca estado)))
+                            pecas))
+            casas)))
+)
+```
+
+#### <a nome="f-p-nivel-no">Nivel-No</a>
+Retorna o nivel do nó.
+
+**Parâmetros**
+
+*no - Nó*
+
+```lisp
+(defun nivel-no (no)
+  (cadr no)
+)
+```
+
+#### <a nome="f-p-abertos-bfs">Abertos-Bfs</a>
+Adiciona à lista de nós abertos os nós sucessores, segundo o algoritmo de prócura BFS.
+
+**Parâmetros**
+
+*abertos - Lista de nós abertos*
+
+*sucessores - Nó sucessores*
+
+```lisp
+(defun abertos-bfs (abertos sucessores)
+  (append abertos sucessores)
+)
+```
+
+#### <a nome="f-p-abertos-dfs">Abertos-Dfs</a>
+Adiciona à lista de nós abertos os nós sucessores, segundo o algoritmo de prócura DFS.
+
+**Parâmetros**
+
+*abertos - Lista de nós abertos*
+
+*sucessores - Nó sucessores*
+
+```lisp
+(defun abertos-dfs (abertos sucessores)
+  (append sucessores abertos)
+)
+```
+
+#### <a nome="f-p-no-existep">No-Existep</a>
+Retorna T, se o nó enviado por parâmetro encontra-se na lista de nós. Caso contrário retorna NIL.
+
+**Parâmetros**
+
+*no - Nó*
+
+*lista - Lista de nós*
+
+*algoritmo - Algoritmo de Prócura*
+
+```lisp
+(defun no-existep (no lista algoritmo)
+  (cond ((null lista) nil)
+	((and (or (eq algoritmo 'bfs) (<= (nivel-no (car lista)) (nivel-no no)))
+	      (equal (no-estado (car lista)) (no-estado no))) t)
+	(t (no-existep no (cdr lista) algoritmo)))
+)
+```
+
+#### <a nome="f-p-bfs">Bfs</a>
+Algoritmo de prócura em largura, que retorna todos os nós até a uma solução, sempre que possível.
+
+**Parâmetros**
+
+*no-inicial - Nó com o estado inicial*
+
+*objetivop - Função que avalia se o nó contém o estado esperado*
+
+*sucessoresf - Função que gera sucessores*
+
+*operadores - Função com todos os operadores*
+
+*abertos - Lista de nós abertos bfs (opcional)*
+
+*fechados - Lista de nós fechados bfs (opcional)*
+
+```lisp
+; funcao
+(defun bfs (no-inicial objetivop sucessoresf operadores &optional (abertos nil) (fechados nil))
+  (if (funcall objetivop no-inicial)
+      no-inicial
+      (let ((nos-succ (remove-if #'(lambda (x) (or (no-existep x abertos 'bfs)
+						   (no-existep x fechados 'bfs)))
+				 (funcall sucessoresf
+					  no-inicial operadores 'bfs))))
+	(cond ((and (null nos-succ) (null abertos)) nil)
+	      ((null abertos)
+	       (bfs (car nos-succ) objetivop sucessoresf operadores
+		    (cdr nos-succ) (cons no-inicial fechados)))
+	      (t (bfs (car abertos) objetivop sucessoresf operadores
+		      (abertos-bfs (cdr abertos) nos-succ)
+		      (cons no-inicial fechados))))))
+)
+```
 
 ```lisp
 ; chamada
-CL-USER 11 > (sucessores-quatro (cria-no x) #'operadores-quatro 'bfs)
-((((((BRANCA QUADRADA ALTA OCA) (PRETA QUADRADA BAIXA CHEIA) (PRETA QUADRADA ALTA CHEIA) (PRETA QUADRADA ALTA OCA)) ((BRANCA REDONDA ALTA OCA) (PRETA REDONDA ALTA OCA) (BRANCA REDONDA ALTA CHEIA) 0) (0 (PRETA REDONDA ALTA CHEIA) (PRETA REDONDA BAIXA CHEIA) 0) ((BRANCA REDONDA BAIXA OCA) (BRANCA QUADRADA ALTA CHEIA) (PRETA REDONDA BAIXA OCA) (BRANCA QUADRADA BAIXA CHEIA))) ((PRETA QUADRADA BAIXA OCA) (BRANCA REDONDA BAIXA CHEIA) (BRANCA QUADRADA BAIXA OCA))) 1 (((((BRANCA QUADRADA ALTA OCA) (PRETA QUADRADA BAIXA CHEIA) 0 (PRETA QUADRADA ALTA OCA)) ((BRANCA REDONDA ALTA OCA) (PRETA REDONDA ALTA OCA) (BRANCA REDONDA ALTA CHEIA) 0) (0 (PRETA REDONDA ALTA CHEIA) (PRETA REDONDA BAIXA CHEIA) 0) ((BRANCA REDONDA BAIXA OCA) (BRANCA QUADRADA ALTA CHEIA) (PRETA REDONDA BAIXA OCA) (BRANCA QUADRADA BAIXA CHEIA))) ((PRETA QUADRADA ALTA CHEIA) (PRETA QUADRADA BAIXA OCA) (BRANCA REDONDA BAIXA CHEIA) (BRANCA QUADRADA BAIXA OCA))) 0 NIL)) (((((BRANCA QUADRADA ALTA OCA) (PRETA QUADRADA BAIXA CHEIA) (PRETA QUADRADA BAIXA OCA) (PRETA QUADRADA ALTA OCA)) ((BRANCA REDONDA ALTA OCA) (PRETA REDONDA ALTA OCA) (BRANCA REDONDA ALTA CHEIA) 0) (0 (PRETA REDONDA ALTA CHEIA) (PRETA REDONDA BAIXA CHEIA) 0) ((BRANCA REDONDA BAIXA OCA) (BRANCA QUADRADA ALTA CHEIA) (PRETA REDONDA BAIXA OCA) (BRANCA QUADRADA BAIXA CHEIA))) ((PRETA QUADRADA ALTA CHEIA) (BRANCA REDONDA BAIXA CHEIA) (BRANCA QUADRADA BAIXA OCA))) 1 (((((BRANCA QUADRADA ALTA OCA) (PRETA QUADRADA BAIXA CHEIA) 0 (PRETA QUADRADA ALTA OCA)) ((BRANCA REDONDA ALTA OCA) (PRETA REDONDA ALTA OCA) (BRANCA REDONDA ALTA CHEIA) 0) (0 (PRETA REDONDA ALTA CHEIA) (PRETA REDONDA BAIXA CHEIA) 0) ((BRANCA REDONDA BAIXA OCA) (BRANCA QUADRADA ALTA CHEIA) (PRETA REDONDA BAIXA OCA) (BRANCA QUADRADA BAIXA CHEIA))) ((PRETA QUADRADA ALTA CHEIA) (PRETA QUADRADA BAIXA OCA) (BRANCA REDONDA BAIXA CHEIA) (BRANCA QUADRADA BAIXA OCA))) 0 NIL)) (((((BRANCA QUADRADA ALTA OCA) (PRETA QUADRADA BAIXA CHEIA) (BRANCA REDONDA BAIXA CHEIA) (PRETA QUADRADA ALTA OCA)) ((BRANCA REDONDA ALTA OCA) (PRETA REDONDA ALTA OCA) (BRANCA REDONDA ALTA CHEIA) 0) (0 (PRETA REDONDA ALTA CHEIA) (PRETA REDONDA BAIXA CHEIA) 0) ((BRANCA REDONDA BAIXA OCA) (BRANCA QUADRADA ALTA CHEIA) (PRETA REDONDA BAIXA OCA) (BRANCA QUADRADA BAIXA CHEIA))) ((PRETA QUADRADA ALTA CHEIA) (PRETA QUADRADA BAIXA OCA) (BRANCA QUADRADA BAIXA OCA))) 1 (((((BRANCA QUADRADA ALTA OCA) (PRETA QUADRADA BAIXA CHEIA) 0 (PRETA QUADRADA ALTA OCA)) ((BRANCA REDONDA ALTA OCA) (PRETA REDONDA ALTA OCA) (BRANCA REDONDA ALTA CHEIA) 0) (0 (PRETA REDONDA ALTA CHEIA) (PRETA REDONDA BAIXA CHEIA) 0) ((BRANCA REDONDA BAIXA OCA) (BRANCA QUADRADA ALTA CHEIA) (PRETA REDONDA BAIXA OCA) (BRANCA QUADRADA BAIXA CHEIA))) ((PRETA QUADRADA ALTA CHEIA) (PRETA QUADRADA BAIXA OCA) (BRANCA REDONDA BAIXA CHEIA) (BRANCA QUADRADA BAIXA OCA))) 0 NIL)) (((((BRANCA QUADRADA ALTA OCA) (PRETA QUADRADA BAIXA CHEIA) (BRANCA QUADRADA BAIXA OCA) (PRETA QUADRADA ALTA OCA)) ((BRANCA REDONDA ALTA OCA) (PRETA REDONDA ALTA OCA) (BRANCA REDONDA ALTA CHEIA) 0) (0 (PRETA REDONDA ALTA CHEIA) (PRETA REDONDA BAIXA CHEIA) 0) ((BRANCA REDONDA BAIXA OCA) (BRANCA QUADRADA ALTA CHEIA) (PRETA REDONDA BAIXA OCA) (BRANCA QUADRADA BAIXA CHEIA))) ((PRETA QUADRADA ALTA CHEIA) (PRETA QUADRADA BAIXA OCA) (BRANCA REDONDA BAIXA CHEIA))) 1 (((((BRANCA QUADRADA ALTA OCA) (PRETA QUADRADA BAIXA CHEIA) 0 (PRETA QUADRADA ALTA OCA)) ((BRANCA REDONDA ALTA OCA) (PRETA REDONDA ALTA OCA) (BRANCA REDONDA ALTA CHEIA) 0) (0 (PRETA REDONDA ALTA CHEIA) (PRETA REDONDA BAIXA CHEIA) 0) ((BRANCA REDONDA BAIXA OCA) (BRANCA QUADRADA ALTA CHEIA) (PRETA REDONDA BAIXA OCA) (BRANCA QUADRADA BAIXA CHEIA))) ((PRETA QUADRADA ALTA CHEIA) (PRETA QUADRADA BAIXA OCA) (BRANCA REDONDA BAIXA CHEIA) (BRANCA QUADRADA BAIXA OCA))) 0 NIL)) (((((BRANCA QUADRADA ALTA OCA) (PRETA QUADRADA BAIXA CHEIA) 0 (PRETA QUADRADA ALTA OCA)) ((BRANCA REDONDA ALTA OCA) (PRETA REDONDA ALTA OCA) (BRANCA REDONDA ALTA CHEIA) 0) ((PRETA QUADRADA ALTA CHEIA) (PRETA REDONDA ALTA CHEIA) (PRETA REDONDA BAIXA CHEIA) 0) ((BRANCA REDONDA BAIXA OCA) (BRANCA QUADRADA ALTA CHEIA) (PRETA REDONDA BAIXA OCA) (BRANCA QUADRADA BAIXA CHEIA))) ((PRETA QUADRADA BAIXA OCA) (BRANCA REDONDA BAIXA CHEIA) (BRANCA QUADRADA BAIXA OCA))) 1 (((((BRANCA QUADRADA ALTA OCA) (PRETA QUADRADA BAIXA CHEIA) 0 (PRETA QUADRADA ALTA OCA)) ((BRANCA REDONDA ALTA OCA) (PRETA REDONDA ALTA OCA) (BRANCA REDONDA ALTA CHEIA) 0) (0 (PRETA REDONDA ALTA CHEIA) (PRETA REDONDA BAIXA CHEIA) 0) ((BRANCA REDONDA BAIXA OCA) (BRANCA QUADRADA ALTA CHEIA) (PRETA REDONDA BAIXA OCA) (BRANCA QUADRADA BAIXA CHEIA))) ((PRETA QUADRADA ALTA CHEIA) (PRETA QUADRADA BAIXA OCA) (BRANCA REDONDA BAIXA CHEIA) (BRANCA QUADRADA BAIXA OCA))) 0 NIL)) (((((BRANCA QUADRADA ALTA OCA) (PRETA QUADRADA BAIXA CHEIA) 0 (PRETA QUADRADA ALTA OCA)) ((BRANCA REDONDA ALTA OCA) (PRETA REDONDA ALTA OCA) (BRANCA REDONDA ALTA CHEIA) 0) ((PRETA QUADRADA BAIXA OCA) (PRETA REDONDA ALTA CHEIA) (PRETA REDONDA BAIXA CHEIA) 0) ((BRANCA REDONDA BAIXA OCA) (BRANCA QUADRADA ALTA CHEIA) (PRETA REDONDA BAIXA OCA) (BRANCA QUADRADA BAIXA CHEIA))) ((PRETA QUADRADA ALTA CHEIA) (BRANCA REDONDA BAIXA CHEIA) (BRANCA QUADRADA BAIXA OCA))) 1 (((((BRANCA QUADRADA ALTA OCA) (PRETA QUADRADA BAIXA CHEIA) 0 (PRETA QUADRADA ALTA OCA)) ((BRANCA REDONDA ALTA OCA) (PRETA REDONDA ALTA OCA) (BRANCA REDONDA ALTA CHEIA) 0) (0 (PRETA REDONDA ALTA CHEIA) (PRETA REDONDA BAIXA CHEIA) 0) ((BRANCA REDONDA BAIXA OCA) (BRANCA QUADRADA ALTA CHEIA) (PRETA REDONDA BAIXA OCA) (BRANCA QUADRADA BAIXA CHEIA))) ((PRETA QUADRADA ALTA CHEIA) (PRETA QUADRADA BAIXA OCA) (BRANCA REDONDA BAIXA CHEIA) (BRANCA QUADRADA BAIXA OCA))) 0 NIL)) (((((BRANCA QUADRADA ALTA OCA) (PRETA QUADRADA BAIXA CHEIA) 0 (PRETA QUADRADA ALTA OCA)) ((BRANCA REDONDA ALTA OCA) (PRETA REDONDA ALTA OCA) (BRANCA REDONDA ALTA CHEIA) 0) ((BRANCA REDONDA BAIXA CHEIA) (PRETA REDONDA ALTA CHEIA) (PRETA REDONDA BAIXA CHEIA) 0) ((BRANCA REDONDA BAIXA OCA) (BRANCA QUADRADA ALTA CHEIA) (PRETA REDONDA BAIXA OCA) (BRANCA QUADRADA BAIXA CHEIA))) ((PRETA QUADRADA ALTA CHEIA) (PRETA QUADRADA BAIXA OCA) (BRANCA QUADRADA BAIXA OCA))) 1 (((((BRANCA QUADRADA ALTA OCA) (PRETA QUADRADA BAIXA CHEIA) 0 (PRETA QUADRADA ALTA OCA)) ((BRANCA REDONDA ALTA OCA) (PRETA REDONDA ALTA OCA) (BRANCA REDONDA ALTA CHEIA) 0) (0 (PRETA REDONDA ALTA CHEIA) (PRETA REDONDA BAIXA CHEIA) 0) ((BRANCA REDONDA BAIXA OCA) (BRANCA QUADRADA ALTA CHEIA) (PRETA REDONDA BAIXA OCA) (BRANCA QUADRADA BAIXA CHEIA))) ((PRETA QUADRADA ALTA CHEIA) (PRETA QUADRADA BAIXA OCA) (BRANCA REDONDA BAIXA CHEIA) (BRANCA QUADRADA BAIXA OCA))) 0 NIL)) (((((BRANCA QUADRADA ALTA OCA) (PRETA QUADRADA BAIXA CHEIA) 0 (PRETA QUADRADA ALTA OCA)) ((BRANCA REDONDA ALTA OCA) (PRETA REDONDA ALTA OCA) (BRANCA REDONDA ALTA CHEIA) 0) ((BRANCA QUADRADA BAIXA OCA) (PRETA REDONDA ALTA CHEIA) (PRETA REDONDA BAIXA CHEIA) 0) ((BRANCA REDONDA BAIXA OCA) (BRANCA QUADRADA ALTA CHEIA) (PRETA REDONDA BAIXA OCA) (BRANCA QUADRADA BAIXA CHEIA))) ((PRETA QUADRADA ALTA CHEIA) (PRETA QUADRADA BAIXA OCA) (BRANCA REDONDA BAIXA CHEIA))) 1 (((((BRANCA QUADRADA ALTA OCA) (PRETA QUADRADA BAIXA CHEIA) 0 (PRETA QUADRADA ALTA OCA)) ((BRANCA REDONDA ALTA OCA) (PRETA REDONDA ALTA OCA) (BRANCA REDONDA ALTA CHEIA) 0) (0 (PRETA REDONDA ALTA CHEIA) (PRETA REDONDA BAIXA CHEIA) 0) ((BRANCA REDONDA BAIXA OCA) (BRANCA QUADRADA ALTA CHEIA) (PRETA REDONDA BAIXA OCA) (BRANCA QUADRADA BAIXA CHEIA))) ((PRETA QUADRADA ALTA CHEIA) (PRETA QUADRADA BAIXA OCA) (BRANCA REDONDA BAIXA CHEIA) (BRANCA QUADRADA BAIXA OCA))) 0 NIL)))
-
+CL-USER> (bfs (cria-no (third(obter-problemas "problemas.dat"))) #'no-solucaop  #'sucessores-quatro #'operadores-quatro)
 ```
 
-###  <a name="todo">// TODO</a>
-(adiciona mais aqui ...)
+#### <a nome="f-p-dfs">Dfs</a>
+Algoritmo de prócura em profundidade, que retorna todos os nós até a uma solução, sempre que possível.
 
-# <a name="Lista de Problemas">Lista de Problemas</a>
+**Parâmetros**
 
-Mostra 6 tabuleiros diferentes com algumas peças em falta para jogar e com uso dos algoritmos de procura vai verificar quais as melhores jogadas para terminar o jogo. 
+*no-inicial - Nó com o estado inicial*
 
-## <a name="Problema-A">Problema-A</a>
+*objetivop - Função que avalia se o nó contém o estado esperado*
+
+*sucessoresf - Função que gera sucessores*
+
+*operadores - Função com todos os operadores*
+
+*prof-max - Número de profundidade máxima aceitável*
+
+*abertos - Lista de nós abertos dfs (opcional)*
+
+*fechados - Lista de nós fechados dfs (opcional)*
 
 ```lisp
+; funcao
+(defun dfs (no-inicial objetivop sucessoresf operadores prof-max
+	    &optional (abertos nil) (fechados nil))
+  (if (funcall objetivop no-inicial)
+      no-inicial
+      (let ((nos-succ (remove-if #'(lambda (x) (or (no-existep x abertos 'dfs)
+						   (no-existep x fechados 'dfs)))
+				 (funcall sucessoresf
+					  no-inicial operadores 'dfs prof-max))))
+	(cond ((and (null nos-succ) (null abertos)) nil)
+	      ((null nos-succ)
+	       (dfs (car abertos) objetivop sucessoresf operadores
+		    prof-max (cdr abertos) (cons no-inicial fechados)))
+	      (t (dfs (car nos-succ) objetivop sucessoresf operadores
+		      prof-max (abertos-dfs abertos (cdr nos-succ))
+		      (cons no-inicial fechados))))))
+)
+```
+
+```lisp
+; chamada
+CL-USER> (dfs(cria-no (third(obter-problemas "problemas.dat"))) #'no-solucaop  #'sucessores-quatro #'operadores-quatro  10)
+```
+
+#### <a nome="f-p-empty-heap-p">Empty-Heap-P</a>
+Retorna T se a heap encontra-se vazia, caso contrário retorna NIL.
+
+**Parâmetros**
+
+*h - Heap*
+
+```lisp
+(defun empty-heap-p (h)
+  (null h))
+```
+
+#### <a nome="f-p-make-heap">Make-Heap</a>
+Gera uma heap, recebendo elementos com uma prioridade pré-definida opcionalmente.
+
+**Parâmetros**
+
+*x - Elemento (opcional)*
+
+*k - Número de prioridade (opcional)*
+
+```lisp
+(defun make-heap (&optional x (k 0))
+  (cond ((null x) nil)
+	(t (list x k nil nil)))
+)
+```
+
+#### <a nome="f-p-meld">Meld</a>
+Retorna o produto da União entre duas heaps.
+
+**Parâmetros**
+
+*h1 - Heap (opcional)*
+
+*h2 - Heap (opcional)*
+
+```lisp
+;; Junta duas heaps
+(defun meld (&optional h1 h2)
+  (cond ((null h1) h2)
+	((null h2) h1)
+	((<= (priority h1) (priority h2))
+	 (list (elem h1) (priority h1)
+	       (list (elem h2) (priority h2) (child h2)
+		     (child h1))
+	       nil))
+	(t (meld h2 h1)))
+)
+```
+
+#### <a nome="f-p-insert">Insert</a>
+Adiciona o elemento à heap com a prioridade.
+
+**Parâmetros**
+
+*x - Elemento*
+
+*k - Número de prioridade*
+
+*heap - Heap*
+
+```lisp
+(defun insert (x k heap)
+  (let ((xh (make-heap x k)))
+    (meld xh heap))
+)
+```
+
+#### <a nome="f-p-priority">Priority</a>
+Retorna a prioridade de um nó da heap.
+
+**Parâmetros**
+
+*no - Nó*
+
+```lisp
+(defun priority (no)
+  (cadr no)
+)
+```
+
+#### <a nome="f-p-elem">Elem</a>
+Retorna o elemento de um nó da heap.
+
+**Parâmetros**
+
+*no - Nó*
+
+```lisp
+(defun elem (no)
+  (car no)
+)
+```
+
+#### <a nome="f-p-elem">Elem</a>
+Retorna o nó descendente mais à esquerda de um nó da heap.
+
+**Parâmetros**
+
+*no - Nó*
+
+```lisp
+(defun child (no)
+  (caddr no)
+)
+```
+
+#### <a nome="f-p-o-sibling">O-Sibling</a>
+Retorna o primeiro nó dos nós descendentes do mesmo nó predecessor, de um nó da heap.
+
+**Parâmetros**
+
+*no - Nó*
+
+```lisp
+(defun o-sibling (no)
+  (cadddr no)
+)
+```
+
+#### <a nome="f-p-siblings">Siblings</a>
+Retorna o todos os nós dos nós descendentes do mesmo nó predecessor, de um nó da heap.
+
+**Parâmetros**
+
+*no - Nó*
+
+```lisp
+(defun siblings (no)
+  (let ((sib (o-sibling no)))
+    (cond ((null sib) nil)
+	  (t (cons sib (siblings sib)))))
+)
+```
+
+#### <a nome="f-p-children">Children</a>
+Retorna o todos os nós descendentes de um nó da heap.
+
+**Parâmetros**
+
+*heap - Heap*
+
+```lisp
+(defun children (heap)
+  (if (empty-heap-p heap)
+      nil
+      (cons (child heap) (siblings (child heap))))
+)
+```
+
+#### <a nome="f-p-pairwise-link">Pairwise-Link</a>
+Retorna o produto da união em pares, de várias àrvores.
+
+**Parâmetros**
+
+*heap-list - Lista heap*
+
+```lisp
+(defun pairwise-link (heap-list)
+  (cond ((null heap-list) nil)
+	((null (cdr heap-list)) (cons (car heap-list) nil))
+	(t (cons (meld (car heap-list) (cadr heap-list))
+		 (pairwise-link (cddr heap-list)))))
+)
+```
+
+#### <a nome="f-p-remove-first">Remove-First</a>
+Remove o primeiro nó da heap e retorna a heap sem o primeiro nó.
+
+**Parâmetros**
+
+*heap - Heap*
+
+```lisp
+(defun remove-first (heap)
+  (let ((popped (elem heap))
+	(trees (children heap)))
+    (values popped (reduce #'meld (pairwise-link trees) :from-end t)))
+)
+```
+
+#### <a nome="f-p-a-star">A-Star</a>
+Algoritmo de prócura 
+
+**Parâmetros**
+
+*no-inicial - Nó com o estado inicial*
+
+*objetivop - Função que avalia se o nó contém o estado esperado*
+
+*sucessoresf - Função que gera sucessores*
+
+*operadores - Função com todos os operadores*
+
+*heuristicaf - Função que comtém a heuristica que auxilia na previsão de uma prócura ótima*
+
+*pqueue - Fila de elementos com prioridade (opcional)*
+
+```lisp
+;;Algoritmo de Procura em A*
+(defun a-star (no-inicial objetivop sucessoresf operadores
+	       heuristicaf &optional pqueue)
+  (if (funcall objetivop no-inicial)
+      no-inicial
+      (let* ((nos-succ (funcall sucessoresf no-inicial operadores 'a-star))
+	     (dist-est (mapcar #'(lambda (no)
+				   (+ (no-profundidade no)
+				      (funcall heuristicaf (no-estado no)) 1))
+			       nos-succ))
+	     (new-pq (reduce (lambda (&optional heap no-dist)
+			       (if (and (null no-dist) (null heap)) (make-heap)
+				   (insert (car no-dist) (cadr no-dist) heap)))
+			     (mapcar #'list
+				     nos-succ dist-est)
+			     :initial-value (if (empty-heap-p pqueue)
+						(make-heap)
+						pqueue))))
+	(if (null new-pq) nil
+	    (multiple-value-bind (next-node next-pq)
+		(remove-first new-pq)
+	      (a-star next-node objetivop sucessoresf operadores
+		      heuristicaf next-pq)))))
+)
+```
+
+```lisp
+; chamada
+CL-USER> (a-star (cria-no (third(obter-problemas "problemas.dat"))) #'no-solucaop  #'sucessores-quatro #'operadores-quatro #'heuristic)
+```
+
+#### <a nome="f-p-tamanho-solucao">Tamanho-Solucao</a>
+Retorna o tamanho do nó com o estado solução.
+
+**Parâmetros**
+
+*no - Nó*
+
+```lisp
+; funcao
+(defun tamanho-solucao (no)
+  "Devolve o comprimento de uma  solucao"
+  (length (car no)))
+
+(defun no-existep (no lista algoritmo)
+  (cond ((null lista) nil)
+	((and (or (eq algoritmo 'bfs) (<= (nivel-no (car lista)) (nivel-no no)))
+	      (equal (no-estado (car lista)) (no-estado no))) t)
+	(t (no-existep no (cdr lista) algoritmo)))
+)
+```
+
+#### <a nome="f-p-penetrancia">Penetrancia</a>
+Retorna a penetrância do nó com o estado solução.
+
+**Parâmetros**
+
+*solucao - Nó solução*
+
+```lisp
+; funcao
+(defun penetrancia (solucao)
+"Penetrancia"
+  (/ (tamanho-solucao solucao) (second solucao))
+)
+```
+
+### <a name="f-projeto">Projeto</a>
+
+#### <a name="proj-constante-base-pathname">Base-Pathname</a>
+Esta contante permite encontrar um ficheiro independentemente do tipo de sistema operativo de onde é executado.
+
+```lisp
+; constante
+(defvar *base-pathname* (or *load-truename* *compile-file-truename*))
+```
+
+#### <a name="f-proj-asset-path">Asset-Path</a>
+
+**Parâmetros**
+
+*file - Caminho e nome do ficheiro*
+
+```lisp
+; funcao
+(defun asset-path (file) (merge-pathnames file *base-pathname*))
+```
+
+#### <a name="proj-load-files">Load Files</a>
+Carrega ficheiros necessários para o funcionamento do programa.
+
+```lisp
+; carrega ficheiros
+(progn
+  (load (asset-path "puzzle.lisp"))
+  (load (asset-path "procura.lisp"))
+)
+```
+
+#### <a name="f-proj-startup">Startup</a>
+Inicializa o programa na consola.
+
+```lisp
+; funcao
+(defun startup ()
+  (menu-principal (asset-path "problemas.dat"))
+)
+```
+
+#### <a name="f-proj-obter-problemas">Obter-Problemas</a>
+Retorna uma lista de problemas lidos de um ficheiro.
+
+**Parâmetros**
+
+*file - Ficheiro com problemas*
+
+```lisp
+; funcao
+(defun obter-problemas (file)
+  (with-open-file (s file)
+    (let ((problems nil))
+      (do ((prob (read s) (read s nil 'eof))) ((eq prob 'eof) (reverse problems))
+        (setq problems (cons prob problems)))))
+)
+```
+
+#### <a name="f-proj-menu-principal">Menu-Principal</a>
+Imprime na consola um menu de escolhas: Resolver Jogo, Regras do Jogo, Mostrar Tabuleiros, Sair.
+
+Cada escolha encontra-se associada a uma valor numérico que permite executar a ação escolhida. Caso selecionar uma opção inválida, será pedido novamente para inserir uma opção das disponíveis.
+
+* Resolver Jogo: Chama a função [Tabuleiros](#f-proj-tabuleiros).
+
+* Regras do Jogo: Chama a função [Regras](#f-proj-regras).
+
+* Mostrar Tabuleiros: Chama a função [Imprime-Tabuleiros](#f-proj-imprime-tabuleiros).
+
+* Sair: Sai do menú atual.
+
+**Parâmetros**
+
+*filename - Nome de ficheiro*
+
+```lisp
+; funcao
+(defun menu-principal (filename)
+  "Menu principal com as opcÃµes do programa"
+  (loop
+    (progn
+      (format t "~%~%~%~%~%~%~%~%~%")
+      (format t "~%           _______________________________________________________")
+      (format t "~%          Â§                  JOGO DO PROBlEMA DO 4                Â§")
+      (format t "~%          Â§                                                      Â§")
+      (format t "~%          Â§                                                      Â§")
+      (format t "~%          Â§                                                      Â§")
+      (format t "~%          Â§                                                      Â§")
+      (format t "~%          Â§                 1-Resolver o jogo                    Â§")
+      (format t "~%          Â§                 2-Regras do Jogo                     Â§")
+      (format t "~%          Â§                 3-Mostrar Tabuleiros                 Â§")
+      (format t "~%          Â§                 4-Sair                               Â§")
+      (format t "~%          Â§                                                      Â§")
+      (format t "~%          Â§______________________________________________________Â§")
+
+      (format t "~%~%~%          Option -> ")
+      )
+    (cond ((not (let ((escolha (read)))
+               (cond 
+                ((and (numberp escolha) (< escolha 5) (> escolha 0)) (case escolha
+                                                    (1 (progn (tabuleiros filename) t))
+                                                    (2 (progn (regras)  t))
+                                                    (3 (progn (imprime-tabs) t))
+                                                    (4 (progn (format t "~%~%~%          PROGRAMA TERMINADO") ))))
+                ( T (progn  (format t "~%          ESCOLHA INVALIDA~%~%          Option -> ")
+                            (setf escolha (read))))))) 
+(return))))
+)
+```
+
+#### <a name="f-proj-regras">Regras</a>
+Imprime na consola as regras do jogo do problema do quatro.
+
+```lisp
+; funcao
+(defun regras ()
+  "2-Menu regras com as regras do jogo"
+  (format t "
+________________________________________   REGRAS DO JOGO   ________________________________________
+                                          (jogo do quarto)  
+                                          
+     1- Esta versão do jogo consiste num tabuleiro com 4 linhas e 4 colunas (4X4)   
+     2- Em que cada casa possui uma pea com 4 atributos sem pecas repetidas                               
+     3- O objectivo do jogo é obter 4 elementos com um atributo em comum.
+        Cada jogador tem um cavalo da sua cor (branco ou preto).                                                
+     4- O jogo termina quando existem 4 elementos com um atributo comum.           
+                                                                                          
+_________________________________________________________________________________________________
+  ")
+)
+```
+
+#### <a name="f-proj-tabuleiros">Tabuleiros</a>
+Imprime na consola um tabuleiro correspondente ao do ficheiro lido, desde que este exista na mesma posição que aparece no menu.
+
+Cada escolha encontra-se associada a uma valor numérico que permite executar a ação escolhida. Caso selecionar uma opção inválida, será pedido novamente para inserir uma opção das disponíveis.
+
+Por definição encontram-se problemas de A a F, préviamente disponíveis.
+
+* Problema (Letra): Seleciona o problema com a especifica posição no ficheiro.
+
+* Problema Teste: Seleciona o problema que deverá ser colocado no final do ficheiro que contém todos os problemas. *Este problema será utilizado para testar o projeto, deste modo não se encontra no ficheiro atual de problemas*.
+
+* Home Menu: Chama a função [Menu-Principal](#f-proj-menu-principal).
+
+**Parâmetros**
+
+*filename - Nome de ficheiro*
+
+```lisp
+; funcao
+(defun tabuleiros (filename)
+"1- Menu para escolher o problema a resolver"
+(loop
+    (progn
+      (format t "~%            ______________________________________________________")
+      (format t "~%          Â§                ESCOLHA O TABULEIRO                   Â§")
+      (format t "~%          Â§                                                      Â§")
+      (format t "~%          Â§                 1-Problema A                         Â§")
+      (format t "~%          Â§                 2-Problema B                         Â§")
+      (format t "~%          Â§                 3-Problema C                         Â§")
+      (format t "~%          Â§                 4-Problema D                         Â§")
+      (format t "~%          Â§                 5-Problema E                         Â§")
+      (format t "~%          Â§                 6-Problema F                         Â§")
+      (format t "~%          Â§                 7-Problema G                         Â§")
+      (format t "~%          Â§                 8-Problema Teste                     Â§")
+      (format t "~%          Â§                 9-Home Menu                          Â§")
+      (format t "~%          Â§                                                      Â§")
+      (format t "~%          Â§______________________________________________________Â§")
+      (format t "~%~%~%          Opcao -> ")
+      )
+    (let* 
+      ((tabuleiros (obter-problemas filename))
+       (escolha (read)))
+       ;(princ tabuleiros)
+	(cond 
+        
+	((and (> escolha 0) (< escolha 9))
+ 	(let ((tab (nth (1- escolha) tabuleiros)))
+         
+   	(cond
+   	 ((null tab) (format t "Ainda nao existe tabuleiro~%~%") (tabuleiros filename))
+    	(T (menu-algoritmos tab filename))
+	)))
+	(t (format t "Escolha invalida~%~%") (ler-tabuleiro filename)))
+	)
+ )
+)
+```
+
+#### <a name="f-proj-write-bfsdfs-statistics">Write-BfsDfs-Statistics</a>
+Escreve num ficheiro tabelas com as estatisticas entre os vários algoritmos para comparar o seu tempo de execução e avaliar o seu desempenho.
+
+**Parâmetros**
+
+*start-board - Tabela inicial*
+
+*solution-node - Nó com o estado solução*
+
+*start-time - Tempo de inicio de execução*
+
+*end-time - Tempo de fim da execução*
+
+*algrithm - Algoritmo*
+
+```lisp
+; funcao
+(defun write-bfsdfs-statistics (start-board solution-node start-time end-time algorithm)
+  "Writes the statistics file with the solution and it's statistic data, for breadth first and depth first algorithms"
+
+  (cond (
+    (null solution-node) nil)
+        (t 
+         (with-open-file (file (asset-path "solucao.dat") :direction :output :if-exists :append :if-does-not-exist :create)
+           (progn 
+             (terpri)
+             (format file "~%~t  Algoritmo: ~a " algorithm)
+             (format file "~%~t  Inicio: ~a:~a:~a" (first start-time) (second start-time) (third start-time))
+             (format file "~%~t  Fim: ~a:~a:~a" (first end-time) (second end-time) (third end-time))
+             (format file "~%~t  Numero de nos gerados: ~a" (second solution-node))
+             (format file "~%~t  Numero de nos expandidos: ~a" (- (second solution-node) 1))
+             (format file "~%~t  Nivel de penetracao: ~F" (penetrancia solution-node))
+             (if (eq algorithm 'DFS)
+                 (format file "~%~t  Profundidade Maxima: ~a" (second solution-node)))
+             (format file "~%~t  Tamanho da solucao: ~a" (tamanho-solucao solution-node)))
+             (terpri)
+             (format file "~%~t  Solucao: ~a"  (first solution-node))
+             (terpri)    (format file "~%~t  Tabuleiro-inicial:")
+             (print-board start-board file)
+             (terpri)
+             (format file "~%~t  Tabuleiro-final:")
+             (print-board solution-node file)
+             )))
+)
+```
+
+#### <a name="f-proj-print-board">Print-Board</a>
+Escrever uma tabela num ficheiro.
+
+**Parâmetros**
+
+*file-stream - Ficheiro aberto*
+
+*t - Informação a ser adicionada ao ficheiro*
+
+```lisp
+; funcao
+(defun print-board(board &optional (file-stream t))
+  "lista a board"
+  (not (null (mapcar #'(lambda(line) 
+        (format file-stream "~%~t~t ~a" line)) board)))
+)
+```
+
+#### <a name="f-proj-menu-algoritmos">Menu-Algoritmos</a>
+Imprime na consola um menu para selecionar os algoritmos a utilizar.
+
+Cada escolha encontra-se associada a uma valor numérico que permite executar a ação escolhida. Caso selecionar uma opção inválida, será pedido novamente para inserir uma opção das disponíveis.
+
+* Prócura em Largura: Chama a função [Bfs](#f-p-df).
+* Prócura em Profundidade: Chama a função [Dfs](#f-p-dfs)
+* Prócura A*: Chama a função [A-Star](#f-p-a-star)
+
+* Home Menu: Chama a função [Menu-Principal](#f-proj-menu-principal).
+
+**Parâmetros**
+
+*problema - Problema*
+
+*filename - Nome de ficheiro*
+
+```lisp
+; funcao
+(defun menu-algoritmos (problema filename)
+  "1.3 Sub menu escolhe algoritmo "
+  (princ (cria-no problema))
+  (let ((temp (tempo)))
+      (loop
+       (progn
+         (format t "~%           ______________________________________________________")
+         (format t "~%          §                                                      §")
+         (format t "~%          §                  ESCOLHA O ALGORITMO                 §")
+         (format t "~%          §                 (algoritmo de procura)               §")
+         (format t "~%          §                                                      §")
+         (format t "~%          §                 1-Procura em largura                 §")
+         (format t "~%          §                 2-Procura em profundidade            §")
+         (format t "~%          §                 3-Procura em A*                      §")
+    ; (format t "~%          §                 4-Algorithm SMA*                     §")
+         (format t "~%          §                 0-Home Menu                          §")
+         (format t "~%          §                                                      §")
+         (format t "~%          §______________________________________________________§") 
+         (format t "~%~%~%          Option -> ")
+         )
+       (cond ((not (let ((escolha (read))) 
+                     (cond 
+                      ((and (numberp escolha) (< escolha 5) (> escolha -1)) (case escolha
+                                                                              (1 (write-bfsdfs-statistics problema (bfs (cria-no problema) #'no-solucaop #'sucessores-quatro #'operadores-quatro) temp (tempo) 'BFS))
+                                                                              (2 (ler-profundidade problema filename))
+                                                                              (3 (write-bfsdfs-statistics problema (a-star (cria-no problema)  #'no-solucaop #'sucessores-quatro #'operadores-quatro #'heuristic) temp (tempo) 'A-STAR))
+                                                                         ;(4 (menu-memory problema 'SMA* ))
+                                                                              (0 (menu-principal filename))))
+                      ( T (progn  (format t "~%          Escolha Invalida~%~%          Option -> ")
+                            (setf escolha (read))))))) 
+              (return)))))
+)
+```
+
+#### <a name="f-proj-tempo">Tempo</a>
+Retorna uma lista com horas, minutos e segundos.
+
+Esta função auxilia no cálculo do tempo de execução entre algoritmos.
+
+```lisp
+; funcao
+(defun tempo()
+  "Returns the current time with the format (h m s)"
+  ;;Hour-minute-second
+  (multiple-value-bind (s m h) (get-decoded-time)
+    (list h m s)
+    )
+)
+```
+
+#### <a name="f-proj-ler-profundidade">Ler-Profundidade</a>
+Imprime simples menu que pergunta pela profundidade utilizada para o algoritmo [Dfs](#f-p-dfs).
+
+A profundidade encontra-se no intervalo válido [0,999]. Caso selecionar um valor fora do interválo acima indicado, será pedido novamente para inserir um novo valor.
+
+* Home Menu: Chama a função [Menu-Principal](#f-proj-menu-principal).
+
+**Parâmetros**
+
+*problema - Problema*
+
+*filename - Nome de ficheiro*
+
+```lisp
+; funcao
+(defun ler-profundidade (problema filename)
+  (let ((temp (tempo)))
+  (loop
+   (progn
+     (format t "~%           ______________________________________________________")
+     (format t "~%          §                    PROFUNDIDADE                      §")
+     (format t "~%          §                                                      §")
+     (format t "~%          §                      ATENCAO                         §")
+     (format t "~%          §                                                      §")
+     (format t "~%          §            SO PODE USAR NUMEROS ACIMA DE 0           §")     
+     (format t "~%          §                     0-Home Menu                      §")
+     (format t "~%          §                                                      §")
+     (format t "~%          §______________________________________________________§")
+     (format t "~%~%~%          Depth-> ")
+     )
+   (cond ((not (let ((depth (read)))
+                 (cond 
+                  ((and (numberp depth) (> depth -1) ) (case depth
+                                                         (0 (menu-principal filename))
+                                                         (t (write-bfsdfs-statistics problema (dfs (cria-no problema) #'no-solucaop #'sucessores-quatro #'operadores-quatro depth) temp (tempo) 'DFS) (menu-algoritmos problema filename))))
+                                                         ;(t (dfs (cria-no problema) #'no-solucaop #'sucessores-quatro #'operadores-quatro depth))))
+                                                         ;(t (princ (dfs (cria-no problema) #'no-solucaop #'sucessores-quatro #'operadores-quatro depth)))))
+
+                  ( T (progn  (format t "~%          Invalid Choice~%~%          Depth ->  ")
+                        (setf depth (read))))))) 
+          (return)))))
+)
+```
+
+## <a name="lista-problemas">**Lista de Problemas**</a>
+Mostra 6 tabuleiros diferentes com algumas peças em falta para jogar e com uso dos algoritmos de procura vai verificar quais as melhores jogadas para terminar o jogo. 
+
+### <a name="lp-a">Problema A</a>
+
+```lisp
+; problema
 (
 (((branca quadrada alta oca) (preta quadrada baixa cheia) 0 (preta quadrada alta oca))
 ((branca redonda alta oca) (preta redonda alta oca) (branca redonda alta cheia) 0) 
@@ -1200,11 +2133,12 @@ Mostra 6 tabuleiros diferentes com algumas peças em falta para jogar e com uso 
 (branca redonda baixa cheia)
 (branca quadrada baixa oca))
 )
-````
+```
 
-## <a name="Problema-B">Problema-B</a>
+### <a name="lp-b">Problema B</a>
 
 ```lisp
+; problema
 (
 (((branca quadrada alta oca) (preta redonda baixa oca) (preta quadrada alta oca) (branca quadrada alta cheia)) 
 ((branca redonda alta oca) 0 (branca redonda alta cheia) 0) 
@@ -1216,12 +2150,12 @@ Mostra 6 tabuleiros diferentes com algumas peças em falta para jogar e com uso 
  (preta quadrada alta cheia)
  (branca redonda baixa cheia))
 )
+```
 
-````
-
-## <a name="Problema-C">Problema-C</a>
+### <a name="lp-c">Problema C</a>
 
 ```lisp
+; problema
 (
 (((branca quadrada baixa cheia) 0 (preta redonda alta cheia) (preta quadrada baixa oca))
  (0 0 0 (branca redonda baixa oca)) 
@@ -1237,12 +2171,12 @@ Mostra 6 tabuleiros diferentes com algumas peças em falta para jogar e com uso 
  (preta redonda baixa cheia)
  (preta redonda baixa oca))
 )
+```
 
-````
-
-## <a name="Problema-D">Problema-D</a>
+### <a name="lp-d">Problema D</a>
 
 ```lisp
+; problema
 (
 (((branca quadrada baixa cheia) (branca redonda alta cheia) (preta redonda alta cheia) (preta quadrada baixa oca))
 (0 0 0 0) 
@@ -1259,12 +2193,12 @@ Mostra 6 tabuleiros diferentes com algumas peças em falta para jogar e com uso 
 (preta redonda alta oca)
 (preta redonda baixa cheia))
 )
+```
 
-````
-
-## <a name="Problema-E">Problema-E</a>
+### <a name="lp-e">Problema E</a>
 
 ```lisp
+; problema
 (
  ((0 0 0 0) 
  (0 0 0 0) 
@@ -1286,12 +2220,12 @@ Mostra 6 tabuleiros diferentes com algumas peças em falta para jogar e com uso 
  (preta redonda baixa cheia)
  (preta redonda baixa oca))
 )
+```
 
-````
-
-## <a name="Problema-F">Problema-F</a>
+### <a name="lp-f">Problema F</a>
 
 ```lisp
+; problema
 (
 ((0 0 0 0)
  (0 0 0 0)
@@ -1314,110 +2248,230 @@ Mostra 6 tabuleiros diferentes com algumas peças em falta para jogar e com uso 
 (preta redonda baixa cheia)
 (preta redonda baixa oca))
 )
-
-````
-
-# <a name="f-Algoritm">Algoritmos</a>
-
-
-## <a name="Pesquisa em Largura">Pesquisa em Largura</a>
-Esta função retorna a procura de estados em largura.
-
-```lisp
-(defun bfs (no-inicial objetivop sucessoresf operadores &optional abertos fechados)
-  (if (funcall objetivop no-inicial)
-      no-inicial
-      (let ((nos-succ (remove-if #'(lambda (x) (or (no-existep x abertos 'bfs)
-                                                   (no-existep x fechados 'bfs)))
-                                 (funcall sucessoresf
-                                          no-inicial operadores 'bfs))))
-        (cond ((and (null nos-succ) (null abertos)) nil)
-              ((null abertos)
-               (bfs (car nos-succ) objetivop sucessoresf operadores
-                    (cdr nos-succ) (cons no-inicial fechados)))
-              (t (bfs (car abertos) objetivop sucessoresf operadores
-                      (abertos-bfs (cdr abertos) nos-succ)
-                      (cons no-inicial fechados)))))))
-
-````
-
-## <a name="Pesquisa em Comprimento">Pesquisa em Comprimento</a>
-Esta função retorna a procura de estados em comprimento.
-
-```lisp
-(defun dfs (no-inicial objetivop sucessoresf operadores profundidade
-            &optional (abertos nil) (fechados nil))
-  (if (funcall objetivop no-inicial)
-      no-inicial
-      (let ((nos-succ (remove-if #'(lambda (x) (or (no-existep x abertos 'dfs)
-                                                   (no-existep x fechados 'dfs)))
-                                 (funcall sucessoresf
-                                          no-inicial operadores 'dfs profundidade))))
-        (cond ((and (null nos-succ) (null abertos)) nil)
-              ((null nos-succ)
-               (dfs (car abertos) objetivop sucessoresf operadores
-                    profundidade (cdr abertos) (cons no-inicial fechados)))
-              (t (dfs (car nos-succ) objetivop sucessoresf operadores
-                      profundidade (abertos-dfs abertos (cdr nos-succ))
-                      (cons no-inicial fechados)))))))
-
 ```
 
-## <a name="Pesquisa em A Estrela">Pesquisa em A*</a>
+## <a name="aplica-algoritmos">**Aplicação dos Algoritmos de Prócura**</a>
+Demostrações da aplicação dos algoritmos [BFS](#f-p-bfs), [DFS](#f-p-dfs) e [A*](#f-p-a-star) em todos os problemas, [A](#lp-a), [B](#lp-b), [C](#lp-c), [D](#lp-d), [E](#lp-e) e [F](#lp-f), listados acima.
+
+### <a name="aplica-algoritmos-problema-a">Problema A</a>
+#### <a name="aplica-algoritmos-problema-a-bfs">BFS</a>
+Prócura em Lagura no [Problema A](#lp-a).
 
 ```lisp
-(defun a_star (no-inicial objetivop sucessoresf operadores profundidade
-                          heuristicaf &optional pqueue)
-  (if (funcall objetivop no-inicial)
-      no-inicial
-      (let* ((nos-succ (funcall sucessoresf no-inicial operadores 'a_star)) 
-             (distances (mapcar #'heuristicaf nos-succ)))     
-          (cond ((and (null nos-succ) (null pqueue)) nil)
-                (+ profundidade distances)
-                ((null pqueue)
-                 (a_star (car nos-succ) objetivop sucessoresf operadores 
-                         profundidade heuristicaf (cdr nos-succ)))
-                 (t (a_star (car pqueue) objetivop sucessoresf operadores 
-                         profundidade heuristicaf (cdr pqueue)))))))
-
-
-```
-
-
-## <a name="sim2">Simulação de Algoritmos</a>
-
-### <a name="teste-1-bfs">Teste 1 Procura em Largura</a>
-
-Chamar a função de Procura em Largura com o nó inicial, nó objetivo, sucessores e operadores.
-
-```lisp
-CL-USER 8 > (bfs (cria-no x) #'no-solucaop #'sucessores-quatro #'operadores-quatro)
+; chamada
+CL-USER> (bfs (cria-no problema) #'no-solucaop #'sucessores-quatro #'operadores-quatro)
 (((((BRANCA QUADRADA ALTA OCA) (PRETA QUADRADA BAIXA CHEIA) (PRETA QUADRADA ALTA CHEIA) (PRETA QUADRADA ALTA OCA)) ((BRANCA REDONDA ALTA OCA) (PRETA REDONDA ALTA OCA) (BRANCA REDONDA ALTA CHEIA) 0) (0 (PRETA REDONDA ALTA CHEIA) (PRETA REDONDA BAIXA CHEIA) 0) ((BRANCA REDONDA BAIXA OCA) (BRANCA QUADRADA ALTA CHEIA) (PRETA REDONDA BAIXA OCA) (BRANCA QUADRADA BAIXA CHEIA))) ((PRETA QUADRADA BAIXA OCA) (BRANCA REDONDA BAIXA CHEIA) (BRANCA QUADRADA BAIXA OCA))) 1 (((((BRANCA QUADRADA ALTA OCA) (PRETA QUADRADA BAIXA CHEIA) 0 (PRETA QUADRADA ALTA OCA)) ((BRANCA REDONDA ALTA OCA) (PRETA REDONDA ALTA OCA) (BRANCA REDONDA ALTA CHEIA) 0) (0 (PRETA REDONDA ALTA CHEIA) (PRETA REDONDA BAIXA CHEIA) 0) ((BRANCA REDONDA BAIXA OCA) (BRANCA QUADRADA ALTA CHEIA) (PRETA REDONDA BAIXA OCA) (BRANCA QUADRADA BAIXA CHEIA))) ((PRETA QUADRADA ALTA CHEIA) (PRETA QUADRADA BAIXA OCA) (BRANCA REDONDA BAIXA CHEIA) (BRANCA QUADRADA BAIXA OCA))) 0 NIL))
-
-
 ```
 
-### <a name="teste-1-dfs">Teste 1 Procura em Comprimento</a>
+##### <a name="a-res-bfs">Resultados</a>
+Observações
 
-Chamar a função de Procura em Comprimento com o nó inicial, nó objetivo, sucessores, operadores e profundidade.
+#### <a name="aplica-algoritmos-problema-a-dfs">DFS</a>
+Prócura em Profundidade no [Problema A](#lp-a) com profundiade 2.
 
 ```lisp
-
-(dfs (cria-no x) #'no-solucaop #'sucessores-quatro #'operadores-quatro 2)
+; chamada
+CL-USER> (dfs (cria-no problema) #'no-solucaop #'sucessores-quatro #'operadores-quatro 2)
 (((((BRANCA QUADRADA ALTA OCA) (PRETA QUADRADA BAIXA CHEIA) (PRETA QUADRADA ALTA CHEIA) (PRETA QUADRADA ALTA OCA)) ((BRANCA REDONDA ALTA OCA) (PRETA REDONDA ALTA OCA) (BRANCA REDONDA ALTA CHEIA) 0) (0 (PRETA REDONDA ALTA CHEIA) (PRETA REDONDA BAIXA CHEIA) 0) ((BRANCA REDONDA BAIXA OCA) (BRANCA QUADRADA ALTA CHEIA) (PRETA REDONDA BAIXA OCA) (BRANCA QUADRADA BAIXA CHEIA))) ((PRETA QUADRADA BAIXA OCA) (BRANCA REDONDA BAIXA CHEIA) (BRANCA QUADRADA BAIXA OCA))) 1 (((((BRANCA QUADRADA ALTA OCA) (PRETA QUADRADA BAIXA CHEIA) 0 (PRETA QUADRADA ALTA OCA)) ((BRANCA REDONDA ALTA OCA) (PRETA REDONDA ALTA OCA) (BRANCA REDONDA ALTA CHEIA) 0) (0 (PRETA REDONDA ALTA CHEIA) (PRETA REDONDA BAIXA CHEIA) 0) ((BRANCA REDONDA BAIXA OCA) (BRANCA QUADRADA ALTA CHEIA) (PRETA REDONDA BAIXA OCA) (BRANCA QUADRADA BAIXA CHEIA))) ((PRETA QUADRADA ALTA CHEIA) (PRETA QUADRADA BAIXA OCA) (BRANCA REDONDA BAIXA CHEIA) (BRANCA QUADRADA BAIXA OCA))) 0 NIL))
-
 ```
 
-### <a name="teste-1-a-star">Teste 1 Procura em A*</a>
+##### <a name="a-res-dfs">Resultados</a>
+Observações
 
-Chamar a função de Procura em A* com o nó inicial, nó objetivo, sucessores, operadores, profundidade e heuristica.
+#### <a name="aplica-algoritmos-problema-a-a-star">A*</a>
+Prócura A* no [Problema A](#lp-a).
 
 ```lisp
-
-CL-USER 10 > (a-star (cria-no x) #'no-solucaop #'sucessores-quatro #'operadores-quatro #'heuristic)
+; chamada
+CL-USER>  (a-star (cria-no problema) #'no-solucaop #'sucessores-quatro #'operadores-quatro #'heuristic)
 (((((BRANCA QUADRADA ALTA OCA) (PRETA QUADRADA BAIXA CHEIA) 0 (PRETA QUADRADA ALTA OCA)) ((BRANCA REDONDA ALTA OCA) (PRETA REDONDA ALTA OCA) (BRANCA REDONDA ALTA CHEIA) 0) ((BRANCA QUADRADA BAIXA OCA) (PRETA REDONDA ALTA CHEIA) (PRETA REDONDA BAIXA CHEIA) 0) ((BRANCA REDONDA BAIXA OCA) (BRANCA QUADRADA ALTA CHEIA) (PRETA REDONDA BAIXA OCA) (BRANCA QUADRADA BAIXA CHEIA))) ((PRETA QUADRADA ALTA CHEIA) (PRETA QUADRADA BAIXA OCA) (BRANCA REDONDA BAIXA CHEIA))) 1 (((((BRANCA QUADRADA ALTA OCA) (PRETA QUADRADA BAIXA CHEIA) 0 (PRETA QUADRADA ALTA OCA)) ((BRANCA REDONDA ALTA OCA) (PRETA REDONDA ALTA OCA) (BRANCA REDONDA ALTA CHEIA) 0) (0 (PRETA REDONDA ALTA CHEIA) (PRETA REDONDA BAIXA CHEIA) 0) ((BRANCA REDONDA BAIXA OCA) (BRANCA QUADRADA ALTA CHEIA) (PRETA REDONDA BAIXA OCA) (BRANCA QUADRADA BAIXA CHEIA))) ((PRETA QUADRADA ALTA CHEIA) (PRETA QUADRADA BAIXA OCA) (BRANCA REDONDA BAIXA CHEIA) (BRANCA QUADRADA BAIXA OCA))) 0 NIL))
-
-
 ```
 
-## <a name="doc-glossario">Glossário</a>
+##### <a name="a-res-a-star">Resultados</a>
+Observações
+
+### <a name="aplica-algoritmos-problema-b">Problema B</a>
+#### <a name="aplica-algoritmos-problema-b-bfs">BFS</a>
+Prócura em Lagura no [Problema B](#lp-b).
+
+```lisp
+; chamada
+CL-USER> (bfs (cria-no problema) #'no-solucaop #'sucessores-quatro #'operadores-quatro)
+Stack Overflow
+```
+
+##### <a name="b-res-bfs">Resultados</a>
+Observações
+
+#### <a name="aplica-algoritmos-problema-b-dfs">DFS</a>
+Prócura em Profundidade no [Problema B](#lp-b) com profundiade 2.
+
+```lisp
+; chamada
+CL-USER> (dfs (cria-no problema) #'no-solucaop #'sucessores-quatro #'operadores-quatro 2)
+(((((BRANCA QUADRADA ALTA OCA) (PRETA REDONDA BAIXA OCA) (PRETA QUADRADA ALTA OCA) (BRANCA QUADRADA ALTA CHEIA)) ((BRANCA REDONDA ALTA OCA) (BRANCA REDONDA BAIXA OCA) (BRANCA REDONDA ALTA CHEIA) (PRETA REDONDA BAIXA CHEIA)) ((PRETA QUADRADA BAIXA CHEIA) (PRETA REDONDA ALTA CHEIA) (BRANCA QUADRADA BAIXA OCA) 0) ((PRETA QUADRADA BAIXA OCA) 0 (BRANCA QUADRADA BAIXA CHEIA) 0)) ((PRETA REDONDA ALTA OCA) (PRETA QUADRADA ALTA CHEIA) (BRANCA REDONDA BAIXA CHEIA))) 2 (((((BRANCA QUADRADA ALTA OCA) (PRETA REDONDA BAIXA OCA) (PRETA QUADRADA ALTA OCA) (BRANCA QUADRADA ALTA CHEIA)) ((BRANCA REDONDA ALTA OCA) (BRANCA REDONDA BAIXA OCA) (BRANCA REDONDA ALTA CHEIA) 0) ((PRETA QUADRADA BAIXA CHEIA) (PRETA REDONDA ALTA CHEIA) (BRANCA QUADRADA BAIXA OCA) 0) ((PRETA QUADRADA BAIXA OCA) 0 (BRANCA QUADRADA BAIXA CHEIA) 0)) ((PRETA REDONDA BAIXA CHEIA) (PRETA REDONDA ALTA OCA) (PRETA QUADRADA ALTA CHEIA) (BRANCA REDONDA BAIXA CHEIA))) 1 (((((BRANCA QUADRADA ALTA OCA) (PRETA REDONDA BAIXA OCA) (PRETA QUADRADA ALTA OCA) (BRANCA QUADRADA ALTA CHEIA)) ((BRANCA REDONDA ALTA OCA) 0 (BRANCA REDONDA ALTA CHEIA) 0) ((PRETA QUADRADA BAIXA CHEIA) (PRETA REDONDA ALTA CHEIA) (BRANCA QUADRADA BAIXA OCA) 0) ((PRETA QUADRADA BAIXA OCA) 0 (BRANCA QUADRADA BAIXA CHEIA) 0)) ((BRANCA REDONDA BAIXA OCA) (PRETA REDONDA BAIXA CHEIA) (PRETA REDONDA ALTA OCA) (PRETA QUADRADA ALTA CHEIA) (BRANCA REDONDA BAIXA CHEIA))) 0 NIL)))
+```
+
+##### <a name="b-res-dfs">Resultados</a>
+Observações
+
+#### <a name="aplica-algoritmos-problema-b-a-star">A-Star</a>
+Prócura A* no [Problema B](#lp-b).
+
+```lisp
+; chamada
+CL-USER>  (a-star (cria-no problema) #'no-solucaop #'sucessores-quatro #'operadores-quatro #'heuristic)
+(((((BRANCA QUADRADA ALTA OCA) (PRETA REDONDA BAIXA OCA) (PRETA QUADRADA ALTA OCA) (BRANCA QUADRADA ALTA CHEIA)) ((BRANCA REDONDA ALTA OCA) 0 (BRANCA REDONDA ALTA CHEIA) 0) ((PRETA QUADRADA BAIXA CHEIA) (PRETA REDONDA ALTA CHEIA) (BRANCA QUADRADA BAIXA OCA) 0) ((PRETA QUADRADA BAIXA OCA) (PRETA REDONDA BAIXA CHEIA) (BRANCA QUADRADA BAIXA CHEIA) (BRANCA REDONDA BAIXA CHEIA))) ((BRANCA REDONDA BAIXA OCA) (PRETA REDONDA ALTA OCA) (PRETA QUADRADA ALTA CHEIA))) 2 (((((BRANCA QUADRADA ALTA OCA) (PRETA REDONDA BAIXA OCA) (PRETA QUADRADA ALTA OCA) (BRANCA QUADRADA ALTA CHEIA)) ((BRANCA REDONDA ALTA OCA) 0 (BRANCA REDONDA ALTA CHEIA) 0) ((PRETA QUADRADA BAIXA CHEIA) (PRETA REDONDA ALTA CHEIA) (BRANCA QUADRADA BAIXA OCA) 0) ((PRETA QUADRADA BAIXA OCA) 0 (BRANCA QUADRADA BAIXA CHEIA) (BRANCA REDONDA BAIXA CHEIA))) ((BRANCA REDONDA BAIXA OCA) (PRETA REDONDA BAIXA CHEIA) (PRETA REDONDA ALTA OCA) (PRETA QUADRADA ALTA CHEIA))) 1 (((((BRANCA QUADRADA ALTA OCA) (PRETA REDONDA BAIXA OCA) (PRETA QUADRADA ALTA OCA) (BRANCA QUADRADA ALTA CHEIA)) ((BRANCA REDONDA ALTA OCA) 0 (BRANCA REDONDA ALTA CHEIA) 0) ((PRETA QUADRADA BAIXA CHEIA) (PRETA REDONDA ALTA CHEIA) (BRANCA QUADRADA BAIXA OCA) 0) ((PRETA QUADRADA BAIXA OCA) 0 (BRANCA QUADRADA BAIXA CHEIA) 0)) ((BRANCA REDONDA BAIXA OCA) (PRETA REDONDA BAIXA CHEIA) (PRETA REDONDA ALTA OCA) (PRETA QUADRADA ALTA CHEIA) (BRANCA REDONDA BAIXA CHEIA))) 0 NIL)))
+```
+
+##### <a name="b-res-a-star">Resultados</a>
+Observações
+
+### <a name="aplica-algoritmos-problema-c">Problema C</a>
+#### <a name="aplica-algoritmos-problema-c-bfs">BFS</a>
+Prócura em Lagura no [Problema C](#lp-c).
+
+```lisp
+; chamada
+CL-USER> (bfs (cria-no problema) #'no-solucaop #'sucessores-quatro #'operadores-quatro)
+Stack Overflow
+```
+
+##### <a name="c-res-bfs">Resultados</a>
+Observações
+
+#### <a name="aplica-algoritmos-problema-c-dfs">DFS</a>
+Prócura em Profundidade no [Problema C](#lp-c) com profundiade 2.
+
+```lisp
+; chamada
+CL-USER> (dfs (cria-no problema) #'no-solucaop #'sucessores-quatro #'operadores-quatro 2)
+Stack Overflow
+```
+
+##### <a name="c-res-dfs">Resultados</a>
+Observações
+
+#### <a name="aplica-algoritmos-problema-c-a-star">A-Star</a>
+Prócura A* no [Problema C](#lp-c).
+
+```lisp
+; chamada
+CL-USER>  (a-star (cria-no problema) #'no-solucaop #'sucessores-quatro #'operadores-quatro #'heuristic)
+(((((BRANCA QUADRADA BAIXA CHEIA) 0 (PRETA REDONDA ALTA CHEIA) (PRETA QUADRADA BAIXA OCA)) (0 0 0 (BRANCA REDONDA BAIXA OCA)) ((BRANCA REDONDA ALTA CHEIA) 0 (PRETA REDONDA ALTA OCA) (PRETA REDONDA BAIXA CHEIA)) (0 (PRETA QUADRADA BAIXA CHEIA) 0 (PRETA REDONDA BAIXA OCA))) ((BRANCA QUADRADA ALTA CHEIA) (BRANCA QUADRADA ALTA OCA) (BRANCA QUADRADA BAIXA OCA) (PRETA QUADRADA ALTA CHEIA) (PRETA QUADRADA ALTA OCA) (BRANCA REDONDA ALTA OCA) (BRANCA REDONDA BAIXA CHEIA))) 2 (((((BRANCA QUADRADA BAIXA CHEIA) 0 (PRETA REDONDA ALTA CHEIA) (PRETA QUADRADA BAIXA OCA)) (0 0 0 (BRANCA REDONDA BAIXA OCA)) ((BRANCA REDONDA ALTA CHEIA) 0 (PRETA REDONDA ALTA OCA) 0) (0 (PRETA QUADRADA BAIXA CHEIA) 0 (PRETA REDONDA BAIXA OCA))) ((BRANCA QUADRADA ALTA CHEIA) (BRANCA QUADRADA ALTA OCA) (BRANCA QUADRADA BAIXA OCA) (PRETA QUADRADA ALTA CHEIA) (PRETA QUADRADA ALTA OCA) (BRANCA REDONDA ALTA OCA) (BRANCA REDONDA BAIXA CHEIA) (PRETA REDONDA BAIXA CHEIA))) 1 (((((BRANCA QUADRADA BAIXA CHEIA) 0 (PRETA REDONDA ALTA CHEIA) (PRETA QUADRADA BAIXA OCA)) (0 0 0 (BRANCA REDONDA BAIXA OCA)) ((BRANCA REDONDA ALTA CHEIA) 0 (PRETA REDONDA ALTA OCA) 0) (0 (PRETA QUADRADA BAIXA CHEIA) 0 0)) ((BRANCA QUADRADA ALTA CHEIA) (BRANCA QUADRADA ALTA OCA) (BRANCA QUADRADA BAIXA OCA) (PRETA QUADRADA ALTA CHEIA) (PRETA QUADRADA ALTA OCA) (BRANCA REDONDA ALTA OCA) (BRANCA REDONDA BAIXA CHEIA) (PRETA REDONDA BAIXA CHEIA) (PRETA REDONDA BAIXA OCA))) 0 NIL)))
+```
+
+##### <a name="c-res-a-star">Resultados</a>
+Observações
+
+### <a name="aplica-algoritmos-problema-d">Problema D</a>
+#### <a name="aplica-algoritmos-problema-d-bfs">BFS</a>
+Prócura em Lagura no [Problema D](#lp-d).
+
+```lisp
+; chamada
+CL-USER> (bfs (cria-no problema) #'no-solucaop #'sucessores-quatro #'operadores-quatro)
+Stack Overflow
+```
+
+##### <a name="d-res-bfs">Resultados</a>
+Observações
+
+#### <a name="aplica-algoritmos-problema-d-dfs">DFS</a>
+Prócura em Profundidade no [Problema D](#lp-d) com profundiade 2.
+
+```lisp
+; chamada
+CL-USER> (dfs (cria-no problema) #'no-solucaop #'sucessores-quatro #'operadores-quatro 2)
+Stack Overflow
+```
+
+##### <a name="d-res-dfs">Resultados</a>
+Observações
+
+#### <a name="aplica-algoritmos-problema-d-a-star">A-Star</a>
+Prócura A* no [Problema D](#lp-d).
+
+```lisp
+; chamada
+CL-USER>  (a-star (cria-no problema) #'no-solucaop #'sucessores-quatro #'operadores-quatro #'heuristic)
+(((((BRANCA QUADRADA BAIXA CHEIA) (BRANCA REDONDA ALTA CHEIA) (PRETA REDONDA ALTA CHEIA) (PRETA QUADRADA BAIXA OCA)) (0 0 0 (PRETA QUADRADA BAIXA CHEIA)) (0 0 0 (PRETA REDONDA ALTA OCA)) (0 0 0 (PRETA REDONDA BAIXA CHEIA))) ((BRANCA QUADRADA ALTA CHEIA) (BRANCA QUADRADA BAIXA CHEIA) (PRETA QUADRADA ALTA CHEIA) (PRETA QUADRADA ALTA OCA) (BRANCA REDONDA BAIXA OCA) (BRANCA REDONDA ALTA OCA) (BRANCA REDONDA BAIXA CHEIA))) 3 (((((BRANCA QUADRADA BAIXA CHEIA) (BRANCA REDONDA ALTA CHEIA) (PRETA REDONDA ALTA CHEIA) (PRETA QUADRADA BAIXA OCA)) (0 0 0 0) (0 0 0 (PRETA REDONDA ALTA OCA)) (0 0 0 (PRETA REDONDA BAIXA CHEIA))) ((BRANCA QUADRADA ALTA CHEIA) (BRANCA QUADRADA BAIXA CHEIA) (PRETA QUADRADA ALTA CHEIA) (PRETA QUADRADA ALTA OCA) (PRETA QUADRADA BAIXA CHEIA) (BRANCA REDONDA BAIXA OCA) (BRANCA REDONDA ALTA OCA) (BRANCA REDONDA BAIXA CHEIA))) 2 (((((BRANCA QUADRADA BAIXA CHEIA) (BRANCA REDONDA ALTA CHEIA) (PRETA REDONDA ALTA CHEIA) (PRETA QUADRADA BAIXA OCA)) (0 0 0 0) (0 0 0 0) (0 0 0 (PRETA REDONDA BAIXA CHEIA))) ((BRANCA QUADRADA ALTA CHEIA) (BRANCA QUADRADA BAIXA CHEIA) (PRETA QUADRADA ALTA CHEIA) (PRETA QUADRADA ALTA OCA) (PRETA QUADRADA BAIXA CHEIA) (BRANCA REDONDA BAIXA OCA) (BRANCA REDONDA ALTA OCA) (BRANCA REDONDA BAIXA CHEIA) (PRETA REDONDA ALTA OCA))) 1 (((((BRANCA QUADRADA BAIXA CHEIA) (BRANCA REDONDA ALTA CHEIA) (PRETA REDONDA ALTA CHEIA) (PRETA QUADRADA BAIXA OCA)) (0 0 0 0) (0 0 0 0) (0 0 0 0)) ((BRANCA QUADRADA ALTA CHEIA) (BRANCA QUADRADA BAIXA CHEIA) (PRETA QUADRADA ALTA CHEIA) (PRETA QUADRADA ALTA OCA) (PRETA QUADRADA BAIXA CHEIA) (BRANCA REDONDA BAIXA OCA) (BRANCA REDONDA ALTA OCA) (BRANCA REDONDA BAIXA CHEIA) (PRETA REDONDA ALTA OCA) (PRETA REDONDA BAIXA CHEIA))) 0 NIL))))
+```
+
+##### <a name="d-res-a-star">Resultados</a>
+Observações
+
+### <a name="aplica-algoritmos-problema-e">Problema E</a>
+#### <a name="aplica-algoritmos-problema-e-bfs">BFS</a>
+Prócura em Lagura no [Problema E](#lp-e).
+
+```lisp
+; chamada
+CL-USER> (bfs (cria-no problema) #'no-solucaop #'sucessores-quatro #'operadores-quatro)
+Stack Overflow
+```
+
+##### <a name="e-res-bfs">Resultados</a>
+Observações
+
+#### <a name="aplica-algoritmos-problema-e-dfs">DFS</a>
+Prócura em Profundidade no [Problema E](#lp-e) com profundiade 2.
+
+```lisp
+; chamada
+CL-USER> (dfs (cria-no problema) #'no-solucaop #'sucessores-quatro #'operadores-quatro 2)
+Stack Overflow
+```
+
+##### <a name="e-res-dfs">Resultados</a>
+Observações
+
+#### <a name="aplica-algoritmos-problema-e-a-star">A-Star</a>
+Prócura A* no [Problema E](#lp-e).
+
+```lisp
+; chamada
+CL-USER>  (a-star (cria-no problema) #'no-solucaop #'sucessores-quatro #'operadores-quatro #'heuristic)
+Stack Overflow
+```
+
+##### <a name="e-res-a-star">Resultados</a>
+Observações
+
+### <a name="aplica-algoritmos-problema-f">Problema F</a>
+#### <a name="aplica-algoritmos-problema-f-bfs">BFS</a>
+Prócura em Lagura no [Problema F](#lp-f).
+
+```lisp
+CL-USER> (bfs (cria-no problema) #'no-solucaop #'sucessores-quatro #'operadores-quatro)
+Stack Overflow
+```
+
+##### <a name="f-res-bfs">Resultados</a>
+Observações
+
+#### <a name="aplica-algoritmos-problema-f-dfs">DFS</a>
+Prócura em Profundidade no [Problema F](#lp-f) com profundiade 2.
+
+```lisp
+; chamada
+CL-USER> (dfs (cria-no problema) #'no-solucaop #'sucessores-quatro #'operadores-quatro 2)
+Stack Overflow
+```
+
+##### <a name="f-res-dfs">Resultados</a>
+Observações
+
+#### <a name="aplica-algoritmos-problema-f-a-star">A-Star</a>
+Prócura A* no [Problema F](#lp-f).
+
+```lisp
+; chamada
+CL-USER>  (a-star (cria-no problema) #'no-solucaop #'sucessores-quatro #'operadores-quatro #'heuristic)
+((((0 0 0 0) (0 0 0 0) (0 0 0 0) ((PRETA REDONDA ALTA CHEIA) (PRETA REDONDA ALTA OCA) (PRETA REDONDA BAIXA CHEIA) (PRETA REDONDA BAIXA OCA))) ((BRANCA QUADRADA ALTA CHEIA) (BRANCA QUADRADA ALTA OCA) (BRANCA QUADRADA BAIXA OCA) (BRANCA QUADRADA BAIXA CHEIA) (PRETA QUADRADA ALTA CHEIA) (PRETA QUADRADA ALTA OCA) (PRETA QUADRADA BAIXA OCA) (PRETA QUADRADA BAIXA CHEIA) (BRANCA REDONDA ALTA CHEIA) (BRANCA REDONDA ALTA OCA) (BRANCA REDONDA BAIXA CHEIA) (BRANCA REDONDA BAIXA OCA))) 4 ((((0 0 0 0) (0 0 0 0) (0 0 0 0) (0 (PRETA REDONDA ALTA OCA) (PRETA REDONDA BAIXA CHEIA) (PRETA REDONDA BAIXA OCA))) ((BRANCA QUADRADA ALTA CHEIA) (BRANCA QUADRADA ALTA OCA) (BRANCA QUADRADA BAIXA OCA) (BRANCA QUADRADA BAIXA CHEIA) (PRETA QUADRADA ALTA CHEIA) (PRETA QUADRADA ALTA OCA) (PRETA QUADRADA BAIXA OCA) (PRETA QUADRADA BAIXA CHEIA) (BRANCA REDONDA ALTA CHEIA) (BRANCA REDONDA ALTA OCA) (BRANCA REDONDA BAIXA CHEIA) (BRANCA REDONDA BAIXA OCA) (PRETA REDONDA ALTA CHEIA))) 3 ((((0 0 0 0) (0 0 0 0) (0 0 0 0) (0 0 (PRETA REDONDA BAIXA CHEIA) (PRETA REDONDA BAIXA OCA))) ((BRANCA QUADRADA ALTA CHEIA) (BRANCA QUADRADA ALTA OCA) (BRANCA QUADRADA BAIXA OCA) (BRANCA QUADRADA BAIXA CHEIA) (PRETA QUADRADA ALTA CHEIA) (PRETA QUADRADA ALTA OCA) (PRETA QUADRADA BAIXA OCA) (PRETA QUADRADA BAIXA CHEIA) (BRANCA REDONDA ALTA CHEIA) (BRANCA REDONDA ALTA OCA) (BRANCA REDONDA BAIXA CHEIA) (BRANCA REDONDA BAIXA OCA) (PRETA REDONDA ALTA CHEIA) (PRETA REDONDA ALTA OCA))) 2 ((((0 0 0 0) (0 0 0 0) (0 0 0 0) (0 0 0 (PRETA REDONDA BAIXA OCA))) ((BRANCA QUADRADA ALTA CHEIA) (BRANCA QUADRADA ALTA OCA) (BRANCA QUADRADA BAIXA OCA) (BRANCA QUADRADA BAIXA CHEIA) (PRETA QUADRADA ALTA CHEIA) (PRETA QUADRADA ALTA OCA) (PRETA QUADRADA BAIXA OCA) (PRETA QUADRADA BAIXA CHEIA) (BRANCA REDONDA ALTA CHEIA) (BRANCA REDONDA ALTA OCA) (BRANCA REDONDA BAIXA CHEIA) (BRANCA REDONDA BAIXA OCA) (PRETA REDONDA ALTA CHEIA) (PRETA REDONDA ALTA OCA) (PRETA REDONDA BAIXA CHEIA))) 1 ((((0 0 0 0) (0 0 0 0) (0 0 0 0) (0 0 0 0)) ((BRANCA QUADRADA ALTA CHEIA) (BRANCA QUADRADA ALTA OCA) (BRANCA QUADRADA BAIXA OCA) (BRANCA QUADRADA BAIXA CHEIA) (PRETA QUADRADA ALTA CHEIA) (PRETA QUADRADA ALTA OCA) (PRETA QUADRADA BAIXA OCA) (PRETA QUADRADA BAIXA CHEIA) (BRANCA REDONDA ALTA CHEIA) (BRANCA REDONDA ALTA OCA) (BRANCA REDONDA BAIXA CHEIA) (BRANCA REDONDA BAIXA OCA) (PRETA REDONDA ALTA CHEIA) (PRETA REDONDA ALTA OCA) (PRETA REDONDA BAIXA CHEIA) (PRETA REDONDA BAIXA OCA))) 0 NIL)))))
+```
+
+##### <a name="f-res-a-star">Resultados</a>
+Observações
+
+## <a name="conclusao">**Conclusão**</a>
