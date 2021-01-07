@@ -63,10 +63,25 @@ Neste manual encontram-se explicações sobre o jogo, como o iniciar, a estrutur
     * [O-Sibling](#f-p-o-sibling)
     * [Siblings](#f-p-siblings)
     * [Children](#f-p-children)
-    * [Paiwise-Link](#f-p-pairwise-link)
+    * [Pairwise-Link](#f-p-pairwise-link)
+    * [Remove-First](#f-p-remove-first)
     * [A-Star](#f-p-a-star)
+    * [Tamanho-Solucao](#f-p-tamanho-solucao)
+    * [Penetrancia](#f-p-penetrancia)
   * [Projeto](#f-projeto)
-    * [???](#f-proj-)
+    * [Base-Pathname](#proj-constante-base-pathname)
+    * [Asset-Path](#f-proj-asset-path)
+    * [Load Files](#proj-load-files)
+    * [Startup](#f-proj-startup)
+    * [Obter-Problemas](#f-proj-obter-problemas)
+    * [Menu-Principal](#f-proj-menu-principal)
+    * [Regras](#f-proj-regras)
+    * [Tabuleiros](#f-proj-tabuleiros)
+    * [Write-BfsDfs-Statistics](#f-proj-write-bfsdfs-statistics)
+    * [Print-Board](#f-proj-print-board)
+    * [Menu-Algoritmos](#f-proj-menu-algoritmos)
+    * [Tempo](#f-proj-tempo)
+    * [Ler-Profundidade](#f-proj-ler-profundidade)
 * [Lista de Problemas](#lista-problemas)
   * [Problema A](#lp-a)
   * [Problema B](#lp-b)
@@ -1679,12 +1694,411 @@ Algoritmo de prócura
 CL-USER> (a-star (cria-no (third(obter-problemas "problemas.dat"))) #'no-solucaop  #'sucessores-quatro #'operadores-quatro #'heuristic)
 ```
 
+#### <a nome="f-p-tamanho-solucao">Tamanho-Solucao</a>
+Retorna o tamanho do nó com o estado solução.
+
+**Parâmetros**
+
+*no - Nó*
+
+```lisp
+; funcao
+(defun tamanho-solucao (no)
+  "Devolve o comprimento de uma  solucao"
+  (length (car no)))
+
+(defun no-existep (no lista algoritmo)
+  (cond ((null lista) nil)
+	((and (or (eq algoritmo 'bfs) (<= (nivel-no (car lista)) (nivel-no no)))
+	      (equal (no-estado (car lista)) (no-estado no))) t)
+	(t (no-existep no (cdr lista) algoritmo)))
+)
+```
+
+#### <a nome="f-p-penetrancia">Penetrancia</a>
+Retorna a penetrância do nó com o estado solução.
+
+**Parâmetros**
+
+*solucao - Nó solução*
+
+```lisp
+; funcao
+(defun penetrancia (solucao)
+"Penetrancia"
+  (/ (tamanho-solucao solucao) (second solucao))
+)
+```
+
 ### <a name="f-projeto">Projeto</a>
 
-#### <a name="f-proj-">???</a>
+#### <a name="proj-constante-base-pathname">Base-Pathname</a>
+Esta contante permite encontrar um ficheiro independentemente do tipo de sistema operativo de onde é executado.
+
+```lisp
+; constante
+(defvar *base-pathname* (or *load-truename* *compile-file-truename*))
+```
+
+#### <a name="f-proj-asset-path">Asset-Path</a>
+
+**Parâmetros**
+
+*file - Caminho e nome do ficheiro*
+
+```lisp
+; funcao
+(defun asset-path (file) (merge-pathnames file *base-pathname*))
+```
+
+#### <a name="proj-load-files">Load Files</a>
+Carrega ficheiros necessários para o funcionamento do programa.
+
+```lisp
+; carrega ficheiros
+(progn
+  (load (asset-path "puzzle.lisp"))
+  (load (asset-path "procura.lisp"))
+)
+```
+
+#### <a name="f-proj-startup">Startup</a>
+Inicializa o programa na consola.
+
+```lisp
+; funcao
+(defun startup ()
+  (menu-principal (asset-path "problemas.dat"))
+)
+```
+
+#### <a name="f-proj-obter-problemas">Obter-Problemas</a>
+Retorna uma lista de problemas lidos de um ficheiro.
+
+**Parâmetros**
+
+*file - Ficheiro com problemas*
+
+```lisp
+; funcao
+(defun obter-problemas (file)
+  (with-open-file (s file)
+    (let ((problems nil))
+      (do ((prob (read s) (read s nil 'eof))) ((eq prob 'eof) (reverse problems))
+        (setq problems (cons prob problems)))))
+)
+```
+
+#### <a name="f-proj-menu-principal">Menu-Principal</a>
+Imprime na consola um menu de escolhas: Resolver Jogo, Regras do Jogo, Mostrar Tabuleiros, Sair.
+
+Cada escolha encontra-se associada a uma valor numérico que permite executar a ação escolhida. Caso selecionar uma opção inválida, será pedido novamente para inserir uma opção das disponíveis.
+
+* Resolver Jogo: Chama a função [Tabuleiros](#f-proj-tabuleiros).
+
+* Regras do Jogo: Chama a função [Regras](#f-proj-regras).
+
+* Mostrar Tabuleiros: Chama a função [Imprime-Tabuleiros](#f-proj-imprime-tabuleiros).
+
+* Sair: Sai do menú atual.
+
+**Parâmetros**
+
+*filename - Nome de ficheiro*
+
+```lisp
+; funcao
+(defun menu-principal (filename)
+  "Menu principal com as opcÃµes do programa"
+  (loop
+    (progn
+      (format t "~%~%~%~%~%~%~%~%~%")
+      (format t "~%           _______________________________________________________")
+      (format t "~%          Â§                  JOGO DO PROBlEMA DO 4                Â§")
+      (format t "~%          Â§                                                      Â§")
+      (format t "~%          Â§                                                      Â§")
+      (format t "~%          Â§                                                      Â§")
+      (format t "~%          Â§                                                      Â§")
+      (format t "~%          Â§                 1-Resolver o jogo                    Â§")
+      (format t "~%          Â§                 2-Regras do Jogo                     Â§")
+      (format t "~%          Â§                 3-Mostrar Tabuleiros                 Â§")
+      (format t "~%          Â§                 4-Sair                               Â§")
+      (format t "~%          Â§                                                      Â§")
+      (format t "~%          Â§______________________________________________________Â§")
+
+      (format t "~%~%~%          Option -> ")
+      )
+    (cond ((not (let ((escolha (read)))
+               (cond 
+                ((and (numberp escolha) (< escolha 5) (> escolha 0)) (case escolha
+                                                    (1 (progn (tabuleiros filename) t))
+                                                    (2 (progn (regras)  t))
+                                                    (3 (progn (imprime-tabs) t))
+                                                    (4 (progn (format t "~%~%~%          PROGRAMA TERMINADO") ))))
+                ( T (progn  (format t "~%          ESCOLHA INVALIDA~%~%          Option -> ")
+                            (setf escolha (read))))))) 
+(return))))
+)
+```
+
+#### <a name="f-proj-regras">Regras</a>
+Imprime na consola as regras do jogo do problema do quatro.
+
+```lisp
+; funcao
+(defun regras ()
+  "2-Menu regras com as regras do jogo"
+  (format t "
+________________________________________   REGRAS DO JOGO   ________________________________________
+                                          (jogo do quarto)  
+                                          
+     1- Esta versão do jogo consiste num tabuleiro com 4 linhas e 4 colunas (4X4)   
+     2- Em que cada casa possui uma pea com 4 atributos sem pecas repetidas                               
+     3- O objectivo do jogo é obter 4 elementos com um atributo em comum.
+        Cada jogador tem um cavalo da sua cor (branco ou preto).                                                
+     4- O jogo termina quando existem 4 elementos com um atributo comum.           
+                                                                                          
+_________________________________________________________________________________________________
+  ")
+)
+```
+
+#### <a name="f-proj-tabuleiros">Tabuleiros</a>
+Imprime na consola um tabuleiro correspondente ao do ficheiro lido, desde que este exista na mesma posição que aparece no menu.
+
+Cada escolha encontra-se associada a uma valor numérico que permite executar a ação escolhida. Caso selecionar uma opção inválida, será pedido novamente para inserir uma opção das disponíveis.
+
+Por definição encontram-se problemas de A a F, préviamente disponíveis.
+
+* Problema (Letra): Seleciona o problema com a especifica posição no ficheiro.
+
+* Problema Teste: Seleciona o problema que deverá ser colocado no final do ficheiro que contém todos os problemas. *Este problema será utilizado para testar o projeto, deste modo não se encontra no ficheiro atual de problemas*.
+
+* Home Menu: Chama a função [Menu-Principal](#f-proj-menu-principal).
+
+**Parâmetros**
+
+*filename - Nome de ficheiro*
+
+```lisp
+; funcao
+(defun tabuleiros (filename)
+"1- Menu para escolher o problema a resolver"
+(loop
+    (progn
+      (format t "~%            ______________________________________________________")
+      (format t "~%          Â§                ESCOLHA O TABULEIRO                   Â§")
+      (format t "~%          Â§                                                      Â§")
+      (format t "~%          Â§                 1-Problema A                         Â§")
+      (format t "~%          Â§                 2-Problema B                         Â§")
+      (format t "~%          Â§                 3-Problema C                         Â§")
+      (format t "~%          Â§                 4-Problema D                         Â§")
+      (format t "~%          Â§                 5-Problema E                         Â§")
+      (format t "~%          Â§                 6-Problema F                         Â§")
+      (format t "~%          Â§                 7-Problema G                         Â§")
+      (format t "~%          Â§                 8-Problema Teste                     Â§")
+      (format t "~%          Â§                 9-Home Menu                          Â§")
+      (format t "~%          Â§                                                      Â§")
+      (format t "~%          Â§______________________________________________________Â§")
+      (format t "~%~%~%          Opcao -> ")
+      )
+    (let* 
+      ((tabuleiros (obter-problemas filename))
+       (escolha (read)))
+       ;(princ tabuleiros)
+	(cond 
+        
+	((and (> escolha 0) (< escolha 9))
+ 	(let ((tab (nth (1- escolha) tabuleiros)))
+         
+   	(cond
+   	 ((null tab) (format t "Ainda nao existe tabuleiro~%~%") (tabuleiros filename))
+    	(T (menu-algoritmos tab filename))
+	)))
+	(t (format t "Escolha invalida~%~%") (ler-tabuleiro filename)))
+	)
+ )
+)
+```
+
+#### <a name="f-proj-write-bfsdfs-statistics">Write-BfsDfs-Statistics</a>
+Escreve num ficheiro tabelas com as estatisticas entre os vários algoritmos para comparar o seu tempo de execução e avaliar o seu desempenho.
+
+**Parâmetros**
+
+*start-board - Tabela inicial*
+
+*solution-node - Nó com o estado solução*
+
+*start-time - Tempo de inicio de execução*
+
+*end-time - Tempo de fim da execução*
+
+*algrithm - Algoritmo*
+
+```lisp
+; funcao
+(defun write-bfsdfs-statistics (start-board solution-node start-time end-time algorithm)
+  "Writes the statistics file with the solution and it's statistic data, for breadth first and depth first algorithms"
+
+  (cond (
+    (null solution-node) nil)
+        (t 
+         (with-open-file (file (asset-path "solucao.dat") :direction :output :if-exists :append :if-does-not-exist :create)
+           (progn 
+             (terpri)
+             (format file "~%~t  Algoritmo: ~a " algorithm)
+             (format file "~%~t  Inicio: ~a:~a:~a" (first start-time) (second start-time) (third start-time))
+             (format file "~%~t  Fim: ~a:~a:~a" (first end-time) (second end-time) (third end-time))
+             (format file "~%~t  Numero de nos gerados: ~a" (second solution-node))
+             (format file "~%~t  Numero de nos expandidos: ~a" (- (second solution-node) 1))
+             (format file "~%~t  Nivel de penetracao: ~F" (penetrancia solution-node))
+             (if (eq algorithm 'DFS)
+                 (format file "~%~t  Profundidade Maxima: ~a" (second solution-node)))
+             (format file "~%~t  Tamanho da solucao: ~a" (tamanho-solucao solution-node)))
+             (terpri)
+             (format file "~%~t  Solucao: ~a"  (first solution-node))
+             (terpri)    (format file "~%~t  Tabuleiro-inicial:")
+             (print-board start-board file)
+             (terpri)
+             (format file "~%~t  Tabuleiro-final:")
+             (print-board solution-node file)
+             )))
+)
+```
+
+#### <a name="f-proj-print-board">Print-Board</a>
+Escrever uma tabela num ficheiro.
+
+**Parâmetros**
+
+*file-stream - Ficheiro aberto*
+
+*t - Informação a ser adicionada ao ficheiro*
+
+```lisp
+; funcao
+(defun print-board(board &optional (file-stream t))
+  "lista a board"
+  (not (null (mapcar #'(lambda(line) 
+        (format file-stream "~%~t~t ~a" line)) board)))
+)
+```
+
+#### <a name="f-proj-menu-algoritmos">Menu-Algoritmos</a>
+Imprime na consola um menu para selecionar os algoritmos a utilizar.
+
+Cada escolha encontra-se associada a uma valor numérico que permite executar a ação escolhida. Caso selecionar uma opção inválida, será pedido novamente para inserir uma opção das disponíveis.
+
+* Prócura em Largura: Chama a função [Bfs](#f-p-df).
+* Prócura em Profundidade: Chama a função [Dfs](#f-p-dfs)
+* Prócura A*: Chama a função [A-Star](#f-p-a-star)
+
+* Home Menu: Chama a função [Menu-Principal](#f-proj-menu-principal).
+
+**Parâmetros**
+
+*problema - Problema*
+
+*filename - Nome de ficheiro*
+
+```lisp
+; funcao
+(defun menu-algoritmos (problema filename)
+  "1.3 Sub menu escolhe algoritmo "
+  (princ (cria-no problema))
+  (let ((temp (tempo)))
+      (loop
+       (progn
+         (format t "~%           ______________________________________________________")
+         (format t "~%          §                                                      §")
+         (format t "~%          §                  ESCOLHA O ALGORITMO                 §")
+         (format t "~%          §                 (algoritmo de procura)               §")
+         (format t "~%          §                                                      §")
+         (format t "~%          §                 1-Procura em largura                 §")
+         (format t "~%          §                 2-Procura em profundidade            §")
+         (format t "~%          §                 3-Procura em A*                      §")
+    ; (format t "~%          §                 4-Algorithm SMA*                     §")
+         (format t "~%          §                 0-Home Menu                          §")
+         (format t "~%          §                                                      §")
+         (format t "~%          §______________________________________________________§") 
+         (format t "~%~%~%          Option -> ")
+         )
+       (cond ((not (let ((escolha (read))) 
+                     (cond 
+                      ((and (numberp escolha) (< escolha 5) (> escolha -1)) (case escolha
+                                                                              (1 (write-bfsdfs-statistics problema (bfs (cria-no problema) #'no-solucaop #'sucessores-quatro #'operadores-quatro) temp (tempo) 'BFS))
+                                                                              (2 (ler-profundidade problema filename))
+                                                                              (3 (write-bfsdfs-statistics problema (a-star (cria-no problema)  #'no-solucaop #'sucessores-quatro #'operadores-quatro #'heuristic) temp (tempo) 'A-STAR))
+                                                                         ;(4 (menu-memory problema 'SMA* ))
+                                                                              (0 (menu-principal filename))))
+                      ( T (progn  (format t "~%          Escolha Invalida~%~%          Option -> ")
+                            (setf escolha (read))))))) 
+              (return)))))
+)
+```
+
+#### <a name="f-proj-tempo">Tempo</a>
+Retorna uma lista com horas, minutos e segundos.
+
+Esta função auxilia no cálculo do tempo de execução entre algoritmos.
+
+```lisp
+; funcao
+(defun tempo()
+  "Returns the current time with the format (h m s)"
+  ;;Hour-minute-second
+  (multiple-value-bind (s m h) (get-decoded-time)
+    (list h m s)
+    )
+)
+```
+
+#### <a name="f-proj-ler-profundidade">Ler-Profundidade</a>
+Imprime simples menu que pergunta pela profundidade utilizada para o algoritmo [Dfs](#f-p-dfs).
+
+A profundidade encontra-se no intervalo válido [0,999]. Caso selecionar um valor fora do interválo acima indicado, será pedido novamente para inserir um novo valor.
+
+* Home Menu: Chama a função [Menu-Principal](#f-proj-menu-principal).
+
+**Parâmetros**
+
+*problema - Problema*
+
+*filename - Nome de ficheiro*
+
+```lisp
+; funcao
+(defun ler-profundidade (problema filename)
+  (let ((temp (tempo)))
+  (loop
+   (progn
+     (format t "~%           ______________________________________________________")
+     (format t "~%          §                    PROFUNDIDADE                      §")
+     (format t "~%          §                                                      §")
+     (format t "~%          §                      ATENCAO                         §")
+     (format t "~%          §                                                      §")
+     (format t "~%          §            SO PODE USAR NUMEROS ACIMA DE 0           §")     
+     (format t "~%          §                     0-Home Menu                      §")
+     (format t "~%          §                                                      §")
+     (format t "~%          §______________________________________________________§")
+     (format t "~%~%~%          Depth-> ")
+     )
+   (cond ((not (let ((depth (read)))
+                 (cond 
+                  ((and (numberp depth) (> depth -1) ) (case depth
+                                                         (0 (menu-principal filename))
+                                                         (t (write-bfsdfs-statistics problema (dfs (cria-no problema) #'no-solucaop #'sucessores-quatro #'operadores-quatro depth) temp (tempo) 'DFS) (menu-algoritmos problema filename))))
+                                                         ;(t (dfs (cria-no problema) #'no-solucaop #'sucessores-quatro #'operadores-quatro depth))))
+                                                         ;(t (princ (dfs (cria-no problema) #'no-solucaop #'sucessores-quatro #'operadores-quatro depth)))))
+
+                  ( T (progn  (format t "~%          Invalid Choice~%~%          Depth ->  ")
+                        (setf depth (read))))))) 
+          (return)))))
+)
+```
 
 ## <a name="lista-problemas">**Lista de Problemas**</a>
-
 Mostra 6 tabuleiros diferentes com algumas peças em falta para jogar e com uso dos algoritmos de procura vai verificar quais as melhores jogadas para terminar o jogo. 
 
 ### <a name="lp-a">Problema A</a>
