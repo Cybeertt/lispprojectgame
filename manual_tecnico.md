@@ -137,7 +137,7 @@ Neste manual encontram-se explicações sobre o jogo, como o iniciar, a estrutur
 
 
 ## <a name="doc-abstract">**Abstrato**</a>
-Este projeto tem com o intuito de aplicar conhecimentos adquiridos no ambito da cadeira curricular IA e realizar uma análise entre os algoritmos de procura para os diferentes estados do jogo Quatro.
+Este projeto tem com o intuito de aplicar conhecimentos adquiridos no ambito da cadeira curricular IA e realizar uma análise entre os algoritmos de prócura para os diferentes estados do jogo Quatro.
 
 Quatro, é um jogo que contém um tabuleiro 4x4 e 16 peças com quatro carateristicas. Cada carateristica de uma peça utiliza dois valores possíveis, tal como um sistema binário, permitindo fazer combinações de 16 peças. Por norma uma peça tem 14 peças com pelo menos uma carateristica em comum e 1 peça sem qualquer carateristica em comum.
 
@@ -148,16 +148,16 @@ A cada turno, a peça é sempre escolhida pelo adversário que tem como missão 
 
 O Quatro finaliza quando um jogador consegue alinhar 4 peças com pelo menos uma carateristica em comum, seja na vertical, horizontal ou diagonal, independentemente da direção.
 
-Nesta versão do manual, o Quatro é apenas disputado por dois competidores humanos que informam as suas jogadas através da consola.
+Nesta versão do manual, o Quatro não é jogado, mas é selecionado um estado do tabuleiro e criada uma previsão para resolver o jogo com quatro peças com pelo menos um atributo em comum.
 
 ## <a name="doc-estrutura">**Estrutura do Projeto**</a>
 O projeto encontra-se distribuído por 3 ficheiros principais: ***projecto.LISP***, ***puzzle.LISP*** e ***procura.LISP***.
 
 O ficheiro ***projecto.LISP*** contém o código fonte que inicializa o jogo.
 
-O ficheiro ***puzzle.LISP*** contém o código fonte utilizado para criar e modificar o jogo e é definido como pacote **operate**.
+O ficheiro ***puzzle.LISP*** contém o código fonte utilizado para criar e modificar o jogo.
 
-O ficheiro ***procura.LISP*** contém todos os algoritmos de procura utilizados no jogo e é definido como pacote **algo**.
+O ficheiro ***procura.LISP*** contém todos os algoritmos de procura utilizados no jogo.
 
 Ao abrir o ficheiro ***procura.LISP***, por este ser um pacote, o IDE LispWorks pede sempre para criar o pacote no IDE. Todo este processo é responsabilidade do IDE e é automático.
 
