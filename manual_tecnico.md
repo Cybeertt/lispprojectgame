@@ -92,28 +92,46 @@ Neste manual encontram-se explicações sobre o jogo, como o iniciar, a estrutur
 * [Aplicação dos Algoritmos de Prócura](#aplica-algoritmos)
   * [Problema A](#aplica-algoritmos-problema-a)
     * [BFS](#aplica-algoritmos-problema-a-bfs)
+      * [Observações](#a-res-bfs)
     * [DFS](#aplica-algoritmos-problema-a-dfs)
-    * [A-Star](#aplica-algoritmos-problema-a-a-star)
+      * [Observações](#a-res-dfs)
+    * [A*](#aplica-algoritmos-problema-a-a-star)
+      * [Observações](#a-res-a-star)
   * [Problema B](#aplica-algoritmos-problema-b)
     * [BFS](#aplica-algoritmos-problema-b-bfs)
+      * [Observações](#b-res-bfs)
     * [DFS](#aplica-algoritmos-problema-b-dfs)
-    * [A-Star](#aplica-algoritmos-problema-b)
+      * [Observações](#b-res-dfs)
+    * [A*](#aplica-algoritmos-problema-b)
+      * [Observações](#b-res-a-star)
   * [Problema C](#aplica-algoritmos-problema-c)
     * [BFS](#aplica-algoritmos-problema-c-bfs)
+      * [Observações](#c-res-bfs)
     * [DFS](#aplica-algoritmos-problema-c-dfs)
-    * [A-Star](#aplica-algoritmos-problema-c-a-star)
+      * [Observações](#c-res-dfs)
+    * [A*](#aplica-algoritmos-problema-c-a-star)
+      * [Observações](#c-res-a-star)
   * [Problema D](#aplica-algoritmos-problema-d)
     * [BFS](#aplica-algoritmos-problema-d-bfs)
+      * [Observações](#d-res-bfs)
     * [DFS](#aplica-algoritmos-problema-d-dfs)
-    * [A-Star](#aplica-algoritmos-problema-d-a-star)
+      * [Observações](#d-res-dfs)
+    * [A*](#aplica-algoritmos-problema-d-a-star)
+      * [Observações](#d-res-a-star)
   * [Problema E](#aplica-algoritmos-problema-e)
     * [BFS](#aplica-algoritmos-problema-e-bfs)
+      * [Observações](#e-res-bfs)
     * [DFS](#aplica-algoritmos-problema-e-dfs)
-    * [A-Star](#aplica-algoritmos-problema-e-a-star)
+      * [Observações](#e-res-dfs)
+    * [A*](#aplica-algoritmos-problema-e-a-star)
+      * [Observações](#e-res-a-star)
   * [Problema F](#aplica-algoritmos-problema-f)
     * [BFS](#aplica-algoritmos-problema-f-bfs)
+      * [Observações](#f-res-bfs)
     * [DFS](#aplica-algoritmos-problema-f-dfs)
-    * [A-Star](#aplica-algoritmos-problema-f-a-star)
+      * [Observações](#f-res-dfs)
+    * [A*](#aplica-algoritmos-problema-f-a-star)
+      * [Observações](#f-res-a-star)
 * [Conslusão](#conclusao)
 * [Glossário](#glossario)
 
@@ -2132,7 +2150,6 @@ Mostra 6 tabuleiros diferentes com algumas peças em falta para jogar e com uso 
  (preta quadrada alta cheia)
  (branca redonda baixa cheia))
 )
-
 ```
 
 ### <a name="lp-c">Problema C</a>
@@ -2176,7 +2193,6 @@ Mostra 6 tabuleiros diferentes com algumas peças em falta para jogar e com uso 
 (preta redonda alta oca)
 (preta redonda baixa cheia))
 )
-
 ```
 
 ### <a name="lp-e">Problema E</a>
@@ -2204,7 +2220,6 @@ Mostra 6 tabuleiros diferentes com algumas peças em falta para jogar e com uso 
  (preta redonda baixa cheia)
  (preta redonda baixa oca))
 )
-
 ```
 
 ### <a name="lp-f">Problema F</a>
@@ -2233,59 +2248,230 @@ Mostra 6 tabuleiros diferentes com algumas peças em falta para jogar e com uso 
 (preta redonda baixa cheia)
 (preta redonda baixa oca))
 )
-
 ```
 
-## <a name="aplica-algoritmos">Aplicação dos Algoritmos de Prócura</a>
+## <a name="aplica-algoritmos">**Aplicação dos Algoritmos de Prócura**</a>
+Demostrações da aplicação dos algoritmos [BFS](#f-p-bfs), [DFS](#f-p-dfs) e [A*](#f-p-a-star) em todos os problemas, [A](#lp-a), [B](#lp-b), [C](#lp-c), [D](#lp-d), [E](#lp-e) e [F](#lp-f), listados acima.
 
 ### <a name="aplica-algoritmos-problema-a">Problema A</a>
-
 #### <a name="aplica-algoritmos-problema-a-bfs">BFS</a>
+Prócura em Lagura no [Problema A](#lp-a).
+
+```lisp
+; chamada
+CL-USER> (bfs (cria-no problema) #'no-solucaop #'sucessores-quatro #'operadores-quatro)
+(((((BRANCA QUADRADA ALTA OCA) (PRETA QUADRADA BAIXA CHEIA) (PRETA QUADRADA ALTA CHEIA) (PRETA QUADRADA ALTA OCA)) ((BRANCA REDONDA ALTA OCA) (PRETA REDONDA ALTA OCA) (BRANCA REDONDA ALTA CHEIA) 0) (0 (PRETA REDONDA ALTA CHEIA) (PRETA REDONDA BAIXA CHEIA) 0) ((BRANCA REDONDA BAIXA OCA) (BRANCA QUADRADA ALTA CHEIA) (PRETA REDONDA BAIXA OCA) (BRANCA QUADRADA BAIXA CHEIA))) ((PRETA QUADRADA BAIXA OCA) (BRANCA REDONDA BAIXA CHEIA) (BRANCA QUADRADA BAIXA OCA))) 1 (((((BRANCA QUADRADA ALTA OCA) (PRETA QUADRADA BAIXA CHEIA) 0 (PRETA QUADRADA ALTA OCA)) ((BRANCA REDONDA ALTA OCA) (PRETA REDONDA ALTA OCA) (BRANCA REDONDA ALTA CHEIA) 0) (0 (PRETA REDONDA ALTA CHEIA) (PRETA REDONDA BAIXA CHEIA) 0) ((BRANCA REDONDA BAIXA OCA) (BRANCA QUADRADA ALTA CHEIA) (PRETA REDONDA BAIXA OCA) (BRANCA QUADRADA BAIXA CHEIA))) ((PRETA QUADRADA ALTA CHEIA) (PRETA QUADRADA BAIXA OCA) (BRANCA REDONDA BAIXA CHEIA) (BRANCA QUADRADA BAIXA OCA))) 0 NIL))
+```
+
+##### <a name="a-res-bfs">Resultados</a>
+Observações
 
 #### <a name="aplica-algoritmos-problema-a-dfs">DFS</a>
+Prócura em Profundidade no [Problema A](#lp-a) com profundiade 2.
 
-#### <a name="aplica-algoritmos-problema-a-a-star">A-Star</a>
+```lisp
+; chamada
+CL-USER> (dfs (cria-no problema) #'no-solucaop #'sucessores-quatro #'operadores-quatro 2)
+(((((BRANCA QUADRADA ALTA OCA) (PRETA QUADRADA BAIXA CHEIA) (PRETA QUADRADA ALTA CHEIA) (PRETA QUADRADA ALTA OCA)) ((BRANCA REDONDA ALTA OCA) (PRETA REDONDA ALTA OCA) (BRANCA REDONDA ALTA CHEIA) 0) (0 (PRETA REDONDA ALTA CHEIA) (PRETA REDONDA BAIXA CHEIA) 0) ((BRANCA REDONDA BAIXA OCA) (BRANCA QUADRADA ALTA CHEIA) (PRETA REDONDA BAIXA OCA) (BRANCA QUADRADA BAIXA CHEIA))) ((PRETA QUADRADA BAIXA OCA) (BRANCA REDONDA BAIXA CHEIA) (BRANCA QUADRADA BAIXA OCA))) 1 (((((BRANCA QUADRADA ALTA OCA) (PRETA QUADRADA BAIXA CHEIA) 0 (PRETA QUADRADA ALTA OCA)) ((BRANCA REDONDA ALTA OCA) (PRETA REDONDA ALTA OCA) (BRANCA REDONDA ALTA CHEIA) 0) (0 (PRETA REDONDA ALTA CHEIA) (PRETA REDONDA BAIXA CHEIA) 0) ((BRANCA REDONDA BAIXA OCA) (BRANCA QUADRADA ALTA CHEIA) (PRETA REDONDA BAIXA OCA) (BRANCA QUADRADA BAIXA CHEIA))) ((PRETA QUADRADA ALTA CHEIA) (PRETA QUADRADA BAIXA OCA) (BRANCA REDONDA BAIXA CHEIA) (BRANCA QUADRADA BAIXA OCA))) 0 NIL))
+```
+
+##### <a name="a-res-dfs">Resultados</a>
+Observações
+
+#### <a name="aplica-algoritmos-problema-a-a-star">A*</a>
+Prócura A* no [Problema A](#lp-a).
+
+```lisp
+; chamada
+CL-USER>  (a-star (cria-no problema) #'no-solucaop #'sucessores-quatro #'operadores-quatro #'heuristic)
+(((((BRANCA QUADRADA ALTA OCA) (PRETA QUADRADA BAIXA CHEIA) 0 (PRETA QUADRADA ALTA OCA)) ((BRANCA REDONDA ALTA OCA) (PRETA REDONDA ALTA OCA) (BRANCA REDONDA ALTA CHEIA) 0) ((BRANCA QUADRADA BAIXA OCA) (PRETA REDONDA ALTA CHEIA) (PRETA REDONDA BAIXA CHEIA) 0) ((BRANCA REDONDA BAIXA OCA) (BRANCA QUADRADA ALTA CHEIA) (PRETA REDONDA BAIXA OCA) (BRANCA QUADRADA BAIXA CHEIA))) ((PRETA QUADRADA ALTA CHEIA) (PRETA QUADRADA BAIXA OCA) (BRANCA REDONDA BAIXA CHEIA))) 1 (((((BRANCA QUADRADA ALTA OCA) (PRETA QUADRADA BAIXA CHEIA) 0 (PRETA QUADRADA ALTA OCA)) ((BRANCA REDONDA ALTA OCA) (PRETA REDONDA ALTA OCA) (BRANCA REDONDA ALTA CHEIA) 0) (0 (PRETA REDONDA ALTA CHEIA) (PRETA REDONDA BAIXA CHEIA) 0) ((BRANCA REDONDA BAIXA OCA) (BRANCA QUADRADA ALTA CHEIA) (PRETA REDONDA BAIXA OCA) (BRANCA QUADRADA BAIXA CHEIA))) ((PRETA QUADRADA ALTA CHEIA) (PRETA QUADRADA BAIXA OCA) (BRANCA REDONDA BAIXA CHEIA) (BRANCA QUADRADA BAIXA OCA))) 0 NIL))
+```
+
+##### <a name="a-res-a-star">Resultados</a>
+Observações
 
 ### <a name="aplica-algoritmos-problema-b">Problema B</a>
-
 #### <a name="aplica-algoritmos-problema-b-bfs">BFS</a>
+Prócura em Lagura no [Problema B](#lp-b).
+
+```lisp
+; chamada
+CL-USER> (bfs (cria-no problema) #'no-solucaop #'sucessores-quatro #'operadores-quatro)
+Stack Overflow
+```
+
+##### <a name="b-res-bfs">Resultados</a>
+Observações
 
 #### <a name="aplica-algoritmos-problema-b-dfs">DFS</a>
+Prócura em Profundidade no [Problema B](#lp-b) com profundiade 2.
+
+```lisp
+; chamada
+CL-USER> (dfs (cria-no problema) #'no-solucaop #'sucessores-quatro #'operadores-quatro 2)
+(((((BRANCA QUADRADA ALTA OCA) (PRETA REDONDA BAIXA OCA) (PRETA QUADRADA ALTA OCA) (BRANCA QUADRADA ALTA CHEIA)) ((BRANCA REDONDA ALTA OCA) (BRANCA REDONDA BAIXA OCA) (BRANCA REDONDA ALTA CHEIA) (PRETA REDONDA BAIXA CHEIA)) ((PRETA QUADRADA BAIXA CHEIA) (PRETA REDONDA ALTA CHEIA) (BRANCA QUADRADA BAIXA OCA) 0) ((PRETA QUADRADA BAIXA OCA) 0 (BRANCA QUADRADA BAIXA CHEIA) 0)) ((PRETA REDONDA ALTA OCA) (PRETA QUADRADA ALTA CHEIA) (BRANCA REDONDA BAIXA CHEIA))) 2 (((((BRANCA QUADRADA ALTA OCA) (PRETA REDONDA BAIXA OCA) (PRETA QUADRADA ALTA OCA) (BRANCA QUADRADA ALTA CHEIA)) ((BRANCA REDONDA ALTA OCA) (BRANCA REDONDA BAIXA OCA) (BRANCA REDONDA ALTA CHEIA) 0) ((PRETA QUADRADA BAIXA CHEIA) (PRETA REDONDA ALTA CHEIA) (BRANCA QUADRADA BAIXA OCA) 0) ((PRETA QUADRADA BAIXA OCA) 0 (BRANCA QUADRADA BAIXA CHEIA) 0)) ((PRETA REDONDA BAIXA CHEIA) (PRETA REDONDA ALTA OCA) (PRETA QUADRADA ALTA CHEIA) (BRANCA REDONDA BAIXA CHEIA))) 1 (((((BRANCA QUADRADA ALTA OCA) (PRETA REDONDA BAIXA OCA) (PRETA QUADRADA ALTA OCA) (BRANCA QUADRADA ALTA CHEIA)) ((BRANCA REDONDA ALTA OCA) 0 (BRANCA REDONDA ALTA CHEIA) 0) ((PRETA QUADRADA BAIXA CHEIA) (PRETA REDONDA ALTA CHEIA) (BRANCA QUADRADA BAIXA OCA) 0) ((PRETA QUADRADA BAIXA OCA) 0 (BRANCA QUADRADA BAIXA CHEIA) 0)) ((BRANCA REDONDA BAIXA OCA) (PRETA REDONDA BAIXA CHEIA) (PRETA REDONDA ALTA OCA) (PRETA QUADRADA ALTA CHEIA) (BRANCA REDONDA BAIXA CHEIA))) 0 NIL)))
+```
+
+##### <a name="b-res-dfs">Resultados</a>
+Observações
 
 #### <a name="aplica-algoritmos-problema-b-a-star">A-Star</a>
+Prócura A* no [Problema B](#lp-b).
+
+```lisp
+; chamada
+CL-USER>  (a-star (cria-no problema) #'no-solucaop #'sucessores-quatro #'operadores-quatro #'heuristic)
+(((((BRANCA QUADRADA ALTA OCA) (PRETA REDONDA BAIXA OCA) (PRETA QUADRADA ALTA OCA) (BRANCA QUADRADA ALTA CHEIA)) ((BRANCA REDONDA ALTA OCA) 0 (BRANCA REDONDA ALTA CHEIA) 0) ((PRETA QUADRADA BAIXA CHEIA) (PRETA REDONDA ALTA CHEIA) (BRANCA QUADRADA BAIXA OCA) 0) ((PRETA QUADRADA BAIXA OCA) (PRETA REDONDA BAIXA CHEIA) (BRANCA QUADRADA BAIXA CHEIA) (BRANCA REDONDA BAIXA CHEIA))) ((BRANCA REDONDA BAIXA OCA) (PRETA REDONDA ALTA OCA) (PRETA QUADRADA ALTA CHEIA))) 2 (((((BRANCA QUADRADA ALTA OCA) (PRETA REDONDA BAIXA OCA) (PRETA QUADRADA ALTA OCA) (BRANCA QUADRADA ALTA CHEIA)) ((BRANCA REDONDA ALTA OCA) 0 (BRANCA REDONDA ALTA CHEIA) 0) ((PRETA QUADRADA BAIXA CHEIA) (PRETA REDONDA ALTA CHEIA) (BRANCA QUADRADA BAIXA OCA) 0) ((PRETA QUADRADA BAIXA OCA) 0 (BRANCA QUADRADA BAIXA CHEIA) (BRANCA REDONDA BAIXA CHEIA))) ((BRANCA REDONDA BAIXA OCA) (PRETA REDONDA BAIXA CHEIA) (PRETA REDONDA ALTA OCA) (PRETA QUADRADA ALTA CHEIA))) 1 (((((BRANCA QUADRADA ALTA OCA) (PRETA REDONDA BAIXA OCA) (PRETA QUADRADA ALTA OCA) (BRANCA QUADRADA ALTA CHEIA)) ((BRANCA REDONDA ALTA OCA) 0 (BRANCA REDONDA ALTA CHEIA) 0) ((PRETA QUADRADA BAIXA CHEIA) (PRETA REDONDA ALTA CHEIA) (BRANCA QUADRADA BAIXA OCA) 0) ((PRETA QUADRADA BAIXA OCA) 0 (BRANCA QUADRADA BAIXA CHEIA) 0)) ((BRANCA REDONDA BAIXA OCA) (PRETA REDONDA BAIXA CHEIA) (PRETA REDONDA ALTA OCA) (PRETA QUADRADA ALTA CHEIA) (BRANCA REDONDA BAIXA CHEIA))) 0 NIL)))
+```
+
+##### <a name="b-res-a-star">Resultados</a>
+Observações
 
 ### <a name="aplica-algoritmos-problema-c">Problema C</a>
-
 #### <a name="aplica-algoritmos-problema-c-bfs">BFS</a>
+Prócura em Lagura no [Problema C](#lp-c).
+
+```lisp
+; chamada
+CL-USER> (bfs (cria-no problema) #'no-solucaop #'sucessores-quatro #'operadores-quatro)
+Stack Overflow
+```
+
+##### <a name="c-res-bfs">Resultados</a>
+Observações
 
 #### <a name="aplica-algoritmos-problema-c-dfs">DFS</a>
+Prócura em Profundidade no [Problema C](#lp-c) com profundiade 2.
+
+```lisp
+; chamada
+CL-USER> (dfs (cria-no problema) #'no-solucaop #'sucessores-quatro #'operadores-quatro 2)
+Stack Overflow
+```
+
+##### <a name="c-res-dfs">Resultados</a>
+Observações
 
 #### <a name="aplica-algoritmos-problema-c-a-star">A-Star</a>
+Prócura A* no [Problema C](#lp-c).
+
+```lisp
+; chamada
+CL-USER>  (a-star (cria-no problema) #'no-solucaop #'sucessores-quatro #'operadores-quatro #'heuristic)
+(((((BRANCA QUADRADA BAIXA CHEIA) 0 (PRETA REDONDA ALTA CHEIA) (PRETA QUADRADA BAIXA OCA)) (0 0 0 (BRANCA REDONDA BAIXA OCA)) ((BRANCA REDONDA ALTA CHEIA) 0 (PRETA REDONDA ALTA OCA) (PRETA REDONDA BAIXA CHEIA)) (0 (PRETA QUADRADA BAIXA CHEIA) 0 (PRETA REDONDA BAIXA OCA))) ((BRANCA QUADRADA ALTA CHEIA) (BRANCA QUADRADA ALTA OCA) (BRANCA QUADRADA BAIXA OCA) (PRETA QUADRADA ALTA CHEIA) (PRETA QUADRADA ALTA OCA) (BRANCA REDONDA ALTA OCA) (BRANCA REDONDA BAIXA CHEIA))) 2 (((((BRANCA QUADRADA BAIXA CHEIA) 0 (PRETA REDONDA ALTA CHEIA) (PRETA QUADRADA BAIXA OCA)) (0 0 0 (BRANCA REDONDA BAIXA OCA)) ((BRANCA REDONDA ALTA CHEIA) 0 (PRETA REDONDA ALTA OCA) 0) (0 (PRETA QUADRADA BAIXA CHEIA) 0 (PRETA REDONDA BAIXA OCA))) ((BRANCA QUADRADA ALTA CHEIA) (BRANCA QUADRADA ALTA OCA) (BRANCA QUADRADA BAIXA OCA) (PRETA QUADRADA ALTA CHEIA) (PRETA QUADRADA ALTA OCA) (BRANCA REDONDA ALTA OCA) (BRANCA REDONDA BAIXA CHEIA) (PRETA REDONDA BAIXA CHEIA))) 1 (((((BRANCA QUADRADA BAIXA CHEIA) 0 (PRETA REDONDA ALTA CHEIA) (PRETA QUADRADA BAIXA OCA)) (0 0 0 (BRANCA REDONDA BAIXA OCA)) ((BRANCA REDONDA ALTA CHEIA) 0 (PRETA REDONDA ALTA OCA) 0) (0 (PRETA QUADRADA BAIXA CHEIA) 0 0)) ((BRANCA QUADRADA ALTA CHEIA) (BRANCA QUADRADA ALTA OCA) (BRANCA QUADRADA BAIXA OCA) (PRETA QUADRADA ALTA CHEIA) (PRETA QUADRADA ALTA OCA) (BRANCA REDONDA ALTA OCA) (BRANCA REDONDA BAIXA CHEIA) (PRETA REDONDA BAIXA CHEIA) (PRETA REDONDA BAIXA OCA))) 0 NIL)))
+```
+
+##### <a name="c-res-a-star">Resultados</a>
+Observações
 
 ### <a name="aplica-algoritmos-problema-d">Problema D</a>
-
 #### <a name="aplica-algoritmos-problema-d-bfs">BFS</a>
+Prócura em Lagura no [Problema D](#lp-d).
+
+```lisp
+; chamada
+CL-USER> (bfs (cria-no problema) #'no-solucaop #'sucessores-quatro #'operadores-quatro)
+Stack Overflow
+```
+
+##### <a name="d-res-bfs">Resultados</a>
+Observações
 
 #### <a name="aplica-algoritmos-problema-d-dfs">DFS</a>
+Prócura em Profundidade no [Problema D](#lp-d) com profundiade 2.
+
+```lisp
+; chamada
+CL-USER> (dfs (cria-no problema) #'no-solucaop #'sucessores-quatro #'operadores-quatro 2)
+Stack Overflow
+```
+
+##### <a name="d-res-dfs">Resultados</a>
+Observações
 
 #### <a name="aplica-algoritmos-problema-d-a-star">A-Star</a>
+Prócura A* no [Problema D](#lp-d).
+
+```lisp
+; chamada
+CL-USER>  (a-star (cria-no problema) #'no-solucaop #'sucessores-quatro #'operadores-quatro #'heuristic)
+(((((BRANCA QUADRADA BAIXA CHEIA) (BRANCA REDONDA ALTA CHEIA) (PRETA REDONDA ALTA CHEIA) (PRETA QUADRADA BAIXA OCA)) (0 0 0 (PRETA QUADRADA BAIXA CHEIA)) (0 0 0 (PRETA REDONDA ALTA OCA)) (0 0 0 (PRETA REDONDA BAIXA CHEIA))) ((BRANCA QUADRADA ALTA CHEIA) (BRANCA QUADRADA BAIXA CHEIA) (PRETA QUADRADA ALTA CHEIA) (PRETA QUADRADA ALTA OCA) (BRANCA REDONDA BAIXA OCA) (BRANCA REDONDA ALTA OCA) (BRANCA REDONDA BAIXA CHEIA))) 3 (((((BRANCA QUADRADA BAIXA CHEIA) (BRANCA REDONDA ALTA CHEIA) (PRETA REDONDA ALTA CHEIA) (PRETA QUADRADA BAIXA OCA)) (0 0 0 0) (0 0 0 (PRETA REDONDA ALTA OCA)) (0 0 0 (PRETA REDONDA BAIXA CHEIA))) ((BRANCA QUADRADA ALTA CHEIA) (BRANCA QUADRADA BAIXA CHEIA) (PRETA QUADRADA ALTA CHEIA) (PRETA QUADRADA ALTA OCA) (PRETA QUADRADA BAIXA CHEIA) (BRANCA REDONDA BAIXA OCA) (BRANCA REDONDA ALTA OCA) (BRANCA REDONDA BAIXA CHEIA))) 2 (((((BRANCA QUADRADA BAIXA CHEIA) (BRANCA REDONDA ALTA CHEIA) (PRETA REDONDA ALTA CHEIA) (PRETA QUADRADA BAIXA OCA)) (0 0 0 0) (0 0 0 0) (0 0 0 (PRETA REDONDA BAIXA CHEIA))) ((BRANCA QUADRADA ALTA CHEIA) (BRANCA QUADRADA BAIXA CHEIA) (PRETA QUADRADA ALTA CHEIA) (PRETA QUADRADA ALTA OCA) (PRETA QUADRADA BAIXA CHEIA) (BRANCA REDONDA BAIXA OCA) (BRANCA REDONDA ALTA OCA) (BRANCA REDONDA BAIXA CHEIA) (PRETA REDONDA ALTA OCA))) 1 (((((BRANCA QUADRADA BAIXA CHEIA) (BRANCA REDONDA ALTA CHEIA) (PRETA REDONDA ALTA CHEIA) (PRETA QUADRADA BAIXA OCA)) (0 0 0 0) (0 0 0 0) (0 0 0 0)) ((BRANCA QUADRADA ALTA CHEIA) (BRANCA QUADRADA BAIXA CHEIA) (PRETA QUADRADA ALTA CHEIA) (PRETA QUADRADA ALTA OCA) (PRETA QUADRADA BAIXA CHEIA) (BRANCA REDONDA BAIXA OCA) (BRANCA REDONDA ALTA OCA) (BRANCA REDONDA BAIXA CHEIA) (PRETA REDONDA ALTA OCA) (PRETA REDONDA BAIXA CHEIA))) 0 NIL))))
+```
+
+##### <a name="d-res-a-star">Resultados</a>
+Observações
 
 ### <a name="aplica-algoritmos-problema-e">Problema E</a>
-
 #### <a name="aplica-algoritmos-problema-e-bfs">BFS</a>
+Prócura em Lagura no [Problema E](#lp-e).
+
+```lisp
+; chamada
+CL-USER> (bfs (cria-no problema) #'no-solucaop #'sucessores-quatro #'operadores-quatro)
+Stack Overflow
+```
+
+##### <a name="e-res-bfs">Resultados</a>
+Observações
 
 #### <a name="aplica-algoritmos-problema-e-dfs">DFS</a>
+Prócura em Profundidade no [Problema E](#lp-e) com profundiade 2.
+
+```lisp
+; chamada
+CL-USER> (dfs (cria-no problema) #'no-solucaop #'sucessores-quatro #'operadores-quatro 2)
+Stack Overflow
+```
+
+##### <a name="e-res-dfs">Resultados</a>
+Observações
 
 #### <a name="aplica-algoritmos-problema-e-a-star">A-Star</a>
+Prócura A* no [Problema E](#lp-e).
+
+```lisp
+; chamada
+CL-USER>  (a-star (cria-no problema) #'no-solucaop #'sucessores-quatro #'operadores-quatro #'heuristic)
+Stack Overflow
+```
+
+##### <a name="e-res-a-star">Resultados</a>
+Observações
 
 ### <a name="aplica-algoritmos-problema-f">Problema F</a>
-
 #### <a name="aplica-algoritmos-problema-f-bfs">BFS</a>
+Prócura em Lagura no [Problema F](#lp-f).
+
+```lisp
+CL-USER> (bfs (cria-no problema) #'no-solucaop #'sucessores-quatro #'operadores-quatro)
+Stack Overflow
+```
+
+##### <a name="f-res-bfs">Resultados</a>
+Observações
 
 #### <a name="aplica-algoritmos-problema-f-dfs">DFS</a>
+Prócura em Profundidade no [Problema F](#lp-f) com profundiade 2.
+
+```lisp
+; chamada
+CL-USER> (dfs (cria-no problema) #'no-solucaop #'sucessores-quatro #'operadores-quatro 2)
+Stack Overflow
+```
+
+##### <a name="f-res-dfs">Resultados</a>
+Observações
 
 #### <a name="aplica-algoritmos-problema-f-a-star">A-Star</a>
+Prócura A* no [Problema F](#lp-f).
 
-## <a name="conclusao">Conclusão</a>
+```lisp
+; chamada
+CL-USER>  (a-star (cria-no problema) #'no-solucaop #'sucessores-quatro #'operadores-quatro #'heuristic)
+((((0 0 0 0) (0 0 0 0) (0 0 0 0) ((PRETA REDONDA ALTA CHEIA) (PRETA REDONDA ALTA OCA) (PRETA REDONDA BAIXA CHEIA) (PRETA REDONDA BAIXA OCA))) ((BRANCA QUADRADA ALTA CHEIA) (BRANCA QUADRADA ALTA OCA) (BRANCA QUADRADA BAIXA OCA) (BRANCA QUADRADA BAIXA CHEIA) (PRETA QUADRADA ALTA CHEIA) (PRETA QUADRADA ALTA OCA) (PRETA QUADRADA BAIXA OCA) (PRETA QUADRADA BAIXA CHEIA) (BRANCA REDONDA ALTA CHEIA) (BRANCA REDONDA ALTA OCA) (BRANCA REDONDA BAIXA CHEIA) (BRANCA REDONDA BAIXA OCA))) 4 ((((0 0 0 0) (0 0 0 0) (0 0 0 0) (0 (PRETA REDONDA ALTA OCA) (PRETA REDONDA BAIXA CHEIA) (PRETA REDONDA BAIXA OCA))) ((BRANCA QUADRADA ALTA CHEIA) (BRANCA QUADRADA ALTA OCA) (BRANCA QUADRADA BAIXA OCA) (BRANCA QUADRADA BAIXA CHEIA) (PRETA QUADRADA ALTA CHEIA) (PRETA QUADRADA ALTA OCA) (PRETA QUADRADA BAIXA OCA) (PRETA QUADRADA BAIXA CHEIA) (BRANCA REDONDA ALTA CHEIA) (BRANCA REDONDA ALTA OCA) (BRANCA REDONDA BAIXA CHEIA) (BRANCA REDONDA BAIXA OCA) (PRETA REDONDA ALTA CHEIA))) 3 ((((0 0 0 0) (0 0 0 0) (0 0 0 0) (0 0 (PRETA REDONDA BAIXA CHEIA) (PRETA REDONDA BAIXA OCA))) ((BRANCA QUADRADA ALTA CHEIA) (BRANCA QUADRADA ALTA OCA) (BRANCA QUADRADA BAIXA OCA) (BRANCA QUADRADA BAIXA CHEIA) (PRETA QUADRADA ALTA CHEIA) (PRETA QUADRADA ALTA OCA) (PRETA QUADRADA BAIXA OCA) (PRETA QUADRADA BAIXA CHEIA) (BRANCA REDONDA ALTA CHEIA) (BRANCA REDONDA ALTA OCA) (BRANCA REDONDA BAIXA CHEIA) (BRANCA REDONDA BAIXA OCA) (PRETA REDONDA ALTA CHEIA) (PRETA REDONDA ALTA OCA))) 2 ((((0 0 0 0) (0 0 0 0) (0 0 0 0) (0 0 0 (PRETA REDONDA BAIXA OCA))) ((BRANCA QUADRADA ALTA CHEIA) (BRANCA QUADRADA ALTA OCA) (BRANCA QUADRADA BAIXA OCA) (BRANCA QUADRADA BAIXA CHEIA) (PRETA QUADRADA ALTA CHEIA) (PRETA QUADRADA ALTA OCA) (PRETA QUADRADA BAIXA OCA) (PRETA QUADRADA BAIXA CHEIA) (BRANCA REDONDA ALTA CHEIA) (BRANCA REDONDA ALTA OCA) (BRANCA REDONDA BAIXA CHEIA) (BRANCA REDONDA BAIXA OCA) (PRETA REDONDA ALTA CHEIA) (PRETA REDONDA ALTA OCA) (PRETA REDONDA BAIXA CHEIA))) 1 ((((0 0 0 0) (0 0 0 0) (0 0 0 0) (0 0 0 0)) ((BRANCA QUADRADA ALTA CHEIA) (BRANCA QUADRADA ALTA OCA) (BRANCA QUADRADA BAIXA OCA) (BRANCA QUADRADA BAIXA CHEIA) (PRETA QUADRADA ALTA CHEIA) (PRETA QUADRADA ALTA OCA) (PRETA QUADRADA BAIXA OCA) (PRETA QUADRADA BAIXA CHEIA) (BRANCA REDONDA ALTA CHEIA) (BRANCA REDONDA ALTA OCA) (BRANCA REDONDA BAIXA CHEIA) (BRANCA REDONDA BAIXA OCA) (PRETA REDONDA ALTA CHEIA) (PRETA REDONDA ALTA OCA) (PRETA REDONDA BAIXA CHEIA) (PRETA REDONDA BAIXA OCA))) 0 NIL)))))
+```
 
-## <a name="glossario">Glossário</a>
+##### <a name="f-res-a-star">Resultados</a>
+Observações
+
+## <a name="conclusao">**Conclusão**</a>
