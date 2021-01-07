@@ -1,5 +1,4 @@
-# IPS ESTS
-## Projeto IA 2020/21
+# Projeto IA 2020/21 IPS ESTS
 
 ### Docente
 Joaquim Filipe
@@ -9,7 +8,7 @@ Joaquim Filipe
 
 200221149 - Rafael Palma
 
-# Manual Técnico
+## Manual Técnico
 Neste manual encontram-se explicações sobre o jogo, como o iniciar, a estrutura do projeto, todas as funções utilizadas explicadas e ilustradas com exemplos e observações, e exemplos descritivos de testes com o código fonte por partes ou no global.
 
 ## Indice
@@ -39,7 +38,70 @@ Neste manual encontram-se explicações sobre o jogo, como o iniciar, a estrutur
     * [No-Solucaop](#f-no-solucaop)
     * [Heuristic](#f-heuristic)
   * [Procura](#f-procura)
+    * [Cria-No](#f-p-cria-no)
+    * [Tabuleiro-Conteudo](#f-p-tabuleiro-conteudo)
+    * [Reserva-Conteudo](#f-p-reserva-conteudo)
+    * [No-Estado](#f-p-no-estado)
+    * [No-Pai](#f-p-no-pai)
+    * [No-Profundidade](#f-p-no-profundidade)
+    * [Novo-Sucessor](#f-p-no-sucessor)
+    * [Sucessores-Quatro](#-f-p-sucessores-quatro)
+    * [Operadores-Quatro](#f-p-operadores-quatro)
+    * [Nivel-no](#f-p-nivel-no)
+    * [Abertos-Bfs](#f-p-abertos-bfs)
+    * [Abertos-Dfs](#f-p-abertos-dfs)
+    * [No-Existep](#f-p-no-existep)
+    * [Bfs](#f-p-bfs)
+    * [Dfs](#f-p-dfs)
+    * [Empty-Heap-P](#f-p-empty-heap-p)
+    * [Make-Heap](#f-p-make-heap)
+    * [Meld](#f-p-meld)
+    * [Insert](#f-p-insert)
+    * [Priority](#f-p-priority)
+    * [Elem](#f-p-elem)
+    * [child](#f-p-child)
+    * [O-Sibling](#f-p-o-sibling)
+    * [Siblings](#f-p-siblings)
+    * [Children](#f-p-children)
+    * [Paiwise-Link](#f-p-pairwise-link)
+    * [A-Star](#f-p-a-star)
   * [Projeto](#f-projeto)
+    * [???](#f-proj-)
+* [Lista de Problemas](#lista-problemas)
+  * [Problema A](#lp-a)
+  * [Problema B](#lp-b)
+  * [Problema C](#lp-c)
+  * [Problema D](#lp-d)
+  * [Problema E](#lp-e)
+  * [Problema F](#lp-f)
+* [Aplicação dos Algoritmos de Prócura](#aplica-algoritmos)
+  * [Problema A](#aplica-algoritmos-problema-a)
+    * [BFS](#aplica-algoritmos-problema-a-bfs)
+    * [DFS](#aplica-algoritmos-problema-a-dfs)
+    * [A-Star](#aplica-algoritmos-problema-a-a-star)
+  * [Problema B](#aplica-algoritmos-problema-b)
+    * [BFS](#aplica-algoritmos-problema-b-bfs)
+    * [DFS](#aplica-algoritmos-problema-b-dfs)
+    * [A-Star](#aplica-algoritmos-problema-b)
+  * [Problema C](#aplica-algoritmos-problema-c)
+    * [BFS](#aplica-algoritmos-problema-c-bfs)
+    * [DFS](#aplica-algoritmos-problema-c-dfs)
+    * [A-Star](#aplica-algoritmos-problema-c-a-star)
+  * [Problema D](#aplica-algoritmos-problema-d)
+    * [BFS](#aplica-algoritmos-problema-d-bfs)
+    * [DFS](#aplica-algoritmos-problema-d-dfs)
+    * [A-Star](#aplica-algoritmos-problema-d-a-star)
+  * [Problema E](#aplica-algoritmos-problema-e)
+    * [BFS](#aplica-algoritmos-problema-e-bfs)
+    * [DFS](#aplica-algoritmos-problema-e-dfs)
+    * [A-Star](#aplica-algoritmos-problema-e-a-star)
+  * [Problema F](#aplica-algoritmos-problema-f)
+    * [BFS](#aplica-algoritmos-problema-f-bfs)
+    * [DFS](#aplica-algoritmos-problema-f-dfs)
+    * [A-Star](#aplica-algoritmos-problema-f-a-star)
+* [Conslusão](#conclusao)
+* [Glossário](#glossario)
+
 
 ## <a name="doc-abstract">Abstrato</a>
 Este projeto tem com o intuito de aplicar conhecimentos adquiridos no ambito da cadeira curricular IA e realizar uma análise entre os algoritmos de procura para os diferentes estados do jogo Quatro.
@@ -83,7 +145,7 @@ Excecionalmente, algumas funções contêm breves observações perante o result
 ### <a nome="f-puzzle">Puzzle</a>
 As seguintes funções permitem definir o jogo do Problema do Quatro.
 
-### <a name="f-tabuleiro">Tabuleiro</a>
+#### <a name="f-tabuleiro">Tabuleiro</a>
 Retorna uma lista de 4 listas com 4 elementos.
 
 O espaço do tabuleiro é representado por 0, quando a posição encontra-se vazia.
@@ -1088,12 +1150,30 @@ CL-USER> (heuristic estado)
 
 ### <a nome="f-procura">Procura</a>
 
+#### <a nome="f-p-cria-no">Cria-No</a>
+Gera um nó constituído por estado (problema), profundidade e nó predecessor.
+
+**Parâmetros**
+
+*estado - Estado do problema*
+
+*Profundidade - Número de profundidade (opcional)*
+
+*pai - Nó predecessor (opcional)*
+
 ```lisp
 ; funcao
 (defun cria-no (estado  &optional (g 0) (pai nil))
   (list estado g pai)
 )
 ```
+
+#### <a nome="f-p-tabuleiro-conteudo">Tabuleiro-Conteudo</a>
+Retorna o tabuleiro que se encontra no estado do nó.
+
+**Parâmetros**
+
+*no - Nó*
 
 ```lisp
 ; funcao
@@ -1102,6 +1182,13 @@ CL-USER> (heuristic estado)
 )
 ```
 
+#### <a nome="f-p-reserva-conteudo">Reserva-Conteudo</a>
+Retorna a reserva de peças que se encontra no estado do nó.
+
+**Parâmetros**
+
+*no - Nó*
+
 ```lisp
 ; funcao
 (defun reserva-conteudo (no)
@@ -1109,35 +1196,78 @@ CL-USER> (heuristic estado)
 )
 ```
 
-```lisp
-; funcao
-(defun no-estado (teste)
-  (car teste)
-)
-```
+#### <a nome="f-p-no-estado">No-Estado</a>
+Retorna o estado do nó.
+
+**Parâmetros**
+
+*no - Nó*
 
 ```lisp
 ; funcao
-(defun no-pai (teste)
-  (cddr teste)
+(defun no-estado (no)
+  (car no)
 )
 ```
 
-```lisp
-; funcao
-(defun no-profundidade (teste)
-  (cadr teste)
-)
-```
+#### <a nome="f-p-no-pai">No-Pai</a>
+Retorna o nó predecessor do nó.
+
+**Parâmetros**
+
+*no - Nó*
 
 ```lisp
 ; funcao
-(defun novo-sucessor (teste x)
-  (let ((novo-estado (funcall x (no-estado teste))))
+(defun no-pai (no)
+  (cddr no)
+)
+```
+
+#### <a nome="f-p-no-profundidade">No-Profundidade</a>
+Retorna a profundidade do nó.
+
+**Parâmetros**
+
+*no - Nó*
+
+```lisp
+; funcao
+(defun no-profundidade (no)
+  (cadr no)
+)
+```
+
+#### <a nome="f-p-novo-sucessor">Novo-Sucessor</a>
+Gera um novo nó sucessor, recebendo um nó por parâmetro.
+
+**Parâmetros**
+
+*no - Nó*
+
+*x - Função (???)*
+
+```lisp
+; funcao
+(defun novo-sucessor (no x)
+  (let ((novo-estado (funcall x (no-estado no))))
     (cond ((null novo-estado) nil)
-	  (t (list novo-estado (1+ (no-profundidade teste)) teste))))
+	  (t (list novo-estado (1+ (no-profundidade no)) no))))
   )
 ```
+
+#### <a nome="f-p-sucessores-quatro">Sucessores-Quatro</a>
+Gera sucessores de um nó especificamente desenvolvido para o  problema quatro, de acordo com um dos algoritmos de prócura, DFS ou BFS.
+
+**Parâmetros**
+
+*no - Nó*
+
+*operadoresf - Função (???)*
+
+*algoritmo - Algoritmo de prócura DFS ou BFS*
+
+*max-prof - Máxima profundidade (opcional)*
 
 ```lisp
 ; funcao
@@ -1150,23 +1280,417 @@ CL-USER> (heuristic estado)
 )
 ```
 
+#### <a nome="f-p-operadores-quatro">Operadores-Quatro</a>
+Aplica a um estado todos os movimentos possíveis do jogo, designados por operadores.
+
+**Parâmetros**
+
+*estado-jogo - Estado do problema*
+
+```lisp
+; funcao
+(defun operadores-quatro (estado-jogo)
+  (let ((casas (casas-vazias (tabuleiro estado-jogo)))
+        (pecas (reserva estado-jogo)))
+    (apply #'append (mapcar #'(lambda (casa)
+                (mapcar #'(lambda (peca)
+                            (lambda (estado) (jogada (car casa) (cadr casa) peca estado)))
+                            pecas))
+            casas)))
+)
+```
+
+#### <a nome="f-p-nivel-no">Nivel-No</a>
+Retorna o nivel do nó.
+
+**Parâmetros**
+
+*no - Nó*
+
+```lisp
+(defun nivel-no (no)
+  (cadr no)
+)
+```
+
+#### <a nome="f-p-abertos-bfs">Abertos-Bfs</a>
+Adiciona à lista de nós abertos os nós sucessores, segundo o algoritmo de prócura BFS.
+
+**Parâmetros**
+
+*abertos - Lista de nós abertos*
+
+*sucessores - Nó sucessores*
+
+```lisp
+(defun abertos-bfs (abertos sucessores)
+  (append abertos sucessores)
+)
+```
+
+#### <a nome="f-p-abertos-dfs">Abertos-Dfs</a>
+Adiciona à lista de nós abertos os nós sucessores, segundo o algoritmo de prócura DFS.
+
+**Parâmetros**
+
+*abertos - Lista de nós abertos*
+
+*sucessores - Nó sucessores*
+
+```lisp
+(defun abertos-dfs (abertos sucessores)
+  (append sucessores abertos)
+)
+```
+
+#### <a nome="f-p-no-existep">No-Existep</a>
+Retorna T, se o nó enviado por parâmetro encontra-se na lista de nós. Caso contrário retorna NIL.
+
+**Parâmetros**
+
+*no - Nó*
+
+*lista - Lista de nós*
+
+*algoritmo - Algoritmo de Prócura*
+
+```lisp
+(defun no-existep (no lista algoritmo)
+  (cond ((null lista) nil)
+	((and (or (eq algoritmo 'bfs) (<= (nivel-no (car lista)) (nivel-no no)))
+	      (equal (no-estado (car lista)) (no-estado no))) t)
+	(t (no-existep no (cdr lista) algoritmo)))
+)
+```
+
+#### <a nome="f-p-bfs">Bfs</a>
+Algoritmo de prócura em largura, que retorna todos os nós até a uma solução, sempre que possível.
+
+**Parâmetros**
+
+*no-inicial - Nó com o estado inicial*
+
+*objetivop - Função que avalia se o nó contém o estado esperado*
+
+*sucessoresf - Função que gera sucessores*
+
+*operadores - Função com todos os operadores*
+
+*abertos - Lista de nós abertos bfs (opcional)*
+
+*fechados - Lista de nós fechados bfs (opcional)*
+
+```lisp
+; funcao
+(defun bfs (no-inicial objetivop sucessoresf operadores &optional (abertos nil) (fechados nil))
+  (if (funcall objetivop no-inicial)
+      no-inicial
+      (let ((nos-succ (remove-if #'(lambda (x) (or (no-existep x abertos 'bfs)
+						   (no-existep x fechados 'bfs)))
+				 (funcall sucessoresf
+					  no-inicial operadores 'bfs))))
+	(cond ((and (null nos-succ) (null abertos)) nil)
+	      ((null abertos)
+	       (bfs (car nos-succ) objetivop sucessoresf operadores
+		    (cdr nos-succ) (cons no-inicial fechados)))
+	      (t (bfs (car abertos) objetivop sucessoresf operadores
+		      (abertos-bfs (cdr abertos) nos-succ)
+		      (cons no-inicial fechados))))))
+)
+```
 
 ```lisp
 ; chamada
-CL-USER> 
-
+CL-USER> (bfs (cria-no (third(obter-problemas "problemas.dat"))) #'no-solucaop  #'sucessores-quatro #'operadores-quatro)
 ```
 
-###  <a name="todo">// TODO</a>
-(adiciona mais aqui ...)
+#### <a nome="f-p-dfs">Dfs</a>
+Algoritmo de prócura em profundidade, que retorna todos os nós até a uma solução, sempre que possível.
 
-# <a name="Lista de Problemas">Lista de Problemas</a>
+**Parâmetros**
+
+*no-inicial - Nó com o estado inicial*
+
+*objetivop - Função que avalia se o nó contém o estado esperado*
+
+*sucessoresf - Função que gera sucessores*
+
+*operadores - Função com todos os operadores*
+
+*prof-max - Número de profundidade máxima aceitável*
+
+*abertos - Lista de nós abertos dfs (opcional)*
+
+*fechados - Lista de nós fechados dfs (opcional)*
+
+```lisp
+; funcao
+(defun dfs (no-inicial objetivop sucessoresf operadores prof-max
+	    &optional (abertos nil) (fechados nil))
+  (if (funcall objetivop no-inicial)
+      no-inicial
+      (let ((nos-succ (remove-if #'(lambda (x) (or (no-existep x abertos 'dfs)
+						   (no-existep x fechados 'dfs)))
+				 (funcall sucessoresf
+					  no-inicial operadores 'dfs prof-max))))
+	(cond ((and (null nos-succ) (null abertos)) nil)
+	      ((null nos-succ)
+	       (dfs (car abertos) objetivop sucessoresf operadores
+		    prof-max (cdr abertos) (cons no-inicial fechados)))
+	      (t (dfs (car nos-succ) objetivop sucessoresf operadores
+		      prof-max (abertos-dfs abertos (cdr nos-succ))
+		      (cons no-inicial fechados))))))
+)
+```
+
+```lisp
+; chamada
+CL-USER> (dfs(cria-no (third(obter-problemas "problemas.dat"))) #'no-solucaop  #'sucessores-quatro #'operadores-quatro  10)
+```
+
+#### <a nome="f-p-empty-heap-p">Empty-Heap-P</a>
+Retorna T se a heap encontra-se vazia, caso contrário retorna NIL.
+
+**Parâmetros**
+
+*h - Heap*
+
+```lisp
+(defun empty-heap-p (h)
+  (null h))
+```
+
+#### <a nome="f-p-make-heap">Make-Heap</a>
+Gera uma heap, recebendo elementos com uma prioridade pré-definida opcionalmente.
+
+**Parâmetros**
+
+*x - Elemento (opcional)*
+
+*k - Número de prioridade (opcional)*
+
+```lisp
+(defun make-heap (&optional x (k 0))
+  (cond ((null x) nil)
+	(t (list x k nil nil)))
+)
+```
+
+#### <a nome="f-p-meld">Meld</a>
+Retorna o produto da União entre duas heaps.
+
+**Parâmetros**
+
+*h1 - Heap (opcional)*
+
+*h2 - Heap (opcional)*
+
+```lisp
+;; Junta duas heaps
+(defun meld (&optional h1 h2)
+  (cond ((null h1) h2)
+	((null h2) h1)
+	((<= (priority h1) (priority h2))
+	 (list (elem h1) (priority h1)
+	       (list (elem h2) (priority h2) (child h2)
+		     (child h1))
+	       nil))
+	(t (meld h2 h1)))
+)
+```
+
+#### <a nome="f-p-insert">Insert</a>
+Adiciona o elemento à heap com a prioridade.
+
+**Parâmetros**
+
+*x - Elemento*
+
+*k - Número de prioridade*
+
+*heap - Heap*
+
+```lisp
+(defun insert (x k heap)
+  (let ((xh (make-heap x k)))
+    (meld xh heap))
+)
+```
+
+#### <a nome="f-p-priority">Priority</a>
+Retorna a prioridade de um nó da heap.
+
+**Parâmetros**
+
+*no - Nó*
+
+```lisp
+(defun priority (no)
+  (cadr no)
+)
+```
+
+#### <a nome="f-p-elem">Elem</a>
+Retorna o elemento de um nó da heap.
+
+**Parâmetros**
+
+*no - Nó*
+
+```lisp
+(defun elem (no)
+  (car no)
+)
+```
+
+#### <a nome="f-p-elem">Elem</a>
+Retorna o nó descendente mais à esquerda de um nó da heap.
+
+**Parâmetros**
+
+*no - Nó*
+
+```lisp
+(defun child (no)
+  (caddr no)
+)
+```
+
+#### <a nome="f-p-o-sibling">O-Sibling</a>
+Retorna o primeiro nó dos nós descendentes do mesmo nó predecessor, de um nó da heap.
+
+**Parâmetros**
+
+*no - Nó*
+
+```lisp
+(defun o-sibling (no)
+  (cadddr no)
+)
+```
+
+#### <a nome="f-p-siblings">Siblings</a>
+Retorna o todos os nós dos nós descendentes do mesmo nó predecessor, de um nó da heap.
+
+**Parâmetros**
+
+*no - Nó*
+
+```lisp
+(defun siblings (no)
+  (let ((sib (o-sibling no)))
+    (cond ((null sib) nil)
+	  (t (cons sib (siblings sib)))))
+)
+```
+
+#### <a nome="f-p-children">Children</a>
+Retorna o todos os nós descendentes de um nó da heap.
+
+**Parâmetros**
+
+*heap - Heap*
+
+```lisp
+(defun children (heap)
+  (if (empty-heap-p heap)
+      nil
+      (cons (child heap) (siblings (child heap))))
+)
+```
+
+#### <a nome="f-p-pairwise-link">Pairwise-Link</a>
+Retorna o produto da união em pares, de várias àrvores.
+
+**Parâmetros**
+
+*heap-list - Lista heap*
+
+```lisp
+(defun pairwise-link (heap-list)
+  (cond ((null heap-list) nil)
+	((null (cdr heap-list)) (cons (car heap-list) nil))
+	(t (cons (meld (car heap-list) (cadr heap-list))
+		 (pairwise-link (cddr heap-list)))))
+)
+```
+
+#### <a nome="f-p-remove-first">Remove-First</a>
+Remove o primeiro nó da heap e retorna a heap sem o primeiro nó.
+
+**Parâmetros**
+
+*heap - Heap*
+
+```lisp
+(defun remove-first (heap)
+  (let ((popped (elem heap))
+	(trees (children heap)))
+    (values popped (reduce #'meld (pairwise-link trees) :from-end t)))
+)
+```
+
+#### <a nome="f-p-a-star">A-Star</a>
+Algoritmo de prócura 
+
+**Parâmetros**
+
+*no-inicial - Nó com o estado inicial*
+
+*objetivop - Função que avalia se o nó contém o estado esperado*
+
+*sucessoresf - Função que gera sucessores*
+
+*operadores - Função com todos os operadores*
+
+*heuristicaf - Função que comtém a heuristica que auxilia na previsão de uma prócura ótima*
+
+*pqueue - Fila de elementos com prioridade (opcional)*
+
+```lisp
+;;Algoritmo de Procura em A*
+(defun a-star (no-inicial objetivop sucessoresf operadores
+	       heuristicaf &optional pqueue)
+  (if (funcall objetivop no-inicial)
+      no-inicial
+      (let* ((nos-succ (funcall sucessoresf no-inicial operadores 'a-star))
+	     (dist-est (mapcar #'(lambda (no)
+				   (+ (no-profundidade no)
+				      (funcall heuristicaf (no-estado no)) 1))
+			       nos-succ))
+	     (new-pq (reduce (lambda (&optional heap no-dist)
+			       (if (and (null no-dist) (null heap)) (make-heap)
+				   (insert (car no-dist) (cadr no-dist) heap)))
+			     (mapcar #'list
+				     nos-succ dist-est)
+			     :initial-value (if (empty-heap-p pqueue)
+						(make-heap)
+						pqueue))))
+	(if (null new-pq) nil
+	    (multiple-value-bind (next-node next-pq)
+		(remove-first new-pq)
+	      (a-star next-node objetivop sucessoresf operadores
+		      heuristicaf next-pq)))))
+)
+```
+
+```lisp
+; chamada
+CL-USER> (a-star (cria-no (third(obter-problemas "problemas.dat"))) #'no-solucaop  #'sucessores-quatro #'operadores-quatro #'heuristic)
+```
+
+### <a name="f-projeto">Projeto</a>
+
+#### <a name="f-proj-">???</a>
+
+## <a name="lista-problemas">Lista de Problemas</a>
 
 Mostra 6 tabuleiros diferentes com algumas peças em falta para jogar e com uso dos algoritmos de procura vai verificar quais as melhores jogadas para terminar o jogo. 
 
-## <a name="Problema-A">Problema-A</a>
+### <a name="lp-a">Problema A</a>
 
 ```lisp
+; problema
 (
 (((branca quadrada alta oca) (preta quadrada baixa cheia) 0 (preta quadrada alta oca))
 ((branca redonda alta oca) (preta redonda alta oca) (branca redonda alta cheia) 0) 
@@ -1177,11 +1701,12 @@ Mostra 6 tabuleiros diferentes com algumas peças em falta para jogar e com uso 
 (branca redonda baixa cheia)
 (branca quadrada baixa oca))
 )
-````
+```
 
-## <a name="Problema-B">Problema-B</a>
+### <a name="lp-b">Problema B</a>
 
 ```lisp
+; problema
 (
 (((branca quadrada alta oca) (preta redonda baixa oca) (preta quadrada alta oca) (branca quadrada alta cheia)) 
 ((branca redonda alta oca) 0 (branca redonda alta cheia) 0) 
@@ -1194,11 +1719,12 @@ Mostra 6 tabuleiros diferentes com algumas peças em falta para jogar e com uso 
  (branca redonda baixa cheia))
 )
 
-````
+```
 
-## <a name="Problema-C">Problema-C</a>
+### <a name="lp-c">Problema C</a>
 
 ```lisp
+; problema
 (
 (((branca quadrada baixa cheia) 0 (preta redonda alta cheia) (preta quadrada baixa oca))
  (0 0 0 (branca redonda baixa oca)) 
@@ -1214,12 +1740,12 @@ Mostra 6 tabuleiros diferentes com algumas peças em falta para jogar e com uso 
  (preta redonda baixa cheia)
  (preta redonda baixa oca))
 )
+```
 
-````
-
-## <a name="Problema-D">Problema-D</a>
+### <a name="lp-d">Problema D</a>
 
 ```lisp
+; problema
 (
 (((branca quadrada baixa cheia) (branca redonda alta cheia) (preta redonda alta cheia) (preta quadrada baixa oca))
 (0 0 0 0) 
@@ -1237,11 +1763,12 @@ Mostra 6 tabuleiros diferentes com algumas peças em falta para jogar e com uso 
 (preta redonda baixa cheia))
 )
 
-````
+```
 
-## <a name="Problema-E">Problema-E</a>
+### <a name="lp-e">Problema E</a>
 
 ```lisp
+; problema
 (
  ((0 0 0 0) 
  (0 0 0 0) 
@@ -1264,11 +1791,12 @@ Mostra 6 tabuleiros diferentes com algumas peças em falta para jogar e com uso 
  (preta redonda baixa oca))
 )
 
-````
+```
 
-## <a name="Problema-F">Problema-F</a>
+### <a name="lp-f">Problema F</a>
 
 ```lisp
+; problema
 (
 ((0 0 0 0)
  (0 0 0 0)
@@ -1292,105 +1820,58 @@ Mostra 6 tabuleiros diferentes com algumas peças em falta para jogar e com uso 
 (preta redonda baixa oca))
 )
 
-````
-
-# <a name="Lista de Algoritmos">Lista de Algoritmos</a>
-
-
-## <a name="Pesquisa em Largura">Pesquisa em Largura</a>
-Esta função retorna a procura de estados em largura.
-
-```lisp
-(defun bfs (no-inicial objetivop sucessoresf operadores &optional abertos fechados)
-  (if (funcall objetivop no-inicial)
-      no-inicial
-      (let ((nos-succ (remove-if #'(lambda (x) (or (no-existep x abertos 'bfs)
-                                                   (no-existep x fechados 'bfs)))
-                                 (funcall sucessoresf
-                                          no-inicial operadores 'bfs))))
-        (cond ((and (null nos-succ) (null abertos)) nil)
-              ((null abertos)
-               (bfs (car nos-succ) objetivop sucessoresf operadores
-                    (cdr nos-succ) (cons no-inicial fechados)))
-              (t (bfs (car abertos) objetivop sucessoresf operadores
-                      (abertos-bfs (cdr abertos) nos-succ)
-                      (cons no-inicial fechados)))))))
-
-````
-
-## <a name="Pesquisa em Comprimento">Pesquisa em Comprimento</a>
-Esta função retorna a procura de estados em comprimento.
-
-```lisp
-(defun dfs (no-inicial objetivop sucessoresf operadores profundidade
-            &optional (abertos nil) (fechados nil))
-  (if (funcall objetivop no-inicial)
-      no-inicial
-      (let ((nos-succ (remove-if #'(lambda (x) (or (no-existep x abertos 'dfs)
-                                                   (no-existep x fechados 'dfs)))
-                                 (funcall sucessoresf
-                                          no-inicial operadores 'dfs profundidade))))
-        (cond ((and (null nos-succ) (null abertos)) nil)
-              ((null nos-succ)
-               (dfs (car abertos) objetivop sucessoresf operadores
-                    profundidade (cdr abertos) (cons no-inicial fechados)))
-              (t (dfs (car nos-succ) objetivop sucessoresf operadores
-                      profundidade (abertos-dfs abertos (cdr nos-succ))
-                      (cons no-inicial fechados)))))))
-
 ```
 
-## <a name="Pesquisa em A Estrela">Pesquisa em A*</a>
+## <a name="aplica-algoritmos">Aplicação dos Algoritmos de Prócura</a>
 
-```lisp
-(defun a_star (no-inicial objetivop sucessoresf operadores profundidade
-                          heuristicaf &optional pqueue)
-  (if (funcall objetivop no-inicial)
-      no-inicial
-      (let* ((nos-succ (funcall sucessoresf no-inicial operadores 'a_star)) 
-             (distances (mapcar #'heuristicaf nos-succ)))     
-          (cond ((and (null nos-succ) (null pqueue)) nil)
-                (+ profundidade distances)
-                ((null pqueue)
-                 (a_star (car nos-succ) objetivop sucessoresf operadores 
-                         profundidade heuristicaf (cdr nos-succ)))
-                 (t (a_star (car pqueue) objetivop sucessoresf operadores 
-                         profundidade heuristicaf (cdr pqueue)))))))
+### <a name="aplica-algoritmos-problema-a">Problema A</a>
 
+#### <a name="aplica-algoritmos-problema-a-bfs">BFS</a>
 
-```
+#### <a name="aplica-algoritmos-problema-a-dfs">DFS</a>
 
+#### <a name="aplica-algoritmos-problema-a-a-star">A-Star</a>
 
-## <a name="sim2">Simulação de Algoritmos</a>
+### <a name="aplica-algoritmos-problema-b">Problema B</a>
 
-### <a name="teste-1-bfs">Teste 1 Procura em Largura</a>
+#### <a name="aplica-algoritmos-problema-b-bfs">BFS</a>
 
-Chamar a função de Procura em Largura com o nó inicial, nó objetivo, sucessores e operadores.
+#### <a name="aplica-algoritmos-problema-b-dfs">DFS</a>
 
-```lisp
+#### <a name="aplica-algoritmos-problema-b-a-star">A-Star</a>
 
+### <a name="aplica-algoritmos-problema-c">Problema C</a>
 
+#### <a name="aplica-algoritmos-problema-c-bfs">BFS</a>
 
-```
+#### <a name="aplica-algoritmos-problema-c-dfs">DFS</a>
 
-### <a name="teste-1-dfs">Teste 1 Procura em Comprimento</a>
+#### <a name="aplica-algoritmos-problema-c-a-star">A-Star</a>
 
-Chamar a função de Procura em Comprimento com o nó inicial, nó objetivo, sucessores, operadores e profundidade.
+### <a name="aplica-algoritmos-problema-d">Problema D</a>
 
-```lisp
+#### <a name="aplica-algoritmos-problema-d-bfs">BFS</a>
 
+#### <a name="aplica-algoritmos-problema-d-dfs">DFS</a>
 
+#### <a name="aplica-algoritmos-problema-d-a-star">A-Star</a>
 
-```
+### <a name="aplica-algoritmos-problema-e">Problema E</a>
 
-### <a name="teste-1-a-star">Teste 1 Procura em A*</a>
+#### <a name="aplica-algoritmos-problema-e-bfs">BFS</a>
 
-Chamar a função de Procura em A* com o nó inicial, nó objetivo, sucessores, operadores, profundidade e heuristica.
+#### <a name="aplica-algoritmos-problema-e-dfs">DFS</a>
 
-```lisp
+#### <a name="aplica-algoritmos-problema-e-a-star">A-Star</a>
 
+### <a name="aplica-algoritmos-problema-f">Problema F</a>
 
+#### <a name="aplica-algoritmos-problema-f-bfs">BFS</a>
 
-```
+#### <a name="aplica-algoritmos-problema-f-dfs">DFS</a>
 
-## <a name="doc-glossario">Glossário</a>
+#### <a name="aplica-algoritmos-problema-f-a-star">A-Star</a>
+
+## <a name="conclusao">Conclusão</a>
+
+## <a name="glossario">Glossário</a>
