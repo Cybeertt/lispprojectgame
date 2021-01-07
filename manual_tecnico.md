@@ -1,17 +1,17 @@
 # Projeto IA 2020/21 IPS ESTS
 
-### Docente
+### **Docente**
 Joaquim Filipe
 
-### Estudantes
+### **Estudantes**
 150221081 - Daniela Sineiro
 
 200221149 - Rafael Palma
 
-## Manual Técnico
+## **Manual Técnico**
 Neste manual encontram-se explicações sobre o jogo, como o iniciar, a estrutura do projeto, todas as funções utilizadas explicadas e ilustradas com exemplos e observações, e exemplos descritivos de testes com o código fonte por partes ou no global.
 
-## Indice
+## **Indice**
 * [Abstrato](#doc-abstract)
 * [Extrutura do Projeto](#doc-extrutura)
 * [Documentação de Funções](#doc-func)
@@ -103,7 +103,7 @@ Neste manual encontram-se explicações sobre o jogo, como o iniciar, a estrutur
 * [Glossário](#glossario)
 
 
-## <a name="doc-abstract">Abstrato</a>
+## <a name="doc-abstract">**Abstrato**</a>
 Este projeto tem com o intuito de aplicar conhecimentos adquiridos no ambito da cadeira curricular IA e realizar uma análise entre os algoritmos de procura para os diferentes estados do jogo Quatro.
 
 Quatro, é um jogo que contém um tabuleiro 4x4 e 16 peças com quatro carateristicas. Cada carateristica de uma peça utiliza dois valores possíveis, tal como um sistema binário, permitindo fazer combinações de 16 peças. Por norma uma peça tem 14 peças com pelo menos uma carateristica em comum e 1 peça sem qualquer carateristica em comum.
@@ -117,7 +117,7 @@ O Quatro finaliza quando um jogador consegue alinhar 4 peças com pelo menos uma
 
 Nesta versão do manual, o Quatro é apenas disputado por dois competidores humanos que informam as suas jogadas através da consola.
 
-## <a name="doc-estrutura">Estrutura do Projeto</a>
+## <a name="doc-estrutura">**Estrutura do Projeto**</a>
 O projeto encontra-se distribuído por 3 ficheiros principais: ***projecto.LISP***, ***puzzle.LISP*** e ***procura.LISP***.
 
 O ficheiro ***projecto.LISP*** contém o código fonte que inicializa o jogo.
@@ -136,13 +136,13 @@ O ***problemas.dat*** contém em formato de lista em Commun Lisp, uma série de 
 
 Este ficheiro guarda vários tabuleiros com peças pré-colocadas. Cada tabuleiro será selecionado para continuar o jogo no tabuleiro atual.
 
-## <a name="doc-func">Documentação de Funções</a>
+## <a name="doc-func">**Documentação de Funções**</a>
 
 As seguintes funções utilizadas para desenvolver o projeto, contêm o seu corpo, breve descrição, parâmetros e exemplos de chamadas e de resultados esperados.
 
 Excecionalmente, algumas funções contêm breves observações perante o resultado esperado, para melhor ilustrar o seu uso especifico.
 
-### <a nome="f-puzzle">Puzzle</a>
+### <a nome="f-puzzle">**Puzzle**</a>
 As seguintes funções permitem definir o jogo do Problema do Quatro.
 
 #### <a name="f-tabuleiro">Tabuleiro</a>
@@ -1148,7 +1148,7 @@ CL-USER> (heuristic estado)
 0
 ```
 
-### <a nome="f-procura">Procura</a>
+### <a nome="f-procura">**Prócura**</a>
 
 #### <a nome="f-p-cria-no">Cria-No</a>
 Gera um nó constituído por estado (problema), profundidade e nó predecessor.
@@ -1245,7 +1245,7 @@ Gera um novo nó sucessor, recebendo um nó por parâmetro.
 
 *no - Nó*
 
-*x - Função (???)*
+*x - Função que cria um novo nó*
 
 ```lisp
 ; funcao
@@ -1263,7 +1263,7 @@ Gera sucessores de um nó especificamente desenvolvido para o  problema quatro, 
 
 *no - Nó*
 
-*operadoresf - Função (???)*
+*operadoresf - Função com operadores*
 
 *algoritmo - Algoritmo de prócura DFS ou BFS*
 
@@ -1683,7 +1683,7 @@ CL-USER> (a-star (cria-no (third(obter-problemas "problemas.dat"))) #'no-solucao
 
 #### <a name="f-proj-">???</a>
 
-## <a name="lista-problemas">Lista de Problemas</a>
+## <a name="lista-problemas">**Lista de Problemas**</a>
 
 Mostra 6 tabuleiros diferentes com algumas peças em falta para jogar e com uso dos algoritmos de procura vai verificar quais as melhores jogadas para terminar o jogo. 
 
