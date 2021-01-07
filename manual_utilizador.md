@@ -25,8 +25,6 @@ Neste manual encontram-se explicações sobre o jogo, como o iniciar, a estrutur
     * [Mostrar Tabuleiros](#mc-ver-tabuleiros)
     * [Sair do Programa](#sair-programa)
 * [Problemas](#tut-problemas)
-    * [Estrutura](#estrutura-problemas)
-    * [Criar Problema](#tut-criar-problema)
 * [Glossário](#glossario)
 
 ## <a name="doc-abstract">**Abstrato**</a>
@@ -108,7 +106,7 @@ Esta ação aplica-se a todos os menus do programa.
 
 * Para [terminar o programa](#sair-programa) deverá pressionar a tecla numérica **4**.
 
-### <a name="mc-resolve-jogo">**Resolver Jogo**</a>
+### <a name="mc-resolve-jogo">Resolver Jogo</a>
 O listener do LispWorks deverá apresentar o seguinte estado depois de selecionar a opção **1** do menu principal.
 
 ```lisp
@@ -296,7 +294,7 @@ Embora o estado esteja especificado para o [menu de resolver jogo](#mc-resolve-j
 Escolha invalida
 ```
 
-### <a name="mc-ver-regras">**Mostrar Regras**</a>
+### <a name="mc-ver-regras">Mostrar Regras</a>
 O listener do Lispworks deverá apresentar o seguinte estado depois de selecionar a opção **2** do menu principal.
 
 ```lisp
@@ -353,7 +351,7 @@ ________________________________________________________________________________
           Option -> 
 ```
 
-### <a name="mc-ver-tabuleiros">**Mostrar Tabuleiros**</a>
+### <a name="mc-ver-tabuleiros">Mostrar Tabuleiros</a>
 O listener do LispWorks deverá apresentar o seguinte estado depois de seleciona a opçãp **3** do menu principal.
 
 ```lisp
@@ -384,7 +382,7 @@ Type :b for backtrace or :c <option number> to proceed.
 Type :bug-form "<subject>" for a bug report template or :? for other options.
 ```
 
-### <a name="mc-sair-programa">**Sair do Programa**</a>
+### <a name="mc-sair-programa">Sair do Programa</a>
 O listener do LispWorks deverá apresentar o seguinte estado depois de selecionar a opção **4** do menu principal:
 
 ```lisp
@@ -409,7 +407,32 @@ O listener do LispWorks deverá apresentar o seguinte estado depois de seleciona
 NIL
 ```
 
-## <a>
+## <a name="tut-problemas">**Problemas**</a>
+Um problema é constituído por um estado de um tabuleiro e a sua reserva de peças.
+
+O ficheiro ***problemas.dat*** envia em conjunto com este manual, já contém seis problemas por definição, no entanto, poderão ser alteradas caso queira.
+
+O seguinte problema ilustra um tabuleiro no seu estado inicial, sem quaisquer peças nele colocado e com as 16 peças na sua reserva.
+
+```lisp
+; problema com tabuleiro sem peças e reserva com as 16 peças
+((
+    (0 0 0 0) (0 0 0 0) (0 0 0 0) (0 0 0 0)
+)(
+    (BRANCA QUADRADA ALTA CHEIA) (BRANCA QUADRADA ALTA OCA) (BRANCA QUADRADA BAIXA OCA) (BRANCA QUADRADA BAIXA CHEIA) (PRETA QUADRADA ALTA CHEIA) (PRETA QUADRADA ALTA OCA) (PRETA QUADRADA BAIXA OCA) (PRETA QUADRADA BAIXA CHEIA) (BRANCA REDONDA ALTA CHEIA) (BRANCA REDONDA ALTA OCA) (BRANCA REDONDA BAIXA CHEIA) (BRANCA REDONDA BAIXA OCA) (PRETA REDONDA ALTA CHEIA) (PRETA REDONDA ALTA OCA) (PRETA REDONDA BAIXA CHEIA) (PRETA REDONDA BAIXA OCA)))
+```
+
+Cada problema apenas altera-se perante as peças colocadas no tabuleiro e retiradas da sua reserva.
+
+No ficheiro ***problemas.dat***, apenas necessita de substituir cada problema com recorrendo ao formato exemplo acima ilustrado, mas tenha a atenção de verificar que existe pelo menos uma linha de intervalo a separar cada problema.
+
+Como mencionada varias vezes ao longo do manual, o ficheiro ***problemas.dat*** apenas contém seis problemas por definição, mas requer adicionar um último problema.
+
+Para tal apenas necessita de abrir o ficheiro ***problemas.dat*** e colocar um problema, de perferência diferente dos problemas existentes, tendo em conta com o exemplo acima ilistrado e manter a separação de uma linha entre o último problema do ficheiro e o novo problema a inserir.
+
+Se tiver dúvidas veja como os problemas no ficheiro ***problemas.dat*** se encontram colocados.
 
 ## **Glossário**
-* LispWorks: Ferramenta que permite compilação e execução de código Common Lisp. O seu ambiente léxico não é dinâmico.
+* **LispWorks**: Ferramenta que permite compilação e execução de código Common Lisp. O seu ambiente léxico não é dinâmico.
+
+* **Problema/s**: Designa-se ao estado de um tabuleiro, acompanhado pela sua reserva de peças.
