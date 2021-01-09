@@ -36,7 +36,6 @@
       (format t "~%          §                                                      §")
       (format t "~%          §                 1-Resolver o jogo                    §")
       (format t "~%          §                 2-Regras do Jogo                     §")
-     ; (format t "~%          §                 3-Mostrar Tabuleiros                 §")
       (format t "~%          §                 3-Sair                               §")
       (format t "~%          §                                                      §")
       (format t "~%          §______________________________________________________§")
@@ -47,10 +46,10 @@
                (cond 
                 ((and (numberp escolha) (< escolha 5) (> escolha 0)) (case escolha
                                                     (1 (progn (tabuleiros filename) t))
-                                                    (2 (progn (regras)  t))                                                                                             (3 (progn (format t "~%~%~%          PROGRAMA TERMINADO") ))))
+                                                    (2 (progn (regras)  t))                                                                                            (3 (progn (format t "~%~%~%          PROGRAMA TERMINADO")) (return))))
                 ( T (progn  (format t "~%          ESCOLHA INVALIDA~%~%          Option -> ")
                             (setf escolha (read))))))) 
-(return)))))
+))))
 
 
 (defun regras ()
