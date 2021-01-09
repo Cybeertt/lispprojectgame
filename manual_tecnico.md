@@ -77,7 +77,7 @@ Neste manual encontram-se explicações sobre o jogo, como o iniciar, a estrutur
     * [Menu-Principal](#f-proj-menu-principal)
     * [Regras](#f-proj-regras)
     * [Tabuleiros](#f-proj-tabuleiros)
-    * [Write-BfsDfs-Statistics](#f-proj-write-bfsdfs-statistics)
+    * [Escrever-Estatistica](#f-proj-escrever-estatistica)
     * [Print-Board](#f-proj-print-board)
     * [Menu-Algoritmos](#f-proj-menu-algoritmos)
     * [Tempo](#f-proj-tempo)
@@ -92,46 +92,29 @@ Neste manual encontram-se explicações sobre o jogo, como o iniciar, a estrutur
 * [Aplicação dos Algoritmos de Prócura](#aplica-algoritmos)
   * [Problema A](#aplica-algoritmos-problema-a)
     * [BFS](#aplica-algoritmos-problema-a-bfs)
-      * [Observações](#a-res-bfs)
     * [DFS](#aplica-algoritmos-problema-a-dfs)
-      * [Observações](#a-res-dfs)
     * [A*](#aplica-algoritmos-problema-a-a-star)
-      * [Observações](#a-res-a-star)
   * [Problema B](#aplica-algoritmos-problema-b)
     * [BFS](#aplica-algoritmos-problema-b-bfs)
-      * [Observações](#b-res-bfs)
     * [DFS](#aplica-algoritmos-problema-b-dfs)
-      * [Observações](#b-res-dfs)
     * [A*](#aplica-algoritmos-problema-b)
-      * [Observações](#b-res-a-star)
   * [Problema C](#aplica-algoritmos-problema-c)
     * [BFS](#aplica-algoritmos-problema-c-bfs)
-      * [Observações](#c-res-bfs)
     * [DFS](#aplica-algoritmos-problema-c-dfs)
-      * [Observações](#c-res-dfs)
     * [A*](#aplica-algoritmos-problema-c-a-star)
-      * [Observações](#c-res-a-star)
   * [Problema D](#aplica-algoritmos-problema-d)
     * [BFS](#aplica-algoritmos-problema-d-bfs)
-      * [Observações](#d-res-bfs)
     * [DFS](#aplica-algoritmos-problema-d-dfs)
-      * [Observações](#d-res-dfs)
     * [A*](#aplica-algoritmos-problema-d-a-star)
-      * [Observações](#d-res-a-star)
   * [Problema E](#aplica-algoritmos-problema-e)
     * [BFS](#aplica-algoritmos-problema-e-bfs)
-      * [Observações](#e-res-bfs)
     * [DFS](#aplica-algoritmos-problema-e-dfs)
-      * [Observações](#e-res-dfs)
     * [A*](#aplica-algoritmos-problema-e-a-star)
-      * [Observações](#e-res-a-star)
   * [Problema F](#aplica-algoritmos-problema-f)
     * [BFS](#aplica-algoritmos-problema-f-bfs)
-      * [Observações](#f-res-bfs)
     * [DFS](#aplica-algoritmos-problema-f-dfs)
-      * [Observações](#f-res-dfs)
     * [A*](#aplica-algoritmos-problema-f-a-star)
-      * [Observações](#f-res-a-star)
+  * [Observações](##aplica-algoritmos-observacoes)
 * [Conslusão](#conclusao)
 * [Glossário](#glossario)
 
@@ -148,7 +131,7 @@ A cada turno, a peça é sempre escolhida pelo adversário que tem como missão 
 
 O Quatro finaliza quando um jogador consegue alinhar 4 peças com pelo menos uma carateristica em comum, seja na vertical, horizontal ou diagonal, independentemente da direção.
 
-Nesta versão do manual, o Quatro não é jogado, mas é selecionado um estado do tabuleiro e criada uma previsão para resolver o jogo com quatro peças com pelo menos um atributo em comum.
+Nesta versão do manual, o Quatro não é jogado, mas é selecionado um estado do tabuleiro e criada uma previsão para resolver o jogo com quatro peças com pelo menos um atributo em comum, recorrendo aos algortimos de prócura BFS, DFS e A*, analisando os resultados da cada um e comparando entre si.
 
 ## <a name="doc-estrutura">**Estrutura do Projeto**</a>
 O projeto encontra-se distribuído por 3 ficheiros principais: ***projecto.LISP***, ***puzzle.LISP*** e ***procura.LISP***.
@@ -1751,7 +1734,7 @@ Retorna a penetrância do nó com o estado solução.
 ### <a name="f-projeto">Projeto</a>
 
 #### <a name="proj-constante-base-pathname">Base-Pathname</a>
-Esta contante permite encontrar um ficheiro independentemente do tipo de sistema operativo de onde é executado.
+Esta constante permite encontrar um ficheiro independentemente do tipo de sistema operativo de onde é executado.
 
 ```lisp
 ; constante
@@ -1759,6 +1742,7 @@ Esta contante permite encontrar um ficheiro independentemente do tipo de sistema
 ```
 
 #### <a name="f-proj-asset-path">Asset-Path</a>
+Determina o caminho de um ficheiro independentemente de um sistema operativo.
 
 **Parâmetros**
 
@@ -1826,36 +1810,37 @@ Cada escolha encontra-se associada a uma valor numérico que permite executar a 
 
 ```lisp
 ; funcao
-(defun menu-principal (filename)
-  "Menu principal com as opcÃµes do programa"
-  (loop
-    (progn
-      (format t "~%~%~%~%~%~%~%~%~%")
-      (format t "~%           _______________________________________________________")
-      (format t "~%          Â§                  JOGO DO PROBlEMA DO 4                Â§")
-      (format t "~%          Â§                                                      Â§")
-      (format t "~%          Â§                                                      Â§")
-      (format t "~%          Â§                                                      Â§")
-      (format t "~%          Â§                                                      Â§")
-      (format t "~%          Â§                 1-Resolver o jogo                    Â§")
-      (format t "~%          Â§                 2-Regras do Jogo                     Â§")
-      (format t "~%          Â§                 3-Mostrar Tabuleiros                 Â§")
-      (format t "~%          Â§                 4-Sair                               Â§")
-      (format t "~%          Â§                                                      Â§")
-      (format t "~%          Â§______________________________________________________Â§")
-
-      (format t "~%~%~%          Option -> ")
-      )
-    (cond ((not (let ((escolha (read)))
-               (cond 
-                ((and (numberp escolha) (< escolha 5) (> escolha 0)) (case escolha
-                                                    (1 (progn (tabuleiros filename) t))
-                                                    (2 (progn (regras)  t))
-                                                    (3 (progn (imprime-tabs) t))
-                                                    (4 (progn (format t "~%~%~%          PROGRAMA TERMINADO") ))))
-                ( T (progn  (format t "~%          ESCOLHA INVALIDA~%~%          Option -> ")
+(defun menu-algoritmos (problema filename)
+  "1.3 Sub menu escolhe algoritmo "
+  (princ (cria-no problema))
+  (let ((temp (tempo)))
+      (loop
+       (progn
+         (format t "~%           ______________________________________________________")
+         (format t "~%          �                                                      �")
+         (format t "~%          �                  ESCOLHA O ALGORITMO                 �")
+         (format t "~%          �                 (algoritmo de procura)               �")
+         (format t "~%          �                                                      �")
+         (format t "~%          �                 1-Procura em largura                 �")
+         (format t "~%          �                 2-Procura em profundidade            �")
+         (format t "~%          �                 3-Procura em A*                      �")
+    ; (format t "~%          �                 4-Algorithm SMA*                     �")
+         (format t "~%          �                 0-Home Menu                          �")
+         (format t "~%          �                                                      �")
+         (format t "~%          �______________________________________________________�") 
+         (format t "~%~%~%          Option -> ")
+         )
+       (cond ((not (let ((escolha (read))) 
+                     (cond 
+                      ((and (numberp escolha) (< escolha 5) (> escolha -1)) (case escolha
+                                                                              (1 (Escrever-Estatistica problema (bfs (cria-no problema) #'no-solucaop #'sucessores-quatro #'operadores-quatro) temp (tempo) 'BFS))
+                                                                              (2 (ler-profundidade problema filename))
+                                                                              (3 (Escrever-Estatistica problema (a-star (cria-no problema)  #'no-solucaop #'sucessores-quatro #'operadores-quatro #'heuristic) temp (tempo) 'A-STAR))
+                                                                         ;(4 (menu-memory problema 'SMA* ))
+                                                                              (0 (menu-principal filename))))
+                      ( T (progn  (format t "~%          Escolha Invalida~%~%          Option -> ")
                             (setf escolha (read))))))) 
-(return))))
+              (return)))))
 )
 ```
 
@@ -1905,19 +1890,19 @@ Por definição encontram-se problemas de A a F, préviamente disponíveis.
 (loop
     (progn
       (format t "~%            ______________________________________________________")
-      (format t "~%          Â§                ESCOLHA O TABULEIRO                   Â§")
-      (format t "~%          Â§                                                      Â§")
-      (format t "~%          Â§                 1-Problema A                         Â§")
-      (format t "~%          Â§                 2-Problema B                         Â§")
-      (format t "~%          Â§                 3-Problema C                         Â§")
-      (format t "~%          Â§                 4-Problema D                         Â§")
-      (format t "~%          Â§                 5-Problema E                         Â§")
-      (format t "~%          Â§                 6-Problema F                         Â§")
-      (format t "~%          Â§                 7-Problema G                         Â§")
-      (format t "~%          Â§                 8-Problema Teste                     Â§")
-      (format t "~%          Â§                 9-Home Menu                          Â§")
-      (format t "~%          Â§                                                      Â§")
-      (format t "~%          Â§______________________________________________________Â§")
+      (format t "~%          §                ESCOLHA O TABULEIRO                   §")
+      (format t "~%          §                                                      §")
+      (format t "~%          §                 1-Problema A                         §")
+      (format t "~%          §                 2-Problema B                         §")
+      (format t "~%          §                 3-Problema C                         §")
+      (format t "~%          §                 4-Problema D                         §")
+      (format t "~%          §                 5-Problema E                         §")
+      (format t "~%          §                 6-Problema F                         §")
+      (format t "~%          §                 7-Problema G                         §")
+      (format t "~%          §                 8-Problema Teste                     §")
+      (format t "~%          §                 9-Home Menu                          §")
+      (format t "~%          §                                                      §")
+      (format t "~%          §______________________________________________________§")
       (format t "~%~%~%          Opcao -> ")
       )
     (let* 
@@ -1927,19 +1912,23 @@ Por definição encontram-se problemas de A a F, préviamente disponíveis.
 	(cond 
         
 	((and (> escolha 0) (< escolha 9))
+         
  	(let ((tab (nth (1- escolha) tabuleiros)))
+          
          
    	(cond
    	 ((null tab) (format t "Ainda nao existe tabuleiro~%~%") (tabuleiros filename))
+         
     	(T (menu-algoritmos tab filename))
 	)))
+        (9 (menu-principal (asset-path "problemas.dat")))
 	(t (format t "Escolha invalida~%~%") (ler-tabuleiro filename)))
 	)
  )
 )
 ```
 
-#### <a name="f-proj-write-bfsdfs-statistics">Write-BfsDfs-Statistics</a>
+#### <a name="f-proj-escrever-estatistica">Escrever-Estatistica</a>
 Escreve num ficheiro tabelas com as estatisticas entre os vários algoritmos para comparar o seu tempo de execução e avaliar o seu desempenho.
 
 **Parâmetros**
@@ -1956,7 +1945,7 @@ Escreve num ficheiro tabelas com as estatisticas entre os vários algoritmos par
 
 ```lisp
 ; funcao
-(defun write-bfsdfs-statistics (start-board solution-node start-time end-time algorithm)
+(defun Escrever-Estatistica (start-board solution-node start-time end-time algorithm)
   "Writes the statistics file with the solution and it's statistic data, for breadth first and depth first algorithms"
 
   (cond (
@@ -1980,7 +1969,7 @@ Escreve num ficheiro tabelas com as estatisticas entre os vários algoritmos par
              (print-board start-board file)
              (terpri)
              (format file "~%~t  Tabuleiro-final:")
-             (print-board solution-node file)
+             (print-board (first solution-node) file)
              )))
 )
 ```
@@ -2260,23 +2249,21 @@ Prócura em Lagura no [Problema A](#lp-a).
 ```lisp
 ; chamada
 CL-USER> (bfs (cria-no problema) #'no-solucaop #'sucessores-quatro #'operadores-quatro)
-(((((BRANCA QUADRADA ALTA OCA) (PRETA QUADRADA BAIXA CHEIA) (PRETA QUADRADA ALTA CHEIA) (PRETA QUADRADA ALTA OCA)) ((BRANCA REDONDA ALTA OCA) (PRETA REDONDA ALTA OCA) (BRANCA REDONDA ALTA CHEIA) 0) (0 (PRETA REDONDA ALTA CHEIA) (PRETA REDONDA BAIXA CHEIA) 0) ((BRANCA REDONDA BAIXA OCA) (BRANCA QUADRADA ALTA CHEIA) (PRETA REDONDA BAIXA OCA) (BRANCA QUADRADA BAIXA CHEIA))) ((PRETA QUADRADA BAIXA OCA) (BRANCA REDONDA BAIXA CHEIA) (BRANCA QUADRADA BAIXA OCA))) 1 (((((BRANCA QUADRADA ALTA OCA) (PRETA QUADRADA BAIXA CHEIA) 0 (PRETA QUADRADA ALTA OCA)) ((BRANCA REDONDA ALTA OCA) (PRETA REDONDA ALTA OCA) (BRANCA REDONDA ALTA CHEIA) 0) (0 (PRETA REDONDA ALTA CHEIA) (PRETA REDONDA BAIXA CHEIA) 0) ((BRANCA REDONDA BAIXA OCA) (BRANCA QUADRADA ALTA CHEIA) (PRETA REDONDA BAIXA OCA) (BRANCA QUADRADA BAIXA CHEIA))) ((PRETA QUADRADA ALTA CHEIA) (PRETA QUADRADA BAIXA OCA) (BRANCA REDONDA BAIXA CHEIA) (BRANCA QUADRADA BAIXA OCA))) 0 NIL))
+
+; estado solucao
+(((BRANCA QUADRADA ALTA OCA) (PRETA QUADRADA BAIXA CHEIA) (PRETA QUADRADA ALTA CHEIA) (PRETA QUADRADA ALTA OCA)) ((BRANCA REDONDA ALTA OCA) (PRETA REDONDA ALTA OCA) (BRANCA REDONDA ALTA CHEIA) 0) (0 (PRETA REDONDA ALTA CHEIA) (PRETA REDONDA BAIXA CHEIA) 0) ((BRANCA REDONDA BAIXA OCA) (BRANCA QUADRADA ALTA CHEIA) (PRETA REDONDA BAIXA OCA) (BRANCA QUADRADA BAIXA CHEIA))) ((PRETA QUADRADA BAIXA OCA) (BRANCA REDONDA BAIXA CHEIA) (BRANCA QUADRADA BAIXA OCA))
 ```
 
-##### <a name="a-res-bfs">Resultados</a>
-Observações
-
 #### <a name="aplica-algoritmos-problema-a-dfs">DFS</a>
-Prócura em Profundidade no [Problema A](#lp-a) com profundiade 2.
+Prócura em Profundidade no [Problema A](#lp-a) com profundiade 10.
 
 ```lisp
 ; chamada
-CL-USER> (dfs (cria-no problema) #'no-solucaop #'sucessores-quatro #'operadores-quatro 2)
-(((((BRANCA QUADRADA ALTA OCA) (PRETA QUADRADA BAIXA CHEIA) (PRETA QUADRADA ALTA CHEIA) (PRETA QUADRADA ALTA OCA)) ((BRANCA REDONDA ALTA OCA) (PRETA REDONDA ALTA OCA) (BRANCA REDONDA ALTA CHEIA) 0) (0 (PRETA REDONDA ALTA CHEIA) (PRETA REDONDA BAIXA CHEIA) 0) ((BRANCA REDONDA BAIXA OCA) (BRANCA QUADRADA ALTA CHEIA) (PRETA REDONDA BAIXA OCA) (BRANCA QUADRADA BAIXA CHEIA))) ((PRETA QUADRADA BAIXA OCA) (BRANCA REDONDA BAIXA CHEIA) (BRANCA QUADRADA BAIXA OCA))) 1 (((((BRANCA QUADRADA ALTA OCA) (PRETA QUADRADA BAIXA CHEIA) 0 (PRETA QUADRADA ALTA OCA)) ((BRANCA REDONDA ALTA OCA) (PRETA REDONDA ALTA OCA) (BRANCA REDONDA ALTA CHEIA) 0) (0 (PRETA REDONDA ALTA CHEIA) (PRETA REDONDA BAIXA CHEIA) 0) ((BRANCA REDONDA BAIXA OCA) (BRANCA QUADRADA ALTA CHEIA) (PRETA REDONDA BAIXA OCA) (BRANCA QUADRADA BAIXA CHEIA))) ((PRETA QUADRADA ALTA CHEIA) (PRETA QUADRADA BAIXA OCA) (BRANCA REDONDA BAIXA CHEIA) (BRANCA QUADRADA BAIXA OCA))) 0 NIL))
-```
+CL-USER> (dfs (cria-no problema) #'no-solucaop #'sucessores-quatro #'operadores-quatro 10)
 
-##### <a name="a-res-dfs">Resultados</a>
-Observações
+; estado solucao
+(((BRANCA QUADRADA ALTA OCA) (PRETA QUADRADA BAIXA CHEIA) (PRETA QUADRADA ALTA CHEIA) (PRETA QUADRADA ALTA OCA)) ((BRANCA REDONDA ALTA OCA) (PRETA REDONDA ALTA OCA) (BRANCA REDONDA ALTA CHEIA) 0) (0 (PRETA REDONDA ALTA CHEIA) (PRETA REDONDA BAIXA CHEIA) 0) ((BRANCA REDONDA BAIXA OCA) (BRANCA QUADRADA ALTA CHEIA) (PRETA REDONDA BAIXA OCA) (BRANCA QUADRADA BAIXA CHEIA))) ((PRETA QUADRADA BAIXA OCA) (BRANCA REDONDA BAIXA CHEIA) (BRANCA QUADRADA BAIXA OCA))
+```
 
 #### <a name="aplica-algoritmos-problema-a-a-star">A*</a>
 Prócura A* no [Problema A](#lp-a).
@@ -2284,11 +2271,10 @@ Prócura A* no [Problema A](#lp-a).
 ```lisp
 ; chamada
 CL-USER>  (a-star (cria-no problema) #'no-solucaop #'sucessores-quatro #'operadores-quatro #'heuristic)
-(((((BRANCA QUADRADA ALTA OCA) (PRETA QUADRADA BAIXA CHEIA) 0 (PRETA QUADRADA ALTA OCA)) ((BRANCA REDONDA ALTA OCA) (PRETA REDONDA ALTA OCA) (BRANCA REDONDA ALTA CHEIA) 0) ((BRANCA QUADRADA BAIXA OCA) (PRETA REDONDA ALTA CHEIA) (PRETA REDONDA BAIXA CHEIA) 0) ((BRANCA REDONDA BAIXA OCA) (BRANCA QUADRADA ALTA CHEIA) (PRETA REDONDA BAIXA OCA) (BRANCA QUADRADA BAIXA CHEIA))) ((PRETA QUADRADA ALTA CHEIA) (PRETA QUADRADA BAIXA OCA) (BRANCA REDONDA BAIXA CHEIA))) 1 (((((BRANCA QUADRADA ALTA OCA) (PRETA QUADRADA BAIXA CHEIA) 0 (PRETA QUADRADA ALTA OCA)) ((BRANCA REDONDA ALTA OCA) (PRETA REDONDA ALTA OCA) (BRANCA REDONDA ALTA CHEIA) 0) (0 (PRETA REDONDA ALTA CHEIA) (PRETA REDONDA BAIXA CHEIA) 0) ((BRANCA REDONDA BAIXA OCA) (BRANCA QUADRADA ALTA CHEIA) (PRETA REDONDA BAIXA OCA) (BRANCA QUADRADA BAIXA CHEIA))) ((PRETA QUADRADA ALTA CHEIA) (PRETA QUADRADA BAIXA OCA) (BRANCA REDONDA BAIXA CHEIA) (BRANCA QUADRADA BAIXA OCA))) 0 NIL))
-```
 
-##### <a name="a-res-a-star">Resultados</a>
-Observações
+; estado solucao
+(((BRANCA QUADRADA ALTA OCA) (PRETA QUADRADA BAIXA CHEIA) 0 (PRETA QUADRADA ALTA OCA)) ((BRANCA REDONDA ALTA OCA) (PRETA REDONDA ALTA OCA) (BRANCA REDONDA ALTA CHEIA) 0) ((BRANCA QUADRADA BAIXA OCA) (PRETA REDONDA ALTA CHEIA) (PRETA REDONDA BAIXA CHEIA) 0) ((BRANCA REDONDA BAIXA OCA) (BRANCA QUADRADA ALTA CHEIA) (PRETA REDONDA BAIXA OCA) (BRANCA QUADRADA BAIXA CHEIA))) ((PRETA QUADRADA ALTA CHEIA) (PRETA QUADRADA BAIXA OCA) (BRANCA REDONDA BAIXA CHEIA))
+```
 
 ### <a name="aplica-algoritmos-problema-b">Problema B</a>
 #### <a name="aplica-algoritmos-problema-b-bfs">BFS</a>
@@ -2297,23 +2283,21 @@ Prócura em Lagura no [Problema B](#lp-b).
 ```lisp
 ; chamada
 CL-USER> (bfs (cria-no problema) #'no-solucaop #'sucessores-quatro #'operadores-quatro)
+
+; estado solucao
 Stack Overflow
 ```
 
-##### <a name="b-res-bfs">Resultados</a>
-Observações
-
 #### <a name="aplica-algoritmos-problema-b-dfs">DFS</a>
-Prócura em Profundidade no [Problema B](#lp-b) com profundiade 2.
+Prócura em Profundidade no [Problema B](#lp-b) com profundiade 10.
 
 ```lisp
 ; chamada
-CL-USER> (dfs (cria-no problema) #'no-solucaop #'sucessores-quatro #'operadores-quatro 2)
-(((((BRANCA QUADRADA ALTA OCA) (PRETA REDONDA BAIXA OCA) (PRETA QUADRADA ALTA OCA) (BRANCA QUADRADA ALTA CHEIA)) ((BRANCA REDONDA ALTA OCA) (BRANCA REDONDA BAIXA OCA) (BRANCA REDONDA ALTA CHEIA) (PRETA REDONDA BAIXA CHEIA)) ((PRETA QUADRADA BAIXA CHEIA) (PRETA REDONDA ALTA CHEIA) (BRANCA QUADRADA BAIXA OCA) 0) ((PRETA QUADRADA BAIXA OCA) 0 (BRANCA QUADRADA BAIXA CHEIA) 0)) ((PRETA REDONDA ALTA OCA) (PRETA QUADRADA ALTA CHEIA) (BRANCA REDONDA BAIXA CHEIA))) 2 (((((BRANCA QUADRADA ALTA OCA) (PRETA REDONDA BAIXA OCA) (PRETA QUADRADA ALTA OCA) (BRANCA QUADRADA ALTA CHEIA)) ((BRANCA REDONDA ALTA OCA) (BRANCA REDONDA BAIXA OCA) (BRANCA REDONDA ALTA CHEIA) 0) ((PRETA QUADRADA BAIXA CHEIA) (PRETA REDONDA ALTA CHEIA) (BRANCA QUADRADA BAIXA OCA) 0) ((PRETA QUADRADA BAIXA OCA) 0 (BRANCA QUADRADA BAIXA CHEIA) 0)) ((PRETA REDONDA BAIXA CHEIA) (PRETA REDONDA ALTA OCA) (PRETA QUADRADA ALTA CHEIA) (BRANCA REDONDA BAIXA CHEIA))) 1 (((((BRANCA QUADRADA ALTA OCA) (PRETA REDONDA BAIXA OCA) (PRETA QUADRADA ALTA OCA) (BRANCA QUADRADA ALTA CHEIA)) ((BRANCA REDONDA ALTA OCA) 0 (BRANCA REDONDA ALTA CHEIA) 0) ((PRETA QUADRADA BAIXA CHEIA) (PRETA REDONDA ALTA CHEIA) (BRANCA QUADRADA BAIXA OCA) 0) ((PRETA QUADRADA BAIXA OCA) 0 (BRANCA QUADRADA BAIXA CHEIA) 0)) ((BRANCA REDONDA BAIXA OCA) (PRETA REDONDA BAIXA CHEIA) (PRETA REDONDA ALTA OCA) (PRETA QUADRADA ALTA CHEIA) (BRANCA REDONDA BAIXA CHEIA))) 0 NIL)))
-```
+CL-USER> (dfs (cria-no problema) #'no-solucaop #'sucessores-quatro #'operadores-quatro 10)
 
-##### <a name="b-res-dfs">Resultados</a>
-Observações
+; estado solucao
+(((BRANCA QUADRADA ALTA OCA) (PRETA REDONDA BAIXA OCA) (PRETA QUADRADA ALTA OCA) (BRANCA QUADRADA ALTA CHEIA)) ((BRANCA REDONDA ALTA OCA) (BRANCA REDONDA BAIXA OCA) (BRANCA REDONDA ALTA CHEIA) (PRETA REDONDA BAIXA CHEIA)) ((PRETA QUADRADA BAIXA CHEIA) (PRETA REDONDA ALTA CHEIA) (BRANCA QUADRADA BAIXA OCA) 0) ((PRETA QUADRADA BAIXA OCA) 0 (BRANCA QUADRADA BAIXA CHEIA) 0)) ((PRETA REDONDA ALTA OCA) (PRETA QUADRADA ALTA CHEIA) (BRANCA REDONDA BAIXA CHEIA))
+```
 
 #### <a name="aplica-algoritmos-problema-b-a-star">A-Star</a>
 Prócura A* no [Problema B](#lp-b).
@@ -2321,11 +2305,10 @@ Prócura A* no [Problema B](#lp-b).
 ```lisp
 ; chamada
 CL-USER>  (a-star (cria-no problema) #'no-solucaop #'sucessores-quatro #'operadores-quatro #'heuristic)
-(((((BRANCA QUADRADA ALTA OCA) (PRETA REDONDA BAIXA OCA) (PRETA QUADRADA ALTA OCA) (BRANCA QUADRADA ALTA CHEIA)) ((BRANCA REDONDA ALTA OCA) 0 (BRANCA REDONDA ALTA CHEIA) 0) ((PRETA QUADRADA BAIXA CHEIA) (PRETA REDONDA ALTA CHEIA) (BRANCA QUADRADA BAIXA OCA) 0) ((PRETA QUADRADA BAIXA OCA) (PRETA REDONDA BAIXA CHEIA) (BRANCA QUADRADA BAIXA CHEIA) (BRANCA REDONDA BAIXA CHEIA))) ((BRANCA REDONDA BAIXA OCA) (PRETA REDONDA ALTA OCA) (PRETA QUADRADA ALTA CHEIA))) 2 (((((BRANCA QUADRADA ALTA OCA) (PRETA REDONDA BAIXA OCA) (PRETA QUADRADA ALTA OCA) (BRANCA QUADRADA ALTA CHEIA)) ((BRANCA REDONDA ALTA OCA) 0 (BRANCA REDONDA ALTA CHEIA) 0) ((PRETA QUADRADA BAIXA CHEIA) (PRETA REDONDA ALTA CHEIA) (BRANCA QUADRADA BAIXA OCA) 0) ((PRETA QUADRADA BAIXA OCA) 0 (BRANCA QUADRADA BAIXA CHEIA) (BRANCA REDONDA BAIXA CHEIA))) ((BRANCA REDONDA BAIXA OCA) (PRETA REDONDA BAIXA CHEIA) (PRETA REDONDA ALTA OCA) (PRETA QUADRADA ALTA CHEIA))) 1 (((((BRANCA QUADRADA ALTA OCA) (PRETA REDONDA BAIXA OCA) (PRETA QUADRADA ALTA OCA) (BRANCA QUADRADA ALTA CHEIA)) ((BRANCA REDONDA ALTA OCA) 0 (BRANCA REDONDA ALTA CHEIA) 0) ((PRETA QUADRADA BAIXA CHEIA) (PRETA REDONDA ALTA CHEIA) (BRANCA QUADRADA BAIXA OCA) 0) ((PRETA QUADRADA BAIXA OCA) 0 (BRANCA QUADRADA BAIXA CHEIA) 0)) ((BRANCA REDONDA BAIXA OCA) (PRETA REDONDA BAIXA CHEIA) (PRETA REDONDA ALTA OCA) (PRETA QUADRADA ALTA CHEIA) (BRANCA REDONDA BAIXA CHEIA))) 0 NIL)))
-```
 
-##### <a name="b-res-a-star">Resultados</a>
-Observações
+; estado solucao
+(((BRANCA QUADRADA ALTA OCA) (PRETA REDONDA BAIXA OCA) (PRETA QUADRADA ALTA OCA) (BRANCA QUADRADA ALTA CHEIA)) ((BRANCA REDONDA ALTA OCA) 0 (BRANCA REDONDA ALTA CHEIA) 0) ((PRETA QUADRADA BAIXA CHEIA) (PRETA REDONDA ALTA CHEIA) (BRANCA QUADRADA BAIXA OCA) 0) ((PRETA QUADRADA BAIXA OCA) (PRETA REDONDA BAIXA CHEIA) (BRANCA QUADRADA BAIXA CHEIA) (BRANCA REDONDA BAIXA CHEIA))) ((BRANCA REDONDA BAIXA OCA) (PRETA REDONDA ALTA OCA) (PRETA QUADRADA ALTA CHEIA))
+```
 
 ### <a name="aplica-algoritmos-problema-c">Problema C</a>
 #### <a name="aplica-algoritmos-problema-c-bfs">BFS</a>
@@ -2334,23 +2317,21 @@ Prócura em Lagura no [Problema C](#lp-c).
 ```lisp
 ; chamada
 CL-USER> (bfs (cria-no problema) #'no-solucaop #'sucessores-quatro #'operadores-quatro)
+
+; estado solucao
 Stack Overflow
 ```
-
-##### <a name="c-res-bfs">Resultados</a>
-Observações
 
 #### <a name="aplica-algoritmos-problema-c-dfs">DFS</a>
 Prócura em Profundidade no [Problema C](#lp-c) com profundiade 2.
 
 ```lisp
 ; chamada
-CL-USER> (dfs (cria-no problema) #'no-solucaop #'sucessores-quatro #'operadores-quatro 2)
+CL-USER> (dfs (cria-no problema) #'no-solucaop #'sucessores-quatro #'operadores-quatro 10)
+
+; estado solucao
 Stack Overflow
 ```
-
-##### <a name="c-res-dfs">Resultados</a>
-Observações
 
 #### <a name="aplica-algoritmos-problema-c-a-star">A-Star</a>
 Prócura A* no [Problema C](#lp-c).
@@ -2358,11 +2339,10 @@ Prócura A* no [Problema C](#lp-c).
 ```lisp
 ; chamada
 CL-USER>  (a-star (cria-no problema) #'no-solucaop #'sucessores-quatro #'operadores-quatro #'heuristic)
-(((((BRANCA QUADRADA BAIXA CHEIA) 0 (PRETA REDONDA ALTA CHEIA) (PRETA QUADRADA BAIXA OCA)) (0 0 0 (BRANCA REDONDA BAIXA OCA)) ((BRANCA REDONDA ALTA CHEIA) 0 (PRETA REDONDA ALTA OCA) (PRETA REDONDA BAIXA CHEIA)) (0 (PRETA QUADRADA BAIXA CHEIA) 0 (PRETA REDONDA BAIXA OCA))) ((BRANCA QUADRADA ALTA CHEIA) (BRANCA QUADRADA ALTA OCA) (BRANCA QUADRADA BAIXA OCA) (PRETA QUADRADA ALTA CHEIA) (PRETA QUADRADA ALTA OCA) (BRANCA REDONDA ALTA OCA) (BRANCA REDONDA BAIXA CHEIA))) 2 (((((BRANCA QUADRADA BAIXA CHEIA) 0 (PRETA REDONDA ALTA CHEIA) (PRETA QUADRADA BAIXA OCA)) (0 0 0 (BRANCA REDONDA BAIXA OCA)) ((BRANCA REDONDA ALTA CHEIA) 0 (PRETA REDONDA ALTA OCA) 0) (0 (PRETA QUADRADA BAIXA CHEIA) 0 (PRETA REDONDA BAIXA OCA))) ((BRANCA QUADRADA ALTA CHEIA) (BRANCA QUADRADA ALTA OCA) (BRANCA QUADRADA BAIXA OCA) (PRETA QUADRADA ALTA CHEIA) (PRETA QUADRADA ALTA OCA) (BRANCA REDONDA ALTA OCA) (BRANCA REDONDA BAIXA CHEIA) (PRETA REDONDA BAIXA CHEIA))) 1 (((((BRANCA QUADRADA BAIXA CHEIA) 0 (PRETA REDONDA ALTA CHEIA) (PRETA QUADRADA BAIXA OCA)) (0 0 0 (BRANCA REDONDA BAIXA OCA)) ((BRANCA REDONDA ALTA CHEIA) 0 (PRETA REDONDA ALTA OCA) 0) (0 (PRETA QUADRADA BAIXA CHEIA) 0 0)) ((BRANCA QUADRADA ALTA CHEIA) (BRANCA QUADRADA ALTA OCA) (BRANCA QUADRADA BAIXA OCA) (PRETA QUADRADA ALTA CHEIA) (PRETA QUADRADA ALTA OCA) (BRANCA REDONDA ALTA OCA) (BRANCA REDONDA BAIXA CHEIA) (PRETA REDONDA BAIXA CHEIA) (PRETA REDONDA BAIXA OCA))) 0 NIL)))
-```
 
-##### <a name="c-res-a-star">Resultados</a>
-Observações
+; estado solucao
+(((BRANCA QUADRADA BAIXA CHEIA) 0 (PRETA REDONDA ALTA CHEIA) (PRETA QUADRADA BAIXA OCA)) (0 0 0 (BRANCA REDONDA BAIXA OCA)) ((BRANCA REDONDA ALTA CHEIA) 0 (PRETA REDONDA ALTA OCA) (PRETA REDONDA BAIXA CHEIA)) (0 (PRETA QUADRADA BAIXA CHEIA) 0 (PRETA REDONDA BAIXA OCA))) ((BRANCA QUADRADA ALTA CHEIA) (BRANCA QUADRADA ALTA OCA) (BRANCA QUADRADA BAIXA OCA) (PRETA QUADRADA ALTA CHEIA) (PRETA QUADRADA ALTA OCA) (BRANCA REDONDA ALTA OCA) (BRANCA REDONDA BAIXA CHEIA))
+```
 
 ### <a name="aplica-algoritmos-problema-d">Problema D</a>
 #### <a name="aplica-algoritmos-problema-d-bfs">BFS</a>
@@ -2371,23 +2351,21 @@ Prócura em Lagura no [Problema D](#lp-d).
 ```lisp
 ; chamada
 CL-USER> (bfs (cria-no problema) #'no-solucaop #'sucessores-quatro #'operadores-quatro)
+
+; estado solucao
 Stack Overflow
 ```
 
-##### <a name="d-res-bfs">Resultados</a>
-Observações
-
 #### <a name="aplica-algoritmos-problema-d-dfs">DFS</a>
-Prócura em Profundidade no [Problema D](#lp-d) com profundiade 2.
+Prócura em Profundidade no [Problema D](#lp-d) com profundiade 10.
 
 ```lisp
 ; chamada
-CL-USER> (dfs (cria-no problema) #'no-solucaop #'sucessores-quatro #'operadores-quatro 2)
+CL-USER> (dfs (cria-no problema) #'no-solucaop #'sucessores-quatro #'operadores-quatro 10)
+
+; estado solucao
 Stack Overflow
 ```
-
-##### <a name="d-res-dfs">Resultados</a>
-Observações
 
 #### <a name="aplica-algoritmos-problema-d-a-star">A-Star</a>
 Prócura A* no [Problema D](#lp-d).
@@ -2395,11 +2373,10 @@ Prócura A* no [Problema D](#lp-d).
 ```lisp
 ; chamada
 CL-USER>  (a-star (cria-no problema) #'no-solucaop #'sucessores-quatro #'operadores-quatro #'heuristic)
-(((((BRANCA QUADRADA BAIXA CHEIA) (BRANCA REDONDA ALTA CHEIA) (PRETA REDONDA ALTA CHEIA) (PRETA QUADRADA BAIXA OCA)) (0 0 0 (PRETA QUADRADA BAIXA CHEIA)) (0 0 0 (PRETA REDONDA ALTA OCA)) (0 0 0 (PRETA REDONDA BAIXA CHEIA))) ((BRANCA QUADRADA ALTA CHEIA) (BRANCA QUADRADA BAIXA CHEIA) (PRETA QUADRADA ALTA CHEIA) (PRETA QUADRADA ALTA OCA) (BRANCA REDONDA BAIXA OCA) (BRANCA REDONDA ALTA OCA) (BRANCA REDONDA BAIXA CHEIA))) 3 (((((BRANCA QUADRADA BAIXA CHEIA) (BRANCA REDONDA ALTA CHEIA) (PRETA REDONDA ALTA CHEIA) (PRETA QUADRADA BAIXA OCA)) (0 0 0 0) (0 0 0 (PRETA REDONDA ALTA OCA)) (0 0 0 (PRETA REDONDA BAIXA CHEIA))) ((BRANCA QUADRADA ALTA CHEIA) (BRANCA QUADRADA BAIXA CHEIA) (PRETA QUADRADA ALTA CHEIA) (PRETA QUADRADA ALTA OCA) (PRETA QUADRADA BAIXA CHEIA) (BRANCA REDONDA BAIXA OCA) (BRANCA REDONDA ALTA OCA) (BRANCA REDONDA BAIXA CHEIA))) 2 (((((BRANCA QUADRADA BAIXA CHEIA) (BRANCA REDONDA ALTA CHEIA) (PRETA REDONDA ALTA CHEIA) (PRETA QUADRADA BAIXA OCA)) (0 0 0 0) (0 0 0 0) (0 0 0 (PRETA REDONDA BAIXA CHEIA))) ((BRANCA QUADRADA ALTA CHEIA) (BRANCA QUADRADA BAIXA CHEIA) (PRETA QUADRADA ALTA CHEIA) (PRETA QUADRADA ALTA OCA) (PRETA QUADRADA BAIXA CHEIA) (BRANCA REDONDA BAIXA OCA) (BRANCA REDONDA ALTA OCA) (BRANCA REDONDA BAIXA CHEIA) (PRETA REDONDA ALTA OCA))) 1 (((((BRANCA QUADRADA BAIXA CHEIA) (BRANCA REDONDA ALTA CHEIA) (PRETA REDONDA ALTA CHEIA) (PRETA QUADRADA BAIXA OCA)) (0 0 0 0) (0 0 0 0) (0 0 0 0)) ((BRANCA QUADRADA ALTA CHEIA) (BRANCA QUADRADA BAIXA CHEIA) (PRETA QUADRADA ALTA CHEIA) (PRETA QUADRADA ALTA OCA) (PRETA QUADRADA BAIXA CHEIA) (BRANCA REDONDA BAIXA OCA) (BRANCA REDONDA ALTA OCA) (BRANCA REDONDA BAIXA CHEIA) (PRETA REDONDA ALTA OCA) (PRETA REDONDA BAIXA CHEIA))) 0 NIL))))
-```
 
-##### <a name="d-res-a-star">Resultados</a>
-Observações
+; estado solucao
+(((BRANCA QUADRADA BAIXA CHEIA) (BRANCA REDONDA ALTA CHEIA) (PRETA REDONDA ALTA CHEIA) (PRETA QUADRADA BAIXA OCA)) (0 0 0 (PRETA QUADRADA BAIXA CHEIA)) (0 0 0 (PRETA REDONDA ALTA OCA)) (0 0 0 (PRETA REDONDA BAIXA CHEIA))) ((BRANCA QUADRADA ALTA CHEIA) (BRANCA QUADRADA BAIXA CHEIA) (PRETA QUADRADA ALTA CHEIA) (PRETA QUADRADA ALTA OCA) (BRANCA REDONDA BAIXA OCA) (BRANCA REDONDA ALTA OCA) (BRANCA REDONDA BAIXA CHEIA))
+```
 
 ### <a name="aplica-algoritmos-problema-e">Problema E</a>
 #### <a name="aplica-algoritmos-problema-e-bfs">BFS</a>
@@ -2408,23 +2385,21 @@ Prócura em Lagura no [Problema E](#lp-e).
 ```lisp
 ; chamada
 CL-USER> (bfs (cria-no problema) #'no-solucaop #'sucessores-quatro #'operadores-quatro)
+
+; estado solucao
 Stack Overflow
 ```
 
-##### <a name="e-res-bfs">Resultados</a>
-Observações
-
 #### <a name="aplica-algoritmos-problema-e-dfs">DFS</a>
-Prócura em Profundidade no [Problema E](#lp-e) com profundiade 2.
+Prócura em Profundidade no [Problema E](#lp-e) com profundiade 10.
 
 ```lisp
 ; chamada
-CL-USER> (dfs (cria-no problema) #'no-solucaop #'sucessores-quatro #'operadores-quatro 2)
+CL-USER> (dfs (cria-no problema) #'no-solucaop #'sucessores-quatro #'operadores-quatro 10)
+
+; estado solucao
 Stack Overflow
 ```
-
-##### <a name="e-res-dfs">Resultados</a>
-Observações
 
 #### <a name="aplica-algoritmos-problema-e-a-star">A-Star</a>
 Prócura A* no [Problema E](#lp-e).
@@ -2432,11 +2407,10 @@ Prócura A* no [Problema E](#lp-e).
 ```lisp
 ; chamada
 CL-USER>  (a-star (cria-no problema) #'no-solucaop #'sucessores-quatro #'operadores-quatro #'heuristic)
+
+; estado solucao
 Stack Overflow
 ```
-
-##### <a name="e-res-a-star">Resultados</a>
-Observações
 
 ### <a name="aplica-algoritmos-problema-f">Problema F</a>
 #### <a name="aplica-algoritmos-problema-f-bfs">BFS</a>
@@ -2444,23 +2418,21 @@ Prócura em Lagura no [Problema F](#lp-f).
 
 ```lisp
 CL-USER> (bfs (cria-no problema) #'no-solucaop #'sucessores-quatro #'operadores-quatro)
+
+; estado solucao
 Stack Overflow
 ```
 
-##### <a name="f-res-bfs">Resultados</a>
-Observações
-
 #### <a name="aplica-algoritmos-problema-f-dfs">DFS</a>
-Prócura em Profundidade no [Problema F](#lp-f) com profundiade 2.
+Prócura em Profundidade no [Problema F](#lp-f) com profundiade 10.
 
 ```lisp
 ; chamada
-CL-USER> (dfs (cria-no problema) #'no-solucaop #'sucessores-quatro #'operadores-quatro 2)
+CL-USER> (dfs (cria-no problema) #'no-solucaop #'sucessores-quatro #'operadores-quatro 10)
+
+; estado solucao
 Stack Overflow
 ```
-
-##### <a name="f-res-dfs">Resultados</a>
-Observações
 
 #### <a name="aplica-algoritmos-problema-f-a-star">A-Star</a>
 Prócura A* no [Problema F](#lp-f).
@@ -2468,10 +2440,21 @@ Prócura A* no [Problema F](#lp-f).
 ```lisp
 ; chamada
 CL-USER>  (a-star (cria-no problema) #'no-solucaop #'sucessores-quatro #'operadores-quatro #'heuristic)
-((((0 0 0 0) (0 0 0 0) (0 0 0 0) ((PRETA REDONDA ALTA CHEIA) (PRETA REDONDA ALTA OCA) (PRETA REDONDA BAIXA CHEIA) (PRETA REDONDA BAIXA OCA))) ((BRANCA QUADRADA ALTA CHEIA) (BRANCA QUADRADA ALTA OCA) (BRANCA QUADRADA BAIXA OCA) (BRANCA QUADRADA BAIXA CHEIA) (PRETA QUADRADA ALTA CHEIA) (PRETA QUADRADA ALTA OCA) (PRETA QUADRADA BAIXA OCA) (PRETA QUADRADA BAIXA CHEIA) (BRANCA REDONDA ALTA CHEIA) (BRANCA REDONDA ALTA OCA) (BRANCA REDONDA BAIXA CHEIA) (BRANCA REDONDA BAIXA OCA))) 4 ((((0 0 0 0) (0 0 0 0) (0 0 0 0) (0 (PRETA REDONDA ALTA OCA) (PRETA REDONDA BAIXA CHEIA) (PRETA REDONDA BAIXA OCA))) ((BRANCA QUADRADA ALTA CHEIA) (BRANCA QUADRADA ALTA OCA) (BRANCA QUADRADA BAIXA OCA) (BRANCA QUADRADA BAIXA CHEIA) (PRETA QUADRADA ALTA CHEIA) (PRETA QUADRADA ALTA OCA) (PRETA QUADRADA BAIXA OCA) (PRETA QUADRADA BAIXA CHEIA) (BRANCA REDONDA ALTA CHEIA) (BRANCA REDONDA ALTA OCA) (BRANCA REDONDA BAIXA CHEIA) (BRANCA REDONDA BAIXA OCA) (PRETA REDONDA ALTA CHEIA))) 3 ((((0 0 0 0) (0 0 0 0) (0 0 0 0) (0 0 (PRETA REDONDA BAIXA CHEIA) (PRETA REDONDA BAIXA OCA))) ((BRANCA QUADRADA ALTA CHEIA) (BRANCA QUADRADA ALTA OCA) (BRANCA QUADRADA BAIXA OCA) (BRANCA QUADRADA BAIXA CHEIA) (PRETA QUADRADA ALTA CHEIA) (PRETA QUADRADA ALTA OCA) (PRETA QUADRADA BAIXA OCA) (PRETA QUADRADA BAIXA CHEIA) (BRANCA REDONDA ALTA CHEIA) (BRANCA REDONDA ALTA OCA) (BRANCA REDONDA BAIXA CHEIA) (BRANCA REDONDA BAIXA OCA) (PRETA REDONDA ALTA CHEIA) (PRETA REDONDA ALTA OCA))) 2 ((((0 0 0 0) (0 0 0 0) (0 0 0 0) (0 0 0 (PRETA REDONDA BAIXA OCA))) ((BRANCA QUADRADA ALTA CHEIA) (BRANCA QUADRADA ALTA OCA) (BRANCA QUADRADA BAIXA OCA) (BRANCA QUADRADA BAIXA CHEIA) (PRETA QUADRADA ALTA CHEIA) (PRETA QUADRADA ALTA OCA) (PRETA QUADRADA BAIXA OCA) (PRETA QUADRADA BAIXA CHEIA) (BRANCA REDONDA ALTA CHEIA) (BRANCA REDONDA ALTA OCA) (BRANCA REDONDA BAIXA CHEIA) (BRANCA REDONDA BAIXA OCA) (PRETA REDONDA ALTA CHEIA) (PRETA REDONDA ALTA OCA) (PRETA REDONDA BAIXA CHEIA))) 1 ((((0 0 0 0) (0 0 0 0) (0 0 0 0) (0 0 0 0)) ((BRANCA QUADRADA ALTA CHEIA) (BRANCA QUADRADA ALTA OCA) (BRANCA QUADRADA BAIXA OCA) (BRANCA QUADRADA BAIXA CHEIA) (PRETA QUADRADA ALTA CHEIA) (PRETA QUADRADA ALTA OCA) (PRETA QUADRADA BAIXA OCA) (PRETA QUADRADA BAIXA CHEIA) (BRANCA REDONDA ALTA CHEIA) (BRANCA REDONDA ALTA OCA) (BRANCA REDONDA BAIXA CHEIA) (BRANCA REDONDA BAIXA OCA) (PRETA REDONDA ALTA CHEIA) (PRETA REDONDA ALTA OCA) (PRETA REDONDA BAIXA CHEIA) (PRETA REDONDA BAIXA OCA))) 0 NIL)))))
+
+; estado solucao
+((0 0 0 0) (0 0 0 0) (0 0 0 0) ((PRETA REDONDA ALTA CHEIA) (PRETA REDONDA ALTA OCA) (PRETA REDONDA BAIXA CHEIA) (PRETA REDONDA BAIXA OCA))) ((BRANCA QUADRADA ALTA CHEIA) (BRANCA QUADRADA ALTA OCA) (BRANCA QUADRADA BAIXA OCA) (BRANCA QUADRADA BAIXA CHEIA) (PRETA QUADRADA ALTA CHEIA) (PRETA QUADRADA ALTA OCA) (PRETA QUADRADA BAIXA OCA) (PRETA QUADRADA BAIXA CHEIA) (BRANCA REDONDA ALTA CHEIA) (BRANCA REDONDA ALTA OCA) (BRANCA REDONDA BAIXA CHEIA) (BRANCA REDONDA BAIXA OCA))
 ```
 
-##### <a name="f-res-a-star">Resultados</a>
-Observações
+### <a name="#aplica-algoritmos-observacoes">Observações</a>
+Os algortimos BFS e DFS por vezes não conseguem chegar a uma solução, por exigir um maior volume de memória que a disponibizada pelo LispWorks. O problema ocorre quando são gerados muitos sucessores, que com a necessecidade de executar multiplas operações, enchem a heap do ListWorks, sendo inequisível realizar todas as operações a tempo de não ocupar toda a heap, resultando em Stack Overflow.
+
+Embora a ocupação total da heap possa ocurrer, existe uma outra situação que afeta o algoritmo DFS. O valor da profundidade pode impedir de encontrar uma solução, em que esta poderá estar níveis mais abaixo da máxima profundidade restrita.
+
+Por norma o algoritmo A* consegue obter uma solução, mas como é um algoritmo que espande todos os seus nós em memória, e tal como os algoritmos BFS e DFS, pode gerar Stack Overflow pela utilização máxima da heap do LispWorks. A diferença parte da utilização da heuristica, que permite de certa forma inteligente avaliar os nós que podem permitir encontrar uma solução mais rápidamente.
 
 ## <a name="conclusao">**Conclusão**</a>
+No percurso de desenvolvimento do presente projeto, verificá-mos que a recursividade é uma das carateristicas mais utilizadas quando se programa com a linguagem Common Lisp, que cria vastas oportunidades de gerar resultados com Stack Overflow mais rápidamente pela utilização máxima da heap, principalmente em LispWorks.
+
+Um dos desafios prioritários é conseguir desenvolver um programa que não resulte em Stack Overflow quando se aplica os algoritmos de prócura BFS, DFS e A*, por serem algoritmos que têm cariz de gerar a árvore em memória. Embora existam diferenças entre os algortimos de prócura, na teoria, foi através da análise dos resultados das resoluções do nosso programa que conseguimos verificar essa diferença.
+
+Na maioria dos resultados, o algortimo A* é o único que mais consegue retornar uma solução, raramente ocupando a memória heap por inteiro, resultando em Stack Overflow.
