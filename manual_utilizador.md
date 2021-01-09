@@ -22,7 +22,6 @@ Neste manual encontram-se explicações sobre o jogo, como o iniciar, a estrutur
             * [A*](#mc-a-star)
             * [Home Menu](#mc-home-menu)
     * [Mostrar Regras](#mc-ver-regras)
-    * [Mostrar Tabuleiros](#mc-ver-tabuleiros)
     * [Sair do Programa](#sair-programa)
 * [Problemas](#tut-problemas)
 * [Glossário](#glossario)
@@ -77,16 +76,15 @@ CL-USER> (startup)
 Pressione a tecla **ENTER** e de seguida deverá visualizar o seguinte menu:
 
 ```lisp
-           _______________________________________________________
-          Ã‚Â§                  JOGO DO PROBlEMA DO 4                Ã‚Â§
+             _______________________________________________________
+          Ã‚Â§                  JOGO DO PROBlEMA DO 4               Ã‚Â§
           Ã‚Â§                                                      Ã‚Â§
           Ã‚Â§                                                      Ã‚Â§
           Ã‚Â§                                                      Ã‚Â§
           Ã‚Â§                                                      Ã‚Â§
           Ã‚Â§                 1-Resolver o jogo                    Ã‚Â§
           Ã‚Â§                 2-Regras do Jogo                     Ã‚Â§
-          Ã‚Â§                 3-Mostrar Tabuleiros                 Ã‚Â§
-          Ã‚Â§                 4-Sair                               Ã‚Â§
+          Ã‚Â§                 3-Sair                               Ã‚Â§
           Ã‚Â§                                                      Ã‚Â§
           Ã‚Â§______________________________________________________Ã‚Â§
 
@@ -102,31 +100,28 @@ Esta ação aplica-se a todos os menus do programa.
 
 * Se pertender [ver as regras](#mc-ver-regras) do jogo, pressione a tecla numérica **2**. 
 
-* Se pertender [ver tabuleiros](#mc-ver-tabuleiros) disponíveis no ficheiro ***problemas.dat***, pressione a tecla numérica **3**.
-
-* Para [terminar o programa](#sair-programa) deverá pressionar a tecla numérica **4**.
+* Para [terminar o programa](#sair-programa) deverá pressionar a tecla numérica **3**.
 
 ### <a name="mc-resolve-jogo">Resolver Jogo</a>
 O listener do LispWorks deverá apresentar o seguinte estado depois de selecionar a opção **1** do menu principal.
 
 ```lisp
-  _______________________________________________________
-          Ã‚Â§                  JOGO DO PROBlEMA DO 4                Ã‚Â§
+             _______________________________________________________
+          Ã‚Â§                  JOGO DO PROBlEMA DO 4               Ã‚Â§
           Ã‚Â§                                                      Ã‚Â§
           Ã‚Â§                                                      Ã‚Â§
           Ã‚Â§                                                      Ã‚Â§
           Ã‚Â§                                                      Ã‚Â§
           Ã‚Â§                 1-Resolver o jogo                    Ã‚Â§
           Ã‚Â§                 2-Regras do Jogo                     Ã‚Â§
-          Ã‚Â§                 3-Mostrar Tabuleiros                 Ã‚Â§
-          Ã‚Â§                 4-Sair                               Ã‚Â§
+          Ã‚Â§                 3-Sair                               Ã‚Â§
           Ã‚Â§                                                      Ã‚Â§
           Ã‚Â§______________________________________________________Ã‚Â§
 
 
           Option -> 1
 
-            ______________________________________________________
+              ______________________________________________________
           Ã‚Â§                ESCOLHA O TABULEIRO                   Ã‚Â§
           Ã‚Â§                                                      Ã‚Â§
           Ã‚Â§                 1-Problema A                         Ã‚Â§
@@ -157,23 +152,22 @@ Para melhor ilustração, será selecionada a opção **1** do menu, corresponde
 O listener deverá apresentar o seguinte estado:
 
 ```lisp
-           _______________________________________________________
-          Ã‚Â§                  JOGO DO PROBlEMA DO 4                Ã‚Â§
+             _______________________________________________________
+          Ã‚Â§                  JOGO DO PROBlEMA DO 4               Ã‚Â§
           Ã‚Â§                                                      Ã‚Â§
           Ã‚Â§                                                      Ã‚Â§
           Ã‚Â§                                                      Ã‚Â§
           Ã‚Â§                                                      Ã‚Â§
           Ã‚Â§                 1-Resolver o jogo                    Ã‚Â§
           Ã‚Â§                 2-Regras do Jogo                     Ã‚Â§
-          Ã‚Â§                 3-Mostrar Tabuleiros                 Ã‚Â§
-          Ã‚Â§                 4-Sair                               Ã‚Â§
+          Ã‚Â§                 3-Sair                               Ã‚Â§
           Ã‚Â§                                                      Ã‚Â§
           Ã‚Â§______________________________________________________Ã‚Â§
 
 
           Option -> 1
 
-            ______________________________________________________
+              ______________________________________________________
           Ã‚Â§                ESCOLHA O TABULEIRO                   Ã‚Â§
           Ã‚Â§                                                      Ã‚Â§
           Ã‚Â§                 1-Problema A                         Ã‚Â§
@@ -190,7 +184,7 @@ O listener deverá apresentar o seguinte estado:
 
 
           Opcao -> 1
-((((0 0 0 0) (0 0 0 0) (0 0 0 0) (0 0 0 0)) ((BRANCA QUADRADA ALTA CHEIA) (BRANCA QUADRADA ALTA OCA) (BRANCA QUADRADA BAIXA OCA) (BRANCA QUADRADA BAIXA CHEIA) (PRETA QUADRADA ALTA CHEIA) (PRETA QUADRADA ALTA OCA) (PRETA QUADRADA BAIXA OCA) (PRETA QUADRADA BAIXA CHEIA) (BRANCA REDONDA ALTA CHEIA) (BRANCA REDONDA ALTA OCA) (BRANCA REDONDA BAIXA CHEIA) (BRANCA REDONDA BAIXA OCA) (PRETA REDONDA ALTA CHEIA) (PRETA REDONDA ALTA OCA) (PRETA REDONDA BAIXA CHEIA) (PRETA REDONDA BAIXA OCA))) 0 NIL)
+(((((BRANCA QUADRADA ALTA OCA) (PRETA QUADRADA BAIXA CHEIA) 0 (PRETA QUADRADA ALTA OCA)) ((BRANCA REDONDA ALTA OCA) (PRETA REDONDA ALTA OCA) (BRANCA REDONDA ALTA CHEIA) 0) (0 (PRETA REDONDA ALTA CHEIA) (PRETA REDONDA BAIXA CHEIA) 0) ((BRANCA REDONDA BAIXA OCA) (BRANCA QUADRADA ALTA CHEIA) (PRETA REDONDA BAIXA OCA) (BRANCA QUADRADA BAIXA CHEIA))) ((PRETA QUADRADA ALTA CHEIA) (PRETA QUADRADA BAIXA OCA) (BRANCA REDONDA BAIXA CHEIA) (BRANCA QUADRADA BAIXA OCA))) 0 NIL)
            ______________________________________________________
           Â§                                                      Â§
           Â§                  ESCOLHA O ALGORITMO                 Â§
@@ -219,13 +213,6 @@ O listener deverá apresentar o seguinte estado:
 O listener do Lispworks deverá apresentar o seguinte estado:
 
 ```lisp
-Stack Overflow
-```
-
-##### <a name="mc-dfs">DFS</a>
-O listener do Lispworks deverá apresentar o seguinte estado:
-
-```lisp
            ______________________________________________________
           Â§                                                      Â§
           Â§                  ESCOLHA O ALGORITMO                 Â§
@@ -239,9 +226,51 @@ O listener do Lispworks deverá apresentar o seguinte estado:
           Â§______________________________________________________Â§
 
 
-          Option -> 2
+          Option -> 1
+```
+Pressione a tecla **ENTER** e um ficheiro ***solucao.dat*** será gerado com uma possível solução. 
 
-           ______________________________________________________
+```lisp
+; solucao.dat
+Algoritmo: BFS 
+Inicio: 8:15:57
+Fim: 8:16:1
+Numero de nos gerados: 1
+Numero de nos expandidos: 0
+Nivel de penetracao: 2.0
+Tamanho da solucao: 2
+Solucao: ((((BRANCA QUADRADA ALTA OCA) (PRETA QUADRADA BAIXA CHEIA) (PRETA QUADRADA ALTA CHEIA) (PRETA QUADRADA ALTA OCA)) ((BRANCA REDONDA ALTA OCA) (PRETA REDONDA ALTA OCA) (BRANCA REDONDA ALTA CHEIA) 0) (0 (PRETA REDONDA ALTA CHEIA) (PRETA REDONDA BAIXA CHEIA) 0) ((BRANCA REDONDA BAIXA OCA) (BRANCA QUADRADA ALTA CHEIA) (PRETA REDONDA BAIXA OCA) (BRANCA QUADRADA BAIXA CHEIA))) ((PRETA QUADRADA BAIXA OCA) (BRANCA REDONDA BAIXA CHEIA) (BRANCA QUADRADA BAIXA OCA)))
+Tabuleiro-inicial:
+(((BRANCA QUADRADA ALTA OCA) (PRETA QUADRADA BAIXA CHEIA) 0 (PRETA QUADRADA ALTA OCA)) ((BRANCA REDONDA ALTA OCA) (PRETA REDONDA ALTA OCA) (BRANCA REDONDA ALTA CHEIA) 0) (0 (PRETA REDONDA ALTA CHEIA) (PRETA REDONDA BAIXA CHEIA) 0) ((BRANCA REDONDA BAIXA OCA) (BRANCA QUADRADA ALTA CHEIA) (PRETA REDONDA BAIXA OCA) (BRANCA QUADRADA BAIXA CHEIA)))
+((PRETA QUADRADA ALTA CHEIA) (PRETA QUADRADA BAIXA OCA) (BRANCA REDONDA BAIXA CHEIA) (BRANCA QUADRADA BAIXA OCA))
+Tabuleiro-final:
+(((BRANCA QUADRADA ALTA OCA) (PRETA QUADRADA BAIXA CHEIA) (PRETA QUADRADA ALTA CHEIA) (PRETA QUADRADA ALTA OCA)) ((BRANCA REDONDA ALTA OCA) (PRETA REDONDA ALTA OCA) (BRANCA REDONDA ALTA CHEIA) 0) (0 (PRETA REDONDA ALTA CHEIA) (PRETA REDONDA BAIXA CHEIA) 0) ((BRANCA REDONDA BAIXA OCA) (BRANCA QUADRADA ALTA CHEIA) (PRETA REDONDA BAIXA OCA) (BRANCA QUADRADA BAIXA CHEIA)))
+((PRETA QUADRADA BAIXA OCA) (BRANCA REDONDA BAIXA CHEIA) (BRANCA QUADRADA BAIXA OCA))
+```
+
+##### <a name="mc-dfs">DFS</a>
+O listener do Lispworks deverá apresentar o seguinte estado:
+
+```lisp
+            ______________________________________________________
+          Â§                                                      Â§
+          Â§                  ESCOLHA O ALGORITMO                 Â§
+          Â§                 (algoritmo de procura)               Â§
+          Â§                                                      Â§
+          Â§                 1-Procura em largura                 Â§
+          Â§                 2-Procura em profundidade            Â§
+          Â§                 3-Procura em A*                      Â§
+          Â§                 0-Home Menu                          Â§
+          Â§                                                      Â§
+          Â§______________________________________________________Â§
+
+
+          Option -> 2
+```
+Insira a profundidade máxima permitida para a prócura. Este valor encontra-se no intervalo [0, 999]. Caso coloque um valor fora do intervalo, será pedido novamente para colocar um valor válido. Dependentemente do valor de profundidade que colocar, poderá ser possível obter uma solução ou não.
+
+```lisp
+            ______________________________________________________
           Â§                    PROFUNDIDADE                      Â§
           Â§                                                      Â§
           Â§                      ATENCAO                         Â§
@@ -252,29 +281,75 @@ O listener do Lispworks deverá apresentar o seguinte estado:
           Â§______________________________________________________Â§
 
 
-          Depth-> 
+          Depth-> 10
 ```
 
-Insira a profundidade máxima permitida para a prócura. Este valor encontra-se no intervalo [0, 999]. Caso coloque um valor fora do intervalo, será pedido novamente para colocar um valor válido.
+Pressione a tecla **ENTER** e um ficheiro ***solucao.dat*** será gerado com uma possível solução. 
 
 ```lisp
-Stack Overflow
+; solucao.dat
+Algoritmo: DFS 
+Inicio: 8:26:21
+Fim: 8:26:22
+Numero de nos gerados: 1
+Numero de nos expandidos: 0
+Nivel de penetracao: 2.0
+Profundidade Maxima: 1
+Tamanho da solucao: 2
+Solucao: ((((BRANCA QUADRADA ALTA OCA) (PRETA QUADRADA BAIXA CHEIA) (PRETA QUADRADA ALTA CHEIA) (PRETA QUADRADA ALTA OCA)) ((BRANCA REDONDA ALTA OCA) (PRETA REDONDA ALTA OCA) (BRANCA REDONDA ALTA CHEIA) 0) (0 (PRETA REDONDA ALTA CHEIA) (PRETA REDONDA BAIXA CHEIA) 0) ((BRANCA REDONDA BAIXA OCA) (BRANCA QUADRADA ALTA CHEIA) (PRETA REDONDA BAIXA OCA) (BRANCA QUADRADA BAIXA CHEIA))) ((PRETA QUADRADA BAIXA OCA) (BRANCA REDONDA BAIXA CHEIA) (BRANCA QUADRADA BAIXA OCA)))
+Tabuleiro-inicial:
+(((BRANCA QUADRADA ALTA OCA) (PRETA QUADRADA BAIXA CHEIA) 0 (PRETA QUADRADA ALTA OCA)) ((BRANCA REDONDA ALTA OCA) (PRETA REDONDA ALTA OCA) (BRANCA REDONDA ALTA CHEIA) 0) (0 (PRETA REDONDA ALTA CHEIA) (PRETA REDONDA BAIXA CHEIA) 0) ((BRANCA REDONDA BAIXA OCA) (BRANCA QUADRADA ALTA CHEIA) (PRETA REDONDA BAIXA OCA) (BRANCA QUADRADA BAIXA CHEIA)))
+((PRETA QUADRADA ALTA CHEIA) (PRETA QUADRADA BAIXA OCA) (BRANCA REDONDA BAIXA CHEIA) (BRANCA QUADRADA BAIXA OCA))
+Tabuleiro-final:
+(((BRANCA QUADRADA ALTA OCA) (PRETA QUADRADA BAIXA CHEIA) (PRETA QUADRADA ALTA CHEIA) (PRETA QUADRADA ALTA OCA)) ((BRANCA REDONDA ALTA OCA) (PRETA REDONDA ALTA OCA) (BRANCA REDONDA ALTA CHEIA) 0) (0 (PRETA REDONDA ALTA CHEIA) (PRETA REDONDA BAIXA CHEIA) 0) ((BRANCA REDONDA BAIXA OCA) (BRANCA QUADRADA ALTA CHEIA) (PRETA REDONDA BAIXA OCA) (BRANCA QUADRADA BAIXA CHEIA)))
+((PRETA QUADRADA BAIXA OCA) (BRANCA REDONDA BAIXA CHEIA) (BRANCA QUADRADA BAIXA OCA))
 ```
 
 ##### <a name="mc-a-star">A*</a>
 O listener do Lispworks deverá apresentar o seguinte estado:
 
 ```lisp
-LOOP no menu
+            ______________________________________________________
+          Â§                                                      Â§
+          Â§                  ESCOLHA O ALGORITMO                 Â§
+          Â§                 (algoritmo de procura)               Â§
+          Â§                                                      Â§
+          Â§                 1-Procura em largura                 Â§
+          Â§                 2-Procura em profundidade            Â§
+          Â§                 3-Procura em A*                      Â§
+          Â§                 0-Home Menu                          Â§
+          Â§                                                      Â§
+          Â§______________________________________________________Â§
+
+
+          Option -> 3
 ```
 
-O ficheiro ***solucao.dat*** será criado com a estatistica do algoritmo selecionado.
+Pressione a tecla **ENTER** e um ficheiro ***solucao.dat*** será gerado com uma possível solução. 
+
+```lisp
+; solucao.dat
+Algoritmo: A-STAR 
+Inicio: 8:26:22
+Fim: 8:29:26
+Numero de nos gerados: 1
+Numero de nos expandidos: 0
+Nivel de penetracao: 2.0
+Tamanho da solucao: 2
+Solucao: ((((BRANCA QUADRADA ALTA OCA) (PRETA QUADRADA BAIXA CHEIA) 0 (PRETA QUADRADA ALTA OCA)) ((BRANCA REDONDA ALTA OCA) (PRETA REDONDA ALTA OCA) (BRANCA REDONDA ALTA CHEIA) 0) ((BRANCA QUADRADA BAIXA OCA) (PRETA REDONDA ALTA CHEIA) (PRETA REDONDA BAIXA CHEIA) 0) ((BRANCA REDONDA BAIXA OCA) (BRANCA QUADRADA ALTA CHEIA) (PRETA REDONDA BAIXA OCA) (BRANCA QUADRADA BAIXA CHEIA))) ((PRETA QUADRADA ALTA CHEIA) (PRETA QUADRADA BAIXA OCA) (BRANCA REDONDA BAIXA CHEIA)))
+Tabuleiro-inicial:
+(((BRANCA QUADRADA ALTA OCA) (PRETA QUADRADA BAIXA CHEIA) 0 (PRETA QUADRADA ALTA OCA)) ((BRANCA REDONDA ALTA OCA) (PRETA REDONDA ALTA OCA) (BRANCA REDONDA ALTA CHEIA) 0) (0 (PRETA REDONDA ALTA CHEIA) (PRETA REDONDA BAIXA CHEIA) 0) ((BRANCA REDONDA BAIXA OCA) (BRANCA QUADRADA ALTA CHEIA) (PRETA REDONDA BAIXA OCA) (BRANCA QUADRADA BAIXA CHEIA)))
+((PRETA QUADRADA ALTA CHEIA) (PRETA QUADRADA BAIXA OCA) (BRANCA REDONDA BAIXA CHEIA) (BRANCA QUADRADA BAIXA OCA))
+Tabuleiro-final:
+(((BRANCA QUADRADA ALTA OCA) (PRETA QUADRADA BAIXA CHEIA) 0 (PRETA QUADRADA ALTA OCA)) ((BRANCA REDONDA ALTA OCA) (PRETA REDONDA ALTA OCA) (BRANCA REDONDA ALTA CHEIA) 0) ((BRANCA QUADRADA BAIXA OCA) (PRETA REDONDA ALTA CHEIA) (PRETA REDONDA BAIXA CHEIA) 0) ((BRANCA REDONDA BAIXA OCA) (BRANCA QUADRADA ALTA CHEIA) (PRETA REDONDA BAIXA OCA) (BRANCA QUADRADA BAIXA CHEIA)))
+((PRETA QUADRADA ALTA CHEIA) (PRETA QUADRADA BAIXA OCA) (BRANCA REDONDA BAIXA CHEIA))
+```
 
 #### <a name="mc-home-menu">Home Menu</a>
 Embora o estado esteja especificado para o [menu de resolver jogo](#mc-resolve-jogo), em todos os menus existe uma opção **Home menu** que permite voltar ao menu inicial.
 
 ```lisp
-            ______________________________________________________
+              ______________________________________________________
           Ã‚Â§                ESCOLHA O TABULEIRO                   Ã‚Â§
           Ã‚Â§                                                      Ã‚Â§
           Ã‚Â§                 1-Problema A                         Ã‚Â§
@@ -298,16 +373,15 @@ Escolha invalida
 O listener do Lispworks deverá apresentar o seguinte estado depois de selecionar a opção **2** do menu principal.
 
 ```lisp
-           _______________________________________________________
-          Ã‚Â§                  JOGO DO PROBlEMA DO 4                Ã‚Â§
+             _______________________________________________________
+          Ã‚Â§                  JOGO DO PROBlEMA DO 4               Ã‚Â§
           Ã‚Â§                                                      Ã‚Â§
           Ã‚Â§                                                      Ã‚Â§
           Ã‚Â§                                                      Ã‚Â§
           Ã‚Â§                                                      Ã‚Â§
           Ã‚Â§                 1-Resolver o jogo                    Ã‚Â§
           Ã‚Â§                 2-Regras do Jogo                     Ã‚Â§
-          Ã‚Â§                 3-Mostrar Tabuleiros                 Ã‚Â§
-          Ã‚Â§                 4-Sair                               Ã‚Â§
+          Ã‚Â§                 3-Sair                               Ã‚Â§
           Ã‚Â§                                                      Ã‚Â§
           Ã‚Â§______________________________________________________Ã‚Â§
 
@@ -334,16 +408,15 @@ ________________________________________________________________________________
 
 
 
-           _______________________________________________________
-          Ã‚Â§                  JOGO DO PROBlEMA DO 4                Ã‚Â§
+             _______________________________________________________
+          Ã‚Â§                  JOGO DO PROBlEMA DO 4               Ã‚Â§
           Ã‚Â§                                                      Ã‚Â§
           Ã‚Â§                                                      Ã‚Â§
           Ã‚Â§                                                      Ã‚Â§
           Ã‚Â§                                                      Ã‚Â§
           Ã‚Â§                 1-Resolver o jogo                    Ã‚Â§
           Ã‚Â§                 2-Regras do Jogo                     Ã‚Â§
-          Ã‚Â§                 3-Mostrar Tabuleiros                 Ã‚Â§
-          Ã‚Â§                 4-Sair                               Ã‚Â§
+          Ã‚Â§                 3-Sair                               Ã‚Â§
           Ã‚Â§                                                      Ã‚Â§
           Ã‚Â§______________________________________________________Ã‚Â§
 
@@ -351,55 +424,24 @@ ________________________________________________________________________________
           Option -> 
 ```
 
-### <a name="mc-ver-tabuleiros">Mostrar Tabuleiros</a>
-O listener do LispWorks deverá apresentar o seguinte estado depois de seleciona a opçãp **3** do menu principal.
+### <a name="mc-sair-programa">Sair do Programa</a>
+O listener do LispWorks deverá apresentar o seguinte estado depois de selecionar a opção **3** do menu principal:
 
 ```lisp
-           _______________________________________________________
-          Ã‚Â§                  JOGO DO PROBlEMA DO 4                Ã‚Â§
+             _______________________________________________________
+          Ã‚Â§                  JOGO DO PROBlEMA DO 4               Ã‚Â§
           Ã‚Â§                                                      Ã‚Â§
           Ã‚Â§                                                      Ã‚Â§
           Ã‚Â§                                                      Ã‚Â§
           Ã‚Â§                                                      Ã‚Â§
           Ã‚Â§                 1-Resolver o jogo                    Ã‚Â§
           Ã‚Â§                 2-Regras do Jogo                     Ã‚Â§
-          Ã‚Â§                 3-Mostrar Tabuleiros                 Ã‚Â§
-          Ã‚Â§                 4-Sair                               Ã‚Â§
+          Ã‚Â§                 3-Sair                               Ã‚Â§
           Ã‚Â§                                                      Ã‚Â§
           Ã‚Â§______________________________________________________Ã‚Â§
 
 
           Option -> 3
-
-Error: Undefined function IMPRIME-TABS called with arguments ().
-  1 (continue) Try invoking IMPRIME-TABS again.
-  2 Return some values from the call to IMPRIME-TABS.
-  3 Try invoking something other than IMPRIME-TABS with the same arguments.
-  4 Set the symbol-function of IMPRIME-TABS to another function.
-  5 (abort) Return to top loop level 0.
-
-Type :b for backtrace or :c <option number> to proceed.
-Type :bug-form "<subject>" for a bug report template or :? for other options.
-```
-
-### <a name="mc-sair-programa">Sair do Programa</a>
-O listener do LispWorks deverá apresentar o seguinte estado depois de selecionar a opção **4** do menu principal:
-
-```lisp
-          Ã‚Â§                  JOGO DO PROBlEMA DO 4                Ã‚Â§
-          Ã‚Â§                                                      Ã‚Â§
-          Ã‚Â§                                                      Ã‚Â§
-          Ã‚Â§                                                      Ã‚Â§
-          Ã‚Â§                                                      Ã‚Â§
-          Ã‚Â§                 1-Resolver o jogo                    Ã‚Â§
-          Ã‚Â§                 2-Regras do Jogo                     Ã‚Â§
-          Ã‚Â§                 3-Mostrar Tabuleiros                 Ã‚Â§
-          Ã‚Â§                 4-Sair                               Ã‚Â§
-          Ã‚Â§                                                      Ã‚Â§
-          Ã‚Â§______________________________________________________Ã‚Â§
-
-
-          Option -> 4
 
 
 
