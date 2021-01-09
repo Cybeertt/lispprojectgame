@@ -1824,7 +1824,6 @@ Cada escolha encontra-se associada a uma valor numérico que permite executar a 
          (format t "~%          �                 1-Procura em largura                 �")
          (format t "~%          �                 2-Procura em profundidade            �")
          (format t "~%          �                 3-Procura em A*                      �")
-    ; (format t "~%          �                 4-Algorithm SMA*                     �")
          (format t "~%          �                 0-Home Menu                          �")
          (format t "~%          �                                                      �")
          (format t "~%          �______________________________________________________�") 
@@ -1836,7 +1835,6 @@ Cada escolha encontra-se associada a uma valor numérico que permite executar a 
                                                                               (1 (Escrever-Estatistica problema (bfs (cria-no problema) #'no-solucaop #'sucessores-quatro #'operadores-quatro) temp (tempo) 'BFS))
                                                                               (2 (ler-profundidade problema filename))
                                                                               (3 (Escrever-Estatistica problema (a-star (cria-no problema)  #'no-solucaop #'sucessores-quatro #'operadores-quatro #'heuristic) temp (tempo) 'A-STAR))
-                                                                         ;(4 (menu-memory problema 'SMA* ))
                                                                               (0 (menu-principal filename))))
                       ( T (progn  (format t "~%          Escolha Invalida~%~%          Option -> ")
                             (setf escolha (read))))))) 
@@ -2025,7 +2023,6 @@ Cada escolha encontra-se associada a uma valor numérico que permite executar a 
          (format t "~%          §                 1-Procura em largura                 §")
          (format t "~%          §                 2-Procura em profundidade            §")
          (format t "~%          §                 3-Procura em A*                      §")
-    ; (format t "~%          §                 4-Algorithm SMA*                     §")
          (format t "~%          §                 0-Home Menu                          §")
          (format t "~%          §                                                      §")
          (format t "~%          §______________________________________________________§") 
@@ -2037,7 +2034,6 @@ Cada escolha encontra-se associada a uma valor numérico que permite executar a 
                                                                               (1 (write-bfsdfs-statistics problema (bfs (cria-no problema) #'no-solucaop #'sucessores-quatro #'operadores-quatro) temp (tempo) 'BFS))
                                                                               (2 (ler-profundidade problema filename))
                                                                               (3 (write-bfsdfs-statistics problema (a-star (cria-no problema)  #'no-solucaop #'sucessores-quatro #'operadores-quatro #'heuristic) temp (tempo) 'A-STAR))
-                                                                         ;(4 (menu-memory problema 'SMA* ))
                                                                               (0 (menu-principal filename))))
                       ( T (progn  (format t "~%          Escolha Invalida~%~%          Option -> ")
                             (setf escolha (read))))))) 
@@ -2457,4 +2453,6 @@ No percurso de desenvolvimento do presente projeto, verificá-mos que a recursiv
 
 Um dos desafios prioritários é conseguir desenvolver um programa que não resulte em Stack Overflow quando se aplica os algoritmos de prócura BFS, DFS e A*, por serem algoritmos que têm cariz de gerar a árvore em memória. Embora existam diferenças entre os algortimos de prócura, na teoria, foi através da análise dos resultados das resoluções do nosso programa que conseguimos verificar essa diferença.
 
-Na maioria dos resultados, o algortimo A* é o único que mais consegue retornar uma solução, raramente ocupando a memória heap por inteiro, resultando em Stack Overflow.
+Os resultados variam de PC para PC e existiram casos em que num PC resultava no retorno da solução e noutro em Stack Overflow. Embora existiram sempre a consistência em certos resultados que sempre resultaram em Stack Overflow, por limitações na memória heap do LispWorks de acordo com os algortimos de prócura [observados](#aplica-algoritmos-observacoes) anteriormente.
+
+Em unanimidade e perante os resultados obtidos, observá-mos que o algortimo A* é o que mais consegue retornar uma solução e raramente ocupa a memória heap por inteiro, embora seja um algoritmo que espanda a àrvore toda. Desta forma concluímos que o algoritmo A* realmente é mais eficiente que os algoritmos BFS e DFS, e o mais fiável para obter soluções.
