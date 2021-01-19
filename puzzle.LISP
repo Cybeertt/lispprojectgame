@@ -472,16 +472,16 @@ problema - Problema
 )
 
 (defun casas-vazias (tab &optional (l 0))
-(labels ((coordenadas (fila l &optional (c 0))
-  (cond
-    ((null fila) nil)
-    ((eq (car fila) 0)
-      (cons (list l c) (coordenadas (cdr fila) l (1+ c))))
-    (t (coordenadas (cdr fila) l (1+ c))))))
-  (cond 
-    ((null tab) nil)
-      (t (append (coordenadas (car tab) l) 
-      (casas-vazias (cdr tab) (1+ l)))))))
+  (labels ((coordenadas (fila l &optional (c 0))
+    (cond
+      ((null fila) nil)
+      ((eq (car fila) 0)
+        (cons (list l c) (coordenadas (cdr fila) l (1+ c))))
+      (t (coordenadas (cdr fila) l (1+ c))))))
+    (cond 
+      ((null tab) nil)
+        (t (append (coordenadas (car tab) l) 
+        (casas-vazias (cdr tab) (1+ l)))))))
 
 #|TESTES
 
