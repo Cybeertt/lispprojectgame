@@ -70,9 +70,9 @@ Neste manual encontram-se explicações sobre o jogo, como o iniciar, a estrutur
     * [Penetrancia](#f-p-penetrancia)
   * [Projeto](#f-projeto)
     * [Base-Pathname](#proj-constante-base-pathname)
-    * [Asset-Path](#f-proj-asset-path)
+    * [Caminho](#f-proj-caminho)
     * [Load Files](#proj-load-files)
-    * [Startup](#f-proj-startup)
+    * [Comecar](#f-proj-comecar)
     * [Obter-Problemas](#f-proj-obter-problemas)
     * [Menu-Principal](#f-proj-menu-principal)
     * [Regras](#f-proj-regras)
@@ -1741,7 +1741,7 @@ Esta constante permite encontrar um ficheiro independentemente do tipo de sistem
 (defvar *base-pathname* (or *load-truename* *compile-file-truename*))
 ```
 
-#### <a name="f-proj-asset-path">Asset-Path</a>
+#### <a name="f-proj-caminho">caminho</a>
 Determina o caminho de um ficheiro independentemente de um sistema operativo.
 
 **Parâmetros**
@@ -1750,7 +1750,7 @@ Determina o caminho de um ficheiro independentemente de um sistema operativo.
 
 ```lisp
 ; funcao
-(defun asset-path (file) (merge-pathnames file *base-pathname*))
+(defun caminho (file) (merge-pathnames file *base-pathname*))
 ```
 
 #### <a name="proj-load-files">Load Files</a>
@@ -1759,18 +1759,18 @@ Carrega ficheiros necessários para o funcionamento do programa.
 ```lisp
 ; carrega ficheiros
 (progn
-  (load (asset-path "puzzle.lisp"))
-  (load (asset-path "procura.lisp"))
+  (load (caminho "puzzle.lisp"))
+  (load (caminho "procura.lisp"))
 )
 ```
 
-#### <a name="f-proj-startup">Startup</a>
+#### <a name="f-proj-comecar">Comecar</a>
 Inicializa o programa na consola.
 
 ```lisp
 ; funcao
-(defun startup ()
-  (menu-principal (asset-path "problemas.dat"))
+(defun comecar ()
+  (menu-principal (caminho "problemas.dat"))
 )
 ```
 
@@ -1919,7 +1919,7 @@ Por definição encontram-se problemas de A a F, préviamente disponíveis.
          
     	(T (menu-algoritmos tab filename))
 	)))
-        (9 (menu-principal (asset-path "problemas.dat")))
+        (9 (menu-principal (caminho "problemas.dat")))
 	(t (format t "Escolha invalida~%~%") (ler-tabuleiro filename)))
 	)
  )
@@ -1949,9 +1949,10 @@ Escreve num ficheiro tabelas com as estatisticas entre os vários algoritmos par
   (cond (
     (null solution-node) nil)
         (t 
-         (with-open-file (file (asset-path "solucao.dat") :direction :output :if-exists :append :if-does-not-exist :create)
+         (with-open-file (file (caminho "solucao.dat") :direction :output :if-exists :append :if-does-not-exist :create)
            (progn 
-             (terpri)
+             (terpri)(terpri)
+             (format file " ")
              (format file "~%~t  Algoritmo: ~a " algorithm)
              (format file "~%~t  Inicio: ~a:~a:~a" (first start-time) (second start-time) (third start-time))
              (format file "~%~t  Fim: ~a:~a:~a" (first end-time) (second end-time) (third end-time))
@@ -1962,14 +1963,19 @@ Escreve num ficheiro tabelas com as estatisticas entre os vários algoritmos par
                  (format file "~%~t  Profundidade Maxima: ~a" (second solution-node)))
              (format file "~%~t  Tamanho da solucao: ~a" (tamanho-solucao solution-node)))
              (terpri)
-             (format file "~%~t  Solucao: ~a"  (first solution-node))
+             (format file "~%~t  Solucao:")
+             (print-board (tabuleiro (first solution-node)) file)
+             (terpri) 
+             (print-board (reserva (first solution-node)) file)
              (terpri)    (format file "~%~t  Tabuleiro-inicial:")
-             (print-board start-board file)
+             (print-board (tabuleiro start-board) file)
              (terpri)
+             (print-board (reserva start-board) file)
              (format file "~%~t  Tabuleiro-final:")
-             (print-board (first solution-node) file)
-             )))
-)
+             (print-board (tabuleiro (first solution-node)) file)
+             (terpri)
+             (print-board (reserva (first solution-node)) file)
+             ))))
 ```
 
 #### <a name="f-proj-print-board">Print-Board</a>

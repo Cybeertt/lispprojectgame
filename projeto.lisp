@@ -3,17 +3,17 @@
 
 (defvar *base-pathname* (or *load-truename* *compile-file-truename*))
 
-(defun asset-path (file) (merge-pathnames file *base-pathname*))
+(defun caminho (file) (merge-pathnames file *base-pathname*))
 
 (progn
-  (load (asset-path "puzzle.lisp"))
-  (load (asset-path "procura.lisp")))
+  (load (caminho "puzzle.lisp"))
+  (load (caminho "procura.lisp")))
 
-(defun startup ()
+(defun comecar ()
   #|(load "puzzle.lisp" :if-does-not-exist nil)
   (load "procura.lisp" :if-does-not-exist nil)
   ;(menu-principal filename)|#
-  (menu-principal (asset-path "problemas.dat"))
+  (menu-principal (caminho "problemas.dat"))
 )
 
 (defun obter-problemas (file)
@@ -44,12 +44,12 @@
       )
     (cond ((not (let ((escolha (read)))
                (cond 
-                ((and (numberp escolha) (< escolha 5) (> escolha 0)) (case escolha
+                ((and (numberp escolha) (<= escolha 3) (> escolha 0)) (case escolha
                                                     (1 (progn (tabuleiros filename) t))
-                                                    (2 (progn (regras)  t))                                                                                            (3 (progn (format t "~%~%~%          PROGRAMA TERMINADO")) (return))))
+                                                    (2 (progn (regras)  t))                                                                                            (3 (progn (format t "~%~%~%          PROGRAMA TERMINADO")))))
                 ( T (progn  (format t "~%          ESCOLHA INVALIDA~%~%          Option -> ")
-                            (setf escolha (read))))))) 
-))))
+                            (setf escolha (read)))))))))
+(return)))
 
 
 (defun regras ()
@@ -105,7 +105,7 @@ ________________________________________________________________________________
          
     	(T (menu-algoritmos tab filename))
 	)))
-        (9 (menu-principal (asset-path "problemas.dat")))
+        (9 (menu-principal (caminho "problemas.dat")))
 	(t (format t "Escolha invalida~%~%") (ler-tabuleiro filename)))
 	)
  ))
@@ -116,9 +116,10 @@ ________________________________________________________________________________
   (cond (
     (null solution-node) nil)
         (t 
-         (with-open-file (file (asset-path "solucao.dat") :direction :output :if-exists :append :if-does-not-exist :create)
+         (with-open-file (file (caminho "solucao.dat") :direction :output :if-exists :append :if-does-not-exist :create)
            (progn 
-             (terpri)
+             (terpri)(terpri)
+             (format file " ")
              (format file "~%~t  Algoritmo: ~a " algorithm)
              (format file "~%~t  Inicio: ~a:~a:~a" (first start-time) (second start-time) (third start-time))
              (format file "~%~t  Fim: ~a:~a:~a" (first end-time) (second end-time) (third end-time))
@@ -129,12 +130,18 @@ ________________________________________________________________________________
                  (format file "~%~t  Profundidade Maxima: ~a" (second solution-node)))
              (format file "~%~t  Tamanho da solucao: ~a" (tamanho-solucao solution-node)))
              (terpri)
-             (format file "~%~t  Solucao: ~a"  (first solution-node))
+             (format file "~%~t  Solucao:")
+             (print-board (tabuleiro (first solution-node)) file)
+             (terpri) 
+             (print-board (reserva (first solution-node)) file)
              (terpri)    (format file "~%~t  Tabuleiro-inicial:")
-             (print-board start-board file)
+             (print-board (tabuleiro start-board) file)
              (terpri)
+             (print-board (reserva start-board) file)
              (format file "~%~t  Tabuleiro-final:")
-             (print-board (first solution-node) file)
+             (print-board (tabuleiro (first solution-node)) file)
+             (terpri)
+             (print-board (reserva (first solution-node)) file)
              ))))
 
 (defun print-board(board &optional (file-stream t))
@@ -157,7 +164,6 @@ ________________________________________________________________________________
          (format t "~%          §                 1-Procura em largura                 §")
          (format t "~%          §                 2-Procura em profundidade            §")
          (format t "~%          §                 3-Procura em A*                      §")
-    ; (format t "~%          §                 4-Algorithm SMA*                     §")
          (format t "~%          §                 0-Home Menu                          §")
          (format t "~%          §                                                      §")
          (format t "~%          §______________________________________________________§") 
@@ -165,11 +171,10 @@ ________________________________________________________________________________
          )
        (cond ((not (let ((escolha (read))) 
                      (cond 
-                      ((and (numberp escolha) (< escolha 5) (> escolha -1)) (case escolha
+                      ((and (numberp escolha) (< escolha 4) (> escolha -1)) (case escolha
                                                                               (1 (Escrever-Estatistica problema (bfs (cria-no problema) #'no-solucaop #'sucessores-quatro #'operadores-quatro) temp (tempo) 'BFS))
                                                                               (2 (ler-profundidade problema filename))
                                                                               (3 (Escrever-Estatistica problema (a-star (cria-no problema)  #'no-solucaop #'sucessores-quatro #'operadores-quatro #'heuristic) temp (tempo) 'A-STAR))
-                                                                         ;(4 (menu-memory problema 'SMA* ))
                                                                               (0 (menu-principal filename))))
                       ( T (progn  (format t "~%          Escolha Invalida~%~%          Option -> ")
                             (setf escolha (read))))))) 

@@ -6,6 +6,7 @@ Joaquim Filipe
 
 ESTUDANTES
 150221081 - Daniela Sineiro
+200221149 - Rafael Palma
 
 FICHEIRO
 puzzle.lisp
